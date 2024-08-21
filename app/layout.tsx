@@ -22,15 +22,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nicholas Adamou",
     url: baseUrl,
-    images: [{ url: `${baseUrl}/api/og?title=n-a-io.vercel.app`, alt: "n-a-io.vercel.app" }],
+    images: [{ url: `${baseUrl}/api/og?title=nicholasadamou.vercel.app`, alt: "nicholasadamou.vercel.app" }],
   },
 };
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Readonly<{
+	children: React.ReactNode;
+}>) {
   return (
     <ClerkProvider>
       <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
