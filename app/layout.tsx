@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nicholas Adamou",
     url: baseUrl,
-    images: [{ url: `${baseUrl}/api/og?title=N-A.io`, alt: "n-a.io" }],
+    images: [{ url: `${baseUrl}/api/og?title=n-a-io.vercel.app`, alt: "n-a-io.vercel.app" }],
   },
 };
 

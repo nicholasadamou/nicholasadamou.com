@@ -4,6 +4,9 @@ import PostList from "@/app/blog/components/PostList";
 import NewsletterSignupForm from "@/app/blog/components/NewsletterSignupForm";
 import React from "react";
 
+import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+const baseUrl = getBaseUrl();
+
 export const metadata: Metadata = {
   title: "Blog | Nicholas Adamou",
   description:
@@ -13,8 +16,8 @@ export const metadata: Metadata = {
     description:
       "I write about programming, design, and occasionally life updates!",
     type: "website",
-    url: "https://n-a.io/blog/Blog",
-    images: [{ url: "https://n-a.io/api/og?title=Blog", alt: "Blog" }],
+    url: `https://${baseUrl}/blog/Blog`,
+    images: [{ url: `https://${baseUrl}/api/og?title=Blog`, alt: "Blog" }],
   },
 };
 
