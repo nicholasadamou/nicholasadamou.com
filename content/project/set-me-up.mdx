@@ -1,0 +1,126 @@
+---
+title: "Set Me Up"
+date: "2024-08-16"
+summary: "set-me-up aims to simplify the dull setup and maintenance of Mac OS and Debian-based development environments."
+longSummary: "Learn how you can cut the time from new machine setup to productive developer by 99% by using set-me-up."
+url: "https://github.com/dotbrains/set-me-up-docs"
+---
+
+# set-me-up
+
+<Image
+  src="/projects/set-me-up/image.png"
+  alt="set-me-up preview"
+  width={2267}
+  height={1280}
+  size="xs"
+  priority
+  contained
+/>
+
+## Introduction
+
+Setting up and maintaining a development environment on macOS can be a tedious and time-consuming process. If you’ve ever found yourself dreading the task of configuring your machine after a fresh install or switching between machines, you’re not alone. That’s why I created `set-me-up`—a project designed to automate and simplify the setup and maintenance of macOS development environments.
+
+`set-me-up` leverages a collection of dotfiles and shell scripts, organized into modules, to automate much of the process. It provides a solid, customizable template that developers can use as-is or adapt to their specific needs.
+
+## Why I Created set-me-up
+
+The motivation behind `set-me-up` was to eliminate the repetitive, mundane tasks involved in setting up a development environment. I wanted to create a solution that not only saves time but also ensures consistency across different setups. By automating the installation and configuration of tools, packages, and settings, `set-me-up` reduces the potential for errors and speeds up the onboarding process for new environments.
+
+### Cutting Setup Time by 99%
+
+One of the most compelling benefits of using `set-me-up` is the dramatic reduction in time required to go from a brand-new machine to a fully functional development environment. Traditionally, setting up a new machine involves manually installing tools, configuring settings, and ensuring everything works correctly—a process that can take several hours or even days.
+
+With `set-me-up`, this process is automated, allowing you to cut the time required for setup by up to 99%. What used to take hours can now be completed in minutes. This means that instead of spending valuable time on setup, you can start being productive almost immediately after getting a new machine.
+
+## How set-me-up Works
+
+At its core, `set-me-up` is a toolkit that automates the setup of a macOS development environment. It starts by symlinking dotfiles from the `dotfiles` folder to your home directory and then runs a series of shell scripts to install and configure the necessary tools.
+
+### Customization and Flexibility
+
+One of the key strengths of `set-me-up` is its flexibility. It doesn’t enforce a specific setup but instead acts as a highly customizable template. You can easily modify it to suit your preferences by forking the blueprint setup, which allows you to maintain your own dotfiles and scripts separately from the main project. This loose coupling makes it easy to walk away from `set-me-up` if needed while keeping your customized environment intact.
+
+#### Using Hooks and rcm Tags
+
+To further customize your setup, `set-me-up` provides hook points before and after sourcing the module scripts. These hooks allow you to perform special preparations or apply custom definitions. Additionally, `set-me-up` uses [rcm](https://github.com/thoughtbot/rcm) tags to manage dotfiles, giving you control over which files take precedence in your setup.
+
+### Simplicity Through Automation
+
+With a single command, you can provision your machine using the `smu` script included in the toolkit. This script handles everything from installing Homebrew to configuring shell environments, ensuring that your setup is both consistent and efficient.
+
+## Why set-me-up is Useful
+
+`set-me-up` is particularly useful for developers who:
+
+- **Value Consistency**: Ensure that your development environment is set up the same way every time, reducing the risk of configuration errors.
+- **Save Time**: Automate the tedious process of setting up a new machine, allowing you to get to work faster.
+- **Customization**: Tailor the setup to your needs without being locked into a specific configuration.
+- **Scalability**: Easily apply the same setup across multiple machines or share it with your team.
+
+Whether you’re setting up a new machine, moving to a different environment, or just looking to streamline your workflow, `set-me-up` provides a robust and flexible solution.
+
+## 'set-me-up' blueprint
+
+The `set-me-up` blueprint is a powerful template designed to help you manage your `set-me-up` setup in a way that is both flexible and loosely coupled. By using this blueprint, you gain the ability to maintain a highly customizable development environment that suits your unique workflow, while also benefiting from the robust automation that `set-me-up` provides. The blueprint acts as a starting point, allowing you to build upon it with your own configurations and modules, making it easier than ever to standardize and replicate your development environment across multiple machines or for different team members.
+
+### What's Inside
+
+The blueprint includes everything you need to get started with `set-me-up`, including an `rcm` tag called [example](https://github.com/dotbrains/set-me-up-blueprint/dotfiles/tag-example) and an adapted `rcrc` file that ensures your customizations are seamlessly integrated. You also get a pre-configured module called `example`, where you can go wild with your customizations, making it truly your own. The included installer script is designed to download and set up `set-me-up` on top of your blueprint, streamlining the entire process. With the `set-me-up-blueprint`, you can create a tailored setup that reflects your specific needs, all while maintaining the ease of use and automation that `set-me-up` is known for.
+
+### How to Use
+
+Using the `set-me-up` blueprint is straight forward.
+
+1. Start by reading through the [set-me-up documentation](https://github.com/dotbrains/set-me-up-docs#set-me-up) to familiarize yourself with the setup process.
+2. Next, fork the blueprint repository and add your customizations inside the provided `tag-example` directory. You’ll also want to modify the `SMU_BLUEPRINT` variable in the installer script to point to your GitHub repository.
+3. Once your customizations are in place, use the [installer](https://github.com/dotbrains/set-me-up-blueprint#how-to-use) to set up `set-me-up` along with your personalized blueprint configuration.
+
+This approach ensures that your development environment is both consistent and uniquely yours, with the flexibility to adapt to future changes or different machines.
+
+## 'set-me-up' installer
+
+The `set-me-up` installer is an universal installer script that is sued to install 'set-me-up' (smu) on a Mac or *debian* based machines.
+
+## Obtaining `set-me-up` installer
+
+To start, your default shell must be set to `bash` prior to executing the `install` snippet for the first time. This is because on newer versions of Mac OS, the default shell is `zsh` instead of `bash`. To change your default shell, run the following command in your console.
+
+```bash
+sudo chsh -s $(which bash) $(whoami)
+```
+
+Once the default shell is `bash`, close and reopen the terminal window. Then, run the following command in your console.
+
+(⚠️ **DO NOT** run the `install` snippet if you don't fully
+understand [what it does](https://github.com/dotbrains/set-me-up-installer/blob/main/install.sh). Seriously, **DON'T**!)
+
+```bash
+bash <(curl -s -L https://raw.githubusercontent.com/dotbrains/set-me-up-installer/main/install.sh)
+```
+
+You can change the `smu` home directory by setting an environment variable called `SMU_HOME_DIR`. Please keep the variable declared or else the `smu` scripts are unable to pickup the sources.
+
+```bash
+export SMU_HOME_DIR="some-path" \
+    bash <(curl -s -L https://raw.githubusercontent.com/dotbrains/set-me-up-installer/main/install.sh)
+```
+
+## 'set-me-up' Universal Modules
+
+The [`set-me-up` universal modules](https://github.com/dotbrains/set-me-up-universal-modules) provide a comprehensive and flexible framework for setting up a wide range of development environments. These modules are designed to automate the installation and configuration of essential tools and languages, ensuring that your development environment is both consistent and efficient. The available modules cover a broad spectrum of technologies, including foundational components like `base`, `homebrew`, and `packages`, which serve as the backbone for further customizations.
+
+For language-specific setups, modules such as `go`, `java`, `node`, `php`, `python`, `ruby`, and `rust` come equipped with their respective environment managers and package management tools. Each language module includes specific scripts and configurations, such as `goenv.sh` for Go, `sdkman.sh` for managing JVM-based languages, and `n.sh` or `nvm.sh` for Node.js environments. Additionally, specialized modules like `neovim` provide configurations for popular text editors, with scripts like `lazyvim.sh` and `nvchad.sh` to tailor your Neovim setup. These modules are designed to be plug-and-play, allowing you to quickly set up and maintain a robust development environment tailored to your needs.
+
+`set-me-up` Universal Modules is designed to be used as a submodule to the [`set-me-up` blueprint](https://github.com/dotbrains/set-me-up-blueprint) repository.
+
+###  _Why abstract these modules to an external repository?_
+
+When installing the [_blueprint_ configuration](https://github.com/dotbrains/set-me-up-installer/blob/main/install.sh#L229), we need to be able to obtain our custom modules defined in your blueprint as well as the set of universal modules that _set-me-up_ provides.
+
+## Conclusion
+
+`set-me-up` is more than just a collection of scripts—it’s a comprehensive approach to managing and automating your development environment. By reducing the manual effort involved in setup and maintenance, it allows you to focus on what really matters: writing code and building great software.
+
+If you’re tired of repetitive setup tasks or looking to standardize your environment across machines, give `set-me-up` a try. You can start by forking the [blueprint setup](https://github.com/dotbrains/set-me-up-blueprint) and customizing it to your needs. For more information, check out the [set-me-up docs](https://github.com/dotbrains/set-me-up-docs).

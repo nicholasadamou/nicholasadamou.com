@@ -1,0 +1,98 @@
+---
+title: "ChatGPT Scraper"
+date: "2024-08-16"
+summary: "A Selenium tool for automating ChatGPT interactions, ideal for fetching responses, testing, and demos through predefined prompts in a browser session."
+longSummary: "A Selenium-based ChatGPT interaction automation tool. This script initializes a browser session, interacts with ChatGPT using predefined prompts, and facilitates automated conversations with ChatGPT. Ideal for fetching responses and conducting tests or demonstrations."
+url: "https://github.com/daily-coding-problem/chatgpt-scraper"
+---
+
+# ChatGPT Scraper
+
+<Image
+	src="/projects/chatgpt-scraper/image.png"
+	alt="ChatGPT Scraper"
+	width={2267}
+	height={1280}
+	size="xs"
+	priority
+	contained
+/>
+
+## Overview
+
+The ChatGPT Scraper is a powerful tool designed to automate and streamline interactions with ChatGPT. Leveraging Selenium, it initializes a browser session, interacts with ChatGPT using predefined prompts, and facilitates automated conversations. This makes it an ideal solution for fetching responses, conducting tests, or running demonstrations without manual intervention.
+
+The ChatGPT Scraper is particularly valuable for developers and testers who need to automate repetitive interactions with ChatGPT. Whether you're testing how ChatGPT responds to certain inputs, gathering data for analysis, or simply automating routine tasks, this tool provides a flexible and robust framework to get the job done.
+
+## How It Works
+
+At the heart of the ChatGPT Scraper is the [**ChatGPT Scraper Library**](https://github.com/daily-coding-problem/chatgpt-scraper-lib), a Selenium-based Python package that manages browser sessions, handles authentication, and conducts automated conversations with ChatGPT. The library provides a structured approach to automating interactions, offering modules for managing different aspects of the process:
+
+- **Authentication**: The library supports multiple login methods, including basic authentication, OAuth, and two-factor authentication (2FA) for secure logins.
+- **Browser Management**: Using Selenium, the library manages browser sessions, allowing for both visible and headless operations.
+- **Chat Management**: The core of the library is its ability to interact with ChatGPT, sending prompts and processing responses in a streamlined manner.
+
+By using the ChatGPT Scraper Library, the ChatGPT Scraper can automate complex workflows with minimal setup, making it easy to scale automated interactions or integrate them into larger systems.
+
+## Features
+
+- **Automated ChatGPT Interactions**: The tool uses Selenium to automate and scrape conversations with ChatGPT, making it ideal for repetitive tasks or data collection.
+- **Multiple Login Methods**: Supports basic and Google-based logins, with optional 2FA for enhanced security.
+- **Headless Mode**: Run the scraper in headless mode for background operations.
+- **Temporary Chat Mode**: Use temporary chat mode to prevent chat history from being saved, maintaining privacy and security.
+- **Response Handling**: Fetch and format ChatGPT responses in Markdown or Plain Text for easy integration into reports or documentation.
+- **Docker Integration**: Supports Docker for easy setup and environment management, ensuring consistency across different machines or environments.
+
+## Detailed Authentication Workflow
+
+### Overview of Authentication
+
+Authentication is a critical part of the ChatGPT Scraper, especially when automating interactions that involve multiple accounts or require secure access. The scraper's authentication process is designed to be flexible, supporting various methods including basic login (username and password), OAuth (Google login), and two-factor authentication (2FA). This ensures that the tool can be used in a wide range of scenarios, from simple, single-user setups to more complex, multi-account configurations.
+
+### Basic Login
+
+In scenarios where a straightforward username and password are sufficient, the ChatGPT Scraper Library provides a `BasicLogin` class that handles this process. Here’s how it works:
+
+1. **Credential Handling**: The scraper first retrieves the user's credentials, either from environment variables or securely stored in an encoded format. This ensures that sensitive information is not exposed unnecessarily.
+2. **Browser Interaction**: Using Selenium, the scraper navigates to the ChatGPT login page and populates the necessary fields (username and password) automatically.
+3. **Session Management**: Once logged in, the scraper manages the browser session, ensuring that the session remains active for the duration of the interaction. This is particularly useful for long-running tasks where multiple prompts are sent to ChatGPT over time.
+
+### OAuth with Google Login
+
+For users who prefer or require OAuth-based authentication, such as logging in via Google, the ChatGPT Scraper Library includes a `GoogleLogin` class that handles this more complex process:
+
+1. **Redirect Handling**: OAuth authentication typically involves redirecting the user to an external provider’s login page (e.g., Google). The scraper manages these redirects, automatically following them and handling any intermediary steps.
+2. **Secure Credential Storage**: Just like with basic login, credentials and tokens are handled securely. The scraper can retrieve stored OAuth tokens or handle the OAuth flow dynamically, acquiring new tokens as needed.
+3. **Two-Factor Authentication (2FA)**: If 2FA is enabled for the account, the scraper supports generating and entering OTPs (One-Time Passwords) as part of the login process. This is managed through the `generate_otp` function, which works with secret keys stored securely by the scraper.
+
+### Two-Factor Authentication (2FA)
+
+2FA adds an extra layer of security to the login process, which is particularly important for automated tools that may have access to sensitive data. The ChatGPT Scraper Library supports 2FA for both basic and OAuth logins:
+
+1. **OTP Generation**: The `generate_otp.py` module within the library can generate OTPs based on a shared secret. This secret is typically stored securely in an environment variable or a configuration file.
+2. **Automated Entry**: During the login process, if 2FA is required, the scraper will automatically generate the OTP and enter it into the appropriate field, completing the authentication process.
+3. **Session Continuity**: Once logged in, the scraper ensures that the 2FA session remains valid for the duration of the interaction, minimizing the need for repeated logins.
+
+### Secure Management of Credentials
+
+The ChatGPT Scraper Library includes an [`AccountsDeserializer`](https://github.com/daily-coding-problem/accounts-serializer) class, which is responsible for securely handling account credentials. This class can deserialize credentials stored in a base64-encoded JSON structure, allowing the scraper to manage multiple accounts securely:
+
+1. **Storing Credentials**: Credentials are stored in an encoded format, reducing the risk of exposure. The `AccountsDeserializer` class decodes these credentials on-the-fly, ensuring that they are only accessible during the necessary login process.
+2. **Using Multiple Accounts**: The library supports managing multiple accounts simultaneously, which is particularly useful for testing scenarios where interactions need to be conducted under different user identities. The accounts are selected and authenticated as needed, based on the configuration.
+3. **Environment Variables**: For added security, credentials and configuration details can be stored in environment variables. This allows for secure and flexible management of login details without hardcoding sensitive information into scripts.
+
+## Using the ChatGPT Scraper Library
+
+The ChatGPT Scraper is built on top of the **ChatGPT Scraper Library**, which abstracts the complexity of browser automation and interaction with ChatGPT. Here’s a brief overview of how the library is used within the scraper:
+
+- **Authentication**: The library’s authentication module handles the login process, allowing you to securely manage credentials and sessions across multiple accounts.
+- **Interaction**: The main interaction module of the library manages the flow of conversations with ChatGPT, sending prompts, and capturing responses in a structured manner.
+- **Configuration**: The configuration module centralizes all settings, enabling easy customization and management of the scraper’s behavior.
+
+This modular approach allows developers to extend or modify the scraper’s functionality with minimal effort, making the ChatGPT Scraper Library a versatile tool for any automation task involving ChatGPT.
+
+## Conclusion
+
+The ChatGPT Scraper, powered by the ChatGPT Scraper Library, offers a comprehensive solution for automating interactions with ChatGPT. Whether you’re conducting tests, running demonstrations, or automating data collection, this tool provides the flexibility and power needed to streamline your workflows. With easy configuration, multiple login options, robust response handling, and secure authentication processes, the ChatGPT Scraper is an essential tool for any developer or tester working with ChatGPT.
+
+For more details and to get started, visit the [ChatGPT Scraper docs](https://github.com/daily-coding-problem/chatgpt-scraper).

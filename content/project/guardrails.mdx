@@ -1,0 +1,128 @@
+---
+title: "Guard Rails"
+date: "2024-08-14"
+summary: "Guard Rails is a modular, maintainable, and customizable DevOps strategy designed for use with Travis CI."
+longSummary: "This post introduces Guard Rails, a modular, maintainable, and customizable DevOps strategy for Travis CI. Discover how it can help your projects meet IT security standards and streamline your CI/CD processes."
+url: "https://github.com/dotbrains/guardrails"
+---
+
+# Guard Rails
+
+<Image
+  src="/projects/guardrails/image.png"
+  alt="highway guard rails"
+  width={2267}
+  height={1280}
+  size="xs"
+  priority
+  contained
+/>
+
+## Introduction
+
+In the fast-paced world of software development, ensuring that your project complies with IT security standards while maintaining an efficient workflow can be challenging. That’s where **Guard Rails** comes in—a modular, maintainable, and customizable security-compliant DevOps strategy designed for use with Travis CI.
+
+Guard Rails offers a robust boilerplate for projects aiming to enhance their compliance with IT security standards while adopting a modular and maintainable DevOps approach. It’s crafted to help teams seamlessly integrate security practices into their CI/CD pipelines without sacrificing productivity or flexibility.
+
+## Why Guard Rails?
+
+One of the key challenges in DevOps is balancing speed with security. Traditional approaches often force teams to choose between moving fast and adhering to strict security protocols. Guard Rails eliminates this dilemma by providing a framework that integrates security compliance directly into your DevOps pipeline, ensuring that your project remains both agile and secure.
+
+Currently, Guard Rails is tailored for projects using a custom image pipeline infrastructure due to its reliance on a specific container registry. However, its flexible architecture allows for easy adaptation to other CI/CD solutions by swapping out the existing registry with one from another cloud provider.
+
+Moreover, Guard Rails is particularly beneficial for teams that cannot leverage centralized CI/CD platforms due to the nature of their projects, especially those unable to support [trunk-based development](https://trunkbaseddevelopment.com/).
+
+## Leveraging Gitflow with Guard Rails
+
+The Guard Rails boilerplate is structured around the [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow, a branching model that simplifies managing development and release cycles.
+
+### Key Branches:
+
+- **`main` or `master`**: The production branch containing the latest stable version.
+- **`development`**: The branch where ongoing development occurs.
+- **`#.#.#`**: Release branches for preparing specific versions of the project.
+
+For a deeper dive into Gitflow and how it integrates with Guard Rails, check out the detailed [Gitflow presentation](https://github.com/dotbrains/GuardRails/blob/main/resources/gitflow_proposal_240802.pdf).
+
+## Getting Started with Guard Rails
+
+To kickstart your journey with Guard Rails, begin by cloning the project:
+
+```bash
+git clone --recurse-submodules https://github.com/dotbrains/guardrails
+```
+
+Next, customize the setup for your organization by running the `change_organization_name.py` script:
+
+```bash
+python3 ./scripts/change_organization_name.py <organization_name>
+```
+
+This script updates the organization name across all necessary files, ensuring that your project is uniquely branded and ready for deployment.
+
+## Guard Rails Features at a Glance
+
+Guard Rails packs a suite of features designed to bolster your CI/CD pipeline with security, efficiency, and maintainability:
+
+### Core Features:
+
+- **Custom Image Pipeline**
+- **[Travis CI](https://travis-ci.com/)** CI/CD integration
+- **[Docker](https://www.docker.com/)** containerization
+- **[AppScan](https://cloud.appscan.com/)** for Static Application Security Testing (SAST)
+- **[Contrast](https://www.contrastsecurity.com/)** for Interactive Application Security Testing (IAST) (optional)
+- **[Detect Secrets](https://github.com/Yelp/detect-secrets)** for secret detection
+
+### Technology-Specific Features:
+
+- **Java**: Includes [Maven](https://maven.apache.org/) for builds, [Spring Boot](https://spring.io/projects/spring-boot) for microservices, and [git-code-format-maven-plugin](https://github.com/Cosium/git-code-format-maven-plugin) for code formatting.
+- **JavaScript**: Supports [Node.js](https://nodejs.org/), [pnpm](https://pnpm.js.org/), [Husky](https://github.com/typicode/husky) for git hooks, and [Prettier](https://prettier.io/) for code formatting.
+
+### Logging & Monitoring:
+
+- **[Mezmo](https://www.mezmo.com/)**: Formerly known as LogDNA, used for logging.
+- **[Dynatrace](https://www.dynatrace.com/)**: For comprehensive monitoring.
+
+To integrate **Mezmo** and **Dynatrace** into your project, follow the setup guidelines within your CI/CD platform to securely add the necessary credentials.
+
+### Security with Mend
+
+Guard Rails also leverages **Mend** (formerly WhiteSource) for open-source vulnerability scanning, providing automated checks and updates to keep your project secure.
+
+For integration instructions, follow Mend’s onboarding process [here](https://www.mend.io/).
+
+## Sub-projects and Modular Architecture
+
+Guard Rails is composed of several sub-projects that enhance its modularity and flexibility. These sub-projects can be customized and extended based on your project’s requirements:
+
+- **Base Images Blueprint**: Provides foundational Docker images for your CI/CD pipeline.
+- **Boilerplate Technical Documentation**: A starting point for creating detailed project documentation.
+- **AppScan SAST Travis Integration**: Integrates AppScan SAST seamlessly with Travis CI.
+- **Contrast Security SAST Travis Integration**: Adds Contrast Security tools to your Travis CI pipeline.
+- **Create Tagged Releases**: Automates the process of tagging and releasing new versions of your project on GitHub.
+
+## Fine-Tuning Your Travis CI Pipeline
+
+Guard Rails provides a robust Travis CI pipeline, which requires setting specific environment variables for seamless operation:
+
+- **Container Registry**: `REGISTRY_USER`, `REGISTRY_PASSWORD`, `REGISTRY_NAMESPACE`
+- **AppScan**: `APPSCAN_API_KEY`, `APPSCAN_API_SECRET`, `APPSCAN_APP_ID`
+- **Contrast**: `CONTRAST__API__API_KEY`, `CONTRAST__API__USER_NAME`, `CONTRAST__API__ORGANIZATION`, `CONTRAST__API__SERVICE_KEY`
+
+### Pipeline Stages:
+
+Guard Rails' Travis CI pipeline is designed to execute different stages based on the event type and branch being built:
+
+1. **Prepare Cache**: Installs project dependencies.
+2. **Detect Secrets**: Scans the project for any secrets.
+3. **Static Code Analysis**: Runs security checks using AppScan.
+4. **Build**: Ensures that the project builds successfully.
+5. **Deploy Artifacts**: Deploys container images to your specified registry.
+
+Each stage in the pipeline is meticulously crafted to ensure that your project adheres to security standards without compromising on development speed.
+
+## Conclusion
+
+Guard Rails is more than just a DevOps strategy—it’s a comprehensive framework designed to enhance your project's compliance with IT security standards while maintaining a high level of flexibility and efficiency. By integrating Guard Rails into your workflow, you can ensure that your project is secure, maintainable, and ready to scale.
+
+Whether you’re starting a new project or looking to refine your existing pipeline, Guard Rails offers the tools and strategies you need to succeed. Dive into the [Guard Rails GitHub repository](https://github.com/dotbrains/Guard Rails) and start enhancing your DevOps strategy today.
