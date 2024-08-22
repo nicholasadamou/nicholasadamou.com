@@ -4,13 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency.">
-      <change afterPath="$PROJECT_DIR$/generate-rss.js" afterDir="false" />
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation.">
+      <change afterPath="$PROJECT_DIR$/generate-rss.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generate-sitemap.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/blog/components/NewsletterSignupForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/components/NewsletterSignupForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/about/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/convertkit/subscribe/route.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/convertkit/subscribers/route.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/components/NewsletterSignupForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/Avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Avatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/Tags.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/blog/dfi-service.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/blog/dfi-service.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contentlayer.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/contentlayer.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate-rss.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rss.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/rss.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/super-comic-font/SuperComic-qZg62.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/super-comic-font/info.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +101,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="3499000" />
+      <workItem from="1724325266420" duration="12328000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -109,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724327421729</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation.">
+      <option name="closed" value="true" />
+      <created>1724339263370</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724339263370</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +145,7 @@
     <MESSAGE value="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings." />
     <MESSAGE value="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link." />
     <MESSAGE value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
+    <MESSAGE value="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation." />
   </component>
 </project>

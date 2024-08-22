@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { allBlogs } from "contentlayer/generated";
 import PostList from "@/app/blog/components/PostList";
-import NewsletterSignupForm from "@/app/blog/components/NewsletterSignupForm";
 import React from "react";
 
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
@@ -32,10 +31,10 @@ export default function BlogPage() {
         <div>
           <h1 className="animate-in text-3xl font-bold tracking-tight">Blog</h1>
           <p
-            className="animate-in text-secondary"
+            className="mt-5 animate-in text-secondary"
             style={{ "--index": 1 } as React.CSSProperties}
           >
-            {blogs.length} posts so far. Stay tuned for more!
+						I do not write a lot, but I do share my learnings and thoughts from time to time. {blogs.length} posts so far.
           </p>
         </div>
       </div>
@@ -49,7 +48,6 @@ export default function BlogPage() {
         className="animate-in"
         style={{ "--index": 3 } as React.CSSProperties}
       >
-        <NewsletterSignupForm />
       </div>
     </div>
   );

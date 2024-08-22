@@ -1,10 +1,10 @@
 import { allProjects } from "contentlayer/generated";
 import { notFound } from "next/navigation";
+import readingTime from "reading-time";
 
 import Avatar from "@/app/components/Avatar";
 import Link from "@/app/components/Link";
 import Mdx from "@/app/blog/components/MdxWrapper";
-import NewsletterSignupForm from "@/app/blog/components/NewsletterSignupForm";
 import Me from "@/public/avatar.png";
 
 export default function Project({ params }: { params: any }) {
@@ -13,6 +13,9 @@ export default function Project({ params }: { params: any }) {
   if (!project) {
     notFound();
   }
+
+	// Calculate reading time
+	const readingStats = readingTime(project.body.raw);
 
   return (
     <div className="flex flex-col gap-20">
@@ -33,10 +36,11 @@ export default function Project({ params }: { params: any }) {
               <p className="text-secondary">
                 <time dateTime={project.date}>{project.date}</time>
                 {" · "}
-
                 <Link underline href={project.url || ""}>
                   Visit Project
                 </Link>
+								{" · "}
+								{readingStats.text}
               </p>
             </div>
           </div>
@@ -46,20 +50,6 @@ export default function Project({ params }: { params: any }) {
           <Mdx code={project.body.code} />
         </div>
       </article>
-
-      <div className="flex flex-col gap-20">
-        <div className="flex flex-col gap-6">
-          <h2>Contact</h2>
-          <p className="max-w-md text-pretty text-secondary">
-            Questions or need more details? Ping me on any of my other social media{" "}
-            <Link href="/about" underline>
-              links
-            </Link>
-            .
-          </p>
-        </div>
-        <NewsletterSignupForm contained={false} />
-      </div>
-    </div>
-  );
+		</div>
+	);
 }

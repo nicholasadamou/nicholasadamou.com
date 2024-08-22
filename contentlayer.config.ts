@@ -41,7 +41,6 @@ export const Blog = defineDocumentType(() => ({
 		summary: {type: "string", required: true},
 		date: {type: "string", required: true},
 		updatedAt: {type: "string", required: false},
-		tags: {type: "json", required: false},
 	},
 	computedFields: blogComputedFields,
 }));
@@ -67,34 +66,13 @@ export const Project = defineDocumentType(() => ({
 		longSummary: {type: "string", required: false},
 		date: {type: "string", required: true},
 		url: {type: "string", required: false},
-		tags: {type: "json", required: false},
 	},
 	computedFields: projectComputedFields,
 }));
 
-const craftComputedFields: ComputedFields = {
-	slug: {
-		type: "string",
-		resolve: (doc) => getSlug(doc),
-	},
-};
-
-export const Craft = defineDocumentType(() => ({
-	name: "Craft",
-	filePathPattern: `craft/**/*.mdx`,
-	contentType: "mdx",
-	fields: {
-		title: {type: "string", required: true},
-		summary: {type: "string", required: true},
-		date: {type: "string", required: true},
-	},
-	computedFields: craftComputedFields,
-}));
-
-
 export default makeSource({
 	contentDirPath: "content",
-	documentTypes: [Blog, Project, Craft],
+	documentTypes: [Blog, Project],
 	mdx: {
 		rehypePlugins: [rehypePrism, rehypeSlug],
 	},

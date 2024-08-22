@@ -26,7 +26,7 @@ export default function Avatar({
       {!src || src === "" ? (
         <div>{initials || ""}</div>
       ) : (
-        <Image src={src} alt={alt || ""} fill sizes="80px" />
+        <Image src={src} alt={alt || ""} fill className="object-cover" />
       )}
     </div>
   );

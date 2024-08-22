@@ -4,26 +4,32 @@
         <description><![CDATA[I am a full stack software engineer who is on a mission to make the world a better place through code.]]></description>
         <link>https://nicholasadamou.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 22 Aug 2024 15:06:28 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 22 Aug 2024 19:09:45 GMT</lastBuildDate>
         <atom:link href="https://nicholasadamou.com/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
         <item>
             <title><![CDATA[How I Developed IBM's Direct File Input (DFI) Service for Global Ledger and Boosted NPS by 90 Points]]></title>
+            <description><![CDATA[Architecting the DFI Service for IBM's Global Ledger Interface, supporting 24k+ documents quarterly and managing 150k files during peak periods.]]></description>
             <link>https://nicholasadamou.com/blog/dfi-service</link>
             <guid isPermaLink="true">https://nicholasadamou.com/blog/dfi-service</guid>
             <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/blog/dfi-service/image.png" type="image/png" medium="image"/>
         </item>
         <item>
             <title><![CDATA[How I Developed IBM's Secrets Updater Tool and Saved Developers 99.99% of Their Time]]></title>
+            <description><![CDATA[Discover how the IBM Secrets Updater Tool drastically reduces the time and effort required to manage API credentials and tokens across multiple repositories in the CIO CI/CD pipeline.]]></description>
             <link>https://nicholasadamou.com/blog/ibm-secrets-updater-tool</link>
             <guid isPermaLink="true">https://nicholasadamou.com/blog/ibm-secrets-updater-tool</guid>
             <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/blog/ibm-secrets-updater-tool/image.png" type="image/png" medium="image"/>
         </item>
         <item>
             <title><![CDATA[How I Turbocharged Quality with End-to-End UI Testing in IBM's CI/CD Pipeline]]></title>
+            <description><![CDATA[Learn how the integration of End-to-End (E2E) UI testing into IBM's CI/CD pipeline has enhanced quality assurance, streamlined testing processes, and improved the overall development experience.]]></description>
             <link>https://nicholasadamou.com/blog/integrating-e2e-ui-testing</link>
             <guid isPermaLink="true">https://nicholasadamou.com/blog/integrating-e2e-ui-testing</guid>
             <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/blog/integrating-e2e-ui-testing/image.png" type="image/png" medium="image"/>
         </item>
     </channel>
 </rss>

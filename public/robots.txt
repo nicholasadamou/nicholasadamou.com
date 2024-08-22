@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://nicholasadamou.com
+
+# Sitemaps
+Sitemap: https://nicholasadamou.com/sitemap.xml

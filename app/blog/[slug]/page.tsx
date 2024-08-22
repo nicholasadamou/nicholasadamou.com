@@ -1,11 +1,11 @@
 import Image from "next/image";
 import {notFound} from "next/navigation";
 import type {Metadata} from "next";
-import Link from "@/app/components/Link";
+import readingTime from "reading-time";
+
 import {allBlogs} from "contentlayer/generated";
 
 import Avatar from "@/app/components/Avatar";
-import Tags from "@/app/components/Tags";
 import Mdx from "@/app/blog/components/MdxWrapper";
 import FlipNumber from "@/app/components/FlipNumber";
 import Me from "@/public/avatar.png";
@@ -13,9 +13,9 @@ import Me from "@/public/avatar.png";
 import {formatDate} from "@/app/_utils/formatDate";
 import {getViewsCount} from "@/app/db/queries";
 import {incrementViews} from "@/app/db/actions";
-import NewsletterSignupForm from "@/app/blog/components/NewsletterSignupForm";
 
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import React from "react";
 
 const baseUrl = getBaseUrl();
 
@@ -62,6 +62,9 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
     notFound();
   }
 
+	// Calculate reading time
+	const readingStats = readingTime(blog.body.raw);
+
   return (
     <div className="flex flex-col gap-20">
       <article>
@@ -73,7 +76,7 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
             <p className="text-secondary">{blog.summary}</p>
           </div>
           <div className="flex max-w-none items-center gap-4">
-            <Avatar src={Me} initials="br" size="sm" />
+            <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
               <p>Nicholas Adamou</p>
               <p className="text-secondary">
@@ -82,8 +85,9 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
                   ? `(Updated ${formatDate(blog.updatedAt)})`
                   : ""}
                 {" · "}
-
                 <Views slug={blog.slug} />
+								{" · "}
+								{readingStats.text}
               </p>
             </div>
           </div>
@@ -108,34 +112,20 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
           <Mdx code={blog.body.code} />
         </div>
       </article>
-
-      <div className="flex flex-col gap-20">
-        <div className="flex flex-col gap-6">
-          <h2>Tags</h2>
-          <Tags tags={blog.tags} />
-        </div>
-        <div className="flex flex-col gap-6">
-          <h2>Contact</h2>
-          <p className="max-w-md text-pretty text-secondary">
-            Questions or need more details? Ping me on any of my social media <Link href="/about" underline>links</Link>.
-          </p>
-        </div>
-        <NewsletterSignupForm contained={false} />
-      </div>
-    </div>
-  );
+		</div>
+	);
 }
 
 async function Views({ slug }: Readonly<{ slug: string }>) {
-  let blogViews = await getViewsCount();
-  const viewsForBlog = blogViews.find((view) => view.slug === slug);
+	let blogViews = await getViewsCount();
+	const viewsForBlog = blogViews.find((view) => view.slug === slug);
 
-  await incrementViews(slug);
+	await incrementViews(slug);
 
-  return (
-    <span>
+	return (
+		<span>
       <FlipNumber>{viewsForBlog?.count ?? 0}</FlipNumber>
-      {viewsForBlog?.count === 1 ? " view" : " views"}
+			{viewsForBlog?.count === 1 ? " view" : " views"}
     </span>
-  );
+	);
 }

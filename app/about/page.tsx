@@ -28,7 +28,7 @@ export default function About() {
 					About
 				</h1>
 				<p
-					className="animate-in text-secondary"
+					className="animate-in mt-5 text-secondary"
 					style={{"--index": 1} as React.CSSProperties}
 				>
 					A glimpse into me.
