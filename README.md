@@ -39,8 +39,8 @@ Before you begin, ensure you have met the following requirements:
 **Clone the Repository**
 
 ```sh
-git clone https://github.com/nicholasadamou/n-a.io.git
-cd n-a.io
+git clone https://github.com/nicholasadamou/nicholasadamou.com.git
+cd nicholasadamou.com
 ```
 
 **Install Dependencies**
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS blog_views (
 
 ## Deployment
 
-This project can be [quickly deployed to Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%nicholasadamou%2Fn-a.io). Connect your Vercel account to your GitHub repository, and Vercel will automatically build and deploy your application with each new push to the main branch.
+This project can be [quickly deployed to Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%nicholasadamou%2Fnicholasadamou.com). Connect your Vercel account to your GitHub repository, and Vercel will automatically build and deploy your application with each new push to the main branch.
 
 Add the project environment variables to your Vercel project settings.
 
