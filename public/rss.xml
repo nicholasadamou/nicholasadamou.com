@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Nicholas Adamou's Blog]]></title>
+        <description><![CDATA[I am a full stack software engineer who is on a mission to make the world a better place through code.]]></description>
+        <link>https://nicholasadamou.com</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Thu, 22 Aug 2024 15:06:28 GMT</lastBuildDate>
+        <atom:link href="https://nicholasadamou.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[How I Developed IBM's Direct File Input (DFI) Service for Global Ledger and Boosted NPS by 90 Points]]></title>
+            <link>https://nicholasadamou.com/blog/dfi-service</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/blog/dfi-service</guid>
+            <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How I Developed IBM's Secrets Updater Tool and Saved Developers 99.99% of Their Time]]></title>
+            <link>https://nicholasadamou.com/blog/ibm-secrets-updater-tool</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/blog/ibm-secrets-updater-tool</guid>
+            <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How I Turbocharged Quality with End-to-End UI Testing in IBM's CI/CD Pipeline]]></title>
+            <link>https://nicholasadamou.com/blog/integrating-e2e-ui-testing</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/blog/integrating-e2e-ui-testing</guid>
+            <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

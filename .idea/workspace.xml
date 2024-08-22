@@ -4,17 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link.">
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency.">
+      <change afterPath="$PROJECT_DIR$/generate-rss.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_utils/getBaseUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/_utils/getBaseUrl.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/components/NewsletterSignupForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/components/NewsletterSignupForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/project/set-me-up.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/project/set-me-up.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,6 +63,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -70,7 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="928000" />
+      <workItem from="1724325266420" duration="3499000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -88,7 +101,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724325422188</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency.">
+      <option name="closed" value="true" />
+      <created>1724327421729</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724327421729</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,6 +118,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings." />
     <MESSAGE value="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link." />
+    <MESSAGE value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
   </component>
 </project>
