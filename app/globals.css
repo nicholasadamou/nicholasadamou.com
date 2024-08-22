@@ -176,7 +176,3 @@ pre[class*="language-"] {
   color: var(--gray-8); /* Line number color */
   content: attr(line);
 }
-
-.grid-cols-0fr-1fr {
-	grid-template-columns: 0fr 1fr;
-}
