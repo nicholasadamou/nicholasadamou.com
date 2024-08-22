@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, &#10;newsletter signup, ConvertKit API routes, and tag component. Updated &#10;project page layout and configuration. Added robots.txt and sitemap.xml &#10;for SEO.">
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, newsletter signup, ConvertKit API routes, and tag component. Updated project page layout and configuration. Added robots.txt and sitemap.xml for improved SEO.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="13049000" />
+      <workItem from="1724325266420" duration="13331000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -121,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724358983313</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, newsletter signup, ConvertKit API routes, and tag component. Updated project page layout and configuration. Added robots.txt and sitemap.xml for improved SEO.">
+      <option name="closed" value="true" />
+      <created>1724359600206</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724359600206</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +142,7 @@
     <MESSAGE value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
     <MESSAGE value="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation." />
     <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, &#10;newsletter signup, ConvertKit API routes, and tag component. Updated &#10;project page layout and configuration. Added robots.txt and sitemap.xml &#10;for SEO." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, &#10;newsletter signup, ConvertKit API routes, and tag component. Updated &#10;project page layout and configuration. Added robots.txt and sitemap.xml &#10;for SEO." />
+    <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, newsletter signup, ConvertKit API routes, and tag component. Updated project page layout and configuration. Added robots.txt and sitemap.xml for improved SEO." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, newsletter signup, ConvertKit API routes, and tag component. Updated project page layout and configuration. Added robots.txt and sitemap.xml for improved SEO." />
   </component>
 </project>

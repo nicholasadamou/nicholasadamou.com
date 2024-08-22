@@ -74,6 +74,7 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
               {blog.title}
             </h1>
             <p className="text-secondary">{blog.summary}</p>
+						<p className="text-secondary">{readingStats.text}.</p>
           </div>
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
@@ -86,8 +87,6 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
                   : ""}
                 {" · "}
                 <Views slug={blog.slug} />
-								{" · "}
-								{readingStats.text}
               </p>
             </div>
           </div>

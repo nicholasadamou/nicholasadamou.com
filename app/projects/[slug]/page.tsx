@@ -6,6 +6,7 @@ import Avatar from "@/app/components/Avatar";
 import Link from "@/app/components/Link";
 import Mdx from "@/app/blog/components/MdxWrapper";
 import Me from "@/public/avatar.png";
+import React from "react";
 
 export default function Project({ params }: { params: any }) {
   const project = allProjects.find((project) => project.slug === params.slug);
@@ -28,6 +29,7 @@ export default function Project({ params }: { params: any }) {
             <p className="text-secondary">
               {project.longSummary || project.summary}
             </p>
+            <p className="text-secondary">{readingStats.text}.</p>
           </div>
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="br" size="sm" />
@@ -39,8 +41,6 @@ export default function Project({ params }: { params: any }) {
                 <Link underline href={project.url || ""}>
                   Visit Project
                 </Link>
-								{" · "}
-								{readingStats.text}
               </p>
             </div>
           </div>
@@ -50,6 +50,6 @@ export default function Project({ params }: { params: any }) {
           <Mdx code={project.body.code} />
         </div>
       </article>
-		</div>
-	);
+    </div>
+  );
 }
