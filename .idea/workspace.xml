@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_utils/getBaseUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/_utils/getBaseUrl.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/project/set-me-up.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/project/set-me-up.mdx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,10 +45,13 @@
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "ts.external.directory.path": "/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -60,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="120000" />
+      <workItem from="1724325266420" duration="928000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -70,7 +80,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724325318972</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link.">
+      <option name="closed" value="true" />
+      <created>1724325422188</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724325422188</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,6 +96,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings." />
+    <MESSAGE value="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link." />
   </component>
 </project>
