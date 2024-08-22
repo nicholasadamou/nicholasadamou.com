@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly onto the project and blog pages for better visibility. Also corrected JSX formatting and ensured consistent spacing in the code.">
-      <change beforePath="$PROJECT_DIR$/app/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/page.tsx" afterDir="false" />
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly on the project and blog pages for better visibility. Corrected JSX formatting and ensured consistent spacing in the code. Updated the workspace configuration to reflect these changes.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="13504000" />
+      <workItem from="1724325266420" duration="13687000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -136,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724359982153</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly on the project and blog pages for better visibility. Corrected JSX formatting and ensured consistent spacing in the code. Updated the workspace configuration to reflect these changes.">
+      <option name="closed" value="true" />
+      <created>1724360083124</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1724360083124</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +159,7 @@
     <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, &#10;newsletter signup, ConvertKit API routes, and tag component. Updated &#10;project page layout and configuration. Added robots.txt and sitemap.xml &#10;for SEO." />
     <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, newsletter signup, ConvertKit API routes, and tag component. Updated project page layout and configuration. Added robots.txt and sitemap.xml for improved SEO." />
     <MESSAGE value="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly onto the project and blog pages for better visibility. Also corrected JSX formatting and ensured consistent spacing in the code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly onto the project and blog pages for better visibility. Also corrected JSX formatting and ensured consistent spacing in the code." />
+    <MESSAGE value="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly on the project and blog pages for better visibility. Corrected JSX formatting and ensured consistent spacing in the code. Updated the workspace configuration to reflect these changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly on the project and blog pages for better visibility. Corrected JSX formatting and ensured consistent spacing in the code. Updated the workspace configuration to reflect these changes." />
   </component>
 </project>
