@@ -4,6 +4,7 @@ import PostList from "@/app/blog/components/PostList";
 import React from "react";
 
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+
 const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
@@ -22,7 +23,12 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const blogs = allBlogs.sort(
-    (a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (
+      a: { date: string | number | Date },
+      b: {
+        date: string | number | Date;
+      },
+    ) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   return (
@@ -34,7 +40,11 @@ export default function BlogPage() {
             className="mt-5 animate-in text-secondary"
             style={{ "--index": 1 } as React.CSSProperties}
           >
-						I do not write a lot, but I do share my learnings and thoughts from time to time. {blogs.length} posts so far.
+            While I don’t write on a regular basis, I find great value in
+            sharing my insights and learnings whenever the opportunity arises.
+            Each post reflects my thoughts and experiences, and I hope they
+            resonate with others. To date, I’ve published {blogs.length} posts,
+            and I look forward to contributing more in the future.
           </p>
         </div>
       </div>
@@ -47,8 +57,7 @@ export default function BlogPage() {
       <div
         className="animate-in"
         style={{ "--index": 3 } as React.CSSProperties}
-      >
-      </div>
+      ></div>
     </div>
   );
 }
