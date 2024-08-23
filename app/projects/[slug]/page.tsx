@@ -19,7 +19,7 @@ export default function Project({ params }: { params: any }) {
 	const readingStats = readingTime(project.body.raw);
 
   return (
-		<div className="flex flex-col gap-14">
+		<div className="flex flex-col gap-12">
 			<article>
 				<div className="flex flex-col gap-8">
 					<div className="flex max-w-xl flex-col gap-4 text-pretty">

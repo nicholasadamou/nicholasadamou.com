@@ -66,7 +66,7 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
 	const readingStats = readingTime(blog.body.raw);
 
   return (
-		<div className="flex flex-col gap-14">
+		<div className="flex flex-col gap-12">
 			<article>
 				<div className="flex flex-col gap-8">
 					<Link href="/blog" underline>
