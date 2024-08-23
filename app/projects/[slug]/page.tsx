@@ -50,7 +50,7 @@ export default function Project({ params }: { params: any }) {
 					<Mdx code={project.body.code} />
 				</div>
 			</article>
-			<h2 className="text-2xl font-bold leading-tight tracking-tight text-primary">
+			<h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-primary">
 				If you liked this project.
 				<p className="mt-1 text-secondary">You will love these ones as well.</p>
 			</h2>
@@ -68,7 +68,7 @@ export default function Project({ params }: { params: any }) {
 								href={`/projects/${slug}`}
 								className="flex flex-col gap-2 w-full md:w-1/3"
 							>
-								<div className="relative h-[300px] overflow-hidden rounded-lg">
+								<div className="relative h-[300px] md:h-[200px] overflow-hidden rounded-lg">
 									<Image
 										src={image}
 										alt={`${title} project image`}
@@ -78,7 +78,7 @@ export default function Project({ params }: { params: any }) {
 										sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
 									/>
 								</div>
-								<p className="text-xl font-bold leading-tight tracking-tight text-primary">{title} — {readingStats.text}</p>
+								<p className="text-md md:text-xl font-bold leading-tight tracking-tight text-primary">{title} — {readingStats.text}</p>
 								<p className="text-secondary">{summary}</p>
 							</a>
 						)

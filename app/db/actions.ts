@@ -2,7 +2,13 @@
 import { sql } from "@vercel/postgres";
 
 export async function incrementViews(slug: string) {
+	if (!process.env.POSTGRE_URL) {
+		console.log("No POSTGRE_URL found, skipping incrementViews");
+		return;
+	}
+
 	console.log(`incrementViews(${slug})`);
+
 	try {
 		await sql`
       INSERT INTO blog_views (slug, count)

@@ -115,7 +115,7 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
 					<Mdx code={blog.body.code} />
 				</div>
 			</article>
-			<h2 className="text-2xl font-bold leading-tight tracking-tight text-primary">
+			<h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-primary">
 				If you found this article helpful.
 				<p className="mt-1 text-secondary">You will love these ones as well.</p>
 			</h2>
@@ -133,7 +133,7 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
 								href={`/blog/${slug}`}
 								className="flex flex-col gap-2 w-full md:w-1/3"
 							>
-								<div className="relative h-[300px] overflow-hidden rounded-lg">
+								<div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg">
 									<Image
 										src={image}
 										alt={`${title} blog image`}
@@ -143,10 +143,10 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
 										sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
 									/>
 								</div>
-								<h3 className="text-xl leading-tight tracking-tight text-secondary">
+								<h3 className="text-md md:text-xl leading-tight tracking-tight text-secondary">
 									{formatLongDateWithSuffix(date)} — {readingStats.text}
 								</h3>
-								<p className="text-xl font-bold leading-tight tracking-tight text-primary">{title}</p>
+								<p className="text-md md:text-xl font-bold leading-tight tracking-tight text-primary">{title}</p>
 							</a>
 						)
 					})}

@@ -4,7 +4,14 @@ import { sql } from "@vercel/postgres";
 export async function getViewsCount(): Promise<
 	{ slug: string; count: number }[]
 > {
+
+	if (!process.env.POSTGRE_URL) {
+		console.log("No POSTGRE_URL found, skipping getViewsCount");
+		return [];
+	}
+
 	console.log("getViewsCount()");
+
 	try {
 		const result = await sql`
       SELECT slug, count FROM blog_views;
