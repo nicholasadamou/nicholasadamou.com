@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
-import { formatDate } from "@/app/_utils/formatDate";
+import { formatShortDate } from "@/app/_utils/formatShortDate";
 import type { Blog } from "contentlayer/generated";
 
 type PostProps = {
@@ -47,7 +47,7 @@ export default function Post({ post, mousePosition }: PostProps) {
 						</motion.div>
 					)}
 					<div className="flex items-center justify-between gap-6 mt-4">
-						<Section heading={formatDate(date)}>
+						<Section heading={formatShortDate(date)}>
 							<span className="font-medium leading-tight text-pretty">{title}</span>
 						</Section>
 					</div>

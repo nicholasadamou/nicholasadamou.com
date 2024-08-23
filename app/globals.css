@@ -116,14 +116,14 @@ input:-webkit-autofill:focus {
   @apply whitespace-pre-line rounded border border-primary bg-primary px-1 font-normal text-primary;
 }
 
-.prose
-  p
-  :where(code):not(
+.prose,
+p,
+:where(code):not(
     :where([class~="not-prose"], [class~="not-prose"] *)
   )::before,
-.prose
-  p
-  :where(code):not(
+.prose,
+p,
+:where(code):not(
     :where([class~="not-prose"], [class~="not-prose"] *)
   )::after {
   content: "";

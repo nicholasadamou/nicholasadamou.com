@@ -4,7 +4,7 @@ import React from "react";
 
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
-import ListSection from "@/app/about/components/ListSection"; // Import the new component
+import ListSection from "@/app/about/components/ListSection";
 import Workplaces from "@/app/about/components/Workplaces";
 import Gallery from "@/app/about/components/Gallery";
 
