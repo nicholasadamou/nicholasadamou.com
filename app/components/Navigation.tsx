@@ -1,5 +1,5 @@
 "use client";
-import {Fragment} from "react";
+import { Fragment, useEffect, useRef } from "react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -17,6 +17,61 @@ const links = [
 
 export default function Navigation() {
 	const pathname = `/${usePathname().split("/")[1]}`; // active paths on dynamic sub-pages
+
+	const popoverRef = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		const popoverElement = popoverRef.current;
+
+		function handleClickOutside(event: MouseEvent) {
+			if (popoverElement) {
+				const isClickInsidePopover = popoverElement.contains(event.target as Node);
+
+				if (!isClickInsidePopover) {
+					const activePopover = popoverElement.querySelector('[aria-expanded="true"]');
+					if (activePopover) {
+						(activePopover as HTMLElement).click(); // Trigger the click event to close the Popover
+					}
+				}
+			}
+		}
+
+		function handleLinkClick() {
+			if (popoverElement) {
+				const activePopover = popoverElement.querySelector('[aria-expanded="true"]');
+				if (activePopover) {
+					(activePopover as HTMLElement).click(); // Trigger the click event to close the Popover
+				}
+			}
+		}
+
+		// Mutation observer to detect when the Popover.Panel is rendered
+		const observer = new MutationObserver(() => {
+			if (popoverElement) {
+				const linkElements = popoverElement.querySelectorAll('a[href]');
+				linkElements.forEach((link) => {
+					link.addEventListener("click", handleLinkClick);
+				});
+			}
+		});
+
+		if (popoverElement) {
+			observer.observe(popoverElement, { childList: true, subtree: true });
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+			observer.disconnect();
+			if (popoverElement) {
+				const linkElements = popoverElement.querySelectorAll('a[href]');
+				linkElements.forEach((link) => {
+					link.removeEventListener("click", handleLinkClick);
+				});
+			}
+		};
+	}, []);
 
 	return (
 		<header className="md:mt-6">
@@ -40,7 +95,7 @@ export default function Navigation() {
 					<ThemeSwitcher/>
 				</div>
 
-				<Popover className="relative md:hidden">
+				<Popover className="relative md:hidden" ref={popoverRef}>
 					<Popover.Button className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary">
 						<Bars3Icon
 							className="h-5 w-5 cursor-pointer text-secondary transition-colors hover:text-primary"/>
