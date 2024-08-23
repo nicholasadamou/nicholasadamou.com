@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Fix POSTGRE_URL typo in database functions&#10;&#10;Corrected the environment variable from POSTGRE_URL to POSTGRES_URL in both incrementViews and getViewsCount functions. Updated the IntelliJ IDEA workspace configuration to reflect recent changes and ensure checks for environment variables are accurate.">
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add theming support to Navigation component&#10;&#10;Implemented the `useTheme` hook from `next-themes` to dynamically adjust the SVG fill color based on the current theme. This change ensures consistency in appearance between light and dark themes and improves user experience. Updated IntelliJ IDEA workspace configuration to reflect the theming changes in Navigation.tsx.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/components/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Navigation.tsx" afterDir="false" />
     </list>
@@ -81,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="27664000" />
+      <workItem from="1724325266420" duration="28118000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -227,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724410564481</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Add theming support to Navigation component&#10;&#10;Implemented the `useTheme` hook from `next-themes` to dynamically adjust the SVG fill color based on the current theme. This change ensures consistency in appearance between light and dark themes and improves user experience. Updated IntelliJ IDEA workspace configuration to reflect the theming changes in Navigation.tsx.">
+      <option name="closed" value="true" />
+      <created>1724420405765</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1724420405765</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,6 +260,7 @@
     <MESSAGE value="Remove ConvertKit and Clerk configs, add POSTGRE_URL checks&#10;&#10;Removed unused ConvertKit and Clerk configuration keys from .env.example. Added checks for POSTGRE_URL in database functions to safely handle missing environment variables. Updated IntelliJ workspace configuration to reflect these changes and improve task management." />
     <MESSAGE value="Update responsive text and layout, add environment checks&#10;&#10;Enhanced responsiveness of text and layout across project and blog pages by adjusting font sizes and container dimensions. Removed unused environment variables in .env.example and added checks for POSTGRE_URL in database actions and queries to prevent errors. Updated IntelliJ IDEA workspace configuration to reflect recent changes." />
     <MESSAGE value="Fix POSTGRE_URL typo in database functions&#10;&#10;Corrected the environment variable from POSTGRE_URL to POSTGRES_URL in both incrementViews and getViewsCount functions. Updated the IntelliJ IDEA workspace configuration to reflect recent changes and ensure checks for environment variables are accurate." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix POSTGRE_URL typo in database functions&#10;&#10;Corrected the environment variable from POSTGRE_URL to POSTGRES_URL in both incrementViews and getViewsCount functions. Updated the IntelliJ IDEA workspace configuration to reflect recent changes and ensure checks for environment variables are accurate." />
+    <MESSAGE value="Add theming support to Navigation component&#10;&#10;Implemented the `useTheme` hook from `next-themes` to dynamically adjust the SVG fill color based on the current theme. This change ensures consistency in appearance between light and dark themes and improves user experience. Updated IntelliJ IDEA workspace configuration to reflect the theming changes in Navigation.tsx." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add theming support to Navigation component&#10;&#10;Implemented the `useTheme` hook from `next-themes` to dynamically adjust the SVG fill color based on the current theme. This change ensures consistency in appearance between light and dark themes and improves user experience. Updated IntelliJ IDEA workspace configuration to reflect the theming changes in Navigation.tsx." />
   </component>
 </project>
