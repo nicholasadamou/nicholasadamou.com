@@ -1,12 +1,7 @@
 import React from "react";
+import { ListItem } from "@/app/about/types/ListItem";
 
-interface Resume {
-	label: string;
-	href: string;
-	icon?: React.ReactNode;
-}
-
-const Resumes: Resume[] = [
+const Resumes: ListItem[] = [
 	{
 		label: "Standard Resume",
 		href: "https://standardresume.co/r/nicholasadamou",

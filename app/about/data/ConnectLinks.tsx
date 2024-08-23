@@ -1,15 +1,9 @@
-import {FaCalendarDay, FaCodepen, FaGithub, FaHackerrank, FaLinkedin,} from "react-icons/fa";
-import CalButton from "./CalButton";
+import { FaCalendarDay, FaCodepen, FaGithub, FaHackerrank, FaLinkedin } from "react-icons/fa";
+import CalButton from "../../components/CalButton";
 import React from "react";
+import { ListItem } from "@/app/about/types/ListItem";
 
-interface ConnectLink {
-	label: string;
-	href?: string;
-	icon?: React.ReactNode;
-	component?: React.ReactNode;
-}
-
-const ConnectLinks: ConnectLink[] = [
+const ConnectLinks: ListItem[] = [
 	{
 		label: "Partnerships",
 		href: "mailto:nicholas.adamou@outlook.com",
