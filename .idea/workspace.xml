@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Refactor project and blog pages, update date formatting.&#10;&#10;Reorganized markup for better readability and structure on project and blog pages. Enhanced blog date formatting by introducing short and long date utility functions. Updated references and fixed workspace.xml comments for clarity and improved task management.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="24849000" />
+      <workItem from="1724325266420" duration="25191000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -196,7 +195,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724401578367</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Refactor project and blog pages, update date formatting.&#10;&#10;Reorganized markup for better readability and structure on project and blog pages. Enhanced blog date formatting by introducing short and long date utility functions. Updated references and fixed workspace.xml comments for clarity and improved task management.">
+      <option name="closed" value="true" />
+      <created>1724401677516</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1724401677516</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

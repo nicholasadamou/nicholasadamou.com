@@ -94,8 +94,12 @@ export default function Home() {
             <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
           </Link>
           <p className="max-w-lg text-tertiary">
-            I occasionally write about programming, productivity, and more.
-            Check me out and subscribe to stay up to date.
+            I occasionally share valuable insights on programming, productivity,
+            and a variety of other engaging topics. My blog features a range of
+            articles that delve into the latest trends, tips, and best practices
+            in these areas. I invite you to explore my latest posts and
+            discover the ideas and strategies that can help you enhance your
+            skills and boost your productivity.
           </p>
         </div>
         <PostList posts={blogs} />
