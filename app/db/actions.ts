@@ -6,9 +6,9 @@ export async function incrementViews(slug: string) {
 	try {
 		await sql`
       INSERT INTO blog_views (slug, count)
-      VALUES (${slug}, 1)
-      ON CONFLICT (slug)
-      DO UPDATE SET count = blog_views.count + 1
+			VALUES (${slug}, 1)
+			ON CONFLICT (slug)
+			DO UPDATE SET count = blog_views.count + EXCLUDED.count;
     `;
 		console.log(`Successfully incremented ${slug} by 1 view`);
 	} catch (error) {

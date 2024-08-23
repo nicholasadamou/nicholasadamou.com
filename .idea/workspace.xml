@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Add popover click handlers for improved UX&#10;&#10;Implemented useEffect to handle clicks outside the popover to close it. Added link click handlers to ensure the popover closes when internal links are clicked. This ensures a more seamless user experience when navigating the menu.">
-      <change afterPath="$PROJECT_DIR$/app/about/components/ListSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/about/data/Portfolio.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/about/data/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/about/types/ListItem.ts" afterDir="false" />
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Create ListSection component and organize data structure&#10;&#10;Added a new `ListSection` component to streamline list rendering. Moved `ConnectLinks` and `Resumes` to the `app/about/data` directory and created a new file for `Portfolio`. Updated `about/page.tsx` to utilize the new `ListSection` component, enhancing code modularity and maintainability.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/about/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/ConnectLinks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/about/data/ConnectLinks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/Resumes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/about/data/Resumes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/db/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/db/actions.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
-      <workItem from="1724325266420" duration="20108000" />
+      <workItem from="1724325266420" duration="20975000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -177,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724372519135</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Create ListSection component and organize data structure&#10;&#10;Added a new `ListSection` component to streamline list rendering. Moved `ConnectLinks` and `Resumes` to the `app/about/data` directory and created a new file for `Portfolio`. Updated `about/page.tsx` to utilize the new `ListSection` component, enhancing code modularity and maintainability.">
+      <option name="closed" value="true" />
+      <created>1724374145297</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724374145297</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,6 +197,7 @@
     <MESSAGE value="Format JSX, update content, and adjust workspace config&#10;&#10;This commit improves readability and consistency by formatting JSX and updating content in the `Home` component. Additionally, it adjusts the workspace configuration to ensure changes are accurately reflected. These enhancements contribute to cleaner code and better developer experience." />
     <MESSAGE value="Improve error handling and add logging&#10;&#10;Enhanced `incrementViews` and `getViewsCount` functions with try-catch blocks for better error handling. Added console logs for easier debugging and system monitoring. Updated `.idea/workspace.xml` to reflect new changes and improve code readability and configuration tracking." />
     <MESSAGE value="Add popover click handlers for improved UX&#10;&#10;Implemented useEffect to handle clicks outside the popover to close it. Added link click handlers to ensure the popover closes when internal links are clicked. This ensures a more seamless user experience when navigating the menu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add popover click handlers for improved UX&#10;&#10;Implemented useEffect to handle clicks outside the popover to close it. Added link click handlers to ensure the popover closes when internal links are clicked. This ensures a more seamless user experience when navigating the menu." />
+    <MESSAGE value="Create ListSection component and organize data structure&#10;&#10;Added a new `ListSection` component to streamline list rendering. Moved `ConnectLinks` and `Resumes` to the `app/about/data` directory and created a new file for `Portfolio`. Updated `about/page.tsx` to utilize the new `ListSection` component, enhancing code modularity and maintainability." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create ListSection component and organize data structure&#10;&#10;Added a new `ListSection` component to streamline list rendering. Moved `ConnectLinks` and `Resumes` to the `app/about/data` directory and created a new file for `Portfolio`. Updated `about/page.tsx` to utilize the new `ListSection` component, enhancing code modularity and maintainability." />
   </component>
 </project>
