@@ -2,8 +2,8 @@
 import { sql } from "@vercel/postgres";
 
 export async function incrementViews(slug: string) {
-	if (!process.env.POSTGRE_URL) {
-		console.log("No POSTGRE_URL found, skipping incrementViews");
+	if (!process.env.POSTGRES_URL) {
+		console.log("No POSTGRES_URL found, skipping incrementViews");
 		return;
 	}
 

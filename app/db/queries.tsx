@@ -5,8 +5,8 @@ export async function getViewsCount(): Promise<
 	{ slug: string; count: number }[]
 > {
 
-	if (!process.env.POSTGRE_URL) {
-		console.log("No POSTGRE_URL found, skipping getViewsCount");
+	if (!process.env.POSTGRES_URL) {
+		console.log("No POSTGRES_URL found, skipping getViewsCount");
 		return [];
 	}
 
