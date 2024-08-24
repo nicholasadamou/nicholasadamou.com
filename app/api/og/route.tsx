@@ -8,7 +8,7 @@ const baseUrl = getBaseUrl();
 export async function GET(req: NextRequest) {
 	const { searchParams } = req.nextUrl;
 
-	const postTitle = searchParams.get('title') || 'Default Title'; // Fallback title
+	const title = searchParams.get('title') || 'Default Title'; // Fallback title
 	const fontSize = searchParams.get('fontSize') || '64px'; // Optional font size
 
 	return new ImageResponse(
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
 						wordWrap: 'break-word', // Break words if necessary
 					}}
 				>
-					{postTitle}
+					{title}
 				</div>
 			</div>
 		),
