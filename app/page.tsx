@@ -49,18 +49,18 @@ export default function Home() {
           className="flex animate-in gap-3 text-sm"
           style={{ "--index": 2 } as React.CSSProperties}
         >
+					<Link
+						href="https://standardresume.co/r/nicholasadamou"
+						className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
+					>
+						Resume
+						<ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
+					</Link>
           <Link
             className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
             href="https://www.linkedin.com/in/nicholas-adamou/"
           >
             LinkedIn
-            <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
-          </Link>
-          <Link
-            href="https://standardresume.co/r/nicholasadamou"
-            className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
-          >
-            Resume
             <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
           </Link>
           <Link
