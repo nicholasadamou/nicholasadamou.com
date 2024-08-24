@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 	const { searchParams } = req.nextUrl;
 
 	const postTitle = searchParams.get('title') || 'Default Title'; // Fallback title
-	const fontSize = searchParams.get('fontSize') || '105px'; // Optional font size
+	const fontSize = searchParams.get('fontSize') || '64px'; // Optional font size
 
 	return new ImageResponse(
 		(
@@ -22,21 +22,26 @@ export async function GET(req: NextRequest) {
 					alignItems: 'flex-start',
 					justifyContent: 'center',
 					backgroundImage: `url(${baseUrl}/og-bg.png)`,
-					backgroundSize: 'cover',
+					backgroundSize: 'cover', // Use cover to fill the area
 				}}
 			>
 				<div
 					style={{
-						marginLeft: 120,
-						marginRight: 205,
-						marginBottom: 205,
+						position: 'absolute',
+						bottom: 20,
+						left: 40,
 						display: 'flex',
 						fontSize: fontSize,
 						letterSpacing: '-0.025em',
 						fontStyle: 'normal',
 						color: 'white',
-						lineHeight: '110px',
-						whiteSpace: 'pre-wrap',
+						lineHeight: '100px',
+						paddingRight: 50, // Add padding to prevent word from being cut off
+						whiteSpace: 'normal', // Allow wrapping
+						maxWidth: '95%', // Set a max width to prevent overflow
+						overflow: 'hidden', // Hide overflow
+						textOverflow: 'ellipsis', // Ellipsis for overflow
+						wordWrap: 'break-word', // Break words if necessary
 					}}
 				>
 					{postTitle}
