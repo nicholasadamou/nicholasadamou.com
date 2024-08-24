@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: baseUrl,
     images: [
       {
-        url: `${baseUrl}/api/og?title=nicholasadamou.com`,
+        url: `${baseUrl}/api/og?title=${encodeURI("Helping people make the world a better place through quality software")}.`,
         alt: "nicholasadamou.com",
       },
     ],

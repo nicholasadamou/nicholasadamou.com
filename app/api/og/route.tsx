@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
 						lineHeight: '100px',
 						paddingRight: 50, // Add padding to prevent word from being cut off
 						whiteSpace: 'normal', // Allow wrapping
-						maxWidth: '95%', // Set a max width to prevent overflow
+						maxWidth: '90%', // Set a max width to prevent overflow
 						overflow: 'hidden', // Hide overflow
 						textOverflow: 'ellipsis', // Ellipsis for overflow
 						wordWrap: 'break-word', // Break words if necessary
