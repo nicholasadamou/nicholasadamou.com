@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Rename variable for consistency in title retrieval&#10;&#10;Renamed 'postTitle' to 'title' to maintain consistency with the variable naming throughout the function. This enhances readability and ensures that the variable name directly reflects its usage.">
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/og/route.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/og/route.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/[slug]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +279,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724525130954</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability.">
+      <option name="closed" value="true" />
+      <created>1724525531306</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1724525531306</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +318,7 @@
     <MESSAGE value="Switch LinkedIn and Resume links&#10;&#10;Reversed the order of LinkedIn and Resume links on the page for better user navigation. Adjusted corresponding `href` attributes to reflect the correct URLs. Updated the workspace XML file to reflect changes in the task and configuration settings accordingly." />
     <MESSAGE value="Adjust OG Image route with improved CSS properties.&#10;&#10;Updated the ImageResponse component to better handle font size, text overflow, and positioning. Adjusted background styles and aligned text properties for improved display and readability. Updated workspace configuration to reflect these changes." />
     <MESSAGE value="Rename variable for consistency in title retrieval&#10;&#10;Renamed 'postTitle' to 'title' to maintain consistency with the variable naming throughout the function. This enhances readability and ensures that the variable name directly reflects its usage." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename variable for consistency in title retrieval&#10;&#10;Renamed 'postTitle' to 'title' to maintain consistency with the variable naming throughout the function. This enhances readability and ensures that the variable name directly reflects its usage." />
+    <MESSAGE value="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability." />
   </component>
 </project>
