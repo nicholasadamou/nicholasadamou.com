@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Refactor ThemeSwitcher and ThemeProvider components.&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed trailing comma in the ThemeProvider's themes array to align with linting rules.">
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes.">
       <change beforePath="$PROJECT_DIR$/app/components/ThemeSwitcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/ThemeSwitcher.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -359,14 +359,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724546389221</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes.">
+      <option name="closed" value="true" />
+      <created>1724546639616</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1724546639617</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add reading statistics to project and blog pages&#10;&#10;Included reading statistics directly on the project and blog pages for better visibility. Corrected JSX formatting and ensured consistent spacing in the code. Updated the workspace configuration to reflect these changes." />
     <MESSAGE value="Format JSX, update content, and adjust workspace config&#10;&#10;This commit improves readability and consistency by formatting JSX and updating content in the `Home` component. Additionally, it adjusts the workspace configuration to ensure changes are accurately reflected. These enhancements contribute to cleaner code and better developer experience." />
     <MESSAGE value="Improve error handling and add logging&#10;&#10;Enhanced `incrementViews` and `getViewsCount` functions with try-catch blocks for better error handling. Added console logs for easier debugging and system monitoring. Updated `.idea/workspace.xml` to reflect new changes and improve code readability and configuration tracking." />
     <MESSAGE value="Add popover click handlers for improved UX&#10;&#10;Implemented useEffect to handle clicks outside the popover to close it. Added link click handlers to ensure the popover closes when internal links are clicked. This ensures a more seamless user experience when navigating the menu." />
@@ -391,6 +398,7 @@
     <MESSAGE value="Refactor import order and update 404 page text.&#10;&#10;Reordered import statements in `page.tsx` for consistency. Edited the 404 page text for clarity and user-friendliness. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
     <MESSAGE value="Refactor import order and update 404 page text.&#10;&#10;Reordered import statements in `page.tsx` for consistency and edited the 404 page text for clarity and user-friendliness. Also updated the IntelliJ IDEA workspace configuration to reflect these changes." />
     <MESSAGE value="Refactor ThemeSwitcher and ThemeProvider components.&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed trailing comma in the ThemeProvider's themes array to align with linting rules." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor ThemeSwitcher and ThemeProvider components.&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed trailing comma in the ThemeProvider's themes array to align with linting rules." />
+    <MESSAGE value="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
   </component>
 </project>
