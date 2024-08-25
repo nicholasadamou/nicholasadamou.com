@@ -1,4 +1,4 @@
-import { allProjects } from "contentlayer/generated";
+import { allBlogs, allProjects } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 
@@ -8,6 +8,44 @@ import Mdx from "@/app/blog/components/MdxWrapper";
 import Me from "@/public/avatar.png";
 import React from "react";
 import Image from "next/image";
+import type { Metadata } from "next";
+import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+
+const baseUrl = getBaseUrl();
+
+type Props = {
+	params: {
+		slug: string;
+		id: string;
+	};
+	searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const project = allBlogs.find((blog: { slug: string }) => blog.slug === params.slug);
+
+	if (!project) {
+		notFound();
+	}
+
+	const { title, date: publishedTime, summary: description, image, slug } = project;
+
+	const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image)}&type=project`;
+
+	return {
+		metadataBase: new URL(baseUrl),
+		title: `${title} | Nicholas Adamou`,
+		description,
+		openGraph: {
+			title: `${title} | Nicholas Adamou`,
+			description,
+			type: "article",
+			publishedTime,
+			url: `${baseUrl}/projects/${slug}`,
+			images: [{url: ogImage, alt: title}],
+		},
+	};
+}
 
 export default function Project({ params }: { params: any }) {
   const project = allProjects.find((project) => project.slug === params.slug);
