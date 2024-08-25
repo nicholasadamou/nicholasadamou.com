@@ -14,37 +14,45 @@ import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 const baseUrl = getBaseUrl();
 
 type Props = {
-	params: {
-		slug: string;
-		id: string;
-	};
-	searchParams: { [key: string]: string | string[] | undefined };
+  params: {
+    slug: string;
+    id: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const project = allProjects.find((blog: { slug: string }) => blog.slug === params.slug);
+  const project = allProjects.find(
+    (blog: { slug: string }) => blog.slug === params.slug,
+  );
 
-	if (!project) {
-		notFound();
-	}
+  if (!project) {
+    notFound();
+  }
 
-	const { title, date: publishedTime, summary: description, image, slug } = project;
+  const {
+    title,
+    date: publishedTime,
+    summary: description,
+    image,
+    slug,
+  } = project;
 
-	const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image)}&type=project`;
+  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image)}&description=${encodeURIComponent(description)}&type=project`;
 
-	return {
-		metadataBase: new URL(baseUrl),
-		title: `${title} | Nicholas Adamou`,
-		description,
-		openGraph: {
-			title: `${title} | Nicholas Adamou`,
-			description,
-			type: "article",
-			publishedTime,
-			url: `${baseUrl}/projects/${slug}`,
-			images: [{url: ogImage, alt: title}],
-		},
-	};
+  return {
+    metadataBase: new URL(baseUrl),
+    title: `${title} | Nicholas Adamou`,
+    description,
+    openGraph: {
+      title: `${title} | Nicholas Adamou`,
+      description,
+      type: "article",
+      publishedTime,
+      url: `${baseUrl}/projects/${slug}`,
+      images: [{ url: ogImage, alt: title }],
+    },
+  };
 }
 
 export default function Project({ params }: { params: any }) {
@@ -54,74 +62,76 @@ export default function Project({ params }: { params: any }) {
     notFound();
   }
 
-	const readingStats = readingTime(project.body.raw);
+  const readingStats = readingTime(project.body.raw);
 
   return (
-		<div className="flex flex-col gap-12">
-			<article>
-				<div className="flex flex-col gap-8">
-					<div className="flex max-w-xl flex-col gap-4 text-pretty">
-						<h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
-							{project.title}
-						</h1>
-						<p className="text-secondary">
-							{project.longSummary || project.summary}
-						</p>
-						<Link underline href={project.url || ""}>
-							Visit Project
-						</Link>
-					</div>
-					<div className="flex max-w-none items-center gap-4">
-						<Avatar src={Me} initials="br" size="sm" />
-						<div className="leading-tight">
-							<p>Nicholas Adamou</p>
-							<p className="text-secondary">
-								<time dateTime={project.date}>{project.date}</time>
-								{" · "}
-								{readingStats.text}
-							</p>
-						</div>
-					</div>
-				</div>
-				<div className="h-16" />
-				<div className="project prose prose-neutral">
-					<Mdx code={project.body.code} />
-				</div>
-			</article>
-			<h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-primary">
-				If you liked this project.
-				<p className="mt-1 text-secondary">You will love these ones as well.</p>
-			</h2>
-			<div className="flex flex-wrap md:w-[1000px] w-[100%] md:gap-5 gap-8">
-				{allProjects
-					.filter((p) => p.slug !== project.slug)
-					.slice(0, 2)
-					.map((project) => {
-						const { title, image, summary, slug } = project;
-						const readingStats = readingTime(project.body.raw);
+    <div className="flex flex-col gap-12">
+      <article>
+        <div className="flex flex-col gap-8">
+          <div className="flex max-w-xl flex-col gap-4 text-pretty">
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
+              {project.title}
+            </h1>
+            <p className="text-secondary">
+              {project.longSummary || project.summary}
+            </p>
+            <Link underline href={project.url || ""}>
+              Visit Project
+            </Link>
+          </div>
+          <div className="flex max-w-none items-center gap-4">
+            <Avatar src={Me} initials="br" size="sm" />
+            <div className="leading-tight">
+              <p>Nicholas Adamou</p>
+              <p className="text-secondary">
+                <time dateTime={project.date}>{project.date}</time>
+                {" · "}
+                {readingStats.text}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="h-16" />
+        <div className="project prose prose-neutral">
+          <Mdx code={project.body.code} />
+        </div>
+      </article>
+      <h2 className="text-xl font-bold leading-tight tracking-tight text-primary md:text-2xl">
+        If you liked this project.
+        <p className="mt-1 text-secondary">You will love these ones as well.</p>
+      </h2>
+      <div className="flex w-[100%] flex-wrap gap-8 md:w-[1000px] md:gap-5">
+        {allProjects
+          .filter((p) => p.slug !== project.slug)
+          .slice(0, 2)
+          .map((project) => {
+            const { title, image, summary, slug } = project;
+            const readingStats = readingTime(project.body.raw);
 
-						return (
-							<a
-								key={slug}
-								href={`/projects/${slug}`}
-								className="flex flex-col gap-2 w-full md:w-1/3"
-							>
-								<div className="relative h-[300px] md:h-[200px] overflow-hidden rounded-lg">
-									<Image
-										src={image}
-										alt={`${title} project image`}
-										fill
-										className="rounded-lg object-cover"
-										priority
-										sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-									/>
-								</div>
-								<p className="text-md md:text-xl font-bold leading-tight tracking-tight text-primary">{title} — {readingStats.text}</p>
-								<p className="text-secondary">{summary}</p>
-							</a>
-						)
-					})}
-			</div>
-		</div>
-	);
+            return (
+              <a
+                key={slug}
+                href={`/projects/${slug}`}
+                className="flex w-full flex-col gap-2 md:w-1/3"
+              >
+                <div className="relative h-[300px] overflow-hidden rounded-lg md:h-[200px]">
+                  <Image
+                    src={image}
+                    alt={`${title} project image`}
+                    fill
+                    className="rounded-lg object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
+                  />
+                </div>
+                <p className="text-md font-bold leading-tight tracking-tight text-primary md:text-xl">
+                  {title} — {readingStats.text}
+                </p>
+                <p className="text-secondary">{summary}</p>
+              </a>
+            );
+          })}
+      </div>
+    </div>
+  );
 }
