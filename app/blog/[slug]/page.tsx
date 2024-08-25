@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import Image from "next/image";
 import {notFound} from "next/navigation";
 import type {Metadata} from "next";
@@ -157,7 +158,8 @@ async function Views({ slug }: Readonly<{ slug: string }>) {
 	let blogViews = await getViewsCount();
 	const viewsForBlog = blogViews.find((view) => view.slug === slug);
 
-	await incrementViews(slug);
+	const reqHeaders = headers();
+	await incrementViews(slug, reqHeaders);
 
 	return (
 		<span>
