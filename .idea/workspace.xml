@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes.">
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Fix typo in homepage OG image URL&#10;&#10;Removed an extraneous period in the OG image URL query string. This ensures the URL is correctly formatted and the image is displayed properly on social media platforms.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/og/route.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/og/route.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/projects/chatgpt-scraper/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/projects/chatgpt-scraper/image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/projects/guardrails/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/projects/guardrails/image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/projects/set-me-up/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/projects/set-me-up/image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/components/PostList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/components/PostList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,16 +369,29 @@
       <option name="project" value="LOCAL" />
       <updated>1724546639617</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Update metadata handling and OG image formatting&#10;&#10;Enhanced project metadata generation to include descriptions and refined OG image formatting for better display. Additionally, made visual adjustments to project pages for improved readability and fixed minor formatting issues.">
+      <option name="closed" value="true" />
+      <created>1724551030469</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1724551030469</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Fix typo in homepage OG image URL&#10;&#10;Removed an extraneous period in the OG image URL query string. This ensures the URL is correctly formatted and the image is displayed properly on social media platforms.">
+      <option name="closed" value="true" />
+      <created>1724551297340</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1724551297340</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Format JSX, update content, and adjust workspace config&#10;&#10;This commit improves readability and consistency by formatting JSX and updating content in the `Home` component. Additionally, it adjusts the workspace configuration to ensure changes are accurately reflected. These enhancements contribute to cleaner code and better developer experience." />
-    <MESSAGE value="Improve error handling and add logging&#10;&#10;Enhanced `incrementViews` and `getViewsCount` functions with try-catch blocks for better error handling. Added console logs for easier debugging and system monitoring. Updated `.idea/workspace.xml` to reflect new changes and improve code readability and configuration tracking." />
-    <MESSAGE value="Add popover click handlers for improved UX&#10;&#10;Implemented useEffect to handle clicks outside the popover to close it. Added link click handlers to ensure the popover closes when internal links are clicked. This ensures a more seamless user experience when navigating the menu." />
     <MESSAGE value="Create ListSection component and organize data structure&#10;&#10;Added a new `ListSection` component to streamline list rendering. Moved `ConnectLinks` and `Resumes` to the `app/about/data` directory and created a new file for `Portfolio`. Updated `about/page.tsx` to utilize the new `ListSection` component, enhancing code modularity and maintainability." />
     <MESSAGE value="Fix blog_views increment logic and clean up workspace config&#10;&#10;Corrected the SQL query for incrementing blog views by using `EXCLUDED.count`. Additionally, cleaned up the workspace.xml file by updating task summaries and removing redundant entries. This improves both the database operation and the project configuration management." />
     <MESSAGE value="Refactor project and blog pages, update date formatting.&#10;&#10;Reorganized markup for better readability and structure on project and blog pages. Enhanced blog date formatting by introducing short and long date utility functions. Updated references and fixed workspace.xml comments for clarity and improved task management." />
@@ -404,6 +414,9 @@
     <MESSAGE value="Refactor import order and update 404 page text.&#10;&#10;Reordered import statements in `page.tsx` for consistency and edited the 404 page text for clarity and user-friendliness. Also updated the IntelliJ IDEA workspace configuration to reflect these changes." />
     <MESSAGE value="Refactor ThemeSwitcher and ThemeProvider components.&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed trailing comma in the ThemeProvider's themes array to align with linting rules." />
     <MESSAGE value="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor ThemeSwitcher and ThemeProvider components&#10;&#10;Consolidated import statements in ThemeSwitcher and updated JSX structure to include border styling and system support. Removed a trailing comma in ThemeProvider's themes array to comply with linting rules. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
+    <MESSAGE value="Update RSS and Sitemap XML files&#10;&#10;Removed outdated RSS and sitemap XML files and replaced them with updated versions. The new RSS file omits individual blog items, and the updated sitemap reflects current project URLs." />
+    <MESSAGE value="Update metadata handling and OG image formatting&#10;&#10;Enhanced project metadata generation to include descriptions and refined OG image formatting for better display. Additionally, made visual adjustments to project pages for improved readability and fixed minor formatting issues." />
+    <MESSAGE value="Fix typo in homepage OG image URL&#10;&#10;Removed an extraneous period in the OG image URL query string. This ensures the URL is correctly formatted and the image is displayed properly on social media platforms." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix typo in homepage OG image URL&#10;&#10;Removed an extraneous period in the OG image URL query string. This ensures the URL is correctly formatted and the image is displayed properly on social media platforms." />
   </component>
 </project>
