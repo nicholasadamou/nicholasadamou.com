@@ -37,7 +37,7 @@ export default function Avatar({
 					src={src}
 					alt={alt || ""}
 					fill
-					sizes={sizes} // Add the sizes prop here
+					sizes={sizes}
 					className="object-cover"
 				/>
 			)}
