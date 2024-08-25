@@ -12,7 +12,7 @@ import ibmLogo from "public/work/ibm-logo.svg";
 import arizona from "public/gallery/arizona.jpg";
 import lakePlacid from "public/gallery/lake-placid.jpg";
 
-import { ConnectLinks, Resumes, Certificates } from "@/app/about/data";
+import { Certificates, ConnectLinks, Resumes } from "@/app/about/data";
 
 export const metadata: Metadata = {
   title: "About | Nicholas Adamou",
@@ -105,12 +105,8 @@ export default function About() {
                 Cornell College
               </Link>
               . My career is marked by a commitment to leveraging software
-              engineering to create meaningful impact. I have a{" "}
-							<Link
-								className="underline"
-								href="https://bit.ly/nicholas-adamou-portfolio"
-							>proven track record
-							</Link>{" "} of delivering high-quality software solutions that meet the
+              engineering to create meaningful impact. I have a proven track
+              record of delivering high-quality software solutions that meet the
               needs of users and stakeholders. I am a strong advocate for
               user-centered design and am passionate about creating
               well-designed products that are intuitive and easy to use.
@@ -120,7 +116,7 @@ export default function About() {
 
         <ListSection heading="Connect" items={ConnectLinks} />
         <ListSection heading="Resumes" items={Resumes} />
-				<ListSection heading="Certificates" items={Certificates} />
+        <ListSection heading="Certificates" items={Certificates} />
 
         <Section heading="Work" headingAlignment="left">
           <div className="flex w-full flex-col gap-8">

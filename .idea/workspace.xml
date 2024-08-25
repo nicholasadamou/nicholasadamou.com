@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/og/route.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/og/route.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/blog/components/PostList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/blog/components/PostList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/blog/dfi-service.mdx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/blog/ibm-secrets-updater-tool.mdx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/blog/integrating-e2e-ui-testing.mdx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/blog/dfi-service/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/blog/ibm-secrets-updater-tool/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/blog/integrating-e2e-ui-testing/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/og-bg.png" beforeDir="false" />
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience.">
+      <change beforePath="$PROJECT_DIR$/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/about/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,12 +43,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feature/og" />
-                    <option name="lastUsedInstant" value="1724532210" />
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1724544266" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1724532209" />
+                    <option name="branchName" value="feature/og" />
+                    <option name="lastUsedInstant" value="1724532210" />
                   </RecentBranch>
                 </list>
               </option>
@@ -70,12 +59,12 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/nicholasadamou/nicholasadamou.com.git",
-    "accountId": "511018a2-483e-4eb3-ba66-bd342b51abd0"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/nicholasadamou/nicholasadamou.com.git&quot;,
+    &quot;accountId&quot;: &quot;511018a2-483e-4eb3-ba66-bd342b51abd0&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -88,7 +77,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "feature/og",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -329,15 +318,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724525531306</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience.">
+      <option name="closed" value="true" />
+      <created>1724544107158</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1724544107158</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings." />
-    <MESSAGE value="Add IntelliJ IDEA project configuration files&#10;&#10;Introduced several .idea XML files for project-specific settings, code styles, and inspection profiles. Updated README to reflect the correct repository name and deployment link." />
     <MESSAGE value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
     <MESSAGE value="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation." />
     <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, &#10;newsletter signup, ConvertKit API routes, and tag component. Updated &#10;project page layout and configuration. Added robots.txt and sitemap.xml &#10;for SEO." />
@@ -361,6 +356,8 @@
     <MESSAGE value="Adjust OG Image route with improved CSS properties.&#10;&#10;Updated the ImageResponse component to better handle font size, text overflow, and positioning. Adjusted background styles and aligned text properties for improved display and readability. Updated workspace configuration to reflect these changes." />
     <MESSAGE value="Rename variable for consistency in title retrieval&#10;&#10;Renamed 'postTitle' to 'title' to maintain consistency with the variable naming throughout the function. This enhances readability and ensures that the variable name directly reflects its usage." />
     <MESSAGE value="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability." />
+    <MESSAGE value="Remove blog posts and update site text&#10;&#10;Deleted content for IBM DFI Service, Secrets Updater Tool, and E2E UI Testing blog posts. Updated home page description and post list message for a more engaging user experience. These changes streamline the site's focus and improve content freshness." />
+    <MESSAGE value="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience." />
   </component>
 </project>
