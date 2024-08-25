@@ -1,4 +1,4 @@
-import { allBlogs, allProjects } from "contentlayer/generated";
+import { allProjects } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 
@@ -22,7 +22,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const project = allBlogs.find((blog: { slug: string }) => blog.slug === params.slug);
+	const project = allProjects.find((blog: { slug: string }) => blog.slug === params.slug);
 
 	if (!project) {
 		notFound();

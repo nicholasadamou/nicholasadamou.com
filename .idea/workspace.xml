@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience.">
-      <change beforePath="$PROJECT_DIR$/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/about/page.tsx" afterDir="false" />
+    <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Refactor import order and clean up text alignment&#10;&#10;Reordered imported components in page.tsx for consistency. Removed unnecessary hyperlink markup and corrected text alignment issues. Updated IntelliJ IDEA workspace configuration to reflect these changes.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,28 +74,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "ts.external.directory.path": "/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/nicholas/Documents/GitHub/github.com/nicholasadamou/nicholasadamou.com/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/about/data" />
@@ -104,7 +105,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-WS-242.20224.426" />
       </set>
     </attachedChunks>
   </component>
@@ -117,6 +118,7 @@
       <option name="presentableId" value="Default" />
       <updated>1724325265362</updated>
       <workItem from="1724325266420" duration="30488000" />
+      <workItem from="1724544584641" duration="499000" />
     </task>
     <task id="LOCAL-00001" summary="Remove unnecessary IntelliJ IDEA configuration files&#10;&#10;Deleted several IntelliJ IDEA project configuration files that are not needed for this project. This will help reduce clutter and avoid potential merge conflicts related to IDE-specific settings.">
       <option name="closed" value="true" />
@@ -326,14 +328,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724544107158</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Refactor import order and clean up text alignment&#10;&#10;Reordered imported components in page.tsx for consistency. Removed unnecessary hyperlink markup and corrected text alignment issues. Updated IntelliJ IDEA workspace configuration to reflect these changes.">
+      <option name="closed" value="true" />
+      <created>1724544358746</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1724544358746</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update deployment URLs and improve IntelliJ config&#10;&#10;Changed deployment URL from vercel.app to nicholasadamou.com in getBaseUrl.ts and layout.tsx. Enhanced IntelliJ IDEA project configuration by adding selective auto-reload and updated various XML settings. Standardized references in project and blog content for consistency." />
     <MESSAGE value="Add RSS feed generation and update dependencies&#10;&#10;Introduced `generate-rss.js` to automatically generate an RSS feed for blog posts. Integrated `rss` and `gray-matter` packages to handle RSS feed and markdown parsing, respectively. Updated layout to include a link to the RSS feed and modified the build script to run the RSS generation." />
     <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, &#10;newsletter signup, ConvertKit API routes, and tag component. Updated &#10;project page layout and configuration. Added robots.txt and sitemap.xml &#10;for SEO." />
     <MESSAGE value="Remove unused assets and redundant files&#10;&#10;Deleted unnecessary files including font, RSS generator, middleware, newsletter signup, ConvertKit API routes, and tag component. Updated project page layout and configuration. Added robots.txt and sitemap.xml for improved SEO." />
@@ -358,6 +367,7 @@
     <MESSAGE value="Update OG Image URL and adjust CSS properties&#10;&#10;Reduced max-width to 90% in the OG Image route to prevent overflow and changed the title query to a descriptive string. Updated workspace configurations to reflect these changes for better maintainability." />
     <MESSAGE value="Remove blog posts and update site text&#10;&#10;Deleted content for IBM DFI Service, Secrets Updater Tool, and E2E UI Testing blog posts. Updated home page description and post list message for a more engaging user experience. These changes streamline the site's focus and improve content freshness." />
     <MESSAGE value="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove unused blog posts and update UI text&#10;&#10;Deleted outdated blog posts to streamline content management. Updated homepage title for clearer messaging and adjusted &quot;No posts found&quot; text to &quot;Posts coming soon&quot; for better user experience." />
+    <MESSAGE value="Refactor import order and clean up text alignment&#10;&#10;Reordered imported components in page.tsx for consistency. Removed unnecessary hyperlink markup and corrected text alignment issues. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor import order and clean up text alignment&#10;&#10;Reordered imported components in page.tsx for consistency. Removed unnecessary hyperlink markup and corrected text alignment issues. Updated IntelliJ IDEA workspace configuration to reflect these changes." />
   </component>
 </project>
