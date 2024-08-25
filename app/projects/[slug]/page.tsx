@@ -80,7 +80,7 @@ export default function Project({ params }: { params: any }) {
             </Link>
           </div>
           <div className="flex max-w-none items-center gap-4">
-            <Avatar src={Me} initials="br" size="sm" />
+            <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
               <p>Nicholas Adamou</p>
               <p className="text-secondary">
