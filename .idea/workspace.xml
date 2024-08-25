@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3598b17d-2e94-448f-a979-5cd6c488c154" name="Changes" comment="Refactor import order and update 404 page text.&#10;&#10;Reordered import statements in `page.tsx` for consistency. Edited the 404 page text for clarity and user-friendliness. Updated IntelliJ IDEA workspace configuration to reflect these changes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/not-found.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/ThemeProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/ThemeProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/ThemeSwitcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/ThemeSwitcher.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
