@@ -100,7 +100,7 @@ export default function Project({ params }: { params: any }) {
         If you liked this project.
         <p className="mt-1 text-secondary">You will love these ones as well.</p>
       </h2>
-      <div className="flex w-[100%] flex-wrap gap-8 md:w-[1000px] md:gap-5">
+      <div className="flex flex-wrap gap-8 md:gap-5 max-w-fit">
         {allProjects
           .filter((p) => p.slug !== project.slug)
           .slice(0, 2)
@@ -112,7 +112,7 @@ export default function Project({ params }: { params: any }) {
               <a
                 key={slug}
                 href={`/projects/${slug}`}
-                className="flex w-full flex-col gap-2 md:w-1/3"
+                className="flex w-full flex-col gap-2 md:w-1/3 md:flex-1"
               >
                 <div className="relative h-[300px] overflow-hidden rounded-lg md:h-[200px]">
                   <Image
