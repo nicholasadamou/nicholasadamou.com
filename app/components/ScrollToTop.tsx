@@ -43,9 +43,9 @@ export const ScrollToTop = () => {
 							'inline-flex items-center rounded-full p-2 shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 backdrop-blur-md backdrop-filter',
 							'block lg:hidden'
 						)}
-						initial={{ opacity: 0, scale: 0.8 }}
-						animate={{ opacity: 0.7, scale: 1 }}
-						exit={{ opacity: 0, scale: 0.8 }}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 0.7 }}
+						exit={{ opacity: 0 }}
 						transition={{ duration: 0.3 }}
 					>
 						<ArrowUpIcon className="h-5 w-5" aria-hidden="true" />
