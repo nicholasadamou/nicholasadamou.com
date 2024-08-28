@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 const links = [
 	{ label: "About", href: "/about" },
 	{ label: "Notes", href: "/notes" },
-	{ label: "Work With Me", href: "/work-with-me" },
+	{ label: "Work With Me", href: "/hire" },
 ];
 
 export default function Navigation() {
