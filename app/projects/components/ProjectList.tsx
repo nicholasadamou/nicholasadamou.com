@@ -10,7 +10,7 @@ type ProjectListProps = {
 
 export default function ProjectList({ projects }: ProjectListProps) {
   return (
-    <ul className="animated-list flex snap-x snap-mandatory grid-cols-2 flex-nowrap gap-9 overflow-x-scroll md:grid md:overflow-auto">
+    <ul className="animated-list flex snap-x snap-mandatory grid-cols-2 flex-nowrap gap-5 overflow-x-scroll md:grid md:overflow-auto">
       {projects.map((project) => (
         <li
           key={project.slug}

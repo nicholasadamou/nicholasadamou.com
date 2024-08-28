@@ -16,6 +16,7 @@ import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import React from "react";
 import Head from "next/head";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
+import Footer from "@/app/components/Footer";
 
 const baseUrl = getBaseUrl();
 
@@ -54,10 +55,11 @@ export default function RootLayout({
       <body className="width-full bg-contrast text-primary antialiased dark:bg-primary">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
-          <div className="mx-auto max-w-[700px] px-6 pb-24 pt-16 md:px-6 md:pb-44 md:pt-20">
+          <main className="mx-auto w-full px-6 pb-24 pt-32 md:px-6 md:pt-40">
             {children}
-          </div>
-					<ScrollToTop />
+          </main>
+          {/*<Footer />*/}
+          <ScrollToTop />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

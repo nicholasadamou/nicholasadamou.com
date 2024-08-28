@@ -4,10 +4,10 @@ import {notFound} from "next/navigation";
 import type {Metadata} from "next";
 import readingTime from "reading-time";
 
-import {allBlogs} from "contentlayer/generated";
+import {allNotes} from "contentlayer/generated";
 
 import Avatar from "@/app/components/Avatar";
-import Mdx from "@/app/blog/components/MdxWrapper";
+import Mdx from "@/app/notes/components/MdxWrapper";
 import FlipNumber from "@/app/components/FlipNumber";
 import Link from "@/app/components/Link";
 import Me from "@/public/avatar.png";
@@ -30,7 +30,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const blog = allBlogs.find((blog: { slug: string }) => blog.slug === params.slug);
+	const blog = allNotes.find((blog: { slug: string }) => blog.slug === params.slug);
 
 	if (!blog) {
 		notFound();
@@ -49,58 +49,58 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			description,
 			type: "article",
 			publishedTime,
-			url: `${baseUrl}/blog/${slug}`,
+			url: `${baseUrl}/notes/${slug}`,
 			images: [{url: ogImage, alt: title}],
 		},
 	};
 }
 
-export default async function Blog({ params }: Readonly<{ params: any }>) {
-  const blog = allBlogs.find((blog: { slug: any; }) => blog.slug === params.slug);
+export default async function Note({ params }: Readonly<{ params: any }>) {
+  const note = allNotes.find((blog: { slug: any; }) => blog.slug === params.slug);
 
-  if (!blog) {
+  if (!note) {
     notFound();
   }
 
-	const readingStats = readingTime(blog.body.raw);
+	const readingStats = readingTime(note.body.raw);
 
   return (
-		<div className="flex flex-col gap-12">
+		<div className="flex flex-col gap-12 px-4 max-w-[700px] mx-auto">
 			<article>
 				<div className="flex flex-col gap-8">
-					<Link href="/blog" underline>
-						← Back to Overview
+					<Link href="/notes" underline>
+						← Back to Notes
 					</Link>
 					<div className="flex max-w-xl flex-col gap-4 text-pretty">
 						<h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
-							{blog.title}
+							{note.title}
 						</h1>
-						<p className="text-secondary">{blog.summary}</p>
+						<p className="text-secondary">{note.summary}</p>
 					</div>
 					<div className="flex max-w-none items-center gap-4">
 						<Avatar src={Me} initials="na" size="sm" />
 						<div className="leading-tight">
 							<p>Nicholas Adamou</p>
 							<p className="text-secondary">
-								<time dateTime={blog.date}>{formatShortDate(blog.date)}</time>
-								{blog.updatedAt
-									? `(Updated ${formatShortDate(blog.updatedAt)})`
+								<time dateTime={note.date}>{formatShortDate(note.date)}</time>
+								{note.updatedAt
+									? `(Updated ${formatShortDate(note.updatedAt)})`
 									: ""}
 								{" · "}
 								{readingStats.text}
 								{" · "}
-								<Views slug={blog.slug} />
+								<Views slug={note.slug} />
 							</p>
 						</div>
 					</div>
 				</div>
-				{blog.image && (
+				{note.image && (
 					<>
 						<div className="h-8" />
 						<div className="relative h-[350px] overflow-hidden">
 							<Image
-								src={blog.image}
-								alt={`${blog.title} blog image`}
+								src={note.image}
+								alt={`${note.title} blog image`}
 								fill
 								className="rounded-lg object-cover"
 								priority
@@ -111,16 +111,16 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
 				)}
 				<div className="h-16" />
 				<div className="prose prose-neutral text-pretty">
-					<Mdx code={blog.body.code} />
+					<Mdx code={note.body.code} />
 				</div>
 			</article>
 			<h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-primary">
-				If you found this article helpful.
+				If you found this note helpful.
 				<p className="mt-1 text-secondary">You will love these ones as well.</p>
 			</h2>
 			<div className="flex flex-wrap md:w-[1000px] w-[100%] md:gap-5 gap-8">
-				{allBlogs
-					.filter((b) => b.slug !== blog.slug)
+				{allNotes
+					.filter((b) => b.slug !== note.slug)
 					.slice(0, 2)
 					.map((blog) => {
 						const { title, date, image, slug } = blog;
@@ -155,16 +155,16 @@ export default async function Blog({ params }: Readonly<{ params: any }>) {
 }
 
 async function Views({ slug }: Readonly<{ slug: string }>) {
-	let blogViews = await getViewsCount();
-	const viewsForBlog = blogViews.find((view) => view.slug === slug);
+	let noteViews = await getViewsCount();
+	const viewsForNotes = noteViews.find((view) => view.slug === slug);
 
 	const reqHeaders = headers();
 	await incrementViews(slug, reqHeaders);
 
 	return (
 		<span>
-      <FlipNumber>{viewsForBlog?.count ?? 0}</FlipNumber>
-			{viewsForBlog?.count === 1 ? " view" : " views"}
+      <FlipNumber>{viewsForNotes?.count ?? 0}</FlipNumber>
+			{viewsForNotes?.count === 1 ? " view" : " views"}
     </span>
 	);
 }

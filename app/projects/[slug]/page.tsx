@@ -4,7 +4,7 @@ import readingTime from "reading-time";
 
 import Avatar from "@/app/components/Avatar";
 import Link from "@/app/components/Link";
-import Mdx from "@/app/blog/components/MdxWrapper";
+import Mdx from "@/app/notes/components/MdxWrapper";
 import Me from "@/public/avatar.png";
 import React from "react";
 import Image from "next/image";
@@ -65,7 +65,7 @@ export default function Project({ params }: { params: any }) {
   const readingStats = readingTime(project.body.raw);
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 px-4 max-w-[700px] mx-auto">
       <article>
         <div className="flex flex-col gap-8">
           <div className="flex max-w-xl flex-col gap-4 text-pretty">

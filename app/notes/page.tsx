@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { allBlogs } from "contentlayer/generated";
-import PostList from "@/app/blog/components/PostList";
+import { allNotes } from "contentlayer/generated";
+import PostList from "@/app/notes/components/PostList";
 import React from "react";
 
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
@@ -8,21 +8,21 @@ import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
-  title: "Blog | Nicholas Adamou",
+  title: "Notes | Nicholas Adamou",
   description:
     "I write about programming, design, and occasionally life updates!",
   openGraph: {
-    title: "Blog | Nicholas Adamou",
+    title: "Notes | Nicholas Adamou",
     description:
       "I write about programming, design, and occasionally life updates!",
     type: "website",
-    url: `https://${baseUrl}/blog/Blog`,
-    images: [{ url: `https://${baseUrl}/api/og?title=Blog`, alt: "Blog" }],
+    url: `https://${baseUrl}/blog`,
+    images: [{ url: `https://${baseUrl}/api/og?title=Notes`, alt: "Notes" }],
   },
 };
 
-export default function BlogPage() {
-  const blogs = allBlogs.sort(
+export default function NotesPage() {
+  const notes = allNotes.sort(
     (
       a: { date: string | number | Date },
       b: {
@@ -32,17 +32,17 @@ export default function BlogPage() {
   );
 
   return (
-    <div className="flex flex-col gap-16 md:gap-24">
+    <div className="flex flex-col gap-16 md:gap-24 px-4 max-w-[700px] mx-auto">
       <div className="flex flex-col gap-8">
 				<div>
-					<h1 className="animate-in text-3xl font-bold tracking-tight">Blog</h1>
+					<h1 className="animate-in text-3xl font-bold tracking-tight">Notes</h1>
 					<p
 						className="mt-5 animate-in text-secondary"
 						style={{ "--index": 1 } as React.CSSProperties}
 					>
 						While I don’t write on a regular basis, I find great value in
 						sharing my insights and learnings whenever the opportunity arises.
-						Each post reflects my thoughts and experiences, and I hope they
+						Each note reflects my thoughts and experiences, and I hope they
 						resonate with others.
 					</p>
 				</div>
@@ -51,12 +51,8 @@ export default function BlogPage() {
 				className="animate-in"
 				style={{ "--index": 2 } as React.CSSProperties}
 			>
-				<PostList posts={blogs} />
+				<PostList posts={notes} />
 			</div>
-			<div
-				className="animate-in"
-				style={{ "--index": 3 } as React.CSSProperties}
-			></div>
 		</div>
 	);
 }

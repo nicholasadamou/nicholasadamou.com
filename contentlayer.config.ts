@@ -7,7 +7,7 @@ import rehypeSlug from "rehype-slug";
 
 const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
 
-const blogComputedFields: ComputedFields = {
+const noteComputedFields: ComputedFields = {
 	slug: {
 		type: "string",
 		resolve: (doc) => getSlug(doc),
@@ -18,11 +18,11 @@ const blogComputedFields: ComputedFields = {
 			const imagePath = path.join(
 				process.cwd(),
 				"public",
-				"blog",
+				"notes",
 				`${getSlug(doc)}/image.png`,
 			);
 			return fs.existsSync(imagePath)
-				? `/blog/${getSlug(doc)}/image.png`
+				? `/notes/${getSlug(doc)}/image.png`
 				: null;
 		},
 	},
@@ -32,9 +32,9 @@ const blogComputedFields: ComputedFields = {
 	},
 };
 
-export const Blog = defineDocumentType(() => ({
-	name: "Blog",
-	filePathPattern: `blog/**/*.mdx`,
+export const Notes = defineDocumentType(() => ({
+	name: "Notes",
+	filePathPattern: `notes/**/*.mdx`,
 	contentType: "mdx",
 	fields: {
 		title: {type: "string", required: true},
@@ -42,7 +42,7 @@ export const Blog = defineDocumentType(() => ({
 		date: {type: "string", required: true},
 		updatedAt: {type: "string", required: false},
 	},
-	computedFields: blogComputedFields,
+	computedFields: noteComputedFields,
 }));
 
 const projectComputedFields: ComputedFields = {
@@ -72,7 +72,7 @@ export const Project = defineDocumentType(() => ({
 
 export default makeSource({
 	contentDirPath: "content",
-	documentTypes: [Blog, Project],
+	documentTypes: [Notes, Project],
 	mdx: {
 		rehypePlugins: [rehypePrism, rehypeSlug],
 	},

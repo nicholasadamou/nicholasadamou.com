@@ -14,7 +14,7 @@ export async function getViewsCount(): Promise<
 
 	try {
 		const result = await sql`
-      SELECT slug, count FROM blog_views;
+      SELECT slug, count FROM notes_views;
     `;
 
 		const results = result.rows as { slug: string; count: number }[];
