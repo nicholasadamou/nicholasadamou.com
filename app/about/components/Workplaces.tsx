@@ -39,7 +39,7 @@ function Workplace({ title, company, imageSrc, date, link }: Workplace) {
       {link ? (
         <Link
           href={link}
-          className="flex justify-between w-full px-3 py-2 -mx-3 -my-2 no-underline"
+          className="flex justify-between w-full md:-mx-5 no-underline"
         >
           {content}
         </Link>

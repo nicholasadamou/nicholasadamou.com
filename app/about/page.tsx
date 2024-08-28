@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="flex flex-col gap-16 overflow-hidden md:gap-24 md:overflow-visible px-4 max-w-[700px] mx-auto">
+    <div className="flex flex-col gap-16 overflow-hidden md:gap-24 md:overflow-visible px-2 max-w-[700px] mx-auto">
       <div>
         <h1 className="animate-in text-3xl font-bold tracking-tight text-primary">
           About
@@ -139,9 +139,9 @@ export default function About() {
 
 const workplaces = [
   {
-    title: "Sr. Software Engineer",
+    title: "Senior Software Engineer",
     company: "IBM",
-    date: "2023 - Present",
+    date: "2023 -",
     imageSrc: ibmLogo,
     link: "https://ibm.com",
   },
