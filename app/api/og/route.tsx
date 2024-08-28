@@ -119,8 +119,8 @@ export async function GET(req: NextRequest) {
 	const backgroundImage = type === "homepage" ? `${baseUrl}/og/gradient.png` : `${baseUrl}/og/plain.png`;
 
 	switch (type) {
-		case "blog":
-			headerText = "Check out this article";
+		case "note":
+			headerText = "Check out this note";
 			break;
 		case "project":
 			headerText = "Explore this project";

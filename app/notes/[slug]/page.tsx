@@ -30,15 +30,15 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const blog = allNotes.find((blog: { slug: string }) => blog.slug === params.slug);
+	const note = allNotes.find((blog: { slug: string }) => blog.slug === params.slug);
 
-	if (!blog) {
+	if (!note) {
 		notFound();
 	}
 
-	const { title, date: publishedTime, summary: description, image, slug } = blog;
+	const { title, date: publishedTime, summary: description, image, slug } = note;
 
-	const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image)}`;
+	const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image)}&type=note`;
 
 	return {
 		metadataBase: new URL(baseUrl),
