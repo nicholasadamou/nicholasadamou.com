@@ -1,7 +1,7 @@
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { createWriteStream } from 'fs';
 import path from 'path';
-import { allBlogs, allProjects } from './.contentlayer/generated/index.mjs';
+import { allNotes, allProjects } from './.contentlayer/generated/index.mjs';
 
 const generateSitemap = async () => {
 	const sitemapStream = new SitemapStream({ hostname: process.env.SITE_URL || 'https://nicholasadamou.com' });
@@ -9,9 +9,9 @@ const generateSitemap = async () => {
 	// Static pages
 	sitemapStream.write({ url: '/about', changefreq: 'monthly', priority: 0.8 });
 
-	// Blog posts
-	allBlogs.forEach((blog) => {
-		sitemapStream.write({ url: `/blog/${blog.slug}`, changefreq: 'weekly', priority: 0.9 });
+	// Notes posts
+	allNotes.forEach((note) => {
+		sitemapStream.write({ url: `/notes/${note.slug}`, changefreq: 'weekly', priority: 0.9 });
 	});
 
 	// Projects

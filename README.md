@@ -7,7 +7,7 @@
 
 Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://github.com/nicholasadamou/v2), and [v3](https://github.com/nicholasadamou/v3).
 
-A simplistic and clean personal portfolio website showcasing my work and blog posts. This website features MDX blog posts with view counts, a dark mode toggle, an about page, and more.
+A simplistic and clean personal portfolio website showcasing my work and blog posts. This website features MDX articles with view counts, a dark mode toggle, an about page, and more.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ A simplistic and clean personal portfolio website showcasing my work and blog po
 ## Features
 
 -  Built with Next.js and TypeScript for a robust backend.
--  Utilizes MDX and Contentlayer for dynamic blog post management.
+-  Utilizes MDX and Contentlayer for dynamic article management.
 -  Supports Vercel Postgres for database management.
 -  Styled with Tailwind CSS for a modern look and feel.
 -  Incorporates Radix Primitives for accessible UI components.
@@ -63,12 +63,12 @@ Modify the `.env.local` file with your own configurations as needed.
 
 Follow the Vercel Postgres [quickstart guide](https://vercel.com/docs/storage/vercel-postgres/quickstart) to set up your database.
 
-**Create Blog Views Table**
+**Create Notes Views Table**
 
-Run the following SQL command to create the necessary table for tracking blog views:
+Run the following SQL command to create the necessary table for tracking notes views:
 
 ```sql
-CREATE TABLE IF NOT EXISTS blog_views (
+CREATE TABLE IF NOT EXISTS notes_views (
     slug VARCHAR(255) PRIMARY KEY,
     count INT DEFAULT 0
 );

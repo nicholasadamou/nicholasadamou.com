@@ -2,14 +2,14 @@ import fs from 'fs';
 import RSS from 'rss';
 import path from 'path';
 
-import { allBlogs } from './.contentlayer/generated/index.mjs';
+import { allNotes } from './.contentlayer/generated/index.mjs';
 
 // Fetch base URL
 const isDevelopment = process.env.NODE_ENV === 'development';
 const baseUrl = isDevelopment ? 'http://localhost:3000' : 'https://nicholasadamou.com';
 
 const feed = new RSS({
-	title: "Nicholas Adamou's Blog",
+	title: "Nicholas Adamou's Notes",
 	description: 'I am a full stack software engineer who is on a mission to make the world a better place through code.',
 	feed_url: `${baseUrl}/rss.xml`,
 	site_url: baseUrl,
@@ -17,8 +17,8 @@ const feed = new RSS({
 });
 
 async function generateRSS() {
-	for (const blog of allBlogs) {
-		const { title, summary, date, image, slug } = blog;
+	for (const note of allNotes) {
+		const { title, summary, date, image, slug } = note;
 
 		const imageUrl = image ? `${baseUrl}${image}` : null;
 		const mimeType = imageUrl ? getMimeType(imageUrl) : 'image/jpeg';
@@ -26,7 +26,7 @@ async function generateRSS() {
 		feed.item({
 			title: title,
 			description: summary,
-			url: `${baseUrl}/blog/${slug}`,
+			url: `${baseUrl}/notes/${slug}`,
 			date: date,
 			custom_elements: [
 				...(imageUrl ? [{ 'media:content': { _attr: { url: imageUrl, type: mimeType, medium: 'image' } } }] : []),
