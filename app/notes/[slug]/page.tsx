@@ -30,7 +30,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const note = allNotes.find((blog: { slug: string }) => blog.slug === params.slug);
+	const note = allNotes.find((note: { slug: string }) => note.slug === params.slug);
 
 	if (!note) {
 		notFound();
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Note({ params }: Readonly<{ params: any }>) {
-  const note = allNotes.find((blog: { slug: any; }) => blog.slug === params.slug);
+  const note = allNotes.find((note: { slug: any; }) => note.slug === params.slug);
 
   if (!note) {
     notFound();
@@ -100,7 +100,7 @@ export default async function Note({ params }: Readonly<{ params: any }>) {
 						<div className="relative h-[350px] overflow-hidden">
 							<Image
 								src={note.image}
-								alt={`${note.title} blog image`}
+								alt={`${note.title} note image`}
 								fill
 								className="rounded-lg object-cover"
 								priority
@@ -122,20 +122,20 @@ export default async function Note({ params }: Readonly<{ params: any }>) {
 				{allNotes
 					.filter((b) => b.slug !== note.slug)
 					.slice(0, 2)
-					.map((blog) => {
-						const { title, date, image, slug } = blog;
-						const readingStats = readingTime(blog.body.raw);
+					.map((note) => {
+						const { title, date, image, slug } = note;
+						const readingStats = readingTime(note.body.raw);
 
 						return (
 							<a
 								key={slug}
-								href={`/blog/${slug}`}
+								href={`/notes/${slug}`}
 								className="flex flex-col gap-2 w-full md:w-1/3"
 							>
 								<div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg">
 									<Image
 										src={image}
-										alt={`${title} blog image`}
+										alt={`${title} note image`}
 										fill
 										className="rounded-lg object-cover"
 										priority

@@ -23,7 +23,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = allProjects.find(
-    (blog: { slug: string }) => blog.slug === params.slug,
+    (project: { slug: string }) => project.slug === params.slug,
   );
 
   if (!project) {

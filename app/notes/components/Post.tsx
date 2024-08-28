@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/_utils/formatShortDate";
-import type { Blog } from "contentlayer/generated";
+import type { Note } from "contentlayer/generated";
 
 type PostProps = {
-	post: Blog;
+	post: Note;
 	mousePosition?: {
 		x: number;
 		y: number;
@@ -22,7 +22,7 @@ export default function Post({ post, mousePosition }: PostProps) {
 
 	return (
 		<li className="group py-3 transition-opacity first:pt-0 last:pb-0">
-			<Link href={`/blog/${slug}`}>
+			<Link href={`/notes/${slug}`}>
 				<div className="transition-opacity">
 					{image && mousePosition && (
 						<motion.div

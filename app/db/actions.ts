@@ -23,7 +23,7 @@ export async function incrementViews(slug: string, reqHeaders: Headers) {
 			INSERT INTO notes_views (slug, count)
 			VALUES (${slug}, 1)
 			ON CONFLICT (slug)
-			DO UPDATE SET count = blog_views.count + EXCLUDED.count;
+			DO UPDATE SET count = notes_views.count + EXCLUDED.count;
 		`;
 
 		// Set a cookie to track the last view time

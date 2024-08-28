@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "I write about programming, design, and occasionally life updates!",
     type: "website",
-    url: `https://${baseUrl}/blog`,
+    url: `https://${baseUrl}/notes`,
     images: [{ url: `https://${baseUrl}/api/og?title=Notes`, alt: "Notes" }],
   },
 };

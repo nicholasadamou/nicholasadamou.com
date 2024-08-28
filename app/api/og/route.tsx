@@ -110,7 +110,7 @@ export async function GET(req: NextRequest) {
 
 	const title = searchParams.get("title") ?? "Default Title"; // Fallback title
 	const description = searchParams.get("description") ?? ""; // Fallback description
-	const type = searchParams.get("type") ?? "blog"; // 'blog', 'project', 'homepage'
+	const type = searchParams.get("type") ?? "note"; // 'note', 'project', 'homepage'
 	const fontSize = searchParams.get("fontSize") ?? "64px"; // Optional font size
 	const image = searchParams.get("image") ?? ""; // Optional image URL
 

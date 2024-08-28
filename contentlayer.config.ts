@@ -32,8 +32,8 @@ const noteComputedFields: ComputedFields = {
 	},
 };
 
-export const Notes = defineDocumentType(() => ({
-	name: "Notes",
+export const Note = defineDocumentType(() => ({
+	name: "Note",
 	filePathPattern: `notes/**/*.mdx`,
 	contentType: "mdx",
 	fields: {
@@ -72,7 +72,7 @@ export const Project = defineDocumentType(() => ({
 
 export default makeSource({
 	contentDirPath: "content",
-	documentTypes: [Notes, Project],
+	documentTypes: [Note, Project],
 	mdx: {
 		rehypePlugins: [rehypePrism, rehypeSlug],
 	},
