@@ -139,9 +139,9 @@ export default function About() {
 
 const workplaces = [
   {
-    title: "Senior Software Engineer",
+    title: "Sr. Software Engineer",
     company: "IBM",
-    date: "2023 -",
+    date: "2023 - Present",
     imageSrc: ibmLogo,
     link: "https://ibm.com",
   },
