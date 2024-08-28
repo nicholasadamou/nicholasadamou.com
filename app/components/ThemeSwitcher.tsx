@@ -29,8 +29,7 @@ export default function ThemeSwitcher() {
           return (
             <div
               className={clsx(
-                "relative rounded-full border",
-                resolvedTheme === "light" ? "border-black" : "border-white",
+                "relative rounded-full",
               )}
             >
               <Listbox.Button
