@@ -16,7 +16,6 @@ import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import React from "react";
 import Head from "next/head";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
-import Footer from "@/app/components/Footer";
 
 const baseUrl = getBaseUrl();
 
