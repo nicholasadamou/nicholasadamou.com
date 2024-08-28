@@ -87,7 +87,7 @@ export default function Navigation() {
 			ref={popoverRef}
 		>
 			<div className="mx-auto max-w-[700px] flex justify-between">
-				<nav className="flex gap-3 px-4 py-3 md:px-6">
+				<nav className="flex gap-3 px-4 py-3">
 					<Link href="/" className="shrink-0 text-primary">
 						<svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
