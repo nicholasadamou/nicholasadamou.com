@@ -13,6 +13,7 @@ const links = [
 	{ label: "About", href: "/about" },
 	{ label: "Notes", href: "/notes" },
 	{ label: "Work With Me", href: "/hire" },
+	{ label: "Contact", href: "/contact" },
 ];
 
 export default function Navigation() {

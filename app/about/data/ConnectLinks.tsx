@@ -6,7 +6,7 @@ import { ListItem } from "@/app/about/types/ListItem";
 const ConnectLinks: ListItem[] = [
 	{
 		label: "Partnerships",
-		href: "mailto:nicholas.adamou@outlook.com",
+		href: "/contact",
 		icon: (
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
