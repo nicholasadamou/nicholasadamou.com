@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
       </div>
       <div className="mx-auto">
         <div
-          className="light:bg-white relative isolate mx-auto w-full animate-in overflow-hidden rounded-3xl pb-16 pt-12 dark:bg-[#111]"
+          className="relative isolate mx-auto w-full animate-in overflow-hidden rounded-3xl pb-16 pt-12"
           style={{ "--index": 2 } as React.CSSProperties}
         >
           <section className="[&amp;_p]:text-gray-500">
