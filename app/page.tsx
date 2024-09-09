@@ -81,7 +81,7 @@ export default function Home() {
             alt="Nicholas Adamou"
 						priority
 						style={{ "--index": 2 } as React.CSSProperties}
-            className="animate-in flex-1 rounded-2xl grayscale hover:grayscale-0 transition-all ease-in-out duration-200"
+            className="animate-in flex-1 rounded-2xl grayscale"
           />
         </div>
       </div>
