@@ -30,6 +30,7 @@ export default function Contact() {
 	const [loading, setLoading] = useState(false);
 	const [showConfetti, setShowConfetti] = useState(false);
 	const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+	const [runConfetti, setRunConfetti] = useState(false); // For controlling confetti
 
 	const detectWindowSize = useCallback(() => {
 		setWindowSize({ width: window.innerWidth, height: window.innerHeight });
@@ -46,7 +47,11 @@ export default function Contact() {
 
 	const triggerConfetti = () => {
 		setShowConfetti(true);
-		setTimeout(() => setShowConfetti(false), 3000); // Show confetti for 3 seconds
+		setRunConfetti(true); // Start running confetti
+	};
+
+	const stopConfetti = () => {
+		setRunConfetti(false); // Stop running confetti
 	};
 
 	const onSubmit = async (data: FormData) => {
@@ -154,8 +159,10 @@ export default function Contact() {
 							<Confetti
 								width={windowSize.width}
 								height={windowSize.height}
+								run={runConfetti} // Control whether confetti runs or not
 								recycle={false}
 								numberOfPieces={300}
+								onConfettiComplete={stopConfetti} // Stop confetti when it reaches the bottom
 								style={{ zIndex: 9999, position: "fixed", top: 0 }}
 							/>,
 							document.body
