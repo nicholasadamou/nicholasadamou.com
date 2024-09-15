@@ -87,7 +87,7 @@ export default function Contact() {
 					</div>
 					<div className="relative">
 						<form className="mt-16" onSubmit={handleSubmit(onSubmit)}>
-							<div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+							<div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 px-2">
 								<div>
 									<label htmlFor="name" className="block text-sm font-semibold leading-6">
 										Name
