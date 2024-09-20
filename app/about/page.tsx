@@ -18,7 +18,6 @@ import lakePlacid from "public/gallery/lake-placid.jpg";
 import {
 	Certificates,
 	ConnectLinks,
-	// Resumes
 } from "@/app/about/data";
 
 export const metadata: Metadata = {
@@ -122,7 +121,6 @@ export default function About() {
         </Section>
 
         <ListSection heading="Connect" items={ConnectLinks} />
-        {/*<ListSection heading="Resumes" items={Resumes} />*/}
         <ListSection heading="Certificates" items={Certificates} />
 
         <Section heading="Work" headingAlignment="left">
