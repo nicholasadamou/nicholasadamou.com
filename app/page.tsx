@@ -52,7 +52,7 @@ export default function Home() {
               style={{ "--index": 2 } as React.CSSProperties}
             >
               <Link
-                href="https://standardresume.co/r/nicholasadamou"
+                href="https://drive.google.com/file/d/10N8mm9LyN38aFAXwLNyfDnMvaO3yY_rF/view?usp=sharing"
                 className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
               >
                 Resume

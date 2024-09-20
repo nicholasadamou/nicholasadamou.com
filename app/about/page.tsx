@@ -9,10 +9,17 @@ import Workplaces from "@/app/about/components/Workplaces";
 import Gallery from "@/app/about/components/Gallery";
 
 import ibmLogo from "public/work/ibm-logo.svg";
+import appleLogo from "public/work/apple-logo.svg";
+// import lockheedMartinLogo from "public/work/lockheed-martin-logo.svg";
+
 import arizona from "public/gallery/arizona.jpg";
 import lakePlacid from "public/gallery/lake-placid.jpg";
 
-import { Certificates, ConnectLinks, Resumes } from "@/app/about/data";
+import {
+	Certificates,
+	ConnectLinks,
+	// Resumes
+} from "@/app/about/data";
 
 export const metadata: Metadata = {
   title: "About | Nicholas Adamou",
@@ -115,7 +122,7 @@ export default function About() {
         </Section>
 
         <ListSection heading="Connect" items={ConnectLinks} />
-        <ListSection heading="Resumes" items={Resumes} />
+        {/*<ListSection heading="Resumes" items={Resumes} />*/}
         <ListSection heading="Certificates" items={Certificates} />
 
         <Section heading="Work" headingAlignment="left">
@@ -138,10 +145,25 @@ export default function About() {
 }
 
 const workplaces = [
+	// {
+	// 	title: 'Sr. Software Engineer',
+	// 	company: 'Lockheed Martin, Space',
+	// 	date: '2024 -',
+	// 	imageSrc: lockheedMartinLogo,
+	// 	link: 'https://www.lockheedmartin.com'
+	// },
+	{
+		title: 'Sr. Software Engineer',
+		company: 'Apple',
+		date: '2024 -',
+		imageSrc: appleLogo,
+		link: 'https://apple.com',
+		contract: true
+	},
   {
-    title: "Senior Software Engineer",
+    title: "Sr. Software Engineer",
     company: "IBM",
-    date: "2023 -",
+    date: "2023 - 2024",
     imageSrc: ibmLogo,
     link: "https://ibm.com",
   },

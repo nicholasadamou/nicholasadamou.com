@@ -10,9 +10,10 @@ type Workplace = {
   imageSrc: string | StaticImageData;
   date?: string;
   link?: string;
+	contract?: boolean;
 };
 
-function Workplace({ title, company, imageSrc, date, link }: Workplace) {
+function Workplace({ title, company, imageSrc, date, link, contract = false }: Workplace) {
 
   const content = (
     <>
@@ -28,7 +29,7 @@ function Workplace({ title, company, imageSrc, date, link }: Workplace) {
         />
         <div className="flex flex-col gap-px">
           <p className={link ? "external-arrow" : ""}>{title}</p>
-          <p className="text-secondary">{company}</p>
+          <p className="text-secondary">{company}{contract && ' (contract)'}</p>
         </div>
       </div>
       {date && <time className="text-secondary">{date}</time>}
