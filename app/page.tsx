@@ -52,7 +52,7 @@ export default function Home() {
               style={{ "--index": 2 } as React.CSSProperties}
             >
               <Link
-                href="https://drive.google.com/file/d/10N8mm9LyN38aFAXwLNyfDnMvaO3yY_rF/view?usp=sharing"
+                href="https://drive.google.com/file/d/1Es_mfIdiZbhjLOTln-KFRQnyPLLzG8kU/view"
                 className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
               >
                 Resume
@@ -60,7 +60,7 @@ export default function Home() {
               </Link>
               <Link
                 className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
-                href="https://www.linkedin.com/in/nicholas-adamou/"
+                href="https://www.linkedin.com/in/nicholas-adamou"
               >
                 LinkedIn
                 <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
@@ -72,6 +72,13 @@ export default function Home() {
                 GitHub
                 <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
               </Link>
+							<Link
+								href="https://dotbrains.dev"
+								className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
+							>
+								DotBrains
+								<ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
+							</Link>
             </div>
           </div>
           <Image

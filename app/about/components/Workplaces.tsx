@@ -32,7 +32,7 @@ function Workplace({ title, company, imageSrc, date, link, contract = false }: W
           <p className="text-secondary">{company}{contract && ' (contract)'}</p>
         </div>
       </div>
-      {date && <time className="text-secondary">{date}</time>}
+      {date && <time className="text-secondary text-sm">{date}</time>}
     </>
   );
   return (
@@ -45,7 +45,7 @@ function Workplace({ title, company, imageSrc, date, link, contract = false }: W
           {content}
         </Link>
       ) : (
-        <div className="flex justify-between ">{content}</div>
+        <div className="flex justify-between">{content}</div>
       )}
     </li>
   );

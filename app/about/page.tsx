@@ -10,7 +10,7 @@ import Gallery from "@/app/about/components/Gallery";
 
 import ibmLogo from "public/work/ibm-logo.svg";
 import appleLogo from "public/work/apple-logo.svg";
-// import lockheedMartinLogo from "public/work/lockheed-martin-logo.svg";
+import lockheedMartinLogo from "public/work/lockheed-martin-logo.svg";
 
 import arizona from "public/gallery/arizona.jpg";
 import lakePlacid from "public/gallery/lake-placid.jpg";
@@ -93,7 +93,7 @@ export default function About() {
                 Master of Science in Computer Science
               </Link>{" "}
               from{" "}
-              <Link className="underline" href="https://www.gatech.edu/">
+              <Link className="underline" href="https://www.gatech.edu">
                 Georgia Institute of Technology
               </Link>{" "}
               and a{" "}
@@ -106,7 +106,7 @@ export default function About() {
               from{" "}
               <Link
                 className="underline"
-                href="https://www.cornellcollege.edu/"
+                href="https://www.cornellcollege.edu"
               >
                 Cornell College
               </Link>
@@ -143,17 +143,17 @@ export default function About() {
 }
 
 const workplaces = [
-	// {
-	// 	title: 'Sr. Software Engineer',
-	// 	company: 'Lockheed Martin, Space',
-	// 	date: '2024 -',
-	// 	imageSrc: lockheedMartinLogo,
-	// 	link: 'https://www.lockheedmartin.com'
-	// },
+	{
+		title: 'Sr. Software Engineer',
+		company: 'Lockheed Martin, Space',
+		date: 'Dec 2024 -',
+		imageSrc: lockheedMartinLogo,
+		link: 'https://www.lockheedmartin.com'
+	},
 	{
 		title: 'Sr. Software Engineer',
 		company: 'Apple',
-		date: '2024 -',
+		date: 'Sep 2024 - Dec 2024',
 		imageSrc: appleLogo,
 		link: 'https://apple.com',
 		contract: true
@@ -161,21 +161,21 @@ const workplaces = [
   {
     title: "Sr. Software Engineer",
     company: "IBM",
-    date: "2023 - 2024",
+    date: "Oct 2023 - Aug 2024",
     imageSrc: ibmLogo,
     link: "https://ibm.com",
   },
   {
     title: "Software Engineer II",
     company: "IBM",
-    date: "2021 - 2023",
+    date: "May 2021 - Oct 2023",
     imageSrc: ibmLogo,
     link: "https://ibm.com",
   },
   {
     title: "Software Engineer I",
     company: "IBM",
-    date: "2020 - 2021",
+    date: "May 2020 - May 2021",
     imageSrc: ibmLogo,
     link: "https://ibm.com",
   },
