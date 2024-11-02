@@ -148,12 +148,12 @@ const workplaces = [
 		company: 'Lockheed Martin, Space',
 		date: 'Dec 2024 -',
 		imageSrc: lockheedMartinLogo,
-		link: 'https://www.lockheedmartin.com'
+		link: 'https://www.lockheedmartin.com/en-us/capabilities/space.html'
 	},
 	{
 		title: 'Sr. Software Engineer',
 		company: 'Apple',
-		date: 'Sep 2024 - Dec 2024',
+		date: 'Sep 2024 - Nov 2024',
 		imageSrc: appleLogo,
 		link: 'https://apple.com',
 		contract: true
