@@ -8,6 +8,58 @@ import ProjectList from "@/app/projects/components/ProjectList";
 import React from "react";
 import { FaThumbtack } from "react-icons/fa";
 
+type SocialLink = {
+	href: string;
+	label: string;
+};
+
+type SocialLinksProps = {
+	links: SocialLink[];
+};
+
+export function SocialLinks({ links }: SocialLinksProps) {
+	return (
+		<ul
+			className="animated-list flex snap-x snap-mandatory flex-nowrap gap-2 sm:gap-3 overflow-x-scroll text-sm md:overflow-auto"
+			style={{ "--index": 2 } as React.CSSProperties}
+		>
+			{links.map((link) => (
+				<li
+					key={link.href}
+					className="col-span-1 min-w-fit snap-start transition-opacity"
+				>
+					<Link
+						href={link.href}
+						className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline transition-colors hover:bg-tertiary"
+					>
+						{link.label}
+						<ArrowUpRightIcon className="h-4 w-4 text-tertiary ml-1" />
+					</Link>
+				</li>
+			))}
+		</ul>
+	);
+}
+
+const socalLinks: SocialLink[] = [
+	{
+		href: "https://drive.google.com/file/d/1Es_mfIdiZbhjLOTln-KFRQnyPLLzG8kU/view",
+		label: "Resume",
+	},
+	{
+		href: "https://www.linkedin.com/in/nicholas-adamou",
+		label: "LinkedIn",
+	},
+	{
+		href: "https://github.com/nicholasadamou",
+		label: "GitHub",
+	},
+	{
+		href: "https://dotbrains.dev",
+		label: "DotBrains",
+	}
+];
+
 export default function Home() {
   const notes = allNotes
     .sort(
@@ -31,10 +83,10 @@ export default function Home() {
   );
 
   return (
-    <div className="flex flex-col gap-16 md:gap-24 px-4 max-w-[700px] mx-auto">
+    <div className="mx-auto flex max-w-[700px] flex-col gap-16 px-4 md:gap-24">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col-reverse md:flex-row">
-          <div className="md:mr-10 mt-5 md:mt-0 space-y-4">
+          <div className="mt-5 space-y-4 md:mr-10 md:mt-0">
             <h1 className="animate-in text-3xl font-semibold tracking-tight text-primary">
               Hey, I&apos;m Nicholas Adamou
             </h1>
@@ -47,41 +99,18 @@ export default function Home() {
               to harness the power of code to develop innovative solutions that
               address real-world challenges and improve people&apos;s lives.
             </p>
-            <div
-              className="flex animate-in gap-3 text-sm"
-              style={{ "--index": 2 } as React.CSSProperties}
-            >
-              <Link
-                href="https://drive.google.com/file/d/1Es_mfIdiZbhjLOTln-KFRQnyPLLzG8kU/view"
-                className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
-              >
-                Resume
-                <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
-              </Link>
-              <Link
-                className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
-                href="https://www.linkedin.com/in/nicholas-adamou"
-              >
-                LinkedIn
-                <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
-              </Link>
-              <Link
-                href="https://github.com/nicholasadamou"
-                className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
-              >
-                GitHub
-                <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
-              </Link>
-            </div>
+            <SocialLinks
+							links={socalLinks}
+						/>
           </div>
           <Image
             src="/nicholas-adamou.jpeg"
             width={200}
             height={200}
             alt="Nicholas Adamou"
-						priority
-						style={{ "--index": 2 } as React.CSSProperties}
-            className="animate-in flex-1 rounded-2xl grayscale"
+            priority
+            style={{ "--index": 2 } as React.CSSProperties}
+            className="flex-1 animate-in rounded-2xl grayscale"
           />
         </div>
       </div>
@@ -90,10 +119,10 @@ export default function Home() {
         className="flex animate-in flex-col gap-8"
         style={{ "--index": 4 } as React.CSSProperties}
       >
-        <p className="tracking-tight text-secondary flex items-center gap-2">
-					<FaThumbtack />
-					Pinned Projects
-				</p>
+        <p className="flex items-center gap-2 tracking-tight text-secondary">
+          <FaThumbtack />
+          Pinned Projects
+        </p>
         <ProjectList projects={projects} />
       </div>
 
