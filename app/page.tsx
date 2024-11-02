@@ -72,13 +72,6 @@ export default function Home() {
                 GitHub
                 <ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
               </Link>
-							<Link
-								href="https://dotbrains.dev"
-								className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline hover:bg-tertiary"
-							>
-								DotBrains
-								<ArrowUpRightIcon className="h-4 w-4 text-tertiary" />
-							</Link>
             </div>
           </div>
           <Image
