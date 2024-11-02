@@ -14,7 +14,6 @@ import Navigation from "@/app/components/Navigation";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 
 import React from "react";
-import Head from "next/head";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
 
 const baseUrl = getBaseUrl();
@@ -34,6 +33,12 @@ export const metadata: Metadata = {
       },
     ],
   },
+  alternates: {
+    canonical: baseUrl,
+    types: {
+      "application/rss+xml": `${baseUrl}/rss.xml`,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -43,14 +48,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <Head>
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="RSS Feed for nicholasadamou.com"
-          href="/rss.xml"
-        />
-      </Head>
       <body className="width-full bg-contrast text-primary antialiased dark:bg-primary">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
