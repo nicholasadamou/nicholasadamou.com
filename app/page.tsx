@@ -17,7 +17,7 @@ type SocialLinksProps = {
 	links: SocialLink[];
 };
 
-export function SocialLinks({ links }: SocialLinksProps) {
+function SocialLinks({ links }: SocialLinksProps) {
 	return (
 		<ul
 			className="animated-list flex snap-x snap-mandatory flex-nowrap gap-2 sm:gap-3 overflow-x-scroll text-sm md:overflow-auto"
