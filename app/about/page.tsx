@@ -144,14 +144,14 @@ export default function About() {
 
 const workplaces = [
 	{
-		title: 'Sr. Software Engineer',
+		title: 'Senior Software Engineer',
 		company: 'Lockheed Martin, Space',
 		date: 'Dec 2024 -',
 		imageSrc: lockheedMartinLogo,
 		link: 'https://www.lockheedmartin.com/en-us/capabilities/space.html'
 	},
 	{
-		title: 'Sr. Software Engineer',
+		title: 'Senior Software Engineer',
 		company: 'Apple',
 		date: 'Sep 2024 - Nov 2024',
 		imageSrc: appleLogo,
@@ -159,7 +159,7 @@ const workplaces = [
 		contract: true
 	},
   {
-    title: "Sr. Software Engineer",
+    title: "Senior Software Engineer",
     company: "IBM",
     date: "Oct 2023 - Aug 2024",
     imageSrc: ibmLogo,
