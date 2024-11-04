@@ -32,17 +32,19 @@ export default function Navigation() {
 	}, [resolvedTheme])
 
 	useEffect(() => {
-		// Check scroll position on mount
-		setIsScrolled(window.scrollY > 20)
+		setIsScrolled(window.scrollY > 20) // On initial load, apply blur if scrolled
 
 		const handleScroll = () => {
-			const scrollPosition = window.scrollY
-			setIsScrolled(scrollPosition > 20) // Apply blur after scrolling 20px
-		}
+			const scrollPosition = window.scrollY;
+			setIsScrolled(scrollPosition > 20); // Apply blur after scrolling 20px
+		};
 
-		window.addEventListener('scroll', handleScroll)
-		return () => window.removeEventListener('scroll', handleScroll)
-	}, [])
+		// Use `requestAnimationFrame` for smoother scroll handling
+		const handleScrollThrottled = () => requestAnimationFrame(handleScroll);
+		window.addEventListener('scroll', handleScrollThrottled);
+
+		return () => window.removeEventListener('scroll', handleScrollThrottled);
+	}, []);
 
 	useEffect(() => {
 		const popoverElement = popoverRef.current
@@ -98,9 +100,10 @@ export default function Navigation() {
 
 	return (
 		<motion.header
-			initial={{ y: -100 }} // Start position above the screen
-			animate={{ y: 0 }} // End position at the top of the screen
-			transition={{ type: "spring", stiffness: 100, damping: 20 }} // Smooth spring animation
+			style={{ willChange: "transform, opacity" }}
+			initial={{ y: -100 }}
+			animate={{ y: 0 }}
+			transition={{ type: "spring", stiffness: 100, damping: 20 }}
 			className={clsx(
 				"z-30 mx-auto py-6 px-2 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300",
 				isScrolled ? "backdrop-blur-sm dark:bg-[#111]/75 light:bg-white/75" : "bg-transparent"
