@@ -18,59 +18,49 @@ This load balancer project is built on Spring Boot 3.2.0 and Java 21, leveraging
 
 Here's a high-level view of the system flow:
 
-```mermaid
-graph TB
-    %% Styling
-    classDef clientStyle fill:#f9f9f9,stroke:#666,stroke-width:2px
-    classDef loadBalancerStyle fill:#e6f3ff,stroke:#3385ff,stroke-width:2px
-    classDef serviceStyle fill:#f0fff0,stroke:#33cc33,stroke-width:2px
-    classDef componentStyle fill:#fff,stroke:#999,stroke-width:1px
+```plantuml
+@startuml
+skinparam componentStyle rectangle
 
-			%% Client Layer
-			subgraph Clients["Client Layer"]
-				direction LR
-				C1[Web Client]
-				C2[Mobile Client]
-				C3[API Client]
-			end
+package "Client Layer" {
+    [Web Client] as C1
+    [Mobile Client] as C2
+    [API Client] as C3
+}
 
-			%% Load Balancer Layer
-			subgraph LoadBalancer["Load Balancer Layer"]
-				direction TB
-				PC[Proxy Controller]
-				LBS[Load Balancer<br>Service]
-				HCS[Health Check<br>Service]
+package "Load Balancer Layer" {
+    [Proxy Controller] as PC
+    [Load Balancer Service] as LBS
+    [Health Check Service] as HCS
 
-				PC --> LBS
-				LBS --> HCS
-			end
+    PC --> LBS
+    LBS --> HCS
+}
 
-			%% API Services Layer
-			subgraph Services["API Service Cluster"]
-				direction LR
-				API1[API Service<br>:8081]
-				API2[API Service<br>:8082]
-				API3[API Service<br>:8083]
-				API4[API Service<br>:8084]
-				API5[API Service<br>:8085]
-			end
+package "API Service Cluster" {
+    [API Service :8081] as API1
+    [API Service :8082] as API2
+    [API Service :8083] as API3
+    [API Service :8084] as API4
+    [API Service :8085] as API5
+}
 
-			%% Connections
-			C1 --> |HTTP Requests| PC
-			C2 --> |HTTP Requests| PC
-			C3 --> |HTTP Requests| PC
+C1 --> PC : HTTP Requests
+C2 --> PC : HTTP Requests
+C3 --> PC : HTTP Requests
 
-			PC --> |Round Robin| API1
-			PC --> |Round Robin| API2
-			PC --> |Round Robin| API3
-			PC --> |Round Robin| API4
-			PC --> |Round Robin| API5
+PC --> API1 : Round Robin
+PC --> API2 : Round Robin
+PC --> API3 : Round Robin
+PC --> API4 : Round Robin
+PC --> API5 : Round Robin
 
-			API1 --> |Heartbeat 5s| HCS
-			API2 --> |Heartbeat 5s| HCS
-			API3 --> |Heartbeat 5s| HCS
-			API4 --> |Heartbeat 5s| HCS
-			API5 --> |Heartbeat 5s| HCS
+API1 --> HCS : Heartbeat 5s
+API2 --> HCS : Heartbeat 5s
+API3 --> HCS : Heartbeat 5s
+API4 --> HCS : Heartbeat 5s
+API5 --> HCS : Heartbeat 5s
+@enduml
 ```
 
 - **Clients** send requests to the load balancer (port 8080).

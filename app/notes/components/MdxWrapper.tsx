@@ -4,7 +4,7 @@ import Link from "@/app/components/Link";
 import Alert from "./mdx/Alert";
 import LinkPreview from "./mdx/LinkPreview";
 import React from "react";
-import { Mermaid } from 'mdx-mermaid/lib/Mermaid';
+import PlantUML from "@/app/notes/components/PlantUML";
 
 interface CustomLinkProps
 	extends React.DetailedHTMLProps<
@@ -39,8 +39,8 @@ const components = {
 	Link: CustomLink,
 	Alert: Alert,
 	LinkPreview: LinkPreview,
-	mermaid: Mermaid,
-	Mermaid: Mermaid,
+	plantuml: PlantUML,
+	PlantUML: PlantUML,
 };
 
 export default function MdxWrapper({ code }: { code: string }) {

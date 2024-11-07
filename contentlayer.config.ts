@@ -7,8 +7,7 @@ import {ComputedFields, defineDocumentType, makeSource,} from "contentlayer/sour
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
 
-import remarkMermaid from "remark-mermaidjs";
-
+import remarkPlantUML from "@akebifiky/remark-simple-plantuml";
 
 const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
 
@@ -79,7 +78,9 @@ export default makeSource({
 	contentDirPath: "content",
 	documentTypes: [Note, Project],
 	mdx: {
-		remarkPlugins: [remarkMermaid as Pluggable],
+		remarkPlugins: [
+			remarkPlantUML as Pluggable,
+		],
 		rehypePlugins: [
 			rehypePrism as Pluggable,
 			rehypeSlug,
