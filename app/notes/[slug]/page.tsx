@@ -114,42 +114,46 @@ export default async function Note({ params }: Readonly<{ params: any }>) {
 					<Mdx code={note.body.code} />
 				</div>
 			</article>
-			<h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-primary">
-				If you found this note helpful.
-				<p className="mt-1 text-secondary">You will love these ones as well.</p>
-			</h2>
-			<div className="flex flex-wrap md:w-[1000px] w-[100%] md:gap-5 gap-8">
-				{allNotes
-					.filter((b) => b.slug !== note.slug)
-					.slice(0, 2)
-					.map((note) => {
-						const { title, date, image, slug } = note;
-						const readingStats = readingTime(note.body.raw);
+			{allNotes.length > 1 && (
+				<>
+					<h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-primary">
+						If you found this note helpful.
+						<p className="mt-1 text-secondary">You will love these ones as well.</p>
+					</h2>
+					<div className="flex flex-wrap md:w-[1000px] w-[100%] md:gap-5 gap-8">
+						{allNotes
+							.filter((b) => b.slug !== note.slug)
+							.slice(0, 2)
+							.map((note) => {
+								const { title, date, image, slug } = note;
+								const readingStats = readingTime(note.body.raw);
 
-						return (
-							<a
-								key={slug}
-								href={`/notes/${slug}`}
-								className="flex flex-col gap-2 w-full md:w-1/3"
-							>
-								<div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg">
-									<Image
-										src={image}
-										alt={`${title} note image`}
-										fill
-										className="rounded-lg object-cover"
-										priority
-										sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-									/>
-								</div>
-								<h3 className="text-md md:text-xl leading-tight tracking-tight text-secondary">
-									{formatLongDateWithSuffix(date)} — {readingStats.text}
-								</h3>
-								<p className="text-md md:text-xl font-bold leading-tight tracking-tight text-primary">{title}</p>
-							</a>
-						)
-					})}
-			</div>
+								return (
+									<a
+										key={slug}
+										href={`/notes/${slug}`}
+										className="flex flex-col gap-2 w-full md:w-1/3"
+									>
+										<div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg">
+											<Image
+												src={image}
+												alt={`${title} note image`}
+												fill
+												className="rounded-lg object-cover"
+												priority
+												sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
+											/>
+										</div>
+										<h3 className="text-md md:text-xl leading-tight tracking-tight text-secondary">
+											{formatLongDateWithSuffix(date)} — {readingStats.text}
+										</h3>
+										<p className="text-md md:text-xl font-bold leading-tight tracking-tight text-primary">{title}</p>
+									</a>
+								)
+							})}
+					</div>
+				</>
+			)}
 		</div>
 	);
 }

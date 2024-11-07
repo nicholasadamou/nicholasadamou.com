@@ -1,9 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { Pluggable } from "unified";
 
 import {ComputedFields, defineDocumentType, makeSource,} from "contentlayer/source-files"; // eslint-disable-line
+
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
+
+import remarkMermaid from "remark-mermaidjs";
+
 
 const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
 
@@ -28,7 +33,7 @@ const noteComputedFields: ComputedFields = {
 	},
 	og: {
 		type: "string",
-		resolve: (doc) => `/blog/${getSlug(doc)}/image.png`,
+		resolve: (doc) => `/notes/${getSlug(doc)}/image.png`,
 	},
 };
 
@@ -74,6 +79,10 @@ export default makeSource({
 	contentDirPath: "content",
 	documentTypes: [Note, Project],
 	mdx: {
-		rehypePlugins: [rehypePrism, rehypeSlug],
+		remarkPlugins: [remarkMermaid as Pluggable],
+		rehypePlugins: [
+			rehypePrism as Pluggable,
+			rehypeSlug,
+		],
 	},
 });

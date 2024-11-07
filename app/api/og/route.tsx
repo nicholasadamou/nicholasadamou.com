@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ImageResponse, NextRequest } from "next/server";
+import { ImageResponse } from "next/og";
+import { NextRequest } from "next/server";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import { ReactElement, ReactNode, AwaitedReactNode } from "react";
 
@@ -110,9 +111,9 @@ export async function GET(req: NextRequest) {
 
 	const title = searchParams.get("title") ?? "Default Title"; // Fallback title
 	const description = searchParams.get("description") ?? ""; // Fallback description
-	const type = searchParams.get("type") ?? "note"; // 'note', 'project', 'homepage'
+	const type = searchParams.get("amp;type") ?? "note"; // 'note', 'project', 'homepage'
 	const fontSize = searchParams.get("fontSize") ?? "64px"; // Optional font size
-	const image = searchParams.get("image") ?? ""; // Optional image URL
+	const image = searchParams.get("amp;image") ?? ""; // Optional image URL
 
 	let headerText = "";
 	let maxWidth = "90%";
