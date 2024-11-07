@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "playwright install && next build",
+		"build": "playwright install-deps && playwright install && next build",
 		"generate:rss": "node generate-rss.mjs",
 		"generate:sitemap": "node generate-sitemap.mjs",
 		"postbuild": "npm-run-all --parallel generate:rss generate:sitemap",
