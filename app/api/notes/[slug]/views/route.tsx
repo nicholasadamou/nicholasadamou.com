@@ -91,3 +91,35 @@ export async function POST(request: Request, { params }: { params: Params }) {
 		return NextResponse.json({ error: "Failed to increment view count" }, { status: 500 });
 	}
 }
+
+export async function GET(_: Request, { params }: { params: Params }) {
+	const { slug } = params;
+
+	if (!slug) {
+		console.log("Slug is required");
+		return NextResponse.json({ error: "Slug is required" }, { status: 400 });
+	}
+
+	if (!process.env.POSTGRES_URL) {
+		console.log("Environment variable POSTGRES_URL is not set. Skipping view count retrieval.");
+		return NextResponse.json(
+			{ error: "Server configuration error: POSTGRES_URL environment variable is missing. Please set POSTGRES_URL to connect to the database." },
+			{ status: 500 }
+		);
+	}
+
+	try {
+		const result = await sql`
+			SELECT count
+			FROM notes_views
+			WHERE slug = ${slug}
+		`;
+
+		const count = result.rows[0]?.count || 0;
+		console.log(`Retrieved view count for ${slug}: ${count}`);
+		return NextResponse.json({ count });
+	} catch (error) {
+		console.error("Error retrieving view count:", error);
+		return NextResponse.json({ error: "Failed to retrieve view count" }, { status: 500 });
+	}
+}

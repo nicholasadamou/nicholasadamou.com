@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { getViewsCount } from "@/app/db/queries";
 
 type UseViewsProps = {
 	slug: string;
@@ -13,11 +12,19 @@ export function useViews({ slug }: UseViewsProps) {
 		if (!hasFetched.current) {
 			const fetchViews = async () => {
 				try {
-					const views = await getViewsCount();
-					const noteViews = views.find((view) => view.slug === slug);
-					setViewCount(noteViews?.count ?? 0);
+					const response = await fetch(`/api/notes/${slug}/views`, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" },
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						setViewCount(data.count);
+					} else {
+						console.error("Failed to fetch views");
+					}
 				} catch (error) {
-					console.error("Failed to fetch view count:", error);
+					console.error("Error fetching views:", error);
 				}
 			};
 
