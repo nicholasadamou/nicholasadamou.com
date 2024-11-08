@@ -16,18 +16,31 @@ export async function POST(request: Request, { params }: { params: Params }) {
 	// Extract IP address
 	const userIp = request.headers.get("x-forwarded-for")?.split(",")[0] || request.headers.get("remote-addr");
 
+	// Check if the userIp is localhost and skip incrementing views
+	if (userIp === "::1" || userIp === "127.0.0.1") {
+		console.log(`Skipping view increment for '${slug}' as requests from localhost are not tracked.`);
+		return NextResponse.json(
+			{ error: `Skipping view increment for '${slug}' as requests from localhost are not tracked.` },
+			{ status: 200 }
+		);
+	}
+
 	const response = NextResponse.json({});
 	if (!userIdCookie) {
 		response.headers.set("Set-Cookie", `user_id=${userId}; Path=/; HttpOnly; Max-Age=${60 * 60 * 24 * 365}`);
 	}
 
 	if (!slug) {
+		console.log("Slug is required");
 		return NextResponse.json({ error: "Slug is required" }, { status: 400 });
 	}
 
 	if (!process.env.POSTGRES_URL) {
-		console.log("No POSTGRES_URL found, skipping incrementViews");
-		return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+		console.log("Environment variable POSTGRES_URL is not set. Skipping view increment.");
+		return NextResponse.json(
+			{ error: "Server configuration error: POSTGRES_URL environment variable is missing. Please set POSTGRES_URL to connect to the database." },
+			{ status: 500 }
+		);
 	}
 
 	try {
@@ -47,6 +60,7 @@ export async function POST(request: Request, { params }: { params: Params }) {
 
 			// Throttle: Allow only if the last viewed timestamp is more than 1 minute ago
 			if (last_viewed && new Date(currentTime.getTime() - 60000) < new Date(last_viewed)) {
+				console.log("You can only increment the view count once per minute.");
 				return NextResponse.json(
 					{ message: "You can only increment the view count once per minute." },
 					{ status: 429 }
