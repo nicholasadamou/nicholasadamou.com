@@ -3,43 +3,45 @@
 import { useEffect, useState } from "react";
 import FlipNumber from "@/app/components/FlipNumber";
 import { getViewsCount } from "@/app/db/queries";
-import { incrementViews } from "@/app/db/actions";
 
 type ViewsProps = {
-  slug: string;
+	slug: string;
 };
 
 export default function Views({ slug }: ViewsProps) {
-  const [viewCount, setViewCount] = useState<number>(0);
+	const [viewCount, setViewCount] = useState<number>(0);
 
-  useEffect(() => {
-    const fetchViews = async () => {
-      const views = await getViewsCount();
-      const noteViews = views.find((view) => view.slug === slug);
-      setViewCount(noteViews?.count ?? 0);
-    };
+	useEffect(() => {
+		const fetchViews = async () => {
+			const views = await getViewsCount();
+			const noteViews = views.find((view) => view.slug === slug);
+			setViewCount(noteViews?.count ?? 0);
+		};
 
-    fetchViews();
+		fetchViews();
 
-    // Throttle view increment by checking cookies
-    const lastViewTime = parseInt(document.cookie.replace(/(?:^|.*;\s*)lastViewTime\s*=\s*([^;]*).*$|^.*$/, "$1")) || 0;
-    const currentTime = Date.now();
+		const incrementViews = async () => {
+			try {
+				const response = await fetch(`/api/notes/${slug}/views`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+				});
 
-    if (currentTime - lastViewTime >= 60000) {
-      incrementViews(slug).then(() => {
-        document.cookie = `lastViewTime=${currentTime}; Path=/;`;
-      });
-      console.log("View incremented.");
-      return;
-    }
+				if (!response.ok) {
+					console.error("Failed to increment views");
+				}
+			} catch (error) {
+				console.error("Error incrementing views:", error);
+			}
+		};
 
-    console.log("View increment was throttled because the last view was less than 1 minute ago.");
-  }, [slug]);
+		incrementViews();
+	}, [slug]);
 
-  return (
-    <span>
+	return (
+		<span>
       <FlipNumber>{viewCount}</FlipNumber>
-      {viewCount === 1 ? " view" : " views"}
+			{viewCount === 1 ? " view" : " views"}
     </span>
-  );
+	);
 }
