@@ -65,7 +65,7 @@ export default function Project({ params }: { params: any }) {
   const readingStats = readingTime(project.body.raw);
 
   return (
-    <div className="flex flex-col gap-12 px-4 max-w-[700px] mx-auto">
+    <div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
       <article>
         <div className="flex flex-col gap-8">
           <div className="flex max-w-xl flex-col gap-4 text-pretty">
@@ -75,9 +75,12 @@ export default function Project({ params }: { params: any }) {
             <p className="text-secondary">
               {project.longSummary || project.summary}
             </p>
-            <Link underline href={project.url || ""}>
-              Visit Project
-            </Link>
+            <span>
+              🔗{" "}
+              <Link underline href={project.url || ""}>
+                Visit Project
+              </Link>
+            </span>
           </div>
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
@@ -100,7 +103,7 @@ export default function Project({ params }: { params: any }) {
         If you liked this project.
         <p className="mt-1 text-secondary">You will love these ones as well.</p>
       </h2>
-      <div className="flex flex-wrap gap-8 md:gap-5 max-w-fit">
+      <div className="flex max-w-fit flex-wrap gap-8 md:gap-5">
         {allProjects
           .filter((p) => p.slug !== project.slug)
           .slice(0, 2)
