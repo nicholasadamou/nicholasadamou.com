@@ -107,15 +107,19 @@ const createImageResponse = (
 );
 
 export async function GET(req: NextRequest) {
-	// Clone searchParams and strip 'amp;' prefixes if they exist
-	const searchParams = new URLSearchParams();
-	req.nextUrl.searchParams.forEach((value, key) => {
+	const searchParams = req.nextUrl.searchParams;
+
+	// Remove 'amp;' prefixes in place if present
+	for (const key of Array.from(searchParams.keys())) {
 		if (key.startsWith("amp;")) {
-			searchParams.set(key.slice(4), value); // Remove 'amp;' prefix
-		} else {
-			searchParams.set(key, value);
+			const value = searchParams.get(key);
+			if (value !== null) {
+				searchParams.delete(key);
+				searchParams.set(key.slice(4), value);
+			}
 		}
-	});
+	}
+
 
 	console.log(searchParams); // Confirm 'amp;' is removed
 
