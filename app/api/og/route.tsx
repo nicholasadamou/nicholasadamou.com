@@ -109,8 +109,6 @@ const createImageResponse = (
 export async function GET(req: NextRequest) {
 	const { searchParams } = req.nextUrl;
 
-	console.log(searchParams);
-
 	// remove 'amp;' from searchParams
 	for (const key of searchParams.keys()) {
 		if (key.startsWith("amp;")) {
@@ -119,6 +117,8 @@ export async function GET(req: NextRequest) {
 			searchParams.set(key.slice(4), value);
 		}
 	}
+
+	console.log(searchParams);
 
 	const title = searchParams.get("title") ?? "Default Title"; // Fallback title
 	const description = searchParams.get("description") ?? ""; // Fallback description
