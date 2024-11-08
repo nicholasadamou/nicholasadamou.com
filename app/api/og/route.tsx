@@ -107,18 +107,17 @@ const createImageResponse = (
 );
 
 export async function GET(req: NextRequest) {
-	const { searchParams } = req.nextUrl;
-
-	// remove 'amp;' from searchParams
-	for (const key of searchParams.keys()) {
+	// Clone searchParams and strip 'amp;' prefixes if they exist
+	const searchParams = new URLSearchParams();
+	req.nextUrl.searchParams.forEach((value, key) => {
 		if (key.startsWith("amp;")) {
-			const value = searchParams.get(key) ?? "";
-			searchParams.delete(key);
-			searchParams.set(key.slice(4), value);
+			searchParams.set(key.slice(4), value); // Remove 'amp;' prefix
+		} else {
+			searchParams.set(key, value);
 		}
-	}
+	});
 
-	console.log(searchParams);
+	console.log(searchParams); // Confirm 'amp;' is removed
 
 	const title = searchParams.get("title") ?? "Default Title"; // Fallback title
 	const description = searchParams.get("description") ?? ""; // Fallback description
@@ -149,4 +148,3 @@ export async function GET(req: NextRequest) {
 		height: 1080,
 	});
 }
-
