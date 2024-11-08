@@ -91,12 +91,14 @@ export default async function Note({ params }: NoteProps) {
             </h1>
             <p className="text-secondary">{note.summary}</p>
 
-            <span>
-              🔗{" "}
-              <Link underline href={note.url || ""}>
-                Visit Project
-              </Link>
-            </span>
+            {note.url && (
+              <span>
+                🔗{" "}
+                <Link underline href={note.url || ""}>
+                  Visit Project
+                </Link>
+              </span>
+            )}
           </div>
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
