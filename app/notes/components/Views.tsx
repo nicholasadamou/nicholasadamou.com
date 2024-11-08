@@ -27,9 +27,13 @@ export default function Views({ slug }: ViewsProps) {
 
     if (currentTime - lastViewTime >= 60000) {
       incrementViews(slug).then(() => {
-        document.cookie = `lastViewTime=${currentTime}; Path=/; HttpOnly;`;
+        document.cookie = `lastViewTime=${currentTime}; Path=/;`;
       });
+      console.log("View incremented.");
+      return;
     }
+
+    console.log("View increment was throttled because the last view was less than 1 minute ago.");
   }, [slug]);
 
   return (
