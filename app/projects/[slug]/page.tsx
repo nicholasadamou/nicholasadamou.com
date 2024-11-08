@@ -94,6 +94,21 @@ export default function Project({ params }: { params: any }) {
             </div>
           </div>
         </div>
+				{project.image && (
+					<>
+						<div className="h-8" />
+						<div className="relative h-[350px] overflow-hidden">
+							<Image
+								src={project.image}
+								alt={`${project.title} note image`}
+								fill
+								className="rounded-lg object-cover"
+								priority
+								sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
+							/>
+						</div>
+					</>
+				)}
         <div className="h-16" />
         <div className="project prose prose-neutral">
           <Mdx code={project.body.code} />
