@@ -1,23 +1,20 @@
-import { headers } from 'next/headers';
 import Image from "next/image";
 import {notFound} from "next/navigation";
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import readingTime from "reading-time";
 
 import {allNotes} from "contentlayer/generated";
 
 import Avatar from "@/app/components/Avatar";
 import Mdx from "@/app/notes/components/MdxWrapper";
-import FlipNumber from "@/app/components/FlipNumber";
 import Link from "@/app/components/Link";
 import Me from "@/public/avatar.png";
 
 import { formatLongDateWithSuffix, formatShortDate } from "@/app/_utils/formatShortDate";
-import {getViewsCount} from "@/app/db/queries";
-import {incrementViews} from "@/app/db/actions";
 
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import React from "react";
+import Views from "@/app/notes/components/Views";
 
 const baseUrl = getBaseUrl();
 
@@ -55,16 +52,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	};
 }
 
-export default async function Note({ params }: Readonly<{ params: any }>) {
-  const note = allNotes.find((note: { slug: any; }) => note.slug === params.slug);
+type NoteProps = {
+	params: { slug: string; id: string };
+};
 
-  if (!note) {
-    notFound();
-  }
+export default async function Note({ params }: NoteProps) {
+	const note = allNotes.find((note: { slug: string }) => note.slug === params.slug);
+
+	if (!note) {
+		notFound();
+	}
 
 	const readingStats = readingTime(note.body.raw);
 
-  return (
+	return (
 		<div className="flex flex-col gap-12 px-4 max-w-[700px] mx-auto">
 			<article>
 				<div className="flex flex-col gap-8">
@@ -158,17 +159,3 @@ export default async function Note({ params }: Readonly<{ params: any }>) {
 	);
 }
 
-async function Views({ slug }: Readonly<{ slug: string }>) {
-	let noteViews = await getViewsCount();
-	const viewsForNotes = noteViews.find((view) => view.slug === slug);
-
-	const reqHeaders = headers();
-	await incrementViews(slug, reqHeaders);
-
-	return (
-		<span>
-      <FlipNumber>{viewsForNotes?.count ?? 0}</FlipNumber>
-			{viewsForNotes?.count === 1 ? " view" : " views"}
-    </span>
-	);
-}
