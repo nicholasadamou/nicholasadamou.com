@@ -63,14 +63,22 @@ Modify the `.env.local` file with your own configurations as needed.
 
 Follow the Vercel Postgres [quickstart guide](https://vercel.com/docs/storage/vercel-postgres/quickstart) to set up your database.
 
-**Create Notes Views Table**
+**Handle Note Views**
 
-Run the following SQL command to create the necessary table for tracking notes views:
+Run the following SQL commands to create the necessary tables for tracking notes views:
 
 ```sql
 CREATE TABLE IF NOT EXISTS notes_views (
     slug VARCHAR(255) PRIMARY KEY,
     count INT DEFAULT 0
+);
+
+CREATE TABLE user_views
+(
+    user_id     VARCHAR(255) NOT NULL,
+    slug        VARCHAR(255) NOT NULL,
+    last_viewed TIMESTAMP    NOT NULL,
+    PRIMARY KEY (user_id, slug)
 );
 ```
 
