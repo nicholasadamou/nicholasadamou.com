@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import readingTime from "reading-time";
+import {LinkIcon} from "lucide-react";
 
 import { allNotes } from "contentlayer/generated";
 
@@ -92,12 +93,12 @@ export default async function Note({ params }: NoteProps) {
             <p className="text-secondary">{note.summary}</p>
 
             {note.url && (
-              <span>
-                🔗{" "}
+              <div className="flex gap-2">
+                <LinkIcon className="w-[16px] text-secondary" />
                 <Link underline href={note.url || ""}>
                   Visit Project
                 </Link>
-              </span>
+              </div>
             )}
           </div>
           <div className="flex max-w-none items-center gap-4">

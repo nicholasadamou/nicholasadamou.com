@@ -25,6 +25,7 @@
 	/* Light Theme */
 	.light {
 		--contrast-color: #fff;
+		--syntax-selection-color: var(--gray-4);
 		.prose {
 			--tw-prose-headings: var(--gray-12);
 			--tw-prose-body: var(--gray-12);

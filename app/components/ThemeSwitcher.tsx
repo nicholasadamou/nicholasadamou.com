@@ -34,7 +34,7 @@ export default function ThemeSwitcher() {
             >
               <Listbox.Button
                 className={clsx(
-                  "relative flex h-8 w-8 cursor-default items-center justify-center rounded-lg",
+                  "relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg",
                 )}
               >
                 {theme === "system" ? (
@@ -61,7 +61,7 @@ export default function ThemeSwitcher() {
                         key={theme}
                         className={({ active }) =>
                           clsx(
-                            "relative cursor-default select-none rounded-md py-2 pl-10 pr-4",
+                            "relative cursor-pointer select-none rounded-md py-2 pl-10 pr-4",
                             active ? "bg-secondary" : "",
                           )
                         }

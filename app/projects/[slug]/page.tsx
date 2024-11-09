@@ -1,13 +1,14 @@
+import React from "react";
+import Image from "next/image";
 import { allProjects } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
+import { LinkIcon } from "lucide-react";
 
 import Avatar from "@/app/components/Avatar";
 import Link from "@/app/components/Link";
 import Mdx from "@/app/components/mdx/MdxWrapper";
 import Me from "@/public/avatar.png";
-import React from "react";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 
@@ -75,12 +76,12 @@ export default function Project({ params }: { params: any }) {
             <p className="text-secondary">
               {project.longSummary || project.summary}
             </p>
-            <span>
-              🔗{" "}
+            <div className="flex gap-2">
+              <LinkIcon className="w-[16px] text-secondary" />
               <Link underline href={project.url || ""}>
                 Visit Project
               </Link>
-            </span>
+            </div>
           </div>
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
@@ -94,21 +95,21 @@ export default function Project({ params }: { params: any }) {
             </div>
           </div>
         </div>
-				{project.image && (
-					<>
-						<div className="h-8" />
-						<div className="relative h-[350px] overflow-hidden">
-							<Image
-								src={project.image}
-								alt={`${project.title} note image`}
-								fill
-								className="rounded-lg object-cover"
-								priority
-								sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-							/>
-						</div>
-					</>
-				)}
+        {project.image && (
+          <>
+            <div className="h-8" />
+            <div className="relative h-[350px] overflow-hidden">
+              <Image
+                src={project.image}
+                alt={`${project.title} note image`}
+                fill
+                className="rounded-lg object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
+              />
+            </div>
+          </>
+        )}
         <div className="h-16" />
         <div className="project prose prose-neutral text-pretty">
           <Mdx code={project.body.code} />

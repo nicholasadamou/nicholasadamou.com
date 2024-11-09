@@ -35,7 +35,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 	);
 }
 
-export const socalLinks: SocialLink[] = [
+export const socialLinks: SocialLink[] = [
 	{
 		href: "https://drive.google.com/file/d/1LjCUzbDkc4NqZyVYTXQ24ZuMfyoudc6T/view?usp=sharing",
 		label: "Resume",

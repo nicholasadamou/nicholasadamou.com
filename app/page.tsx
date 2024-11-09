@@ -6,8 +6,8 @@ import Link from "@/app/components/Link";
 import PostList from "@/app/notes/components/PostList";
 import ProjectList from "@/app/projects/components/ProjectList";
 import React from "react";
-import { FaThumbtack } from "react-icons/fa";
-import SocialLinks, { socalLinks } from "@/app/components/SocialLinks";
+import SocialLinks, { socialLinks } from "@/app/components/SocialLinks";
+import { PinIcon } from "lucide-react";
 
 export default function Home() {
   const notes = allNotes
@@ -48,7 +48,7 @@ export default function Home() {
               to harness the power of code to develop innovative solutions that
               address real-world challenges and improve people&apos;s lives.
             </p>
-            <SocialLinks links={socalLinks} />
+            <SocialLinks links={socialLinks} />
           </div>
           <Image
             src="/nicholas-adamou.jpeg"
@@ -67,7 +67,7 @@ export default function Home() {
         style={{ "--index": 4 } as React.CSSProperties}
       >
         <p className="flex items-center gap-2 tracking-tight text-secondary">
-          <FaThumbtack />
+          <PinIcon />
           Pinned Projects
         </p>
         <ProjectList projects={projects} />
@@ -79,13 +79,13 @@ export default function Home() {
       >
         <div className="space-y-4">
           <Link
-            className="group flex items-center gap-2 tracking-tight text-secondary"
+            className="group flex items-center gap-2 tracking-tight text-primary"
             href="/notes"
           >
             Recent Notes
             <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
           </Link>
-          <p className="max-w-lg text-tertiary">
+          <p className="max-w-lg text-secondary">
             I occasionally share valuable insights on programming, productivity,
             and a variety of other engaging topics. My notes features a range of
             articles that delve into the latest trends, tips, and best practices
