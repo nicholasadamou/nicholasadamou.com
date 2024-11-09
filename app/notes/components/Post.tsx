@@ -6,7 +6,6 @@ import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/_utils/formatShortDate";
 import type { Note } from "contentlayer/generated";
 import { useViews } from "@/app/notes/hooks/useViews";
-import { Eye } from "lucide-react";
 
 type PostProps = {
 	post: Note;
@@ -55,10 +54,6 @@ export default function Post({ post, mousePosition }: PostProps) {
 						<Section heading={formatShortDate(date)}>
 							<span className="font-medium leading-tight text-pretty">{title}</span>
 						</Section>
-						<div className="flex items-center text-sm text-muted-foreground">
-							<Eye className="w-4 h-4 mr-1" />{" "}
-							<span>{viewCount || 0}</span>
-						</div>
 					</div>
 				</div>
 			</Link>
