@@ -5,7 +5,6 @@ import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/_utils/formatShortDate";
 import type { Note } from "contentlayer/generated";
-import { useViews } from "@/app/notes/hooks/useViews";
 
 type PostProps = {
 	post: Note;
@@ -17,8 +16,6 @@ type PostProps = {
 
 export default function Post({ post, mousePosition }: PostProps) {
 	const { date, slug, title, image } = post;
-
-	const viewCount = useViews({ slug });
 
 	const imageHeight = 200; // Set to desired height
 	const imageWidth = 350; // Set to desired width
