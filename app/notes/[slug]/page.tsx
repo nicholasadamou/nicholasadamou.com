@@ -6,7 +6,7 @@ import readingTime from "reading-time";
 import { allNotes } from "contentlayer/generated";
 
 import Avatar from "@/app/components/Avatar";
-import Mdx from "@/app/notes/components/MdxWrapper";
+import Mdx from "@/app/components/mdx/MdxWrapper";
 import Link from "@/app/components/Link";
 import Me from "@/public/avatar.png";
 

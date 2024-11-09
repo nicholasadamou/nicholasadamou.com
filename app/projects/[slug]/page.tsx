@@ -4,7 +4,7 @@ import readingTime from "reading-time";
 
 import Avatar from "@/app/components/Avatar";
 import Link from "@/app/components/Link";
-import Mdx from "@/app/notes/components/MdxWrapper";
+import Mdx from "@/app/components/mdx/MdxWrapper";
 import Me from "@/public/avatar.png";
 import React from "react";
 import Image from "next/image";

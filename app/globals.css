@@ -116,6 +116,12 @@ input:-webkit-autofill:focus {
   @apply whitespace-pre-line rounded border border-primary bg-primary px-1 font-normal text-primary;
 }
 
+/* Override to remove backticks added by ::before and ::after */
+.prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after {
+	content: none !important;
+}
+
 .prose,
 p,
 :where(code):not(
