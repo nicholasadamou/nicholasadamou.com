@@ -61,7 +61,7 @@ export default function ThemeSwitcher() {
                         key={theme}
                         className={({ active }) =>
                           clsx(
-                            "relative cursor-pointer select-none rounded-md py-2 pl-10 pr-4",
+                            "relative cursor-pointer select-none rounded-md py-2 pl-10 pr-4 text-primary",
                             active ? "bg-secondary" : "",
                           )
                         }
@@ -77,7 +77,7 @@ export default function ThemeSwitcher() {
                               {theme === "system" ? "System" : theme}
                             </span>
                             {selected ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 dark:text-neutral-50">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
