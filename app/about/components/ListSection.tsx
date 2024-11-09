@@ -9,6 +9,8 @@ type ListSectionProps = {
 	items: ListItem[];
 };
 
+// TODO - Light mode does not use the correct colors
+
 const ListSection: React.FC<ListSectionProps> = ({ heading, items }) => (
 	<Section heading={heading} headingAlignment="left">
 		<ul className="animated-list grid flex-grow grid-cols-1 gap-3 md:grid-cols-2">
@@ -17,7 +19,7 @@ const ListSection: React.FC<ListSectionProps> = ({ heading, items }) => (
 					{item.href ? (
 						<Link
 							href={item.href}
-							className="inline-grid w-full rounded-lg bg-secondary p-4 no-underline transition-opacity"
+							className="inline-grid w-full rounded-lg bg-[--secondary-color] p-4 no-underline transition-opacity"
 						>
 							<div className="flex items-center gap-3">
 								<span className="text-xl">{item.icon}</span>

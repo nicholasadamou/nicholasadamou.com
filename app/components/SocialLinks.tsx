@@ -11,6 +11,8 @@ type SocialLinksProps = {
 	links: SocialLink[];
 };
 
+// TODO - Light mode does not use the correct colors
+
 export default function SocialLinks({ links }: SocialLinksProps) {
 	return (
 		<ul
@@ -24,10 +26,10 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 				>
 					<Link
 						href={link.href}
-						className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline transition-colors hover:bg-tertiary"
+						className="flex w-fit items-center rounded-full bg-[--secondary-color] px-3 py-1 no-underline transition-colors hover:bg-primary-color/20"
 					>
 						{link.label}
-						<ArrowUpRightIcon className="h-4 w-4 text-tertiary ml-1" />
+						<ArrowUpRightIcon className="h-4 w-4 text-primary-color ml-1" />
 					</Link>
 				</li>
 			))}
@@ -35,7 +37,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 	);
 }
 
-export const socalLinks: SocialLink[] = [
+export const socialLinks: SocialLink[] = [
 	{
 		href: "https://drive.google.com/file/d/1LjCUzbDkc4NqZyVYTXQ24ZuMfyoudc6T/view?usp=sharing",
 		label: "Resume",

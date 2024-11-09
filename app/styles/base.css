@@ -11,40 +11,44 @@
 @tailwind base;
 @tailwind components;
 
-/* Define Color Variables and Base Styling */
+/* Define Color Variables and Base Styling with Nord Polar Night */
 @layer base {
 	:root {
-		/* Global Colors */
-		--bg: var(--gray-1);
-		--boxBg: var(--gray-4);
-		--contrast-color: var(--gray-12);
-		--primary-color: var(--blue-9);
-		--secondary-color: var(--gray-8);
+		/* Global Colors mapped to Nord Theme */
+		--bg: #eceff4;                /* Light background for light mode */
+		--boxBg: #d8dee9;             /* Slightly darker light mode background */
+		--contrast-color: #2e3440;    /* Dark text on light backgrounds (Polar Night) */
+		--primary-color: #5e81ac;     /* Frost blue as primary accent */
+		--secondary-color: #4c566a;   /* Polar Night muted gray for secondary text */
 	}
 
 	/* Light Theme */
 	.light {
-		--contrast-color: #fff;
+		--contrast-color: #2e3440;   /* Polar Night for text on light background */
+		--bg: #eceff4;               /* Snow Storm light background */
+		--boxBg: #d8dee9;            /* Snow Storm slightly darker background */
 		.prose {
-			--tw-prose-headings: var(--gray-12);
-			--tw-prose-body: var(--gray-12);
-			--tw-prose-bold: var(--gray-12);
-			--tw-prose-links: var(--blue-11);
-			--tw-prose-code: var(--gray-12);
-			--tw-prose-quotes: var(--gray-12);
+			--tw-prose-headings: #2e3440; /* Polar Night dark headings */
+			--tw-prose-body: #3b4252;     /* Polar Night for primary body text */
+			--tw-prose-bold: #2e3440;     /* Bold text color */
+			--tw-prose-links: #5e81ac;    /* Frost blue for links */
+			--tw-prose-code: #2e3440;     /* Dark code blocks */
+			--tw-prose-quotes: #3b4252;   /* Quotes color */
 		}
 	}
 
 	/* Dark Theme */
 	.dark {
-		--contrast-color: #0a0a0a;
+		--bg: #2e3440;               /* Polar Night dark background */
+		--boxBg: #3b4252;            /* Slightly lighter dark background */
+		--contrast-color: #eceff4;   /* Snow Storm light text on dark background */
 		.prose {
-			--tw-prose-headings: var(--gray-12);
-			--tw-prose-body: var(--gray-11);
-			--tw-prose-bold: var(--gray-11);
-			--tw-prose-links: var(--blue-11);
-			--tw-prose-code: var(--gray-11);
-			--tw-prose-quotes: var(--gray-11);
+			--tw-prose-headings: #eceff4; /* Snow Storm light headings */
+			--tw-prose-body: #d8dee9;     /* Snow Storm for primary body text */
+			--tw-prose-bold: #eceff4;     /* Bold text */
+			--tw-prose-links: #88c0d0;    /* Frost blue for links */
+			--tw-prose-code: #eceff4;     /* Light code blocks */
+			--tw-prose-quotes: #d8dee9;   /* Quotes color */
 		}
 	}
 
@@ -52,6 +56,7 @@
 	body {
 		@apply overflow-x-hidden;
 		background-color: var(--bg);
+		color: var(--contrast-color);
 	}
 
 	.main-header {

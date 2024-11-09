@@ -1,11 +1,14 @@
 /* Syntax Highlighting Theme */
-@import "@/public/prism/one-dark.css";
+@import "@/public/prism/nord.css";
 
 @tailwind components;
 
 /* Syntax Highlighting */
 pre[class*="language-"] {
-	@apply rounded-md border border-secondary bg-white text-[13px] text-xs text-primary dark:bg-contrast;
+	@apply rounded-md border bg-[#eceff4] text-[13px] text-xs;
+	border-color: var(--secondary-color); /* Polar Night color for border */
+	color: var(--primary-color); /* Frost blue as text color */
+	background-color: var(--boxBg); /* Light background */
 }
 
 .code-highlight {
@@ -17,22 +20,22 @@ pre[class*="language-"] {
 	display: block;
 	padding: 0 16px;
 	margin: 0 -16px;
-	border-left: 4px solid transparent;
+	border-left: 4px solid transparent; /* Placeholder for custom accent */
 }
 
 .code-line.inserted {
-	background-color: rgba(16, 185, 129, 0.2);
+	background-color: rgba(76, 175, 80, 0.2); /* Greenish tint for inserted lines */
 }
 
 .code-line.deleted {
-	background-color: rgba(239, 68, 68, 0.2);
+	background-color: rgba(239, 68, 68, 0.2); /* Reddish tint for deleted lines */
 }
 
 .highlight-line {
 	margin: 0 -24px;
 	padding-left: 26px;
-	background-color: var(--blue-a3);
-	border-left: 2px solid var(--blue-10);
+	background-color: rgba(129, 161, 193, 0.15); /* Frost blue for highlight background */
+	border-left: 2px solid var(--primary-color); /* Frost blue for highlight border */
 }
 
 .line-number::before {
@@ -40,6 +43,6 @@ pre[class*="language-"] {
 	width: 1rem;
 	text-align: right;
 	margin: 0 24px 0 -8px;
-	color: var(--gray-8);
+	color: var(--secondary-color); /* Polar Night muted gray for line numbers */
 	content: attr(line);
 }
