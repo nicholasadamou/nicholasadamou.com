@@ -54,6 +54,10 @@
   }
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
@@ -114,6 +118,10 @@ input:-webkit-autofill:focus {
 
 .prose p code {
   @apply whitespace-pre-line rounded border border-primary bg-primary px-1 font-normal text-primary;
+}
+
+.prose a {
+  color: currentColor;
 }
 
 .prose,
