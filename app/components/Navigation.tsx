@@ -155,7 +155,7 @@ export default function Navigation() {
 											key={link.href}
 											href={link.href}
 											className={clsx(
-												"rounded-md px-4 py-2 transition-colors hover:text-primary",
+												"rounded-md px-4 py-2 transition-colors text-black dark:text-white no-underline",
 												pathname === link.href
 													? "bg-secondary font-medium"
 													: "font-normal",
