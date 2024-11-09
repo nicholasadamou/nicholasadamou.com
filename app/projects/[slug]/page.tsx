@@ -10,6 +10,7 @@ import Me from "@/public/avatar.png";
 import type { Metadata } from "next";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import ProjectLink from "@/app/components/mdx/ProjectLink";
+import Link from "@/app/components/Link";
 
 const baseUrl = getBaseUrl();
 
@@ -80,8 +81,8 @@ export default function Project({ params }: { params: any }) {
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
-              <p>Nicholas Adamou</p>
-              <p className="text-secondary">
+							<Link underline href="/about">Nicholas Adamou</Link>
+              <p className="mt-1 text-secondary">
                 <time dateTime={project.date}>{project.date}</time>
                 {" · "}
                 {readingStats.text}
