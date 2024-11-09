@@ -6,8 +6,10 @@ import {ComputedFields, defineDocumentType, makeSource,} from "contentlayer/sour
 
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import remarkPlantUML from "@akebifiky/remark-simple-plantuml";
+import remarkToc from "remark-toc";
 
 const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
 
@@ -81,10 +83,17 @@ export default makeSource({
 	mdx: {
 		remarkPlugins: [
 			remarkPlantUML as Pluggable,
+			[remarkToc, { heading: "Table of Contents", maxDepth: 4 }],
 		],
 		rehypePlugins: [
 			rehypePrism as Pluggable,
 			rehypeSlug,
+			[
+				rehypeAutolinkHeadings,
+				{
+					behavior: "wrap", // Wrap the heading text in an anchor link
+				},
+			],
 		],
 	},
 });

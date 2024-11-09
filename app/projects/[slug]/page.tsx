@@ -110,7 +110,7 @@ export default function Project({ params }: { params: any }) {
 					</>
 				)}
         <div className="h-16" />
-        <div className="project prose prose-neutral">
+        <div className="project prose prose-neutral text-pretty">
           <Mdx code={project.body.code} />
         </div>
       </article>
