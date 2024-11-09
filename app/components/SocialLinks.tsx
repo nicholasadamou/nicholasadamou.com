@@ -24,7 +24,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 				>
 					<Link
 						href={link.href}
-						className="flex w-fit items-center rounded-full bg-secondary px-3 py-1 no-underline transition-colors hover:bg-tertiary"
+						className="flex w-fit items-center rounded-full bg-tertiary px-3 py-1 no-underline transition-colors hover:bg-tertiary"
 					>
 						{link.label}
 						<ArrowUpRightIcon className="h-4 w-4 text-tertiary ml-1" />
