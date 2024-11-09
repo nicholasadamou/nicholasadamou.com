@@ -51,7 +51,7 @@ export default function RootLayout({
       <body className="width-full text-primary antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
-          <main className="mx-auto w-full px-6 pb-24 pt-32 md:px-6 md:pt-40">
+          <main className="mx-auto w-full px-6 pb-24 pt-32 md:px-6">
             {children}
           </main>
           <ScrollToTop />
