@@ -3,14 +3,13 @@ import Image from "next/image";
 import { allProjects } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
-import { LinkIcon } from "lucide-react";
 
 import Avatar from "@/app/components/Avatar";
-import Link from "@/app/components/Link";
 import Mdx from "@/app/components/mdx/MdxWrapper";
 import Me from "@/public/avatar.png";
 import type { Metadata } from "next";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import ProjectLink from "@/app/components/mdx/ProjectLink";
 
 const baseUrl = getBaseUrl();
 
@@ -76,12 +75,7 @@ export default function Project({ params }: { params: any }) {
             <p className="text-secondary">
               {project.longSummary || project.summary}
             </p>
-            <div className="flex gap-2">
-              <LinkIcon className="w-[16px] text-secondary" />
-              <Link underline href={project.url || ""}>
-                Visit Project
-              </Link>
-            </div>
+            <ProjectLink url={project.url} />
           </div>
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
