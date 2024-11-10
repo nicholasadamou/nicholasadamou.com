@@ -37,7 +37,7 @@ function Workplace({ title, company, imageSrc, date, link, contract = false }: W
 			{link ? (
 				<Link
 					href={link}
-					className="block w-full no-underline hover:bg-[#f9f9f9] dark:hover:bg-[#191919] rounded-lg p-3 -m-2 transition-colors"
+					className="block w-full no-underline hover:bg-tertiary dark:hover:bg-secondary rounded-lg p-3 -m-2 transition-colors"
 				>
 					{content}
 				</Link>
