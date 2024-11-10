@@ -65,7 +65,7 @@ export default function ProductList() {
 						</div>
 						<div className="flex flex-row justify-between items-center gap-1">
 							<p className="font-medium leading-tight">{product.name}</p>
-							<p className="text-primary font-semibold no-underline">{product.formatted_price}</p>
+							<p className="text-tertiary no-underline">{product.formatted_price}</p>
 						</div>
 					</Link>
 				</li>
