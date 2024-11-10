@@ -17,7 +17,7 @@ const ListSection: React.FC<ListSectionProps> = ({ heading, items }) => (
 					{item.href ? (
 						<Link
 							href={item.href}
-							className="inline-grid w-full rounded-lg bg-secondary p-4 no-underline transition-opacity"
+							className="inline-grid w-full rounded-lg bg-tertiary dark:bg-secondary p-4 no-underline transition-opacity"
 						>
 							<div className="flex items-center gap-3">
 								<span className="text-xl">{item.icon}</span>
