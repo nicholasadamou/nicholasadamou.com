@@ -1,4 +1,3 @@
-
 import ReactDOMServer from "react-dom/server";
 import Link from "@/app/components/Link";
 
@@ -15,7 +14,7 @@ export function getContentWithLinks(content: string) {
       const match = linkify.match(word);
 
       if (match) {
-        const url = match[0].url;
+        const {url} = match[0];
         const displayUrl = url.replace(/(^\w+:|^)\/\//, ""); // remove http:// or https:// from the url
         const link = ReactDOMServer.renderToStaticMarkup(
           <Link key={index} href={url} className="break-words text-link">

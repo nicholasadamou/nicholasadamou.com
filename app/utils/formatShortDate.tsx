@@ -20,7 +20,9 @@ export const formatLongDateWithSuffix = (dateString: string): string => {
 	// Get the day as a number
 	const day: number = date.getDate();
 	const suffix = (day: number): string => {
-		if (day > 3 && day < 21) return 'th'; // 4-20
+		if (day > 3 && day < 21) {
+    return 'th';
+  } // 4-20
 		switch (day % 10) {
 			case 1: return 'st';
 			case 2: return 'nd';
