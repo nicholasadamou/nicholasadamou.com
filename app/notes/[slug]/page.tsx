@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,8 +7,14 @@ import readingTime from "reading-time";
 import { allNotes } from "contentlayer/generated";
 
 import Avatar from "@/app/components/Avatar";
-import Mdx from "@/app/components/mdx/MdxWrapper";
 import Link from "@/app/components/Link";
+
+import Mdx from "@/app/components/mdx/MdxWrapper";
+import ProjectLink from "@/app/components/mdx/ProjectLink";
+import HeaderImage from "@/app/components/mdx/HeaderImage";
+
+import Views from "@/app/notes/components/Views";
+
 import Me from "@/public/avatar.png";
 
 import {
@@ -16,9 +23,7 @@ import {
 } from "@/app/_utils/formatShortDate";
 
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
-import React from "react";
-import Views from "@/app/notes/components/Views";
-import ProjectLink from "@/app/components/mdx/ProjectLink";
+
 
 const baseUrl = getBaseUrl();
 
@@ -100,7 +105,7 @@ export default async function Note({ params }: NoteProps) {
             <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
               <Link underline href="/about">Nicholas Adamou</Link>
-              <p className="mt-1 text-secondary text-sm md:text-md">
+              <p className="flex flex-row justify-center gap-1 mt-1 text-secondary text-sm md:text-md">
                 <time dateTime={note.date}>{formatShortDate(note.date)}</time>
                 {note.updatedAt
                   ? `(Updated ${formatShortDate(note.updatedAt)})`
@@ -116,16 +121,13 @@ export default async function Note({ params }: NoteProps) {
         {note.image && (
           <>
             <div className="h-8" />
-            <div className="relative h-[350px] overflow-hidden">
-              <Image
-                src={note.image}
-                alt={`${note.title} note image`}
-                fill
-                className="rounded-lg object-cover"
-                priority
-                sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-              />
-            </div>
+						<HeaderImage
+							imageSrc={note.image}
+							imageAlt={`${note.title} note image`}
+							imageAuthor={note.image_author}
+							imageAuthorUrl={note.image_author_url}
+							imageUrl={note.image_url}
+						/>
           </>
         )}
         <div className="h-8" />

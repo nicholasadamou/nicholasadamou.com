@@ -48,6 +48,9 @@ export const Note = defineDocumentType(() => ({
 		url: {type: "string", required: false},
 		date: {type: "string", required: true},
 		updatedAt: {type: "string", required: false},
+		image_author: {type: "string", required: false},
+		image_author_url: {type: "string", required: false},
+		image_url: {type: "string", required: false},
 	},
 	computedFields: noteComputedFields,
 }));
@@ -74,6 +77,9 @@ export const Project = defineDocumentType(() => ({
 		date: {type: "string", required: true},
 		url: {type: "string", required: false},
 		pinned: {type: "boolean", required: false},
+		image_author: {type: "string", required: false},
+		image_author_url: {type: "string", required: false},
+		image_url: {type: "string", required: false},
 	},
 	computedFields: projectComputedFields,
 }));

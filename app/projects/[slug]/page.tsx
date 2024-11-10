@@ -12,6 +12,7 @@ import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import ProjectLink from "@/app/components/mdx/ProjectLink";
 import Link from "@/app/components/Link";
 import { PinIcon } from "lucide-react";
+import HeaderImage from "@/app/components/mdx/HeaderImage";
 
 const baseUrl = getBaseUrl();
 
@@ -70,9 +71,9 @@ export default function Project({ params }: { params: any }) {
     <div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
       <article>
         <div className="flex flex-col gap-8">
-					<Link href="/projects" underline>
-						← Back to Projects
-					</Link>
+          <Link href="/projects" underline>
+            ← Back to Projects
+          </Link>
           <div className="flex max-w-xl flex-col gap-4 text-pretty">
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
               {project.title}
@@ -85,19 +86,20 @@ export default function Project({ params }: { params: any }) {
           <div className="flex max-w-none items-center gap-4">
             <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
-							<Link underline href="/about">Nicholas Adamou</Link>
-              <p className="mt-1 text-secondary text-sm md:text-md">
+              <Link underline href="/about">
+                Nicholas Adamou
+              </Link>
+              <p className="flex flex-row justify-center gap-1 md:text-md mt-1 text-sm text-secondary">
                 <time dateTime={project.date}>{project.date}</time>
                 {" · "}
                 {readingStats.text}
-								{project.pinned && " · "}
-								{project.pinned && (
-									<>
-										<PinIcon className="ml-[-3px] w-[16px] text-tertiary inline" />
-										{" "}
-										<span className="text-tertiary">(Pinned)</span>
-									</>
-								)}
+                {project.pinned && " · "}
+                {project.pinned && (
+                  <>
+                    <PinIcon className="ml-[-3px] inline w-[16px] text-tertiary" />{" "}
+                    <span className="text-tertiary">(Pinned)</span>
+                  </>
+                )}
               </p>
             </div>
           </div>
@@ -105,16 +107,13 @@ export default function Project({ params }: { params: any }) {
         {project.image && (
           <>
             <div className="h-8" />
-            <div className="relative h-[350px] overflow-hidden">
-              <Image
-                src={project.image}
-                alt={`${project.title} note image`}
-                fill
-                className="rounded-lg object-cover"
-                priority
-                sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-              />
-            </div>
+            <HeaderImage
+							imageSrc={project.image}
+							imageAlt={`${project.title} project image`}
+							imageAuthor={project.image_author}
+							imageAuthorUrl={project.image_author_url}
+							imageUrl={project.image_url}
+						/>
           </>
         )}
         <div className="h-8" />
