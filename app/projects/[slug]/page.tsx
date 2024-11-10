@@ -93,8 +93,9 @@ export default function Project({ params }: { params: any }) {
 								{project.pinned && " · "}
 								{project.pinned && (
 									<>
-										<span>Pinned</span>{" "}
-										<PinIcon className="w-[16px] text-tertiary inline" />
+										<PinIcon className="ml-[-3px] w-[16px] text-tertiary inline" />
+										{" "}
+										<span className="text-tertiary">(Pinned)</span>
 									</>
 								)}
               </p>

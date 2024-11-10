@@ -53,9 +53,10 @@ export default function Project({ project, mousePosition }: ProjectProps) {
 							<div>
 							  <span className="text-pretty font-medium leading-tight flex gap-2">
                 {title}
-									<span>
-                  <PinIcon className="w-[18px] text-tertiary" />
-                </span>
+									<div className="flex text-tertiary gap-1">
+                  <PinIcon className="w-[18px]" />
+										(Pinned)
+                </div>
               </span>
 								<span className="text-tertiary">{project.summary}</span>
 							</div>
