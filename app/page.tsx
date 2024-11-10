@@ -88,7 +88,7 @@ export default function Home() {
 					Recent Notes
 					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
 				</Link>
-				<p className="max-w-lg text-secondary">
+				<p className="max-w-lg text-secondary mt-[-8px]">
 					I occasionally share valuable insights on programming, productivity,
 					and a variety of other engaging topics. My notes features a range of
 					articles that delve into the latest trends, tips, and best practices
