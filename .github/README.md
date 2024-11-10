@@ -29,6 +29,7 @@ A simplistic and clean personal portfolio website showcasing my work and blog po
 -  Incorporates Radix Primitives for accessible UI components.
 -  Includes Framer Motion for smooth animations.
 -  Dark mode toggle for a better user experience.
+-  Integrates with Gumroad API for displaying products.
 
 ## Prerequisites
 

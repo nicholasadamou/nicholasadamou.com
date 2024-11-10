@@ -17,6 +17,7 @@ const nextConfig = {
 			"i.ytimg.com",
 			"store.storeimages.cdn-apple.com",
 			"www.apple.com",
+			"public-files.gumroad.com",
 		],
 	},
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
