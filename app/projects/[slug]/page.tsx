@@ -86,7 +86,7 @@ export default function Project({ params }: { params: any }) {
             <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
 							<Link underline href="/about">Nicholas Adamou</Link>
-              <p className="mt-1 text-secondary">
+              <p className="mt-1 text-secondary text-sm md:text-md">
                 <time dateTime={project.date}>{project.date}</time>
                 {" · "}
                 {readingStats.text}
@@ -117,7 +117,7 @@ export default function Project({ params }: { params: any }) {
             </div>
           </>
         )}
-        <div className="h-16" />
+        <div className="h-12" />
         <div className="project prose prose-neutral text-pretty">
           <Mdx code={project.body.code} />
         </div>

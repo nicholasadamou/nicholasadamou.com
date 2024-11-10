@@ -128,7 +128,7 @@ export default async function Note({ params }: NoteProps) {
             </div>
           </>
         )}
-        <div className="h-16" />
+        <div className="h-12" />
         <div className="prose prose-neutral text-pretty">
           <Mdx code={note.body.code} />
         </div>
