@@ -57,7 +57,7 @@ export default function Home() {
             alt="Nicholas Adamou"
             priority
             style={{ "--index": 2 } as React.CSSProperties}
-            className="flex-1 animate-in rounded-2xl grayscale"
+            className="flex-1 animate-in rounded-2xl grayscale-[0.80]"
           />
         </div>
       </div>
