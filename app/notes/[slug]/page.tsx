@@ -100,7 +100,7 @@ export default async function Note({ params }: NoteProps) {
             <Avatar src={Me} initials="na" size="sm" />
             <div className="leading-tight">
               <Link underline href="/about">Nicholas Adamou</Link>
-              <p className="mt-1 text-secondary">
+              <p className="mt-1 text-secondary text-sm md:text-md">
                 <time dateTime={note.date}>{formatShortDate(note.date)}</time>
                 {note.updatedAt
                   ? `(Updated ${formatShortDate(note.updatedAt)})`
