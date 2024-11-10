@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
-import { formatShortDate } from "@/app/_utils/formatShortDate";
+import { formatShortDate } from "@/app/utils/formatShortDate";
 import type { Project } from "contentlayer/generated";
 import { PinIcon } from "lucide-react";
 

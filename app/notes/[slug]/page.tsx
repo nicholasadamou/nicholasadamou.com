@@ -20,9 +20,9 @@ import Me from "@/public/avatar.png";
 import {
   formatLongDateWithSuffix,
   formatShortDate,
-} from "@/app/_utils/formatShortDate";
+} from "@/app/utils/formatShortDate";
 
-import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import { getBaseUrl } from "@/app/utils/getBaseUrl";
 
 
 const baseUrl = getBaseUrl();

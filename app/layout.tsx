@@ -11,7 +11,7 @@ import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import Navigation from "@/app/components/Navigation";
 
-import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import { getBaseUrl } from "@/app/utils/getBaseUrl";
 
 import React from "react";
 

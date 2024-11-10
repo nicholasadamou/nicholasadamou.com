@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { allProjects } from "contentlayer/generated";
 import React from "react";
 
-import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import { getBaseUrl } from "@/app/utils/getBaseUrl";
 import ProjectList from "@/app/projects/components/ProjectList";
 
 const baseUrl = getBaseUrl();

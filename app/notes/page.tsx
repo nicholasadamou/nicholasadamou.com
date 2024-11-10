@@ -3,7 +3,7 @@ import { allNotes } from "contentlayer/generated";
 import PostList from "@/app/notes/components/PostList";
 import React from "react";
 
-import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import { getBaseUrl } from "@/app/utils/getBaseUrl";
 
 const baseUrl = getBaseUrl();
 

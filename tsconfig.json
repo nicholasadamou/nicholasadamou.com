@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/_utils/fetcher.js",
+    "app/utils/fetcher.js",
 	"types/**/*.d.ts",
     ".contentlayer/generated"
 , "app/components/bento/map.js"  ],

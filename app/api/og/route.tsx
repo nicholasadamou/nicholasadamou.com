@@ -2,7 +2,7 @@
 
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
-import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import { getBaseUrl } from "@/app/utils/getBaseUrl";
 import { ReactElement, ReactNode, AwaitedReactNode } from "react";
 
 const baseUrl = getBaseUrl();

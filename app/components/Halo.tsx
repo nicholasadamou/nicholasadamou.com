@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import useMousePosition from "@/app/_hooks/usemouseposition";
+import useMousePosition from "@/app/hooks/usemouseposition";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 

@@ -8,7 +8,7 @@ import Avatar from "@/app/components/Avatar";
 import Mdx from "@/app/components/mdx/MdxWrapper";
 import Me from "@/public/avatar.png";
 import type { Metadata } from "next";
-import { getBaseUrl } from "@/app/_utils/getBaseUrl";
+import { getBaseUrl } from "@/app/utils/getBaseUrl";
 import ProjectLink from "@/app/components/mdx/ProjectLink";
 import Link from "@/app/components/Link";
 import { PinIcon } from "lucide-react";
