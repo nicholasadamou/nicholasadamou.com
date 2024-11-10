@@ -49,7 +49,10 @@ export default function Post({ post, mousePosition }: PostProps) {
 					)}
 					<div className="flex items-center justify-between gap-6 mt-4">
 						<Section heading={formatShortDate(date)}>
-							<span className="font-medium leading-tight text-pretty">{title}</span>
+							<div className="flex flex-col gap-1">
+								<span className="font-medium leading-tight text-pretty">{title}</span>
+								<span className="text-tertiary">{post.summary}</span>
+							</div>
 						</Section>
 					</div>
 				</div>

@@ -73,6 +73,7 @@ export const Project = defineDocumentType(() => ({
 		longSummary: {type: "string", required: false},
 		date: {type: "string", required: true},
 		url: {type: "string", required: false},
+		pinned: {type: "boolean", required: false},
 	},
 	computedFields: projectComputedFields,
 }));

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import Link from "@/app/components/Link";
 import PostList from "@/app/notes/components/PostList";
-import ProjectList from "@/app/projects/components/ProjectList";
+import PinnedProjectList from "@/app/components/PinnedProjectList";
 import React from "react";
 import SocialLinks, { socialLinks } from "@/app/components/SocialLinks";
 import { PinIcon } from "lucide-react";
@@ -66,11 +66,15 @@ export default function Home() {
         className="flex animate-in flex-col gap-8"
         style={{ "--index": 4 } as React.CSSProperties}
       >
-        <p className="flex items-center gap-2 tracking-tight text-secondary">
-          <PinIcon />
+				<Link
+					className="group flex items-center gap-2 tracking-tight text-primary"
+					href="/notes"
+				>
+          <PinIcon className="h-5 w-5 text-tertiary" />
           Pinned Projects
-        </p>
-        <ProjectList projects={projects} />
+					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+        </Link>
+        <PinnedProjectList projects={projects} />
       </div>
 
       <div

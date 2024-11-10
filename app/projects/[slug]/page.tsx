@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 import ProjectLink from "@/app/components/mdx/ProjectLink";
 import Link from "@/app/components/Link";
+import { PinIcon } from "lucide-react";
 
 const baseUrl = getBaseUrl();
 
@@ -69,6 +70,9 @@ export default function Project({ params }: { params: any }) {
     <div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
       <article>
         <div className="flex flex-col gap-8">
+					<Link href="/projects" underline>
+						← Back to Projects
+					</Link>
           <div className="flex max-w-xl flex-col gap-4 text-pretty">
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
               {project.title}
@@ -86,6 +90,13 @@ export default function Project({ params }: { params: any }) {
                 <time dateTime={project.date}>{project.date}</time>
                 {" · "}
                 {readingStats.text}
+								{project.pinned && " · "}
+								{project.pinned && (
+									<>
+										<span>Pinned</span>{" "}
+										<PinIcon className="w-[16px] text-tertiary inline" />
+									</>
+								)}
               </p>
             </div>
           </div>
