@@ -14,7 +14,6 @@ import Navigation from "@/app/components/Navigation";
 import { getBaseUrl } from "@/app/_utils/getBaseUrl";
 
 import React from "react";
-import { ScrollToTop } from "@/app/components/ScrollToTop";
 
 const baseUrl = getBaseUrl();
 
@@ -54,7 +53,6 @@ export default function RootLayout({
           <main className="mx-auto w-full px-6 pb-24 pt-28 md:px-6">
             {children}
           </main>
-          <ScrollToTop />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
