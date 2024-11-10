@@ -68,7 +68,7 @@ export default function Home() {
       >
 				<Link
 					className="group flex items-center gap-2 tracking-tight text-primary"
-					href="/notes"
+					href="/projects"
 				>
           <PinIcon className="h-5 w-5 text-tertiary" />
           Pinned Projects
