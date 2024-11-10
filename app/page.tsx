@@ -32,7 +32,7 @@ export default function Home() {
   );
 
   return (
-    <div className="mx-auto flex max-w-[700px] flex-col gap-16 px-4 md:gap-24">
+    <div className="mx-auto flex max-w-[700px] flex-col gap-16 md:gap-20 px-4">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col-reverse md:flex-row">
           <div className="mt-5 space-y-4 md:mr-10 md:mt-0">
