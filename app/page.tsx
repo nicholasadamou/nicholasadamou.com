@@ -63,7 +63,7 @@ export default function Home() {
       </div>
 
       <div
-        className="flex animate-in flex-col gap-8"
+        className="flex animate-in flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
       >
 				<Link
@@ -78,28 +78,26 @@ export default function Home() {
       </div>
 
       <div
-        className="flex animate-in flex-col gap-8"
+        className="flex animate-in flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
       >
-        <div className="space-y-4">
-          <Link
-            className="group flex items-center gap-2 tracking-tight text-primary"
-            href="/notes"
-          >
-            Recent Notes
-            <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
-          </Link>
-          <p className="max-w-lg text-secondary">
-            I occasionally share valuable insights on programming, productivity,
-            and a variety of other engaging topics. My notes features a range of
-            articles that delve into the latest trends, tips, and best practices
-            in these areas. I invite you to explore my latest notes and discover
-            the ideas and strategies that can help you enhance your skills and
-            boost your productivity.
-          </p>
-        </div>
-        <PostList posts={notes} />
-      </div>
+				<Link
+					className="group flex items-center gap-2 tracking-tight text-primary"
+					href="/notes"
+				>
+					Recent Notes
+					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+				</Link>
+				<p className="max-w-lg text-secondary">
+					I occasionally share valuable insights on programming, productivity,
+					and a variety of other engaging topics. My notes features a range of
+					articles that delve into the latest trends, tips, and best practices
+					in these areas. I invite you to explore my latest notes and discover
+					the ideas and strategies that can help you enhance your skills and
+					boost your productivity.
+				</p>
+				<PostList posts={notes} />
+			</div>
     </div>
   );
 }
