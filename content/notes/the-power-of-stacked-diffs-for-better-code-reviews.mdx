@@ -1,0 +1,129 @@
+---
+title: "The Power of Stacked Diffs: A Strategy for Better Code Reviews"
+summary: "Discover the benefits of using stacked diffs to make code reviews easier and faster. Learn how breaking up large PRs into smaller, logical units enhances readability, reduces reviewer fatigue, and improves overall code quality."
+date: 2024-11-11
+image_author: "Yancy Min"
+image_author_url: "https://unsplash.com/@yancymin"
+image_url: "https://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI"
+---
+
+In the world of software development, effective code reviews are essential for ensuring quality, catching bugs early, and maintaining code consistency. But if you've ever submitted a large pull request (PR) with hundreds of lines of changes, you know it can be overwhelming for reviewers and result in slower feedback. Enter **stacked diffs**, a strategy that breaks up large PRs into smaller, logically grouped PRs, making reviews easier and more effective.
+
+## Table of Contents
+
+## What are Stacked Diffs?
+
+A stacked diff is a technique where, instead of submitting a single large PR, you create multiple smaller PRs that build upon each other in sequence. Each PR (or "diff") represents an incremental, logical piece of the overall change, and each can be reviewed independently. Reviewers can focus on specific parts of the code, which leads to faster and more thorough reviews.
+
+By stacking diffs, you help reviewers focus on the essence of each change rather than getting lost in a sea of code. Let’s explore an example to see how this works in practice.
+
+### Example Scenario: Adding a New Feature
+
+Imagine you’re adding a new feature to an application that includes multiple changes, such as adding a new API endpoint, updating the database schema, and adjusting the front-end UI. Instead of creating a massive PR with all these changes, you can break it down like this:
+
+1. **First Diff:** Update the Database Schema
+2. **Second Diff:** Implement the API Endpoint
+3. **Third Diff:** Integrate with the Frontend UI
+
+Each diff builds on the previous one, but because they’re separate PRs, reviewers can tackle each change in isolation. Here's how each diff might look.
+
+---
+
+#### Diff 1: Update the Database Schema
+
+In the first diff, you make changes only to the database schema. This diff is small and scoped to updating the database, making it easy for reviewers to focus only on database concerns, such as migrations and table structures.
+
+```diff
+// migration.sql
+
++ ALTER TABLE users ADD COLUMN feature_flag BOOLEAN DEFAULT FALSE;
++ CREATE INDEX idx_users_feature_flag ON users(feature_flag);
+```
+
+The PR description for this diff might read:
+> **Summary**: Added a `feature_flag` column to the `users` table to support the new feature. Created an index to improve query performance for feature-flagged users.
+
+This diff is simple and self-contained, allowing reviewers to focus purely on database concerns.
+
+---
+
+#### Diff 2: Implement the API Endpoint
+
+With the database updated, you can create the next diff to add the API endpoint that leverages this new column. Reviewers don’t need to worry about the database structure; they can assume that’s already reviewed and approved. Instead, they can concentrate on the API logic.
+
+```diff
+// routes/users.js
+
++ router.get('/users/feature-flagged', async (req, res) => {
++   const users = await db.query('SELECT * FROM users WHERE feature_flag = TRUE');
++   res.json(users);
++ });
+```
+
+The PR description for this diff might read:
+> **Summary**: Created a new API endpoint `/users/feature-flagged` to fetch users with the `feature_flag` enabled. This builds on the previous database migration.
+
+This diff is still relatively small and focused. Reviewers can evaluate the endpoint logic, security, and response structure without being distracted by unrelated changes.
+
+---
+
+#### Diff 3: Integrate with the Frontend UI
+
+Finally, you create a diff to add a new UI component that displays users with the feature flag enabled. This diff only includes front-end code, making it straightforward for front-end-focused reviewers to evaluate.
+
+```diff
+// components/FeatureFlaggedUsers.js
+
++ import React, { useEffect, useState } from 'react';
++ import axios from 'axios';
+
++ const FeatureFlaggedUsers = () => {
++   const [users, setUsers] = useState([]);
+
++   useEffect(() => {
++     axios.get('/api/users/feature-flagged')
++       .then(response => setUsers(response.data))
++       .catch(error => console.error(error));
++   }, []);
+
++   return (
++     <div>
++       <h2>Feature Flagged Users</h2>
++       <ul>
++         {users.map(user => (
++           <li key={user.id}>{user.name}</li>
++         ))}
++       </ul>
++     </div>
++   );
++ };
+
++ export default FeatureFlaggedUsers;
+```
+
+The PR description for this diff might read:
+> **Summary**: Added a `FeatureFlaggedUsers` component to display users with the feature flag enabled. Integrates with the new `/users/feature-flagged` API endpoint.
+
+Reviewers can now focus solely on the front-end logic, checking for UI best practices, component reusability, and ensuring error handling is in place.
+
+---
+
+## Benefits of Using Stacked Diffs
+
+Stacked diffs offer numerous advantages over monolithic PRs:
+
+1. **Focused Reviews**: Reviewers can focus on smaller, self-contained changes, leading to quicker and more meaningful feedback.
+2. **Reduced Reviewer Fatigue**: Smaller diffs are less overwhelming and help maintain reviewer focus.
+3. **Easier Debugging**: Each diff represents a logical unit, so if an issue arises, it’s easier to trace it back to a specific change.
+4. **Parallel Review Process**: Different team members can review different diffs in parallel, speeding up the review cycle.
+
+## Tips for Effective Stacked Diffs
+
+- **Ensure Each Diff is Self-Contained**: Each diff should make sense on its own and not depend on unreviewed changes from later diffs.
+- **Keep Diffs Small**: Ideally, each diff should be under 200 lines to prevent overwhelming reviewers.
+- **Use Clear Commit Messages**: Each diff should have a concise, descriptive commit message explaining its purpose and dependencies.
+- **Communicate the Stack Order**: Clearly indicate the order in which diffs should be reviewed and merged.
+
+## Conclusion
+
+By adopting stacked diffs, you can improve code review efficiency, reduce reviewer fatigue, and enhance overall code quality. Next time you’re working on a significant feature, consider breaking it down into stacked diffs for a more streamlined, reviewer-friendly approach.
