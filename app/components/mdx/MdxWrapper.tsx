@@ -5,6 +5,7 @@ import LinkPreview from "@/app/components/mdx/LinkPreview";
 import PlantUML from "@/app/components/mdx/PlantUML";
 import CustomImage from "@/app/components/mdx/Image";
 import CustomLink from "@/app/components/mdx/CustomLink";
+import YouTubeEmbed from "@/app/components/mdx/YouTubeEmbed";
 
 const components = {
 	Image: CustomImage,
@@ -14,6 +15,7 @@ const components = {
 	LinkPreview: LinkPreview,
 	plantuml: PlantUML,
 	PlantUML: PlantUML,
+	YouTubeEmbed: YouTubeEmbed,
 };
 
 export default function MdxWrapper({ code }: { code: string }) {
