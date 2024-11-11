@@ -15,7 +15,7 @@ In the world of software development, effective code reviews are essential for e
 
 A stacked diff is a technique where, instead of submitting a single large PR, you create multiple smaller PRs that build upon each other in sequence. Each PR (or "diff") represents an incremental, logical piece of the overall change, and each can be reviewed independently. Reviewers can focus on specific parts of the code, which leads to faster and more thorough reviews.
 
-By stacking diffs, you help reviewers focus on the essence of each change rather than getting lost in a sea of code. Let’s explore an example to see how this works in practice.
+This approach shifts the focus from trying to comprehend a complex, monolithic change to understanding and reviewing logically grouped, manageable pieces of code. The goal is to reduce cognitive load for reviewers and ensure that each part of the change is given proper attention. Let’s explore an example to see how this works in practice.
 
 ### Example Scenario: Adding a New Feature
 
@@ -26,8 +26,6 @@ Imagine you’re adding a new feature to an application that includes multiple c
 3. **Third Diff:** Integrate with the Frontend UI
 
 Each diff builds on the previous one, but because they’re separate PRs, reviewers can tackle each change in isolation. Here's how each diff might look.
-
----
 
 #### Diff 1: Update the Database Schema
 
@@ -41,7 +39,7 @@ In the first diff, you make changes only to the database schema. This diff is sm
 ```
 
 The PR description for this diff might read:
-> **Summary**: Added a `feature_flag` column to the `users` table to support the new feature. Created an index to improve query performance for feature-flagged users.
+> Added a `feature_flag` column to the `users` table to support the new feature. Created an index to improve query performance for feature-flagged users.
 
 This diff is simple and self-contained, allowing reviewers to focus purely on database concerns.
 
@@ -61,7 +59,7 @@ With the database updated, you can create the next diff to add the API endpoint 
 ```
 
 The PR description for this diff might read:
-> **Summary**: Created a new API endpoint `/users/feature-flagged` to fetch users with the `feature_flag` enabled. This builds on the previous database migration.
+> Created a new API endpoint `/users/feature-flagged` to fetch users with the `feature_flag` enabled. This builds on the previous database migration.
 
 This diff is still relatively small and focused. Reviewers can evaluate the endpoint logic, security, and response structure without being distracted by unrelated changes.
 
@@ -102,11 +100,9 @@ Finally, you create a diff to add a new UI component that displays users with th
 ```
 
 The PR description for this diff might read:
-> **Summary**: Added a `FeatureFlaggedUsers` component to display users with the feature flag enabled. Integrates with the new `/users/feature-flagged` API endpoint.
+> Added a `FeatureFlaggedUsers` component to display users with the feature flag enabled. Integrates with the new `/users/feature-flagged` API endpoint.
 
 Reviewers can now focus solely on the front-end logic, checking for UI best practices, component reusability, and ensuring error handling is in place.
-
----
 
 ## Benefits of Using Stacked Diffs
 
@@ -116,14 +112,18 @@ Stacked diffs offer numerous advantages over monolithic PRs:
 2. **Reduced Reviewer Fatigue**: Smaller diffs are less overwhelming and help maintain reviewer focus.
 3. **Easier Debugging**: Each diff represents a logical unit, so if an issue arises, it’s easier to trace it back to a specific change.
 4. **Parallel Review Process**: Different team members can review different diffs in parallel, speeding up the review cycle.
+5. **Easier Reverts**: When something goes wrong, it’s much easier to revert a small, isolated diff than an entire monolithic PR.
 
 ## Tips for Effective Stacked Diffs
 
-- **Ensure Each Diff is Self-Contained**: Each diff should make sense on its own and not depend on unreviewed changes from later diffs.
+To make the most of stacked diffs, follow these best practices:
+
+- **Ensure Each Diff is Self-Contained**: Each diff should make sense on its own and not depend on unreviewed changes from later diffs. Reviewers should be able to fully understand each part without future context.
 - **Keep Diffs Small**: Ideally, each diff should be under 200 lines to prevent overwhelming reviewers.
 - **Use Clear Commit Messages**: Each diff should have a concise, descriptive commit message explaining its purpose and dependencies.
 - **Communicate the Stack Order**: Clearly indicate the order in which diffs should be reviewed and merged.
+- **Leverage Automation**: Use continuous integration (CI) checks and automated testing for each diff to catch issues early.
 
 ## Conclusion
 
-By adopting stacked diffs, you can improve code review efficiency, reduce reviewer fatigue, and enhance overall code quality. Next time you’re working on a significant feature, consider breaking it down into stacked diffs for a more streamlined, reviewer-friendly approach.
+Stacked diffs help streamline the code review process, making it less overwhelming and more productive. They allow teams to break down complex tasks into manageable units, provide focused reviews, and enable faster, higher-quality feedback. The next time you’re working on a significant feature or bug fix, consider breaking it down into stacked diffs for a more efficient, reviewer-friendly workflow.
