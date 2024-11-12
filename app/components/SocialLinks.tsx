@@ -37,7 +37,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 
 export const socialLinks: SocialLink[] = [
 	{
-		href: "https://drive.google.com/file/d/1Es_mfIdiZbhjLOTln-KFRQnyPLLzG8kU/view?usp=drive_link",
+		href: "https://tinyurl.com/nicholas-adamou-resume",
 		label: "Resume",
 	},
 	{
