@@ -37,7 +37,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 
 export const socialLinks: SocialLink[] = [
 	{
-		href: "https://drive.google.com/file/d/1LjCUzbDkc4NqZyVYTXQ24ZuMfyoudc6T/view?usp=sharing",
+		href: "https://drive.google.com/file/d/1Es_mfIdiZbhjLOTln-KFRQnyPLLzG8kU/view?usp=drive_link",
 		label: "Resume",
 	},
 	{
