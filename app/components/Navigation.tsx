@@ -106,9 +106,9 @@ export default function Navigation() {
 			animate={{ y: 0 }}
 			transition={{ type: "spring", stiffness: 100, damping: 20 }}
 			className={clsx(
-				"z-30 mx-auto py-4 px-10 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 bg-[#fcfcfc]/75 dark:bg-[#111]/75 backdrop-blur-sm",
+				"z-30 mx-auto py-4 px-10 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
 				isScrolled
-					? "bg-primary text-white"
+					? "bg-[#fcfcfc]/75 dark:bg-[#111]/75 text-black dark:text-white"
 					: "bg-transparent text-primary"
 			)}
 			ref={popoverRef}
