@@ -106,15 +106,15 @@ export default function Navigation() {
 			animate={{ y: 0 }}
 			transition={{ type: "spring", stiffness: 100, damping: 20 }}
 			className={clsx(
-				"z-30 mx-auto py-4 px-2 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 bg-[#fcfcfc]/75 dark:bg-[#111]/75 backdrop-blur-sm",
+				"z-30 mx-auto py-4 px-10 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 bg-[#fcfcfc]/75 dark:bg-[#111]/75 backdrop-blur-sm",
 				isScrolled
 					? "bg-primary text-white"
 					: "bg-transparent text-primary"
 			)}
 			ref={popoverRef}
 		>
-			<div className="mx-auto max-w-[700px] flex justify-between">
-				<nav className="flex gap-3 px-4 py-3">
+			<div className="mx-auto pl-0 md:pl-4 max-w-[700px] flex justify-between">
+				<nav className="flex gap-3 py-3">
 					<Link href="/" className="shrink-0 text-primary">
 						<svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
@@ -131,10 +131,10 @@ export default function Navigation() {
 					</ul>
 				</nav>
 				<div className="flex gap-1 items-center">
-					<div className="ml-auto pr-2 flex h-8 w-8 items-center justify-center md:ml-0">
+					<div className="ml-auto pr-2 md:pr-4 flex h-8 w-8 items-center justify-center md:ml-0">
 						<ThemeSwitcher />
 					</div>
-					<Popover className="relative md:hidden" ref={popoverRef}>
+					<Popover className="mr-[-5px] relative md:hidden" ref={popoverRef}>
 						<Popover.Button className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary">
 							<Bars3Icon
 								className="h-6 w-6 cursor-pointer text-primary transition-colors hover:text-primary" />

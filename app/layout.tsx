@@ -50,7 +50,7 @@ export default function RootLayout({
       <body className="width-full text-primary antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
-          <main className="mx-auto w-full px-6 pb-24 pt-28 md:px-6">
+          <main className="mx-auto w-full px-6 pb-24 pt-28">
             {children}
           </main>
         </ThemeProvider>
