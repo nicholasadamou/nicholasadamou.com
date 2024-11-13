@@ -6,7 +6,7 @@
 }
 
 .prose blockquote {
-	@apply border-l-2 border-primary font-serif text-lg font-light;
+	@apply border-l-2 border-primary font-serif text-base font-light;
 }
 
 .prose figcaption {
