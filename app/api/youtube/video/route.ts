@@ -1,5 +1,4 @@
-import type { NextApiRequest } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 const { YOUTUBE_API_KEY } = process.env;
 
@@ -7,7 +6,7 @@ if (!YOUTUBE_API_KEY) {
 	throw new Error('YouTube API key is not set');
 }
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
 	const { searchParams } = new URL(req.url || '');
 	const id = searchParams.get('id');
 
