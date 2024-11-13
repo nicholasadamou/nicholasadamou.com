@@ -106,7 +106,7 @@ export default function Navigation() {
 			animate={{ y: 0 }}
 			transition={{ type: "spring", stiffness: 100, damping: 20 }}
 			className={clsx(
-				"z-30 mx-auto py-4 px-2 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300",
+				"z-30 mx-auto py-4 px-2 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 bg-[#fcfcfc]/75 dark:bg-[#111]/75 backdrop-blur-sm",
 				isScrolled
 					? "bg-primary text-white"
 					: "bg-transparent text-primary"
@@ -137,7 +137,7 @@ export default function Navigation() {
 					<Popover className="relative md:hidden" ref={popoverRef}>
 						<Popover.Button className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary">
 							<Bars3Icon
-								className="h-5 w-5 cursor-pointer text-secondary transition-colors hover:text-primary" />
+								className="h-6 w-6 cursor-pointer text-primary transition-colors hover:text-primary" />
 						</Popover.Button>
 						<Transition
 							as={Fragment}
