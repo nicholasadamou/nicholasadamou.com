@@ -5,7 +5,7 @@ import LinkPreview from "@/app/components/mdx/LinkPreview";
 import PlantUML from "@/app/components/mdx/PlantUML";
 import CustomImage from "@/app/components/mdx/Image";
 import CustomLink from "@/app/components/mdx/CustomLink";
-import YouTubeEmbed from "@/app/components/mdx/YouTubeEmbed";
+import YouTubeEmbed from "@/app/components/mdx/YouTube/YouTubeEmbed";
 
 const components = {
 	Image: CustomImage,
