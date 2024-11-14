@@ -30,6 +30,7 @@ A simplistic and clean personal portfolio website showcasing my work and blog po
 -  Includes Framer Motion for smooth animations.
 -  Dark mode toggle for a better user experience.
 -  Integrates with Gumroad API for displaying products.
+-  Incorporates YouTube API for displaying video metadata.
 
 ## Prerequisites
 
