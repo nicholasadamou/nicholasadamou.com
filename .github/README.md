@@ -50,7 +50,7 @@ cd nicholasadamou.com
 **Install Dependencies**
 
 ```sh
-npm install
+pnpm install
 ```
 
 **Environment Variables**
