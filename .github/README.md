@@ -9,7 +9,7 @@
 
 Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://github.com/nicholasadamou/v2), and [v3](https://github.com/nicholasadamou/v3).
 
-A simplistic and clean personal portfolio website showcasing my work and blog posts. This website features MDX articles with view counts, a dark mode toggle, an about page, and more.
+A simplistic and clean personal portfolio website showcasing my work and notes. This website features MDX articles with view counts, a dark mode toggle, an about page, and more.
 
 ## Table of Contents
 
