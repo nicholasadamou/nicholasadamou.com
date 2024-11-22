@@ -52,7 +52,7 @@ export function Footer(): React.JSX.Element {
 
 	return (
 		<motion.footer
-			className="absolute bottom-0 inset-x-0 px-10 md:px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between"
+			className="absolute bottom-0 inset-x-0 px-8 md:px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between"
 			initial="hidden"
 			animate="visible"
 			variants={footerVariants}
