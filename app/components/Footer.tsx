@@ -52,13 +52,13 @@ export function Footer(): React.JSX.Element {
 
 	return (
 		<motion.footer
-			className="absolute bottom-0 inset-x-0 px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between"
+			className="absolute bottom-0 inset-x-0 px-10 md:px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between"
 			initial="hidden"
 			animate="visible"
 			variants={footerVariants}
 		>
-			<motion.p className="text-xs md:text-sm text-secondary" variants={childVariants}>
-				&copy; {new Date().getFullYear()} Nicholas Adamou. All rights reserved.
+			<motion.p className="text-sm text-secondary" variants={childVariants}>
+				&copy; {new Date().getFullYear()} Nicholas Adamou.
 			</motion.p>
 			<motion.nav className="sm:ml-auto flex gap-4 sm:gap-6 items-center" variants={childVariants}>
 				{commitHash && (
@@ -70,7 +70,7 @@ export function Footer(): React.JSX.Element {
 									whileTap={{ scale: 0.95 }}
 								>
 									<Link
-										className="text-xs md:text-sm transition-colors duration-200 text-secondary flex items-center gap-1 bg-[#191919] py-1 px-2 rounded-full"
+										className="text-sm transition-colors duration-200 text-secondary flex items-center gap-1 bg-[#191919] py-1 px-2 rounded-full"
 										href={`https://github.com/nicholasadamou/nicholasadamou.com/commit/${commitHash}`}
 										target="_blank"
 										rel="noopener noreferrer"
@@ -91,7 +91,7 @@ export function Footer(): React.JSX.Element {
 					whileTap={{ scale: 0.95 }}
 				>
 					<Link
-						className="text-xs md:text-sm hover:text-primary transition-colors duration-200 text-secondary flex items-center gap-1"
+						className="text-sm hover:text-primary transition-colors duration-200 text-secondary flex items-center gap-1"
 						href="https://github.com/nicholasadamou/nicholasadamou.com"
 						target="_blank"
 						rel="noopener noreferrer"
