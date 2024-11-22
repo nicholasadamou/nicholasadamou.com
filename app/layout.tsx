@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import React from "react";
 import type { Metadata } from "next";
 
 import { Analytics } from "@vercel/analytics/react";
@@ -10,10 +11,10 @@ import { GeistMono } from "geist/font/mono";
 
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import Navigation from "@/app/components/Navigation";
+import { Footer } from "@/app/components/Footer";
+
 
 import { getBaseUrl } from "@/app/utils/getBaseUrl";
-
-import React from "react";
 
 const baseUrl = getBaseUrl();
 
@@ -47,11 +48,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="width-full text-primary antialiased">
+      <body className="relative width-full text-primary antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
           <main className="mx-auto w-full px-6 pb-24 pt-28">
             {children}
+						<Footer />
           </main>
         </ThemeProvider>
         <Analytics />
