@@ -58,7 +58,7 @@ export function Footer(): React.JSX.Element {
 			variants={footerVariants}
 		>
 			<motion.p className="text-sm text-muted-foreground" variants={childVariants}>
-				&copy; {new Date().getFullYear()} Nicholas Adamou. All rights reserved.
+				&copy; {new Date().getFullYear()} Nicholas Adamou.
 			</motion.p>
 			<motion.nav className="sm:ml-auto flex gap-4 sm:gap-6 items-center" variants={childVariants}>
 				{commitHash && (
