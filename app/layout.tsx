@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="relative width-full text-primary antialiased">
+      <body className="flex flex-col min-h-screen relative width-full text-primary antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
           <main className="mx-auto w-full px-4 pb-24 pt-28">
