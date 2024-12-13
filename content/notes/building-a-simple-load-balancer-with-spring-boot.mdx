@@ -69,6 +69,8 @@ API5 --> HCS : Heartbeat 5s
 @enduml
 ```
 
+From the UML diagram above, we can gather that:
+
 - **Clients** send requests to the load balancer (port 8080).
 - The load balancer maintains a list of healthy services and uses round-robin to distribute requests.
 - **API services** register themselves with heartbeat messages every 5 seconds.
