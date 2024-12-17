@@ -15,110 +15,94 @@ Joining a new team often means diving headfirst into a complex codebase. Whether
 
 Start by understanding the big picture. This will help you connect your work to broader goals:
 
+### Key Steps
+
 - **Understand the Application’s Purpose**: Learn what the application does through user guides, demos, or product documentation.
 - **Know the Users**: Identify the target audience and their challenges.
 - **Explore the Problem Space**: Understand the specific issues the software is solving.
 
 ### Lockheed Martin Space Example
 
-At Lockheed Martin Space, I benefited from a **30-minute pre-recorded video** explaining the software’s purpose, goals, and high-level architecture. This resource clarified:
-- The **strategic vision** of the software.
-- The **major components** and how they interact.
-- The **use cases** it addresses.
+At **Lockheed Martin Space**, I benefited from a 30-minute pre-recorded video explaining the software’s purpose, goals, and high-level architecture. This resource clarified:
+
+- The strategic vision of the software.
+- The major components and how they interact.
+- The use cases it addresses.
 
 Having this high-level understanding early on made it much easier to contribute effectively.
 
+---
+
 ## 2. Understand the Architecture
 
-Once you’ve familiarized yourself with the big picture, it’s time to dive deeper into the system’s architecture. Understanding how the software is structured and how its components interact is essential for making meaningful contributions. Here’s how to approach this step:
+Once you’ve familiarized yourself with the big picture, it’s time to dive deeper into the system’s architecture. Understanding how the software is structured and how its components interact is essential for making meaningful contributions.
 
 ### Key Areas to Focus On
 
-1. **Core Components**:
-- Identify the primary modules, layers, or services. For example:
+- **Core Components**:
+- Identify the primary modules, layers, or services. Examples:
 - Front-end, back-end, database, and middleware layers.
 - Microservices and their individual responsibilities.
 - Understand the role of each component in the overall system.
 
-2. **Data Flow**:
+- **Data Flow**:
 - Map out how data moves through the system.
 - Is it RESTful, event-driven, or message-based?
 - What protocols (e.g., HTTP, WebSocket) or patterns (e.g., CQRS, Pub/Sub) are used?
 - Look for high-level diagrams showing the flow of requests, responses, and database interactions.
 
-3. **External Dependencies**:
+- **External Dependencies**:
 - Identify third-party services, APIs, or libraries the software depends on.
 - Understand how these external systems integrate with the application.
 
-4. **Deployment Architecture**:
+- **Deployment Architecture**:
 - Review how the application is deployed: is it containerized with tools like Docker, orchestrated with Kubernetes, or deployed on a cloud platform?
 - Learn about staging, testing, and production environments.
 
 ### Use Documentation and Pre-Recorded Resources
 
-At Lockheed Martin, the onboarding process included a **30-minute pre-recorded video** that provided a 40,000 ft view of the system architecture. This resource was invaluable for understanding the following:
+At Lockheed Martin, the onboarding process included a 30-minute pre-recorded video that provided a **40,000 ft view** of the system architecture. It clarified:
 
-1. **High-Level Architecture**:
-- The software’s major components and their interactions.
-- The boundaries between services and how they communicate with each other.
-
-2. **Integration Points**:
-- How external services and dependencies are incorporated into the system.
-- What makes the system secure, robust, and scalable.
-
-3. **Design Philosophy**:
-- Why the architecture was designed in a particular way, with insights into trade-offs and decisions made by previous developers.
-
-This video was more than just an architectural overview—it provided context for why the system was built the way it was, helping me understand not just the “what” but also the “why” behind the architecture.
-
-### Approach the Code with the Architecture in Mind
-
-Once you’ve grasped the high-level architecture, drill down into specific parts of the codebase:
-- Start by exploring the repositories that correspond to the core components outlined in the video or documentation.
-- Look for patterns or frameworks used consistently across the system (e.g., MVC, service layers, repositories).
-- Use diagrams and data flow charts to correlate what you see in the code with the architecture.
-
-### Practical Example
-
-During my onboarding at Lockheed Martin, the **pre-recorded video** made it clear how different modules interacted. For instance, it highlighted the:
-- **Role of Security Layers**: The architecture emphasized strict access control and data security, aligning with Lockheed Martin’s overarching priorities.
-- **Importance of Resiliency**: Key components were designed with fault-tolerant patterns, ensuring continued operation under adverse conditions.
-- **Data Pipelines**: The flow of data from ingestion to processing to visualization was mapped out, giving me a clear starting point when debugging or contributing to the system.
-
-This clarity allowed me to contribute effectively from the start, as I could place each task I worked on within the larger context of the system’s architecture and purpose.
+- The high-level architecture and interactions between major components.
+- Integration points with external systems and dependencies.
+- The design philosophy behind architectural decisions.
 
 ### Why This Step Matters
 
-Understanding the architecture is crucial because it helps you:
+Understanding the architecture helps you:
+
 - Navigate the codebase efficiently by focusing on key areas.
 - Spot potential risks or issues based on how components interact.
 - Contribute meaningfully to discussions about design or refactoring.
 
-At Lockheed Martin, the combination of the pre-recorded video, documentation, and mentorship from my onboarding buddy provided a solid foundation for understanding the architecture. This approach ensured that I not only understood the technical details but also appreciated how each piece of the system fit into the broader objectives of the organization.
-
-By taking the time to thoroughly understand the architecture, you’ll position yourself to make informed decisions, ask better questions, and ultimately accelerate your contributions.
+---
 
 ## 3. Set Up the Development Environment
 
-Getting the environment running is one of the first challenges you’ll face. Here's how to approach it:
+Getting the environment running is one of the first challenges you’ll face.
 
 ### Key Steps
-1. **Clone the Repository**: Confirm permissions, explore the code structure, and note branch conventions.
-2. **Install Dependencies**: Use tools like `npm`, `yarn`, or `maven` per the setup guide.
-3. **Run the Application**: Use scripts (`npm run dev`, `docker-compose up`) to confirm everything works.
+
+1. **Clone the Repository**:
+- Confirm permissions, explore the code structure, and note branch conventions.
+2. **Install Dependencies**:
+- Use tools like `npm`, `yarn`, or `maven` per the setup guide.
+3. **Run the Application**:
+- Use scripts (`npm run dev`, `docker-compose up`) to confirm everything works.
 
 ### Documentation and Resources
 
-At Lockheed Martin, detailed onboarding documentation made setup seamless:
-- A **step-by-step guide** for configuring tools and replicating workflows.
-- A **40,000 ft view video** outlining the architecture and goals of the software.
+At Lockheed Martin, I benefited from detailed onboarding documentation that made the setup seamless:
 
-This documentation was invaluable in replicating the environment on a clean setup, saving time and reducing friction.
+- A step-by-step guide for configuring tools and replicating workflows.
+- A **40,000 ft view** video outlining the architecture and goals of the software.
 
-### Troubleshoot and Document
-If you encounter issues:
+**If you encounter issues during setup:**
+
 - Record errors and solutions to help yourself and future developers.
 - Share insights with the team to improve documentation.
+
+---
 
 ## 4. Start with Small Tasks
 
@@ -130,9 +114,9 @@ Tackle manageable tasks to build confidence and context:
 
 ### Lockheed Martin Space Example
 
-At Lockheed Martin, I worked closely with my **onboarding buddy**, a subject matter expert (SME) who introduced me to workflows and the codebase. The **team's product owner** helped identify "low-hanging fruit" (LHF) tasks to start contributing quickly.
+At Lockheed Martin, I worked closely with my onboarding buddy and the team’s product owner to identify **"low-hanging fruit" (LHF)** tasks. When LHF wasn’t available, new developers participated in **pair programming** sessions to submit their first merge request (MR). This ensured new hires learned team workflows and coding standards while contributing meaningfully.
 
-When LHF wasn’t available, new developers participated in **pair programming sessions** to submit their first merge request (MR). This ensured they learned the team’s workflows and coding standards while contributing meaningfully.
+---
 
 ## 5. Leverage Documentation and Team Knowledge
 
@@ -142,7 +126,9 @@ Maximize available resources to accelerate learning:
 - **Code Comments**: Study inline documentation for insights.
 - **Ask Questions**: Reach out to your team or mentor for clarification.
 
-At Lockheed Martin, the onboarding documentation and a supportive team environment significantly shortened the learning curve. Asking targeted questions about workflows and processes helped me navigate challenges effectively.
+At Lockheed Martin, the combination of onboarding documentation and a supportive team environment significantly shortened the learning curve. Asking targeted questions about workflows and processes helped me navigate challenges effectively.
+
+---
 
 ## 6. Use Debugging to Learn
 
@@ -152,13 +138,16 @@ Debugging isn’t just for fixing bugs—it’s an excellent way to explore the 
 - **Log Outputs**: Insert logs to visualize inputs and outputs.
 - **Run Tests**: Examine test cases to understand expected behaviors.
 
-### Adapting to Security Constraints
+### Lockheed Martin Example
 
 At Lockheed Martin, strict security protocols restricted tool usage. For example:
-- Tools like IntelliJ IDEA were prohibited due to reliance on cloud features.
-- Locally-hosted IDEs like Eclipse or secure versions of Visual Studio Code were used instead.
 
-Despite these constraints, debugging remained a valuable tool for understanding the system.
+- Tools like **IntelliJ IDEA** were prohibited due to reliance on cloud features.
+- Locally-hosted IDEs like **Eclipse** or secure versions of **Visual Studio Code** were used instead.
+
+Despite these constraints, debugging remained a valuable tool for understanding the system. Working within these constraints also strengthened my ability to adapt and deliver quality code with minimal dependencies.
+
+---
 
 ## 7. Build Relationships with Your Team
 
@@ -168,14 +157,26 @@ Your team is your greatest resource. Build strong connections by:
 - **Code Reviews**: Volunteer to review small pull requests to gain context.
 - **Daily Standups**: Share progress and ask for guidance.
 
-### Leverage an Onboarding Buddy
+### The Role of an Onboarding Buddy
 
 At Lockheed Martin, each new hire is paired with an **onboarding buddy**—an experienced developer tasked with guiding them through the codebase and workflows. This mentorship accelerates onboarding, helping new developers contribute quickly while fostering collaboration and trust.
+
+#### Why the Onboarding Buddy System Works:
+
+- **Guided Learning**: A buddy provides context and answers questions.
+- **Structured Onboarding**: They help you navigate the codebase and workflows efficiently.
+- **Accelerated Contributions**: By having a mentor, you can quickly overcome hurdles and focus on delivering value.
+
+**Note**: While some might view assigning a buddy as a distraction for experienced developers, in the long run, it pays off. A buddy reduces ramp-up time for new hires, saves the team effort in answering repeat questions, and fosters a collaborative, mentoring culture.
+
+---
 
 ## Bonus Tip: Take Notes and Improve Documentation
 
 Document what you learn—commands, workflows, and solutions. Share your insights with the team to improve onboarding materials for future hires.
 
+---
+
 ## Conclusion
 
-Onboarding to a new codebase is an opportunity to grow as a developer. By following these steps, you can build confidence, contribute effectively, and leave a positive impression on your team. Every codebase has its quirks, but patience, persistence, and collaboration are key to mastering them.
+Onboarding to a new codebase is an opportunity to grow as a developer. By following these steps, you can build confidence, contribute effectively, and leave a positive impression on your team. Every codebase has its quirks, but **patience, persistence, and collaboration** are key to mastering them.
