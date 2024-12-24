@@ -14,7 +14,7 @@ type SocialLinksProps = {
 export default function SocialLinks({ links }: SocialLinksProps) {
 	return (
 		<ul
-			className="animate-in animated-list flex snap-x snap-mandatory flex-nowrap gap-2 sm:gap-3 overflow-x-scroll text-sm md:overflow-auto"
+			className="animate-in animated-list flex snap-x snap-mandatory flex-nowrap max-w-96 gap-2 sm:gap-3 overflow-x-scroll text-sm md:overflow-auto"
 			style={{ "--index": 2 } as React.CSSProperties}
 		>
 			{links.map((link) => (
@@ -51,5 +51,9 @@ export const socialLinks: SocialLink[] = [
 	{
 		href: "https://dotbrains.dev",
 		label: "DotBrains",
+	},
+	{
+		href: "https://next-ui-orcin-chi.vercel.app",
+		label: "Next UI",
 	}
 ];
