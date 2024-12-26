@@ -84,6 +84,10 @@ export default function ContentPage({
               <>
                 {" · "}
                 {readingStats.text}
+								{type === "note" && " · "}
+								{type === "note" && (
+									<Views slug={content.slug} />
+								)}
                 {content.pinned && " · "}
                 {content.pinned && (
                   <>
@@ -91,10 +95,6 @@ export default function ContentPage({
                     <span className="text-tertiary">(Pinned)</span>
                   </>
                 )}
-								{type === "note" && " · "}
-								{type === "note" && (
-									<Views slug={content.slug} />
-								)}
               </>
             ),
           }}
