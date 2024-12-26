@@ -5,7 +5,6 @@ import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/utils/formatShortDate";
 import type { Project } from "contentlayer/generated";
-import { PinIcon } from "lucide-react";
 
 type ProjectProps = {
 	project: Project;
@@ -16,7 +15,7 @@ type ProjectProps = {
 };
 
 export default function Project({ project, mousePosition }: ProjectProps) {
-	const { date, slug, title, image } = project;
+	const { date, slug, title, image, pinned } = project;
 
 	const imageHeight = 200; // Set to desired height
 	const imageWidth = 350; // Set to desired width
@@ -49,21 +48,17 @@ export default function Project({ project, mousePosition }: ProjectProps) {
             </motion.div>
           )}
           <div className="mt-4 flex items-center justify-between gap-6">
-            <Section heading={formatShortDate(date)}>
-							<div>
-							  <span className="text-pretty font-medium leading-tight flex gap-2">
-                {title}
-									<div className="flex text-tertiary gap-1">
-                  <PinIcon className="w-[18px]" />
-										(Pinned)
-                </div>
-              </span>
-								<span className="text-tertiary">{project.summary}</span>
-							</div>
-						</Section>
-					</div>
-				</div>
-			</Link>
-		</li>
-	);
+            <Section heading={formatShortDate(date)} isPinned={pinned}>
+              <div>
+                <span className="flex gap-2 text-pretty font-medium leading-tight">
+                  {title}
+                </span>
+                <span className="text-tertiary">{project.summary}</span>
+              </div>
+            </Section>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
 }

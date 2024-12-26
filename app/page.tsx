@@ -11,19 +11,7 @@ import { PinIcon } from "lucide-react";
 import ProductList from "@/app/components/ProductList";
 
 export default function Home() {
-  const notes = allNotes
-    .sort(
-      (
-        a: { date: string | number | Date },
-        b: {
-          date: string | number | Date;
-        },
-      ) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    )
-    // 3 most recent
-    .filter((_: any, i: number) => i < 3);
-
-  const projects = allProjects.sort(
+	const projects = allProjects.sort(
     (
       a: { date: string | number | Date },
       b: {
@@ -118,7 +106,12 @@ export default function Home() {
 					the ideas and strategies that can help you enhance your skills and
 					boost your productivity.
 				</p>
-				<PostList posts={notes} />
+				<PostList
+					initialPosts={allNotes}
+					topNPosts={3}
+					mostRecentFirst
+					noPin
+				/>
 			</div>
 		</div>
 	);

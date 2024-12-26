@@ -56,6 +56,7 @@ export const Note = defineDocumentType(() => ({
 		title: { type: "string", required: true },
 		summary: { type: "string", required: true },
 		url: { type: "string", required: false },
+		pinned: { type: "boolean", required: false },
 		date: { type: "string", required: true },
 		updatedAt: { type: "string", required: false },
 		image_author: { type: "string", required: false },
