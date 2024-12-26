@@ -32,7 +32,7 @@ export default function ProjectsPage() {
 	);
 
 	return (
-		<div className="flex flex-col gap-12 md:gap-24 px-4 max-w-[700px] mx-auto">
+		<div className="flex flex-col gap-12 px-4 max-w-[700px] mx-auto">
 			<div className="flex flex-col gap-8">
 				<div>
 					<h1 className="animate-in text-3xl font-bold tracking-tight">Projects</h1>
