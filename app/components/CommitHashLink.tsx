@@ -3,7 +3,7 @@
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { GitCommit } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/app/components/ui/tooltip"
+import { Tooltip, TooltipProvider, TooltipTrigger } from "@/app/components/ui/tooltip"
 import { motion } from "framer-motion"
 
 function CommitHashLink(): React.JSX.Element | null {
