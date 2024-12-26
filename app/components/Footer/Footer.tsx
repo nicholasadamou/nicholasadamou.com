@@ -4,7 +4,7 @@ import Link from "next/link"
 import React from "react"
 import { Github } from 'lucide-react'
 import { motion } from "framer-motion"
-import CommitHashLink from "@/app/components/CommitHashLink"
+import CommitHashLink from "@/app/components/Footer/components/CommitHashLink"
 
 const footerVariants = {
 	hidden: { opacity: 0, y: 20 },

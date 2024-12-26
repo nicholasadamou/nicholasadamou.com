@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useEffect, useRef, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"
@@ -10,6 +10,7 @@ import NavLink from "@/app/components/NavLink"
 import ThemeSwitcher from "@/app/components/ThemeSwitcher"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
+import TabThemeChanger from "@/app/components/TabThemeChanger";
 
 const links = [
 	{ label: "About", href: "/about" },
@@ -130,10 +131,8 @@ export default function Navigation() {
 						))}
 					</ul>
 				</nav>
-				<div className="flex gap-1 items-center">
-					<div className="ml-auto pr-2 md:pr-4 flex h-8 w-8 items-center justify-center md:ml-0">
-						<ThemeSwitcher />
-					</div>
+				<div className="flex gap-3 items-center">
+					<TabThemeChanger />
 					<Popover className="mr-[-5px] relative md:hidden" ref={popoverRef}>
 						<Popover.Button className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary">
 							<Bars3Icon

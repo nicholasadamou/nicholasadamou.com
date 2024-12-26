@@ -11,7 +11,7 @@ import { GeistMono } from "geist/font/mono";
 
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import Navigation from "@/app/components/Navigation";
-import { Footer } from "@/app/components/Footer";
+import { Footer } from "@/app/components/Footer/Footer";
 
 
 import { getBaseUrl } from "@/app/utils/getBaseUrl";

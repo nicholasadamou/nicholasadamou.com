@@ -100,7 +100,7 @@ export default function Home() {
 			</div>
 
 			<div
-				className="flex animate-in flex-col gap-4"
+				className="flex animate-in flex-col gap-4 mb-5"
 				style={{ "--index": 4 } as React.CSSProperties}
 			>
 				<Link
