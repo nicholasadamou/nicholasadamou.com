@@ -14,6 +14,7 @@ import Me from "@/public/avatar.png";
 import { PinIcon } from "lucide-react";
 import HeaderImage from "./mdx/HeaderImage";
 import GitHubLinkSection from "@/app/components/GitHubLinkSection";
+import Views from "@/app/notes/components/Views";
 
 type UnifiedContent = (Project | Note) & {
 	long_summary?: string;
@@ -90,6 +91,10 @@ export default function ContentPage({
                     <span className="text-tertiary">(Pinned)</span>
                   </>
                 )}
+								{type === "note" && " · "}
+								{type === "note" && (
+									<Views slug={content.slug} />
+								)}
               </>
             ),
           }}
