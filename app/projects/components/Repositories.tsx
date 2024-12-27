@@ -36,7 +36,15 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
 				throw new Error("Failed to fetch repositories");
 			}
 			const data = await response.json();
-			setRepos(data.projects);
+
+			// Sort the repositories by stars and forks
+			const sortedRepos = data.projects.sort((a: Repo, b: Repo) => {
+				if (b.stars !== a.stars) {
+					return b.stars - a.stars; // Sort by stars first
+				}
+				return b.forks - a.forks; // Then sort by forks if stars are equal
+			});
+			setRepos(sortedRepos);
 		} catch (err) {
 			setError("Error fetching repositories. Please try again.");
 		} finally {
