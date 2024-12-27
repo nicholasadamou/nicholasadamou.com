@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 		description:
 			"Some of the projects I've worked on over the years. I'm passionate about leveraging technology to create positive change in the world. My mission is to harness the power of code to develop innovative solutions that address real-world challenges and improve people's lives.",
 		type: "website",
-		url: `https://${baseUrl}/projects`,
-		images: [{ url: `https://${baseUrl}/api/og?title=projects`, alt: "Projects" }],
+		url: `${baseUrl}/projects`,
+		images: [{ url: `${baseUrl}/api/og?title=projects`, alt: "Projects" }],
 	},
 };

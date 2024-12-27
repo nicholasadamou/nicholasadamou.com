@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 		description:
 			"I find great value in sharing my insights and learnings whenever the opportunity arises. Each note reflects my thoughts and experiences, and I hope they resonate with others.",
 		type: "website",
-		url: `https://${baseUrl}/notes`,
-		images: [{ url: `https://${baseUrl}/api/og?title=Notes`, alt: "Notes" }],
+		url: `${baseUrl}/notes`,
+		images: [{ url: `{baseUrl}/api/og?title=Notes`, alt: "Notes" }],
 	},
 };
