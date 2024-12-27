@@ -140,6 +140,12 @@ export async function GET(req: NextRequest) {
 		case "project":
 			headerText = "Explore this project";
 			break;
+		case "notes":
+			headerText = "Check out my notes";
+			break;
+		case "projects":
+			headerText = "Explore my projects";
+			break;
 		case "homepage":
 			maxWidth = "50%";
 			break;
