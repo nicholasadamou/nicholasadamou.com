@@ -45,18 +45,19 @@ const ProjectTabs: React.FC<{
 	activeTab: string;
 	onTabClick: (name: string) => void;
 }> = ({ projects, activeTab, onTabClick }) => (
-	<div className="flex justify-center space-x-2 mb-4">
+	<div className="flex justify-start flex-wrap gap-2 mb-4">
 		{projects.map((project) => (
 			<motion.button
 				key={project.name}
-				className={`px-4 py-2 rounded-full text-md font-md transition-all duration-300 border ${
+				className={`px-4 py-2 rounded-full text-md font-medium transition-all duration-300 border focus:outline-none focus:ring-2 focus:ring-offset-2 ${
 					activeTab === project.name
-						? "bg-primary text-primary border-primary"
+						? "bg-primary text-white border-primary"
 						: "bg-tertiary text-primary hover:bg-secondary border-secondary"
 				}`}
 				onClick={() => onTabClick(project.name)}
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
+				aria-pressed={activeTab === project.name}
 			>
 				{project.name}
 			</motion.button>
@@ -281,7 +282,7 @@ export function FeaturedSection(): React.JSX.Element {
 				Explore our flagship projects that revolutionize developer workflows and
 				enhance security practices.
 			</p>
-			<div className="container mx-auto px-4 md:px-6">
+			<>
 				<ProjectTabs
 					projects={featuredProjects}
 					activeTab={activeTab}
@@ -295,7 +296,7 @@ export function FeaturedSection(): React.JSX.Element {
 							)
 					)}
 				</AnimatePresence>
-			</div>
+			</>
 		</motion.section>
 	);
 }
