@@ -70,9 +70,9 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
 	return (
 		<>
 			{isLoading && (
-				<p className="mt-2 text-[var(--secondary-color)]">Loading repositories...</p>
+				<p className="mt-5 text-[var(--secondary-color)]">Loading repositories...</p>
 			)}
-			{error && <p className="mt-2 mb-4 text-red-500">{error}</p>}
+			{error && <p className="mt-5 mb-4 text-red-500">{error}</p>}
 			{filteredRepos.length > 0 && (
 				<>
 					<div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
