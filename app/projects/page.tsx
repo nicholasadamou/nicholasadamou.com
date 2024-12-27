@@ -48,7 +48,7 @@ export default function ProjectsPage() {
 			>
 				<h2 className="text-2xl font-bold leading-tight tracking-tight text-primary mb-2">
 					Open Source
-					<p className="mt-1 text-secondary">
+					<p className="mt-1 mb-3 text-secondary">
 						You can find all of my projects on my{' '}
 						<a
 							href="https://github.com/nicholasadamou"
