@@ -44,6 +44,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
 				}
 				return b.forks - a.forks; // Then sort by forks if stars are equal
 			});
+
 			setRepos(sortedRepos);
 		} catch (err) {
 			setError("Error fetching repositories. Please try again.");
