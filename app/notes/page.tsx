@@ -12,8 +12,8 @@ export default function NotesPage() {
 	);
 
 	return (
-		<div className="flex flex-col gap-12 px-4 max-w-[700px] mx-auto">
-			<div className="flex flex-col gap-8">
+		<div className="flex flex-col gap-8 px-4 max-w-[700px] mx-auto">
+			<div className="flex flex-col gap-4">
 				<div>
 					<h1 className="animate-in text-3xl font-bold tracking-tight">Notes</h1>
 					<p
