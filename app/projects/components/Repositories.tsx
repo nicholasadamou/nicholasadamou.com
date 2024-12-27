@@ -117,14 +117,14 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
                       </span>
 										</div>
 										{repo.language && (
-											<span className="rounded-full bg-secondary px-2 py-1 text-xs text-secondary">
+											<span className="rounded-full bg-primary px-2 py-1 text-xs text-secondary">
                         {repo.language}
                       </span>
 										)}
 									</div>
 									<Button
 										asChild
-										className="w-full cursor-pointer bg-primary text-primary hover:bg-secondary"
+										className="mt-10 block w-full rounded-md bg-[#111] px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-opacity-90 dark:bg-white dark:text-black dark:hover:bg-opacity-90"
 									>
 										<a
 											href={repo.url}
@@ -148,7 +148,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
 								onClick={() => handlePageChange(currentPage - 1)}
 								disabled={currentPage === 1}
 								variant="outline"
-								className="p-4"
+								className="p-4 dark:bg-white dark:text-black light:bg-black light:text-white disabled:cursor-not-allowed"
 							>
 								<span className="sr-only">Previous page</span>
 								Previous
@@ -157,7 +157,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
 								onClick={() => handlePageChange(currentPage + 1)}
 								disabled={currentPage === totalPages}
 								variant="outline"
-								className="p-4"
+								className="p-4 dark:bg-white dark:text-black light:bg-black light:text-white"
 							>
 								<span className="sr-only">Next page</span>
 								Next
