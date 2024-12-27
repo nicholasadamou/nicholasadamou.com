@@ -1,27 +1,15 @@
-import { Metadata } from "next";
+"use client";
+
 import { allProjects } from "contentlayer/generated";
-import React from "react";
+import React, { useState } from "react";
 
-import { getBaseUrl } from "@/app/utils/getBaseUrl";
 import ProjectList from "@/app/projects/components/ProjectList";
-
-const baseUrl = getBaseUrl();
-
-export const metadata: Metadata = {
-	title: "Projects | Nicholas Adamou",
-	description:
-		"I write about programming, design, and occasionally life updates!",
-	openGraph: {
-		title: "Notes | Nicholas Adamou",
-		description:
-			"I write about programming, design, and occasionally life updates!",
-		type: "website",
-		url: `https://${baseUrl}/projects`,
-		images: [{ url: `https://${baseUrl}/api/og?title=projects`, alt: "Projects" }],
-	},
-};
+import Repositories from "@/app/projects/components/Repositories";
+import SearchBar from "@/app/notes/components/SearchBar";
 
 export default function ProjectsPage() {
+	const [searchTerm, setSearchTerm] = useState("");
+
 	const projects = allProjects.sort(
 		(
 			a: { date: string | number | Date },
@@ -53,6 +41,34 @@ export default function ProjectsPage() {
 				style={{ "--index": 2 } as React.CSSProperties}
 			>
 				<ProjectList projects={projects} />
+			</div>
+			<div
+				className="animate-in"
+				style={{ "--index": 3} as React.CSSProperties}
+			>
+				<h2 className="text-2xl font-bold leading-tight tracking-tight text-primary mb-2">
+					Open Source
+					<p className="mt-1 text-secondary">
+						You can find all of my projects on my{' '}
+						<a
+							href="https://github.com/nicholasadamou"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-secondary underline"
+						>
+							GitHub
+						</a>
+						{"."}
+					</p>
+				</h2>
+				<SearchBar
+					className="animate-in"
+					style={{ "--index": 4 } as React.CSSProperties}
+					searchTerm={searchTerm}
+					setSearchTerm={setSearchTerm}
+					kind="projects"
+				/>
+				<Repositories searchTerm={searchTerm} />
 			</div>
 		</div>
 	);

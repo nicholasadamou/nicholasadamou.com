@@ -26,7 +26,7 @@ export default function Section({
       className="col-reverse flex flex-col gap-0 md:flex-row md:gap-2"
       id={heading.toLowerCase().replace(/\s/g, "-")}
     >
-      <div>
+      <div className="mb-1">
 				<h2
 					className={clsx(
 						"shrink-0 md:w-32",
