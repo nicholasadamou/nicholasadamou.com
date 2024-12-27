@@ -14,7 +14,7 @@ export default function SearchBar({ searchTerm, setSearchTerm, kind, ...props }:
 				value={searchTerm}
 				onChange={(e) => setSearchTerm(e.target.value)}
 				placeholder={`Search ${kind}`}
-				className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+				className="w-full px-4 py-2 border text-primary border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			/>
 		</div>
 	);

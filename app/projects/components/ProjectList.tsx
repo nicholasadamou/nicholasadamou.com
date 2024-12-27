@@ -25,7 +25,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
       onMouseMove={(e) => handleMouseMove(e)}
       className="flex flex-col animated-list"
     >
-      {projects.length === 0 && <p>I haven&apos;t published any projects yet.</p>}
+      {projects.length === 0 && <p>No projects found.</p>}
       {projects.map((project) => (
         <Project key={project.slug} project={project} mousePosition={mousePosition} />
       ))}

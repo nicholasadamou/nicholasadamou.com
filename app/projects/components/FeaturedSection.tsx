@@ -51,7 +51,7 @@ const ProjectTabs: React.FC<{
 				key={project.name}
 				className={`px-4 py-2 rounded-full text-md font-medium transition-all duration-300 border focus:outline-none focus:ring-2 focus:ring-offset-2 ${
 					activeTab === project.name
-						? "bg-primary text-white border-primary"
+						? "bg-primary text-primary border-primary"
 						: "bg-tertiary text-primary hover:bg-secondary border-secondary"
 				}`}
 				onClick={() => onTabClick(project.name)}
@@ -106,7 +106,7 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
 						<li key={index} className="flex items-start gap-3">
 							<div className="flex-shrink-0">{component.icon}</div>
 							<div>
-								<h3 className="text-lg font-bold">{component.title}</h3>
+								<h3 className="text-lg font-bold text-primary">{component.title}</h3>
 								<p className="mt-1 text-base">{component.description}</p>
 							</div>
 						</li>

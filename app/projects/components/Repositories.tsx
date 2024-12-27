@@ -82,6 +82,11 @@ const Repositories = ({ searchTerm }: RepositoriesProps ) => {
 				<p className="mt-5 text-[var(--secondary-color)]">Loading repositories...</p>
 			)}
 			{error && <p className="mt-5 mb-4 text-red-500">{error}</p>}
+			{!isLoading && !error && filteredRepos.length === 0 && (
+				<p className="mt-5 text-[var(--secondary-color)]">
+					No repositories found.
+				</p>
+			)}
 			{filteredRepos.length > 0 && (
 				<>
 					<div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
