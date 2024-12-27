@@ -49,9 +49,9 @@ const ProjectTabs: React.FC<{
 		{projects.map((project) => (
 			<motion.button
 				key={project.name}
-				className={`px-4 py-2 border rounded-l-2xl rounded-r-2xl rounded-b-none text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+				className={`px-4 py-2 border rounded-2xl rounded-b-none text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
 					activeTab === project.name
-						? "dark:bg-white dark:text-black light:bg-black light:text-white border-secondary"
+						? "bg-black text-white dark:bg-white dark:text-black border-none"
 						: "bg-tertiary text-primary hover:bg-secondary border-secondary"
 				}`}
 				onClick={() => onTabClick(project.name)}
@@ -64,6 +64,8 @@ const ProjectTabs: React.FC<{
 		))}
 	</div>
 );
+
+
 
 const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
 																																	project,
