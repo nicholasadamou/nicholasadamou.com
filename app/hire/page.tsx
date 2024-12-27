@@ -29,7 +29,7 @@ export default function WorkWithMePage() {
 		<div className="flex flex-col gap-16 md:gap-10">
 			<div className="mx-auto flex max-w-[700px] flex-col gap-8 px-4">
 				<div>
-					<h1 className="animate-in text-3xl font-bold tracking-tight">
+					<h1 className="animate-in text-3xl font-black tracking-tight">
 						Work With Me
 					</h1>
 					<p
