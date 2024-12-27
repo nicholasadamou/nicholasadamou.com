@@ -109,7 +109,7 @@ export default function PostList({
 			onMouseMove={(e) => handleMouseMove(e)}
 			className="flex flex-col animated-list"
 		>
-			{displayedPosts.length === 0 && <p>No notes found.</p>}
+			{displayedPosts.length === 0 && <p className="text-secondary">No notes found.</p>}
 			{displayedPosts.map((post) => (
 				<Post key={post.slug} post={post} mousePosition={mousePosition} shouldShowPin={!noPin} />
 			))}
