@@ -49,7 +49,7 @@ const ProjectTabs: React.FC<{
 		{projects.map((project) => (
 			<motion.button
 				key={project.name}
-				className={`px-4 py-2 border rounded-2xl rounded-b-none text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+				className={`px-4 py-2 border rounded-2xl text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
 					activeTab === project.name
 						? "bg-black text-white dark:bg-white dark:text-black border-none"
 						: "bg-tertiary text-primary hover:bg-secondary border-secondary"
@@ -117,7 +117,7 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
 				<div className="mt-8 text-center">
 					<Link
 						asChild
-						className="mt-10 block w-full rounded-md bg-[#111] px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-opacity-90 dark:bg-white dark:text-black dark:hover:bg-opacity-90"
+						className="mt-5 rounded-md bg-[#111] px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-opacity-90 dark:bg-white dark:text-black dark:hover:bg-opacity-90"
 					>
 						<a href={project.url} className="flex items-center" target="_blank">
 							Learn More About {project.name}
