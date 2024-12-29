@@ -18,7 +18,7 @@ interface ContentHeaderProps {
 
 export const ContentHeader: React.FC<ContentHeaderProps> = ({
   title,
-	longSummary,
+  longSummary,
   summary,
   date,
   author,
@@ -29,7 +29,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
       ← {additionalInfo.backText}
     </Link>
     <div className="flex max-w-xl flex-col gap-4 text-pretty">
-      <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
+      <h1 className="flex flex-col items-start gap-2 text-3xl font-bold leading-tight tracking-tight text-primary">
         {title}
       </h1>
       <p className="text-secondary">{longSummary || summary}</p>
@@ -41,7 +41,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
         <Link underline href="/about">
           {author.name}
         </Link>
-        <p className="md:text-md mt-1 flex flex-row justify-center gap-1 text-sm text-secondary">
+        <p className="md:text-md mt-1 flex flex-row flex-wrap justify-center gap-1 text-sm text-secondary">
           <time dateTime={date}>{date}</time>
           {additionalInfo.extraInfo}
         </p>

@@ -11,7 +11,7 @@ import { RelatedContentList } from "@/app/components/RelatedContentList";
 import Mdx from "@/app/components/mdx/MdxWrapper";
 import { useMounted } from "@/app/hooks/usemounted";
 import Me from "@/public/avatar.png";
-import { PinIcon } from "lucide-react";
+import { Pin } from "lucide-react";
 import HeaderImage from "./mdx/HeaderImage";
 import GitHubLinkSection from "@/app/components/GitHubLinkSection";
 import Views from "@/app/notes/components/Views";
@@ -66,7 +66,7 @@ export default function ContentPage({
       <article>
         <ContentHeader
           title={content.title}
-					longSummary={content.long_summary}
+          longSummary={content.long_summary}
           summary={content.summary}
           date={content.date}
           author={{ name: "Nicholas Adamou", avatar: Me.src }}
@@ -82,17 +82,12 @@ export default function ContentPage({
             ),
             extraInfo: (
               <>
-                {" · "}
-                {readingStats.text}
-								{type === "note" && " · "}
-								{type === "note" && (
-									<Views slug={content.slug} />
-								)}
-                {content.pinned && " · "}
-                {content.pinned && (
+                <span className="mx-0.5">·</span>
+                <span>{readingStats.text}</span>
+                {type === "note" && (
                   <>
-                    <PinIcon className="ml-[-3px] inline w-[16px] text-tertiary" />{" "}
-                    <span className="text-tertiary">(Pinned)</span>
+                    <span className="mx-0.5">·</span>
+                    <Views slug={content.slug} />
                   </>
                 )}
               </>
@@ -116,11 +111,11 @@ export default function ContentPage({
           <Mdx code={content.body.code} />
         </div>
       </article>
-			<h2 className="text-2xl font-bold leading-tight tracking-tight text-primary">
-				If you liked this {type}.
-				<p className="mt-1 text-secondary">You will love these as well.</p>
-			</h2>
-			<RelatedContentList items={relatedItemsWithStats} basePath={`${type}s`} />
-		</motion.div>
-	);
+      <h2 className="text-2xl font-bold leading-tight tracking-tight text-primary">
+        If you liked this {type}.
+        <p className="mt-1 text-secondary">You will love these as well.</p>
+      </h2>
+      <RelatedContentList items={relatedItemsWithStats} basePath={`${type}s`} />
+    </motion.div>
+  );
 }
