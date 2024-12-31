@@ -43,7 +43,7 @@ export default function WorkWithMePage() {
 				</div>
 			</div>
 			<div
-				className="animate-in overflow-hidden rounded-3xl bg-primary pb-16 pt-12"
+				className="animate-in overflow-hidden rounded-3xl bg-primary pb-16 pt-0 md:pt-6"
 				style={{ "--index": 2 } as React.CSSProperties}
 			>
 				<stripe-pricing-table
