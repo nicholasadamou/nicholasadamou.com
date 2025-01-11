@@ -31,18 +31,14 @@ The simplest way to solve this problem is by using a brute force approach: itera
 
 ### Implementation
 
-```typescript
-function twoSumNaive(nums: number[], target: number): number[] {
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = i + 1; j < nums.length; j++) {
-            if (nums[i] + nums[j] === target) {
-                return [i, j];
-            }
-        }
-    }
+```python
+def two_sum_naive(nums, target):
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return [i, j]
 
-    throw new Error("No solution found");
-}
+    raise ValueError("No solution found")
 ```
 
 ### Time Complexity
@@ -69,19 +65,19 @@ A Hash Map (or Hash Table) allows us to store elements for fast lookup. The idea
 
 ### Implementation
 
-```typescript
-function twoSumOptimized(nums: number[], target: number): number[] {
-    const map = new Map<number, number>();
+```python
+def two_sum_optimized(nums, target):
+    num_map = {}
 
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i];
-        if (map.has(complement)) {
-            return [map.get(complement)!, i];
-        }
-        map.set(nums[i], i);
-    }
-    throw new Error("No solution found");
-}
+    for i, num in enumerate(nums):
+        complement = target - num
+
+        if complement in num_map:
+            return [num_map[complement], i]
+
+        num_map[num] = i
+
+    raise ValueError("No solution found")
 ```
 
 ### Time Complexity
