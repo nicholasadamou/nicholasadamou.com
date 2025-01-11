@@ -7,9 +7,11 @@ import { ComputedFields, defineDocumentType, makeSource } from "contentlayer/sou
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeKatex from 'rehype-katex';
 
 import remarkPlantUML from "@akebifiky/remark-simple-plantuml";
 import remarkToc from "remark-toc";
+import remarkMath from 'remark-math';
 
 // Utility function to get the slug
 const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
@@ -99,6 +101,7 @@ export default makeSource({
 		remarkPlugins: [
 			remarkPlantUML as Pluggable,
 			[remarkToc, { heading: "Table of Contents", maxDepth: 4 }],
+			remarkMath,
 		],
 		rehypePlugins: [
 			rehypePrism as Pluggable,
@@ -109,6 +112,7 @@ export default makeSource({
 					behavior: "wrap", // Wrap the heading text in an anchor link
 				},
 			],
+			rehypeKatex,
 		],
 	},
 });

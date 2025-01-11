@@ -7,6 +7,7 @@ import CustomImage from "@/app/components/mdx/Image";
 import CustomLink from "@/app/components/mdx/CustomLink";
 import YouTubeEmbed from "@/app/components/mdx/YouTube/YouTubeEmbed";
 import SourceCodeAccess from "@/app/components/mdx/GitHub/SourceCodeAccess";
+import Latex from "@/app/components/mdx/Latex";
 
 const components = {
 	Image: CustomImage,
@@ -18,6 +19,7 @@ const components = {
 	PlantUML: PlantUML,
 	YouTubeEmbed: YouTubeEmbed,
 	SourceCodeAccess: SourceCodeAccess,
+	latex: Latex
 };
 
 export default function MdxWrapper({ code }: { code: string }) {

@@ -1,0 +1,135 @@
+---
+title: A Deeper Than Not Dive into Two Sum
+summary: "Explore the infamous LeetCode problem #1, Two Sum, with a deep dive into its naive and optimized solutions, including a discussion on Hash Maps, heaps, and memory management."
+date: 2025-01-10
+image_author: "UnSplash+ Livestyle"
+image_author_url: "https://unsplash.com/plus?referrer=%2Fphotos%2Fdried-hay-or-straw-with-grains-NZYgKwRA4Cg"
+image_url: "https://unsplash.com/photos/dried-hay-or-straw-with-grains-NZYgKwRA4Cg"
+---
+
+The "Two Sum" problem is a classic entry point for many aspiring software engineers tackling algorithmic challenges. At first glance, the problem appears simple, but it offers a wealth of learning opportunities when explored deeply. An interview might ask such a question from this topic to probe your understanding of Hash Maps, but also diving deep into Operating Systems' Heap and memory management. Let's unravel it step by step, starting with the naive approach and progressing toward a highly optimized solution.
+
+## Table of Contents
+
+## Problem Statement
+
+> Given an array of integers `nums` and an integer `target`, return the indices of the two numbers such that they add up to `target`.
+
+You may assume that each input would have **exactly one solution**, and you may not use the same element twice.
+
+Example:
+
+```plaintext
+Input: nums = [2, 7, 11, 15], target = 9
+Output: [0, 1]
+Explanation: Because nums[0] + nums[1] = 2 + 7 = 9, we return [0, 1].
+```
+
+## Step 1: The Naive Solution
+
+The simplest way to solve this problem is by using a brute force approach: iterate through all pairs of elements in the array and check if their sum equals the target.
+
+### Implementation
+
+```typescript
+function twoSumNaive(nums: number[], target: number): number[] {
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+            if (nums[i] + nums[j] === target) {
+                return [i, j];
+            }
+        }
+    }
+
+    throw new Error("No solution found");
+}
+```
+
+### Time Complexity
+
+- **Outer Loop:** Runs $n$ times.
+- **Inner Loop:** Runs approximately $n/2$ times for each iteration.
+- **Overall:** $O(n^2)$
+
+### Space Complexity
+
+- $O(1)$: No additional space is used beyond a few variables.
+
+While the naive solution is simple and easy to implement, it quickly becomes inefficient for large arrays.
+
+## Step 2: Optimizing with Hash Maps
+
+A Hash Map (or Hash Table) allows us to store elements for fast lookup. The idea is to store each element of the array as we iterate through it, checking if the complement ($\text{target} - \text{current\_element}$) already exists in the map.
+
+### How Hash Maps Work
+
+- A Hash Map stores key-value pairs, using a hash function to compute an index into an array of buckets.
+- Lookup, insertion, and deletion operations typically take $O(1)$ on average.
+- Collisions (when two keys hash to the same index) are handled using chaining or open addressing.
+
+### Implementation
+
+```typescript
+function twoSumOptimized(nums: number[], target: number): number[] {
+    const map = new Map<number, number>();
+
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (map.has(complement)) {
+            return [map.get(complement)!, i];
+        }
+        map.set(nums[i], i);
+    }
+    throw new Error("No solution found");
+}
+```
+
+### Time Complexity
+
+- **Single Loop:** $O(n)$, since we iterate through the array once.
+- **Hash Map Operations:** $O(1)$ on average per operation.
+
+### Space Complexity
+
+- $O(n)$, since we store each element in the hash map.
+
+## Step 3: Exploring Memory Management
+
+### Hash Maps and Memory
+
+- **Heap Allocation:** Hash Maps require dynamic memory allocation, as the size can grow during runtime.
+- **Buckets:** Hash Maps use buckets to store keys and values. Each bucket is an array or linked list.
+- **Resizing:** When the load factor (number of elements divided by the number of buckets) exceeds a threshold, the Hash Map resizes, doubling the bucket count and rehashing all keys.
+
+### Performance Implications
+
+1. **Collisions:** As the number of collisions increases, performance degrades from $O(1)$ to $O(n)$.
+2. **Resizing Costs:** Resizing can be expensive due to rehashing.
+3. **Memory Overhead:** The underlying array often reserves more space than needed to minimize collisions.
+
+### Why Build Your Own Hash Map?
+
+In order to learn more about the memory management of Hash Maps, I invite you to implement a Hash Map from scratch. The process of _building something yourself_ is the best way to deeply understand how it works. For this reason, I implemented a Hash Map in Python, which you can find [here](https://github.com/nicholasadamou/databricks/blob/master/HashMap/HashMap.py). It's implemented using a hybrid approach in order to more effectively handle collisions. When a collision occurs, the bucket is
+converted from a list to a Doubly Linked List. This allows for $O(1)$ insertion and deletion in the average case. This Hash Map implementation is part of a larger project called [_databricks_](https://github.com/nicholasadamou/databricks) which is a 🐍 pythonic data structures library that features stacks, queues, hash maps, linked lists and more. I created this library because I wanted to deepen my understanding of data structures and algorithms. I also wanted to create a library that would be useful to other Python developers because some data structures are not included in the Python standard library, such as Linked Lists (Singly and Doubly), Graphs (Directed Undirected, Trie's, Tree's, etc.).
+
+This leads us to the next topic: memory management in the context of Hash Maps. Let's explore how Hash Maps interact with the system memory.
+
+### Heaps in System Memory
+
+The heap is a region of memory used for dynamic allocations. Hash Maps rely on heap memory for:
+
+- **Storing Buckets:** Each bucket array resides in the heap.
+- **Linked Nodes:** In chaining implementations, nodes for collisions are allocated on the heap.
+
+Efficient memory management is critical to prevent fragmentation and minimize overhead.
+
+## Step 4: Beyond Two Sum
+
+While Hash Maps are optimal for this problem, they may not suit every use case. Here are some additional considerations:
+
+- **Sorting for Multiple Solutions:** If multiple pairs need to be returned, sorting the array and using two pointers can be effective.
+- **Concurrent Environments:** In multithreaded scenarios, synchronization mechanisms are required for safe access to shared Hash Maps.
+
+## Conclusion
+
+The "Two Sum" problem is more than an exercise in coding — it’s a gateway to understanding fundamental concepts in computer science, such as brute force algorithms, data structures like Hash Maps, and memory management. By diving deep into the problem, you’ll gain valuable insights that extend far beyond this single challenge and who knows, maybe the next time your interviewer asks you about Hash Maps, you'll be able to dive deep like they'd expect a senior+ software engineer would be able to do!
