@@ -9,7 +9,7 @@ import React from "react";
 import SocialLinks, { socialLinks } from "@/app/components/SocialLinks";
 import { PinIcon } from "lucide-react";
 import ProductList from "@/app/components/ProductList";
-import SparkleHeading from "@/app/components/SparkleHeading";
+import SparkleText from "@/app/components/SparkleText";
 
 export default function Home() {
 	const projects = allProjects.sort(
@@ -61,7 +61,7 @@ export default function Home() {
 					href="/projects"
 				>
 					<PinIcon className="h-5 w-5 text-tertiary" />
-					<SparkleHeading>Pinned Projects</SparkleHeading>
+					<SparkleText>Pinned Projects</SparkleText>
 					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
 				</Link>
 				<p className="mt-[-8px] max-w-lg text-secondary">

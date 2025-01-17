@@ -77,12 +77,12 @@ interface SparkleHeadingProps {
 	fontWeight?: string
 }
 
-const SparkleHeading: React.FC<SparkleHeadingProps> = ({
+const SparkleText: React.FC<SparkleHeadingProps> = ({
 																												 children,
 																												 className,
 																												 sparkleSize = 10,
 																												 fontSize = 'text-md',
-																												 fontWeight = 'font-light'
+																												 fontWeight = 'font-normal'
 																											 }) => {
 	const sparkles = [
 		{ color: "#9E7AFF", style: { left: "0%", top: "-20%" } },
@@ -123,4 +123,4 @@ const SparkleHeading: React.FC<SparkleHeadingProps> = ({
 	)
 }
 
-export default SparkleHeading
+export default SparkleText
