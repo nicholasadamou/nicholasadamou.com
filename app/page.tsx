@@ -9,6 +9,7 @@ import React from "react";
 import SocialLinks, { socialLinks } from "@/app/components/SocialLinks";
 import { PinIcon } from "lucide-react";
 import ProductList from "@/app/components/ProductList";
+import SparkleHeading from "@/app/components/SparkleHeading";
 
 export default function Home() {
 	const projects = allProjects.sort(
@@ -26,7 +27,7 @@ export default function Home() {
 				<div className="flex flex-col-reverse md:flex-row">
 					<div className="mt-5 space-y-4 md:mr-10 md:mt-0">
 						<h1 className="animate-in text-3xl font-semibold tracking-tight text-primary">
-							Hey, I&apos;m Nicholas Adamou
+							Hey, I&apos;m Nick Adamou 👋🏼
 						</h1>
 						<p
 							className="max-w-lg animate-in text-secondary"
@@ -42,11 +43,11 @@ export default function Home() {
 					<Image
 						src="/nicholas-adamou.jpeg"
 						width={200}
-						height={200}
+						height={100}
 						alt="Nicholas Adamou"
 						priority
 						style={{ "--index": 2 } as React.CSSProperties}
-						className="flex-1 animate-in rounded-2xl grayscale-[0.80]"
+						className="flex-1 animate-in rounded-2xl grayscale-[0.25]"
 					/>
 				</div>
 			</div>
@@ -60,10 +61,13 @@ export default function Home() {
 					href="/projects"
 				>
 					<PinIcon className="h-5 w-5 text-tertiary" />
-					Pinned Projects
+					<SparkleHeading>Pinned Projects</SparkleHeading>
 					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
 				</Link>
-				<PinnedProjectList projects={projects} />
+				<p className="mt-[-8px] max-w-lg text-secondary">
+					I love building projects, whether they are simple websites or more complex web apps. Below are a few of my favorites.
+				</p>
+					<PinnedProjectList projects={projects} />
 			</div>
 
 			<div
