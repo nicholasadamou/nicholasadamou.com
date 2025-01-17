@@ -24,14 +24,24 @@ export default function Navigation() {
 	const pathname = `/${usePathname().split("/")[1]}` // active paths on dynamic sub-pages
 	const popoverRef = useRef<HTMLDivElement | null>(null)
 	const { resolvedTheme } = useTheme()
+	const [mounted, setMounted] = useState(false);
+
+	// Prevent rendering theme-dependent logic until after mount
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	const [svgFill, setSvgFill] = useState(resolvedTheme === "dark" ? "white" : "black")
 	const [isScrolled, setIsScrolled] = useState(false)
 
 	useEffect(() => {
 		// Update the fill color based on the current theme
-		setSvgFill(resolvedTheme === "dark" ? "white" : "black")
+		if (resolvedTheme) {
+			setSvgFill(resolvedTheme === "dark" ? "white" : "black")
+		}
 	}, [resolvedTheme])
+
+	console.log(resolvedTheme, svgFill)
 
 	useEffect(() => {
 		setIsScrolled(window.scrollY > 20) // On initial load, apply blur if scrolled
@@ -99,6 +109,10 @@ export default function Navigation() {
 			}
 		}
 	}, [])
+
+	if (!mounted) {
+		return null;
+	}
 
 	return (
 		<motion.header
