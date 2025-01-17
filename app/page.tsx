@@ -27,7 +27,7 @@ export default function Home() {
 				<div className="flex flex-col-reverse md:flex-row">
 					<div className="mt-5 space-y-4 md:mr-10 md:mt-0">
 						<h1 className="animate-in text-3xl font-semibold tracking-tight text-primary">
-							Hey, I&apos;m Nick Adamou 👋🏼
+							Hey, I&apos;m Nick Adamou
 						</h1>
 						<p
 							className="max-w-lg animate-in text-secondary"
