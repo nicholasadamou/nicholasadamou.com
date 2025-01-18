@@ -1,4 +1,3 @@
-import React from "react";
 import { ListItem } from "@/app/about/types/ListItem";
 
 const Resumes: ListItem[] = [
