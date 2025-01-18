@@ -6,6 +6,9 @@ import type { Note } from "contentlayer/generated";
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/utils/formatShortDate";
+import { Badge } from "@/app/components/ui/badge";
+import readingTime from "reading-time";
+import { Clock } from "lucide-react";
 
 type PostProps = {
 	post: Note;
@@ -22,6 +25,8 @@ export default function Post({ post, mousePosition, shouldShowPin }: PostProps) 
 	const imageHeight = 200; // Set to desired height
 	const imageWidth = 350; // Set to desired width
 	const imageOffset = 24;
+
+	const readingStats = readingTime(post.body.raw);
 
 	return (
     <li className="group py-3 transition-opacity first:pt-0 last:pb-0">
@@ -56,6 +61,13 @@ export default function Post({ post, mousePosition, shouldShowPin }: PostProps) 
                   {title}
                 </span>
                 <span className="text-tertiary">{post.summary}</span>
+								<div>
+									<Badge variant="secondary">
+										<div className="flex gap-1.5 items-center">
+											<Clock size={10} /> {readingStats.text}
+										</div>
+									</Badge>
+								</div>
               </div>
             </Section>
           </div>
