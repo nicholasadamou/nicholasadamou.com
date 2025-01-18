@@ -1,8 +1,8 @@
 # nicholasadamou.com - v4
 
-<div style="display: flex; justify-content: space-around; gap: 1rem;">
-  <img src="./assets/desktop-demo.gif" alt="preview" style="width: 60%;"/>
-  <img src="./assets/mobile-demo.gif" alt="demo" style="width: 40%"/>
+<div style="display: flex; gap: 1rem;">
+  <img src="./assets/desktop-demo.gif" alt="preview" />
+  <img src="./assets/mobile-demo.gif" alt="demo" />
 </div>
 
 ![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
