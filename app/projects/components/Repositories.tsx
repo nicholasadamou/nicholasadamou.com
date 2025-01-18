@@ -50,7 +50,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
 		} catch (err) {
 			setError("Error fetching repositories. Please try again.");
 		} finally {
-			setIsLoading(true);
+			setIsLoading(false);
 		}
 	};
 
