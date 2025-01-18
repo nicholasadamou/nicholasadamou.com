@@ -41,8 +41,6 @@ export default function Navigation() {
 		}
 	}, [resolvedTheme])
 
-	console.log(resolvedTheme, svgFill)
-
 	useEffect(() => {
 		setIsScrolled(window.scrollY > 20) // On initial load, apply blur if scrolled
 
