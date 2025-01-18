@@ -17,6 +17,7 @@ import lakePlacid from "public/gallery/lake-placid.jpg";
 
 import {
 	Certificates,
+	Resumes,
 	ConnectLinks,
 } from "@/app/about/data";
 
@@ -122,6 +123,7 @@ export default function About() {
 
         <ListSection heading="Connect" items={ConnectLinks} />
         <ListSection heading="Certificates" items={Certificates} />
+				<ListSection heading="Resume" items={Resumes} />
 
         <Section heading="Work" headingAlignment="left">
           <div className="flex w-full flex-col gap-8">

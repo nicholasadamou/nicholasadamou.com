@@ -38,7 +38,11 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 export const socialLinks: SocialLink[] = [
 	{
 		href: "https://nicholas-adamou-cv.vercel.app",
-		label: "Resume",
+		label: "Resume (Web)",
+	},
+	{
+		href: "https://tinyurl.com/nicholas-adamou-resume",
+		label: "Resume (PDF)",
 	},
 	{
 		href: "https://www.linkedin.com/in/nicholas-adamou",
