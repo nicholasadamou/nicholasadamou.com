@@ -1,6 +1,9 @@
 # nicholasadamou.com - v4
 
-![preview](./assets/preview.png)
+<div style="display: flex; justify-content: space-around; gap: 1rem;">
+  <img src="./assets/preview.png" alt="preview" style="width: 70%;"/>
+  <img src="./assets/mobile-demo.gif" alt="demo" style="width: 30%;"/>
+</div>
 
 ![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
