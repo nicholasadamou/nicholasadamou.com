@@ -32,7 +32,7 @@ const RepositoriesSkeleton = () => {
 								<div className="h-6 w-16 bg-primary/20 rounded-full animate-pulse" />
 							</div>
 							<Button
-								className="mt-10 block w-full rounded-md bg-[#111] px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-opacity-90 dark:bg-white dark:text-black dark:hover:bg-opacity-90"
+								className="mt-10 flex items-center w-full rounded-md bg-[#111] px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-opacity-90 dark:bg-white dark:text-black dark:hover:bg-opacity-90"
 								disabled
 							>
 								<span className="sr-only">Learn More placeholder</span>
