@@ -11,13 +11,14 @@ import { RelatedContentList } from "@/app/components/RelatedContentList";
 import Mdx from "@/app/components/mdx/MdxWrapper";
 import { useMounted } from "@/app/hooks/usemounted";
 import Me from "@/public/avatar.png";
-import { Pin } from "lucide-react";
 import HeaderImage from "./mdx/HeaderImage";
 import GitHubLinkSection from "@/app/components/GitHubLinkSection";
 import Views from "@/app/notes/components/Views";
+import { Badge } from "@/app/components/ui/badge";
 
 type UnifiedContent = (Project | Note) & {
 	long_summary?: string;
+	technologies?: string[];
   pinned?: boolean;
   readingTime?: string;
 };
@@ -76,7 +77,16 @@ export default function ContentPage({
             linkSection: (
               <>
                 {content.url && (
-                  <GitHubLinkSection url={content.url} zip={content.zip} />
+									<>
+										<div className="flex flex-wrap items-center space-x-1 space-y-1">
+											{content.technologies?.map((tech) => (
+												<Badge variant="secondary" key={tech}>
+													{tech}
+												</Badge>
+											))}
+										</div>
+										<GitHubLinkSection url={content.url} zip={content.zip} />
+									</>
                 )}
               </>
             ),

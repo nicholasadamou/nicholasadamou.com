@@ -5,6 +5,7 @@ import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/utils/formatShortDate";
 import type { Project } from "contentlayer/generated";
+import { Badge } from "@/app/components/ui/badge";
 
 type ProjectProps = {
 	project: Project;
@@ -54,6 +55,13 @@ export default function Project({ project, mousePosition }: ProjectProps) {
                   {title}
                 </span>
                 <span className="text-tertiary">{project.summary}</span>
+								<div className="flex flex-wrap items-center space-x-1 space-y-1">
+									{project.technologies?.map((tech) => (
+										<Badge variant="secondary" key={tech}>
+											{tech}
+										</Badge>
+									))}
+								</div>
               </div>
             </Section>
           </div>
