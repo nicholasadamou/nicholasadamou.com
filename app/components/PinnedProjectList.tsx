@@ -40,13 +40,13 @@ export default function PinnedProjectList({ projects }: ProjectListProps) {
                 <GitHubBadge href={project.url} />
               </div>
               <p className="text-secondary">{project.summary}</p>
-              <div className="flex flex-wrap items-center space-x-1 space-y-1">
-                {project.technologies?.map((tech) => (
-                  <Badge variant="secondary" key={tech}>
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
+							<div className="flex flex-wrap items-center gap-1">
+								{project.technologies?.map((tech) => (
+									<Badge variant="secondary" key={tech}>
+										{tech}
+									</Badge>
+								))}
+							</div>
             </div>
           </div>
         </li>

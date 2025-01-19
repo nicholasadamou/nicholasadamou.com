@@ -78,7 +78,7 @@ export default function ContentPage({
               <>
                 {content.url && (
 									<>
-										<div className="flex flex-wrap items-center space-x-1 space-y-1">
+										<div className="flex flex-wrap items-center gap-1">
 											{content.technologies?.map((tech) => (
 												<Badge variant="secondary" key={tech}>
 													{tech}

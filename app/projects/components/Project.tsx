@@ -55,7 +55,7 @@ export default function Project({ project, mousePosition }: ProjectProps) {
                   {title}
                 </span>
                 <span className="text-tertiary">{project.summary}</span>
-								<div className="flex flex-wrap items-center space-x-1 space-y-1">
+								<div className="flex flex-wrap items-center gap-1">
 									{project.technologies?.map((tech) => (
 										<Badge variant="secondary" key={tech}>
 											{tech}
