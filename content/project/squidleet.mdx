@@ -92,7 +92,23 @@ LeetCodeAPI --> FetchStudyPlanProblem
 
 The `CachedLeetCodeAPI` module acts as a caching layer to store fetched problems temporarily. It helps reduce redundant API calls and speeds up problem retrieval.
 
-#### How do we design the cache?
+In order to provide universal access to the cache, I followed the singleton pattern. This ensures that all components share the same cache instance and avoid redundant cache reads and writes.
+
+In Python this is achieved by creating a file called `CacheHandler.py` with the following content:
+
+```python
+from api.CachedLeetCodeAPI import CachedLeetCodeAPI
+
+cached_api = CachedLeetCodeAPI(cache_expiry=3600)
+```
+
+This file is then imported wherever the cache is needed, ensuring a single cache instance across the application.
+
+```python
+from handlers.CacheHandler import cached_api
+```
+
+#### How did I design the cache?
 
 The cache design for `CachedLeetCodeAPI` involves several key components and processes, which are outlined below:
 
