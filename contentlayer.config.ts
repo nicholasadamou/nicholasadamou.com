@@ -23,15 +23,28 @@ const resolveImagePath = (basePath: string, slug: string): string | null => {
 };
 
 // Utility function to generate GitHub ZIP URL
-const resolveZipUrl = (githubUrl?: string): string => {
+async function resolveZipUrl(githubUrl?: string): Promise<string> {
 	if (!githubUrl) return "";
+
 	const matches = githubUrl.match(/https:\/\/github\.com\/([^/]+)\/([^/]+)/);
-	if (matches) {
-		const [_, owner, repo] = matches;
-		return `https://github.com/${owner}/${repo}/archive/refs/heads/main.zip`;
+	if (!matches) return "";
+
+	const [_, owner, repo] = matches;
+
+	try {
+		// Fetch repository details to get the default branch
+		const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+		if (!response.ok) throw new Error('Failed to fetch repository details');
+
+		const repoData = await response.json();
+		const defaultBranch = repoData.default_branch || 'main';
+
+		return `https://github.com/${owner}/${repo}/archive/refs/heads/${defaultBranch}.zip`;
+	} catch (error) {
+		console.error('Error fetching default branch:', error);
+		return "";
 	}
-	return "";
-};
+}
 
 // Common computed fields
 const commonComputedFields = (basePath: string): ComputedFields => ({
