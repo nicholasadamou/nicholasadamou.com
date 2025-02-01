@@ -55,9 +55,5 @@ export const socialLinks: SocialLink[] = [
 	{
 		href: "https://dotbrains.dev",
 		label: "DotBrains",
-	},
-	{
-		href: "https://next-ui-orcin-chi.vercel.app",
-		label: "Next UI",
 	}
 ];
