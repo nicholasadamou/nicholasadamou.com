@@ -48,4 +48,8 @@ export const socialLinks: SocialLink[] = [
 		href: "https://github.com/nicholasadamou",
 		label: "GitHub",
 	},
+	{
+		href: "https://leetcode.com/nicholasadamou",
+		label: "LeetCode"
+	}
 ];

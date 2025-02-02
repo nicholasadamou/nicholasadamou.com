@@ -64,7 +64,7 @@ export default function Home() {
 					<SparkleText>Pinned Projects</SparkleText>
 					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
 				</Link>
-				<p className="mt-[-8px] max-w-lg text-secondary">
+				<p className="mt-[-8px] max-w-xl text-secondary">
 					I love building projects, whether they are simple websites or more complex web apps. Below are a few of my favorites.
 				</p>
 					<PinnedProjectList projects={projects} />
@@ -102,7 +102,7 @@ export default function Home() {
 					Recent Notes
 					<ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
 				</Link>
-				<p className="mt-[-8px] max-w-lg text-secondary">
+				<p className="mt-[-8px] max-w-xl text-secondary">
 					I occasionally share valuable insights on programming, productivity,
 					and a variety of other engaging topics. My notes features a range of
 					articles that delve into the latest trends, tips, and best practices
