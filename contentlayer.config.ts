@@ -90,7 +90,7 @@ export const Note = defineDocumentType(() => ({
 // Define Project document type
 export const Project = defineDocumentType(() => ({
 	name: "Project",
-	filePathPattern: `project/**/*.mdx`,
+	filePathPattern: `projects/**/*.mdx`,
 	contentType: "mdx",
 	fields: {
 		title: { type: "string", required: true },
