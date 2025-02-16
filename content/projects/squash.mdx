@@ -262,6 +262,218 @@ Preview deployments allow stakeholders and collaborators to test and review feat
 3. **Scalability and Performance**
 With Vercel’s edge network, the Squash application is served globally with low latency, providing a fast and seamless user experience.
 
+To integrate the two README contents into your existing MDX article and replace the Mermaid diagrams with PlantUML diagrams, I'll show you how to:
+
+1. **Merge the content naturally into your architecture sections.**
+2. **Replace Mermaid diagrams with PlantUML diagrams.**
+3. **Ensure a consistent tone and format.**
+
+## 📦 Decoders: WebAssembly-Based Image Processing
+
+The **Decoders** package in Squash is responsible for encoding and decoding images using high-performance **WebAssembly (WASM)** modules. It supports multiple image formats—**AVIF, JPEG, JPEG XL, PNG, and WebP**—for fast and efficient image processing.
+
+### ✨ Features
+
+- **Dynamic WebAssembly Loading**: Only loads the necessary WebAssembly module for each format.
+- **In-Memory Caching**: Avoids redundant WebAssembly module loads for optimized performance.
+- **Multiple Format Support**: Supports AVIF, JPEG (MozJPEG), JPEG XL, PNG (OxiPNG), and WebP.
+- **Error Handling & Fallbacks**: Provides detailed error messages for unsupported formats or decoding/encoding failures.
+- **Consistent API**: Offers a common interface for decoding and encoding across all supported formats.
+
+### 📚 Architecture Overview (Replaced with PlantUML)
+
+```plantuml
+@startuml
+participant "Input Image Buffer" as Input
+participant "decode()" as Decode
+participant "ensureWasmLoaded()" as EnsureWasm
+participant "WASM Module" as Wasm
+participant "Decode ImageData" as DecodeData
+participant "Return ImageData" as ReturnData
+
+Input -> Decode: Pass Image Buffer
+Decode -> EnsureWasm: Ensure WebAssembly Loaded
+EnsureWasm -> Wasm: Load Module
+Wasm -> DecodeData: Decode Image to ImageData
+DecodeData -> ReturnData: Return Decoded ImageData
+@enduml
+```
+
+### 🔍 Code Walkthrough
+
+Let's explore the core functions of the **Decoders** package in Squash, focusing on the **`wasm.ts`** module that handles dynamic WebAssembly loading and caching.
+
+#### **Dynamic WebAssembly Loading**
+The `wasm.ts` module handles dynamic loading and caching of WebAssembly codecs.
+
+Example for `ensureWasmLoaded()`:
+
+```typescript
+export async function ensureWasmLoaded(format: string): Promise<void> {
+  const normalizedFormat = normalizeFormat(format);
+  if (wasmInitialized.get(normalizedFormat)) return;
+
+  const wasmModules = {
+    avif: async () => import('@jsquash/avif'),
+    jpeg: async () => import('@jsquash/jpeg'),
+    jxl: async () => import('@jsquash/jxl'),
+    png: async () => import('@jsquash/png'),
+    webp: async () => import('@jsquash/webp'),
+  };
+
+  const loadWasm = wasmModules[normalizedFormat];
+  if (!loadWasm) throw new Error(`Unsupported format: ${format}`);
+
+  await loadWasm();
+  wasmInitialized.set(normalizedFormat, true);
+}
+```
+
+## 📦 Supported Image Formats
+
+```plantuml
+@startuml
+
+class AVIF {
+  Decoder Module: @jsquash/avif
+  Encoder Module: @jsquash/avif
+  Notes: High compression, modern format
+}
+
+class JPEG {
+  Decoder Module: @jsquash/jpeg
+  Encoder Module: @jsquash/jpeg
+  Notes: Widely used format
+}
+
+class JPEG_XL {
+  Decoder Module: @jsquash/jxl
+  Encoder Module: @jsquash/jxl
+  Notes: Next-gen format, lossless support
+}
+
+class PNG {
+  Decoder Module: @jsquash/png
+  Encoder Module: @jsquash/png
+  Notes: Lossless compression
+}
+
+class WebP {
+  Decoder Module: @jsquash/webp
+  Encoder Module: @jsquash/webp
+  Notes: Better compression than JPEG
+}
+
+@enduml
+```
+
+## 🛠️ Error Handling & Debugging
+
+- **Unsupported Formats**: Throws an error if a format is not supported.
+- **Failed Module Loading**: Provides detailed error messages when a WebAssembly module fails to load.
+- **Console Logging**: Use the `verbose` option in `ensureWasmLoaded` for detailed logs.
+
+In summary, the **Decoders** package in Squash provides a robust foundation for handling image decoding and encoding using WebAssembly modules. By dynamically loading the necessary codecs and caching them for optimized performance, Squash ensures fast and efficient image processing across multiple formats.
+
+## 🔄 Image Manager and Queue Hooks
+
+The **`useImageManager`** and **`useImageQueue`** hooks are crucial for managing image states, parallel processing, and queueing during image compression.
+
+### ✨ Features
+
+- **Efficient State Management**: Tracks image statuses (pending, queued, processing, complete, error).
+- **Batch Queueing**: Queues images for batch processing with parallelism.
+- **Parallel Processing**: Limits concurrent image processing to improve performance.
+- **Error Handling**: Tracks errors for individual images during processing.
+
+### 📚 Hook Architecture Overview (Replaced with PlantUML)
+
+```plantuml
+@startuml
+participant "Image Manager" as Manager
+participant "useImageManager" as UseManager
+participant "useImageQueue" as UseQueue
+participant "State Management" as State
+participant "Parallel Processing" as Parallel
+participant "Process Image" as Process
+
+Manager -> UseManager: Manage Image States
+UseManager -> State: Track and Update Status
+Manager -> UseQueue: Add Images to Queue
+UseQueue -> Parallel: Handle Parallel Processing
+Parallel -> Process: Decode and Encode Images
+Process -> UseManager: Update Image State
+@enduml
+```
+
+### 🔍 Code Walkthrough for Image Management
+
+We'll explore the core functions of the **`useImageManager`** and **`useImageQueue`** hooks that manage image states and processing queues in Squash.
+
+#### **`useImageManager`**
+Manages the lifecycle of images (add, remove, clear, track statuses).
+
+```typescript
+const [images, setImages] = useState<ImageFile[]>([]);
+
+const removeImage = useCallback((id: string) => {
+  setImages((prev) => {
+    const imageToRemove = prev.find((img) => img.id === id);
+    if (imageToRemove?.preview) URL.revokeObjectURL(imageToRemove.preview);
+    return prev.filter((img) => img.id !== id);
+  });
+}, []);
+```
+
+#### **`useImageQueue`**
+Handles queuing and parallel processing of images.
+
+```typescript
+const MAX_PARALLEL_PROCESSING = 3;
+const processingCount = useRef(0);
+
+const addToQueue = useCallback((imageId: string) => {
+  if (!queue.includes(imageId)) setQueue((prev) => [...prev, imageId]);
+}, [queue]);
+
+const processNextInQueue = useCallback(() => {
+  if (processingCount.current >= MAX_PARALLEL_PROCESSING || queue.length === 0) return;
+
+  setImages((prev) => {
+    const imagesToProcess = prev.filter(
+      (img) => queue.includes(img.id) && processingCount.current < MAX_PARALLEL_PROCESSING
+    );
+    imagesToProcess.forEach((image) => processImage(image));
+    return prev;
+  });
+}, [queue, processImage]);
+```
+
+### 📦 Image States
+
+```plantuml
+@startuml
+
+[*] --> pending
+pending : Image added but not queued yet.
+
+pending --> queued
+queued : Image queued for processing.
+
+queued --> processing
+processing : Image currently being processed.
+
+processing --> complete
+complete : Image processed successfully.
+
+processing --> error
+error : Error occurred during processing.
+
+@enduml
+```
+
+In summary, the **`useImageManager`** and **`useImageQueue`** hooks provide a robust foundation for managing image states and processing queues in Squash. By leveraging React’s state management capabilities, these hooks ensure efficient parallel processing and error handling, making image compression a seamless and reliable experience.
+
 ## Conclusion
 
 Squash is a testament to the power of modern web technologies like **React**, **WebAssembly**, and **Vite**. Its architecture and design choices prioritize performance, scalability, and user experience, making it a valuable tool for anyone looking to compress and optimize images directly in their browser.
