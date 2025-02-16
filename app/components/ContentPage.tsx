@@ -21,6 +21,7 @@ type UnifiedContent = (Project | Note) & {
 	technologies?: string[];
   pinned?: boolean;
   readingTime?: string;
+	demoUrl?: string;
 };
 
 interface ContentPageProps {

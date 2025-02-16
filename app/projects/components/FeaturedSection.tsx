@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@/app/components/ui/link";
 import { Card } from "@/app/projects/components/Card";
@@ -133,7 +133,7 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
 export function FeaturedSection(): React.JSX.Element {
 	const [activeTab, setActiveTab] = useState<string>("set-me-up");
 
-	const featuredProjects: FeaturedProject[] = [
+	const featuredProjects: FeaturedProject[] = useMemo<FeaturedProject[]>(() => [
 		{
 			name: "set-me-up",
 			description:
@@ -253,7 +253,7 @@ export function FeaturedSection(): React.JSX.Element {
 			],
 			url: "https://github.com/dotbrains/ghw",
 		},
-	];
+	], []);
 
 	useEffect(() => {
 		const interval = setInterval(() => {

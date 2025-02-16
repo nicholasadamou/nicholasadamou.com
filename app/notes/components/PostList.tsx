@@ -62,7 +62,7 @@ export default function PostList({
 		);
 
 		return [...filteredPinnedPosts, ...filteredNonPinnedPosts];
-	}, [initialPosts, searchTerm, mostRecentFirst]);
+	}, [topNPosts, initialPosts, searchTerm, mostRecentFirst]);
 
 	const displayedPosts = useMemo(() => {
 		return sortedAndFilteredPosts.slice(0, page * POSTS_PER_PAGE);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 
 import Pagination from "@/app/components/Pagination";
 
@@ -28,7 +28,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
 	const [error, setError] = useState<string | null>(null);
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const fetchRepos = async () => {
+	const fetchRepos = useCallback(async () => {
 		setIsLoading(true);
 		setError(null);
 
@@ -48,7 +48,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, []);
 
 	const sortReposByStarsAndForks = (repos: Repo[]): Repo[] => {
 		return repos.sort((a, b) => {
@@ -86,7 +86,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
 
 	useEffect(() => {
 		fetchRepos();
-	}, []);
+	}, [fetchRepos]);
 
 	if (isLoading) {
 		return <RepositoriesSkeleton />;
