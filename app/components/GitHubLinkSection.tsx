@@ -10,32 +10,37 @@ interface GitHubLinkSectionProps {
 	demoUrl?: string;
 }
 
-const GitHubLinkSection: React.FC<GitHubLinkSectionProps> = ({ url, zip, demoUrl = ''}) => {
+const GitHubLinkSection: React.FC<GitHubLinkSectionProps> = ({ url, zip, demoUrl = '' }) => {
 	return (
-		<section className="flex gap-3">
-			<LinkButton
-				href={url || ""}
-				icon={Github}
-				className="border border-[#191919] bg-[#191919] text-[#efefef] hover:bg-[#efefef] hover:text-[#191919] dark:bg-[#efefef] dark:text-[#191919] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
-			>
-				GitHub
-			</LinkButton>
-			<LinkButton
-				href={zip || ""}
-				icon={Download}
-				className="border border-[#efefef] bg-transparent text-[#191919] hover:bg-[#efefef] hover:text-[#191919] dark:border-[#191919] dark:text-[#efefef] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
-			>
-				Download as zip
-			</LinkButton>
-
-			{demoUrl && (
+		<section className="animate-in animated-list flex snap-x snap-mandatory flex-nowrap max-w-full gap-3 overflow-x-scroll md:overflow-auto">
+			<div className="min-w-fit snap-start">
 				<LinkButton
-					href={demoUrl}
-					icon={BookDashed}
+					href={url || ""}
+					icon={Github}
+					className="border border-[#191919] bg-[#191919] text-[#efefef] hover:bg-[#efefef] hover:text-[#191919] dark:bg-[#efefef] dark:text-[#191919] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
+				>
+					GitHub
+				</LinkButton>
+			</div>
+			<div className="min-w-fit snap-start">
+				<LinkButton
+					href={zip || ""}
+					icon={Download}
 					className="border border-[#efefef] bg-transparent text-[#191919] hover:bg-[#efefef] hover:text-[#191919] dark:border-[#191919] dark:text-[#efefef] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
 				>
-					Demo
+					Download as zip
 				</LinkButton>
+			</div>
+			{demoUrl && (
+				<div className="min-w-fit snap-start">
+					<LinkButton
+						href={demoUrl}
+						icon={BookDashed}
+						className="border border-[#efefef] bg-transparent text-[#191919] hover:bg-[#efefef] hover:text-[#191919] dark:border-[#191919] dark:text-[#efefef] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
+					>
+						Demo
+					</LinkButton>
+				</div>
 			)}
 		</section>
 	);
