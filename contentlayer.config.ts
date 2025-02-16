@@ -1,17 +1,14 @@
 import fs from "fs";
 import path from "path";
 import { Pluggable } from "unified";
-
 import { ComputedFields, defineDocumentType, makeSource } from "contentlayer/source-files";
-
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeKatex from 'rehype-katex';
-
+import rehypeKatex from "rehype-katex";
 import remarkPlantUML from "@akebifiky/remark-simple-plantuml";
 import remarkToc from "remark-toc";
-import remarkMath from 'remark-math';
+import remarkMath from "remark-math";
 
 // Utility function to get the slug
 const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
@@ -22,8 +19,8 @@ const resolveImagePath = (basePath: string, slug: string): string | null => {
 	return fs.existsSync(imagePath) ? `/${basePath}/${slug}/image.png` : null;
 };
 
-// Utility function to generate GitHub ZIP URL
-async function resolveZipUrl(githubUrl?: string): Promise<string> {
+// Utility function to resolve GitHub-related URLs (zip or demo)
+async function resolveGitHubUrl(githubUrl?: string, type: "zip" = "zip"): Promise<string> {
 	if (!githubUrl) return "";
 
 	const matches = githubUrl.match(/https:\/\/github\.com\/([^/]+)\/([^/]+)/);
@@ -32,34 +29,27 @@ async function resolveZipUrl(githubUrl?: string): Promise<string> {
 	const [_, owner, repo] = matches;
 
 	try {
-		// Fetch repository details to get the default branch
 		const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-		if (!response.ok) throw new Error('Failed to fetch repository details');
-
+		if (!response.ok) throw new Error("Failed to fetch repository details");
 		const repoData = await response.json();
-		const defaultBranch = repoData.default_branch || 'main';
 
-		return `https://github.com/${owner}/${repo}/archive/refs/heads/${defaultBranch}.zip`;
+		if (type === "zip") {
+			const defaultBranch = repoData.default_branch || "main";
+			return `https://github.com/${owner}/${repo}/archive/refs/heads/${defaultBranch}.zip`;
+		}
+
+		return "";
 	} catch (error) {
-		console.error('Error fetching default branch:', error);
+		console.error(`Error fetching ${type} URL:`, error);
 		return "";
 	}
 }
 
 // Common computed fields
 const commonComputedFields = (basePath: string): ComputedFields => ({
-	slug: {
-		type: "string",
-		resolve: (doc) => getSlug(doc),
-	},
-	image: {
-		type: "string",
-		resolve: (doc) => resolveImagePath(basePath, getSlug(doc)),
-	},
-	zip: {
-		type: "string",
-		resolve: (doc) => resolveZipUrl(doc.url),
-	},
+	slug: { type: "string", resolve: (doc) => getSlug(doc) },
+	image: { type: "string", resolve: (doc) => resolveImagePath(basePath, getSlug(doc)) },
+	zip: { type: "string", resolve: (doc) => resolveGitHubUrl(doc.url, "zip") },
 });
 
 // Define Note document type
@@ -80,10 +70,7 @@ export const Note = defineDocumentType(() => ({
 	},
 	computedFields: {
 		...commonComputedFields("notes"),
-		og: {
-			type: "string",
-			resolve: (doc) => `/notes/${getSlug(doc)}/image.png`,
-		},
+		og: { type: "string", resolve: (doc) => `/notes/${getSlug(doc)}/image.png` },
 	},
 }));
 
@@ -98,6 +85,7 @@ export const Project = defineDocumentType(() => ({
 		longSummary: { type: "string", required: false },
 		date: { type: "string", required: true },
 		url: { type: "string", required: false },
+		demoUrl: { type: "string", required: false },
 		technologies: { type: "list", of: { type: "string" }, required: false },
 		pinned: { type: "boolean", required: false },
 		image_author: { type: "string", required: false },
@@ -120,12 +108,7 @@ export default makeSource({
 		rehypePlugins: [
 			rehypePrism as Pluggable,
 			rehypeSlug,
-			[
-				rehypeAutolinkHeadings,
-				{
-					behavior: "wrap", // Wrap the heading text in an anchor link
-				},
-			],
+			[rehypeAutolinkHeadings, { behavior: "wrap" }],
 			rehypeKatex,
 		],
 	},
