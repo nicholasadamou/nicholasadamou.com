@@ -22,9 +22,9 @@ export default function Home() {
   );
 
   return (
-		<div className="mx-auto flex max-w-[700px] flex-col gap-16 px-4">
+		<div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
 			<div className="flex flex-col gap-8">
-				<div className="flex flex-col-reverse md:flex-row">
+				<div className="flex flex-col-reverse sm:flex-row">
 					<div className="mt-5 space-y-4 md:mr-10 md:mt-0">
 						<h1 className="animate-in text-3xl font-semibold tracking-tight text-primary">
 							Hey, I&apos;m Nick Adamou
