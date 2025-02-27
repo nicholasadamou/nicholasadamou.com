@@ -7,7 +7,6 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeKatex from "rehype-katex";
 import remarkPlantUML from "@akebifiky/remark-simple-plantuml";
-import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
 
 // Utility function to get the slug
@@ -102,7 +101,6 @@ export default makeSource({
 	mdx: {
 		remarkPlugins: [
 			remarkPlantUML as Pluggable,
-			[remarkToc, { heading: "Table of Contents", maxDepth: 4 }],
 			remarkMath,
 		],
 		rehypePlugins: [

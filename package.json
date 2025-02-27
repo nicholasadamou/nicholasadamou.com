@@ -68,7 +68,6 @@
 		"rehype-prism-plus": "^1.6.3",
 		"rehype-slug": "^6.0.0",
 		"remark-math": "^6.0.0",
-		"remark-toc": "^9.0.0",
 		"rss": "^1.2.2",
 		"sharp": "^0.33.5",
 		"simple-icons": "^13.16.0",
