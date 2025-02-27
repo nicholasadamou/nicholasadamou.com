@@ -24,8 +24,8 @@ export default function Home() {
   return (
 		<div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
 			<div className="flex flex-col gap-8">
-				<div className="flex flex-col-reverse sm:flex-row">
-					<div className="mt-5 space-y-4 md:mr-10 md:mt-0">
+				<div className="flex flex-col-reverse sm:flex-row gap-4">
+					<div className="space-y-4">
 						<h1 className="animate-in text-3xl font-semibold tracking-tight text-primary">
 							Hey, I&apos;m Nick Adamou
 						</h1>
