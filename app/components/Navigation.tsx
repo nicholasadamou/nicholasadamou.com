@@ -7,7 +7,6 @@ import clsx from "clsx"
 import { Popover, Transition } from "@headlessui/react"
 import { Bars3Icon } from "@heroicons/react/20/solid"
 import NavLink from "@/app/components/NavLink"
-import ThemeSwitcher from "@/app/components/ThemeSwitcher"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 import TabThemeChanger from "@/app/components/TabThemeChanger";
@@ -142,7 +141,7 @@ export default function Navigation() {
 						))}
 					</ul>
 				</nav>
-				<div className="flex gap-3 items-center">
+				<div className="flex gap-3 items-center md:mr-4">
 					<TabThemeChanger />
 					<Popover className="mr-[-5px] relative md:hidden" ref={popoverRef}>
 						<Popover.Button className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary">
