@@ -189,8 +189,8 @@ This _hybrid_ implementation:
 1. **Buckets:**
 - Stored as an array of `capacity` size.
 - Each bucket can either be:
-- A simple Python list (default).
-- A `DoublyLinkedList` when collisions exceed a predefined threshold.
+  - A simple Python list (default).
+  - A `DoublyLinkedList` when collisions exceed a predefined threshold.
 
 2. **Hash Function:**
 - Uses Python's built-in `hash` function modulo `capacity` to compute the bucket index.
