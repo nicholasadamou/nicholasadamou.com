@@ -10,7 +10,7 @@ import { ContentHeader } from "@/app/components/ContentHeader";
 import { RelatedContentList } from "@/app/components/RelatedContentList";
 import Mdx from "@/app/components/mdx/MdxWrapper";
 import { useMounted } from "@/app/hooks/usemounted";
-import Me from "@/public/avatar.png";
+import Me from "@/public/avatar.jpeg";
 import HeaderImage from "./mdx/HeaderImage";
 import GitHubLinkSection from "@/app/components/GitHubLinkSection";
 import Views from "@/app/notes/components/Views";
