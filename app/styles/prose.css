@@ -23,6 +23,7 @@
 
 .prose a {
 	color: currentColor;
+	text-decoration: underline;
 }
 
 /* Override Prose Styling for Code Elements */

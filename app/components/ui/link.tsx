@@ -15,7 +15,7 @@ const LinkVariants = cva(
 				outline:
 					"border border-input bg-background hover:bg-accent hover:text-accent-foreground",
 				secondary:
-					"bg-secondary text-secondary-foreground hover:bg-secondary/80",
+					"bg-tertiary text-secondary-foreground hover:bg-secondary/80",
 				ghost: "hover:bg-accent hover:text-accent-foreground",
 				link: "text-primary underline-offset-4 hover:underline",
 			},
@@ -37,21 +37,26 @@ export interface LinkProps
 	extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
 		VariantProps<typeof LinkVariants> {
 	asChild?: boolean;
+	external?: boolean;
 }
 
 // Use a more specific ref type for the anchor element
 type LinkRef = HTMLAnchorElement;
 
 const Link = React.forwardRef<LinkRef, LinkProps>(
-	({ className, variant, size, asChild = false, ...props }, ref) => {
+	({ className, variant, size, asChild = false, external = false, ...props }, ref) => {
 		const Comp = asChild ? Slot : 'a';
+
+		// Determine target and rel based on the external prop
+		const target = external ? "_blank" : undefined;
+		const rel = external ? "noopener noreferrer" : undefined;
 
 		return (
 			<Comp
 				className={cn(LinkVariants({ variant, size, className }))}
 				ref={ref as React.Ref<LinkRef>}
-				target="_blank"
-				rel="noopener noreferrer"
+				target={target}
+				rel={rel}
 				{...props}
 			/>
 		);
