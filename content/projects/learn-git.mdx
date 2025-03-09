@@ -22,8 +22,9 @@ image_url: "https://unsplash.com/photos/a-book-and-a-small-figurine-on-a-desk-KP
 
 **Learn Git** is a free and open-source platform designed to help beginners master Git with ease. Built using modern web technologies, this platform provides an accessible and intuitive learning experience for those new to version control.
 
-## Problem Statement
-Version control is a fundamental skill for developers, yet many beginners struggle to understand Git concepts and commands. Existing documentation can be complex and overwhelming, making it difficult for newcomers to get started.
+## Why Build _Learn Git_?
+
+Version control is a fundamental skill for developers, but many beginners struggle to grasp Git concepts due to complex documentation and steep learning curves. I built **Learn Git** to provide an intuitive, structured, and beginner-friendly platform for mastering Git. By leveraging modern web technologies and a well-organized architecture, this site ensures a seamless learning experience while maintaining high performance and accessibility.
 
 ## Objectives
 - Provide a beginner-friendly learning platform for Git and GitHub.
@@ -32,7 +33,7 @@ Version control is a fundamental skill for developers, yet many beginners strugg
 - Optimize performance and accessibility for a seamless learning experience.
 
 ## Solution
-Learn Git was developed as an intuitive, documentation-driven web application. The platform leverages the power of **Next.js** for dynamic content delivery, **MDX** for rich documentation, and **Tailwind CSS** with **Shadcn/ui** for a sleek, modern UI.
+Learn Git was developed as an intuitive, documentation-driven web application. The platform leverages the power of **Next.js** for dynamic content delivery, **MDX** for rich documentation, and **Tailwind CSS** with **Shadcn/ui** and **MagicUI** for a sleek, modern UI.
 
 ### Key Features
 1. **Comprehensive Git Learning Modules**
@@ -40,7 +41,7 @@ Learn Git was developed as an intuitive, documentation-driven web application. T
 - Hands-on examples with step-by-step guidance.
 
 2. **Interactive UI & Modern Design**
-- Built with **Shadcn/ui** for reusable components.
+- Built with **Shadcn/ui** and **MagicUI** for reusable components.
 - Uses **Magic UI** for enhanced interactivity and animations.
 
 3. **Performance & Deployment**
@@ -60,6 +61,121 @@ The project is structured using a modular and scalable approach. The core compon
 - **State Management:** React Hooks for interactive elements.
 - **Deployment:** Vercel for hosting and continuous deployment.
 
+## Architectural Design Principles
+
+The system follows these key principles:
+
+### 1. **Modularity & Reusability**
+The application is designed with reusable components and modular architecture:
+- **Component-Based Design:** UI elements, markdown rendering, and interactive animations are separate, making them easily maintainable.
+- **Hooks for State Management:** Custom React hooks provide efficient state management and encapsulated logic.
+
+### 2. **Scalability & Performance Optimization**
+To ensure fast load times and seamless interactions:
+- **Static Site Generation (SSG):** Next.js pre-renders documentation pages for optimal performance.
+- **Code Splitting & Lazy Loading:** Only necessary components load when required, reducing initial page load times.
+
+### 3. **Enhanced Developer Experience**
+- **Type Safety with TypeScript:** Prevents runtime errors and improves code maintainability.
+- **Linting & Formatting:** ESLint and Prettier ensure consistent coding standards.
+- **CI/CD with GitHub Actions:** Automates testing and deployment for streamlined development.
+
+_If you are interested in learning more about the project's architecture, check out the [architecture](https://github.com/nicholasadamou/learn-git/blob/master/ARCHITECTURE.md) document._
+
+## Canvas Cursor Effect on Landing Page 🤯
+
+The **Canvas Cursor Component** is a React-based interactive effect that creates a dynamic, animated trailing effect following the user's cursor. It utilizes HTML5 Canvas and a physics-based approach to simulate fluid motion. The component consists of:
+- **CanvasCursor Component**: Manages rendering of the canvas.
+- **useCanvasCursor Hook**: Handles animation logic.
+- **Oscillator & Line Classes**: Control physics-based movement.
+
+### Component Structure
+
+```plantuml
+component CanvasCursor {
+    CanvasCursor --> useCanvasCursor : Uses
+    useCanvasCursor --> Canvas : Initializes
+    useCanvasCursor --> "Lines Array" : Controls
+    useCanvasCursor --> "Event Listeners" : Handles
+    "Lines Array" --> Nodes : Contains
+    "Lines Array" --> "Physics Engine" : Updated by
+    "Physics Engine" --> Oscillator : Uses
+}
+```
+
+#### **CanvasCursor Component**
+
+- Determines if the user is on a mobile device and conditionally renders the canvas.
+- Uses the `useCanvasCursor` hook to apply animations.
+
+#### **useCanvasCursor Hook**
+
+- Initializes the canvas, sets event listeners, and starts the animation loop.
+- Updates the canvas by applying physics rules on multiple **Lines**.
+
+#### **Line Class**
+
+- Represents a flexible, physics-based entity that follows the cursor.
+- Uses **Nodes** to create a trailing effect.
+
+#### **Oscillator Class**
+
+- Generates smooth, sine-wave-based variations for stroke color over time.
+
+### Event Flow
+
+The Canvas Cursor effect follows this event flow:
+
+```plantuml
+participant User
+participant CanvasCursor
+participant useCanvasCursor
+participant Canvas
+participant Lines
+participant Nodes
+
+User -> CanvasCursor : Loads Component
+CanvasCursor -> useCanvasCursor : Calls Hook
+useCanvasCursor -> Canvas : Initializes Canvas
+useCanvasCursor -> Lines : Creates Lines
+User -> Canvas : Moves Cursor
+Canvas -> Lines : Updates Positions
+Lines -> Nodes : Applies Physics
+Nodes -> Canvas : Renders Updated Positions
+
+loop Animation Loop
+    useCanvasCursor -> Canvas : Clears and Redraws
+    Canvas -> Lines : Updates Each Frame
+end
+```
+
+## State & Behavior
+
+The Canvas Cursor effect transitions through various states and behaviors:
+
+```plantuml
+[*] --> Initializing
+Initializing --> Running : Canvas Initialized
+Running --> Updating : Mouse Moves
+Running --> Resizing : Window Resizes
+Updating --> Rendering : Draw Updated Nodes
+Resizing --> Running : Adjust Canvas Size
+Rendering --> Running : Loop Continues
+Running --> [*] : Unmount Cleanup
+```
+
+### Key Features
+
+Some key features of the Canvas Cursor effect include:
+
+- **Physics-Based Animation**: Uses a spring-mass system for smooth motion.
+- **Dynamic Trail Effect**: Lines update their positions based on cursor movements.
+- **Color Oscillation**: Stroke color continuously changes using the `Oscillator` class.
+- **Optimized Rendering**: Uses `requestAnimationFrame` to ensure smooth performance.
+- **Mobile Detection**: Disables the effect on mobile devices for usability.
+
+_If you would like to learn more about how the cursor effect is done on the landing page, check out its [design doc](https://github.com/nicholasadamou/learn-git/tree/master/components/canvas-cursor)_.
+
 ## Challenges & Solutions
 Below are some key challenges faced during the development of Learn Git and the corresponding solutions:
 
@@ -78,7 +194,3 @@ Below are some key challenges faced during the development of Learn Git and the 
 
 ## Conclusion
 Learn Git successfully bridges the gap between complex Git documentation and beginner-friendly learning. By leveraging modern web technologies, it provides an engaging and effective way for developers to master version control.
-
-_If you are interested in learning more about the project's architecture, check out the [architecture](https://github.com/nicholasadamou/learn-git/blob/master/ARCHITECTURE.md) document._
-
-_If you would like to learn more about how the cursor effect is done on the landing page, check out its [design doc](https://github.com/nicholasadamou/learn-git/tree/master/components/canvas-cursor)_.
