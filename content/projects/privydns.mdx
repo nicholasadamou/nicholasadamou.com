@@ -1,8 +1,8 @@
 ---
 title: "🌎 PrivyDNS"
 date: "2025-03-09"
-summary: "A Python library that facilitates secure DNS record queries over encrypted protocols like DNS over HTTPS (DoH), DNS over TLS (DoT), and DNSCrypt."
-longSummary: "A Python library designed to securely query DNS records over encrypted protocols including DNS over HTTPS (DoH), DNS over TLS (DoT), and DNSCrypt. It supports both synchronous and asynchronous DNS queries with features such as caching, retry mechanisms, logging, and encryption. It provides developers with an easy-to-use interface to enhance DNS security, reliability, and performance."
+summary: "A Python library that facilitates secure DNS record queries over encrypted protocols like DNS over HTTPS (DoH), DNS over TLS (DoT), and DNS over Mutual TLS (mTLS)."
+longSummary: "A Python library designed to securely query DNS records over encrypted protocols including DNS over HTTPS (DoH), DNS over TLS (DoT), and DNS over Mutual TLS (mTLS). It supports both synchronous and asynchronous DNS queries with features such as caching, retry mechanisms, logging, and encryption. It provides developers with an easy-to-use interface to enhance DNS security, reliability, and performance."
 url: "https://github.com/privydns/privydns"
 technologies:
   - git
@@ -17,7 +17,7 @@ image_author_url: "https://unsplash.com/@alexshuperart"
 image_url: "https://unsplash.com/photos/a-green-hill-covered-in-grass-with-a-star-in-the-sky-W_JehBhi8wo"
 ---
 
-In an era where privacy and security are paramount, DNS traffic often remains a vulnerable point in the network stack. Traditional DNS queries are transmitted in plaintext, making them susceptible to eavesdropping, tampering, and man-in-the-middle attacks. To address these concerns, I created **PrivyDNS**, a Python library designed to securely query DNS records using encrypted protocols such as DNS over HTTPS (DoH), DNS over TLS (DoT), and DNSCrypt.
+In an era where privacy and security are paramount, DNS traffic often remains a vulnerable point in the network stack. Traditional DNS queries are transmitted in plaintext, making them susceptible to eavesdropping, tampering, and man-in-the-middle attacks. To address these concerns, I created **PrivyDNS**, a Python library designed to securely query DNS records using encrypted protocols such as DNS over HTTPS (DoH), DNS over TLS (DoT), and DNS over Mutual TLS (mTLS).
 
 ## Why PrivyDNS?
 
@@ -28,15 +28,15 @@ The motivation behind PrivyDNS stems from the need to enhance DNS security and r
 -  **Performance**: With built-in caching and retry mechanisms, PrivyDNS improves the reliability and speed of DNS queries.
 -  **Flexibility**: Supports both synchronous and asynchronous operations, making it suitable for a variety of use cases.
 
-Let's take a deeper dive into DNS over TLS (DoT), DNS over HTTPS (DoH), and DNSCrypt to understand how PrivyDNS leverages these protocols to enhance DNS security.
+Let's take a deeper dive into DNS over TLS (DoT), DNS over HTTPS (DoH), and DNS over Mutual TLS (mTLS) to understand how PrivyDNS leverages these protocols to enhance DNS security.
 
-### Deep Dive: Understanding DNS Over TLS (DoT), DNS Over HTTPS (DoH), and DNSCrypt
+### Deep Dive: Understanding DNS Over TLS (DoT), DNS Over HTTPS (DoH), and DNS Over Mutual TLS (mTLS)
 
-The Domain Name System (DNS) is a critical part of the internet infrastructure, translating human-readable domain names into machine-readable IP addresses. Traditionally, DNS queries are transmitted over unencrypted UDP or TCP protocols, making them vulnerable to eavesdropping, tampering, and man-in-the-middle attacks. To address these security concerns, newer protocols such as **DNS Over TLS (DoT)**, **DNS Over HTTPS (DoH)**, and **DNSCrypt** have been introduced. These protocols aim to encrypt DNS traffic, ensuring privacy, integrity, and security.
+The Domain Name System (DNS) is a critical part of the internet infrastructure, translating human-readable domain names into machine-readable IP addresses. Traditionally, DNS queries are transmitted over unencrypted UDP or TCP protocols, making them vulnerable to eavesdropping, tampering, and man-in-the-middle attacks. To address these security concerns, newer protocols such as **DNS Over TLS (DoT)**, **DNS Over HTTPS (DoH)**, and **DNS Over Mutual TLS (mTLS)** have been introduced. These protocols aim to encrypt DNS traffic, ensuring privacy, integrity, and security.
 
 #### What is DNS Over TLS (DoT)?
 
-**DNS Over TLS (DoT)** is a protocol for encrypting DNS queries using **Transport Layer Security (TLS)**. DoT protects the privacy and integrity of DNS requests by establishing a secure TLS connection between the client and the DNS resolver. It uses the same port (53) as traditional DNS, but the traffic is encrypted, making it harder for third parties to spy on or alter the queries.
+**DNS Over TLS (DoT)** is a protocol for encrypting DNS queries using **Transport Layer Security (TLS)**. DoT protects the privacy and integrity of DNS requests by establishing a secure TLS connection between the client and the DNS resolver. It uses port 853 (rather than the standard DNS port 53), and the traffic is encrypted, making it harder for third parties to spy on or alter the queries.
 
 #### How DoT Works
 
@@ -100,55 +100,63 @@ Client ->> "DoH Server": Sends encrypted DNS query
 - **Bypass Censorship**: DoH can bypass network-level filtering and censorship because it uses port 443, which is generally open in most networks.
 - **Encryption and Integrity**: Just like DoT, DoH ensures that DNS traffic is encrypted and protected from tampering.
 
-### What is DNSCrypt?
+### What is DNS Over Mutual TLS (mTLS)?
 
-**DNSCrypt** is a protocol designed to secure DNS traffic between the client and the resolver using encryption. It supports both UDP and TCP transport methods. DNSCrypt encrypts DNS queries and responses, preventing third parties from observing or tampering with DNS traffic.
+**DNS Over Mutual TLS (mTLS)** extends the security of DoT by adding client authentication. In standard TLS, only the server is authenticated, but in mTLS, both the client and server authenticate each other. This provides an additional layer of security by ensuring that only authorized clients can access the DNS service.
 
-DNSCrypt allows DNS resolvers to authenticate the source of the DNS response, making sure the responses are from a legitimate source, not a malicious entity.
+#### How mTLS Works
 
-#### How DNSCrypt Works
+1. **Client Initiates Connection**: The client initiates a connection to the DNS server.
+2. **Server Authentication**: The server presents its certificate to the client.
+3. **Client Authentication**: The client presents its certificate to the server.
+4. **Mutual Verification**: Both parties verify each other's certificates.
+5. **Encrypted Communication**: After successful mutual authentication, DNS queries and responses are exchanged over the encrypted connection.
 
-1. **Client Initiates Query**: The client sends a DNS query to the DNSCrypt resolver.
-2. **Encrypt the Query**: DNSCrypt encrypts the DNS query using strong cryptographic algorithms.
-3. **Send the Query**: The encrypted DNS query is sent over UDP or TCP to the resolver.
-4. **Resolver Responds**: The resolver sends back an encrypted DNS response to the client.
-5. **Decrypt the Response**: The client decrypts the response and receives the DNS result.
-
-#### Diagram: DNSCrypt Workflow
+#### Diagram: DNS Over Mutual TLS Workflow
 
 ```plantuml
 @startuml
 
 participant Client
-participant "DNSCrypt Resolver"
+participant "mTLS Server"
 
-Client ->> "DNSCrypt Resolver": Sends encrypted DNS query
-"DNSCrypt Resolver" ->> Client: Sends encrypted DNS response
-Client ->> "DNSCrypt Resolver": Decrypts the response
+Client ->> "mTLS Server": Initiates connection
+"mTLS Server" ->> Client: Presents server certificate
+Client ->> "mTLS Server": Presents client certificate
+"mTLS Server" ->> Client: Verifies client certificate
+Client ->> "mTLS Server": Verifies server certificate
+Client ->> "mTLS Server": Sends encrypted DNS query
+"mTLS Server" ->> Client: Sends encrypted DNS response
 
 @enduml
 ```
 
-#### Benefits of DNSCrypt
+#### Benefits of mTLS
 
-- **Strong Encryption**: Provides encryption to protect against eavesdropping.
-- **Authentication**: Ensures that the DNS response comes from a trusted and legitimate source.
-- **Integrity**: Guarantees the DNS query and response have not been tampered with.
+- **Enhanced Security**: By requiring client authentication, mTLS ensures that only authorized clients can access the DNS service.
+- **Prevents Unauthorized Access**: Protects against unauthorized access to DNS services.
+- **Encryption and Integrity**: Like DoT and DoH, mTLS ensures that DNS traffic is encrypted and protected from tampering.
 
-### Why Use DoT, DoH, or DNSCrypt?
+### Why Use DoT, DoH, or mTLS?
 
-The adoption of encrypted DNS protocols like DoT, DoH, and DNSCrypt offers several benefits:
+The adoption of encrypted DNS protocols like DoT, DoH, and mTLS offers several benefits:
 
-- **Privacy Protection**: Prevents ISPs, governments, or malicious actors from monitoring or tampering with DNS traffic.
-- **Security Enhancement**: Protects against DNS spoofing
-- **Data Integrity**: Ensures that DNS responses are authentic and have not been altered.
-- **Bypass Censorship**: Helps users bypass network-level restrictions and censorship.
+1. **Privacy Protection**
+These protocols encrypt DNS traffic, preventing ISPs, network administrators, or malicious actors from monitoring your browsing habits through DNS queries.
+
+2. **Security Enhancement**
+Encryption protects against various attacks such as DNS spoofing, where attackers redirect users to malicious websites by tampering with DNS responses.
+
+3. **Bypass Censorship**
+DoH, in particular, is useful for bypassing DNS-level censorship and restrictions. Since it runs over HTTPS (port 443), it is challenging for network filters or firewalls to distinguish it from normal web traffic, making it harder to block.
+
+4. **Improved Security**
+mTLS goes further by providing mutual authentication between client and server, ensuring that only authorized clients can access the DNS service. These mechanisms prevent attackers from providing malicious DNS responses or unauthorized access to DNS services.
 
 To learn more about these protocols, refer to the following resources:
 
 - [DNS Over TLS (DoT) RFC 7858](https://datatracker.ietf.org/doc/rfc7858/)
 - [DNS Over HTTPS (DoH) RFC 8484](https://datatracker.ietf.org/doc/rfc8484/)
-- [DNSCrypt Website](https://dnscrypt.info/)
 
 Now, let's explore how PrivyDNS leverages these protocols to provide a secure and reliable DNS querying solution.
 
@@ -163,13 +171,13 @@ PrivyDNS is architected to provide a robust and secure DNS querying solution. It
 
 actor Client as A
 component DNSResolver as B
-component "Protocol Type" as C
-component "DoH Resolver" as D
-component "DoT Resolver" as E
-component "DNSCrypt Resolver" as F
+component "Protocol Handler" as C
+component "DoHHandler" as D
+component "DoTHandler" as E
+component "MTLSHandler" as F
 component "DoH Server" as G
 component "DoT Server" as H
-component "DNSCrypt Server" as I
+component "mTLS Server" as I
 component Cache as J
 component "Retry Mechanism" as K
 component Logging as L
@@ -192,13 +200,14 @@ B --> L
 ### Key Components
 
 1. **Client**: Initiates DNS queries, specifying the domain name and desired protocol.
-2. **DNSResolver**: The main class handling DNS queries. It determines the protocol type (DoH, DoT, or DNSCrypt) and forwards the query to the appropriate resolver.
-3. **DoH Resolver**: Sends DNS queries over HTTPS using an HTTP client to communicate securely with the DoH server.
-4. **DoT Resolver**: Sends DNS queries over TLS using secure communication with the DoT server.
-5. **DNSCrypt Resolver**: Encrypts DNS queries using NaCl and sends them to a DNSCrypt server for secure resolution.
-6. **Cache**: Temporarily stores DNS responses to avoid repeated queries, enhancing performance.
-7. **Retry Mechanism**: Automatically retries failed queries a specified number of times before raising an error.
-8. **Logging**: Provides detailed logs about query operations, errors, cache hits/misses, and retry attempts.
+2. **DNSResolver**: The main class handling DNS queries. It maintains a registry of protocol handlers and delegates queries to the appropriate handler.
+3. **Protocol Handlers**: Specialized classes implementing the `DNSProtocolHandler` abstract base class:
+	- **DoHHandler**: Sends DNS queries over HTTPS (DoH) using `httpx` to communicate with the DoH server.
+	- **DoTHandler**: Sends DNS queries over TLS (DoT) using `dns.query.tls` for secure communication with the DoT server.
+	- **MTLSHandler**: Sends DNS queries over mutual TLS (mTLS) with client certificate authentication.
+4. **Cache**: Temporarily stores DNS responses to avoid repeated queries, enhancing performance.
+5. **Retry Mechanism**: Automatically retries failed queries a specified number of times before raising an error.
+6. **Logging**: Provides detailed logs about query operations, errors, cache hits/misses, and retry attempts.
 
 ### DNS Query Flow (DoH Example)
 
@@ -206,19 +215,22 @@ B --> L
 @startuml
 actor Client
 participant DNSResolver
-participant DoHServer
+participant DoHHandler
 participant Cache
 
 Client -> DNSResolver: query("example.com", protocol="doh")
-DNSResolver -> Cache: Check cache for response
-Cache --> DNSResolver: Cache miss
-DNSResolver -> DoHServer: Send query over HTTPS
-DoHServer --> DNSResolver: Return DNS response
-DNSResolver -> Cache: Store response in cache
+DNSResolver -> DoHHandler: Delegate query
+DoHHandler -> Cache: Check cache for response
+Cache --> DoHHandler: Cache miss
+DoHHandler -> DoHHandler: Create DNS query message
+DoHHandler -> "DoH Server": Send query over HTTPS
+"DoH Server" --> DoHHandler: Return DNS response
+DoHHandler -> Cache: Store response in cache
+DoHHandler --> DNSResolver: Return DNS response
 DNSResolver --> Client: Return DNS response
 @enduml
 ```
 
 ## Conclusion
 
-PrivyDNS is designed with security, performance, and reliability at its core. By supporting encrypted DNS protocols, efficient caching, and automatic retries, it ensures that DNS queries are resolved securely and quickly. Whether used in a synchronous or asynchronous context, PrivyDNS provides developers with an easy-to-use interface to enhance DNS security and reliability.
+PrivyDNS is designed with security, performance, and reliability at its core. By supporting encrypted DNS protocols (DoH, DoT, and mTLS), efficient caching, and automatic retries, it ensures that DNS queries are resolved securely and quickly. Whether used in a synchronous or asynchronous context, PrivyDNS provides developers with an easy-to-use interface to enhance DNS security and reliability.
