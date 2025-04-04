@@ -18,37 +18,10 @@ const resolveImagePath = (basePath: string, slug: string): string | null => {
 	return fs.existsSync(imagePath) ? `/${basePath}/${slug}/image.png` : null;
 };
 
-// Utility function to resolve GitHub-related URLs (zip or demo)
-async function resolveGitHubUrl(githubUrl?: string, type: "zip" = "zip"): Promise<string> {
-	if (!githubUrl) return "";
-
-	const matches = githubUrl.match(/https:\/\/github\.com\/([^/]+)\/([^/]+)/);
-	if (!matches) return "";
-
-	const [_, owner, repo] = matches;
-
-	try {
-		const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-		if (!response.ok) throw new Error("Failed to fetch repository details");
-		const repoData = await response.json();
-
-		if (type === "zip") {
-			const defaultBranch = repoData.default_branch || "main";
-			return `https://github.com/${owner}/${repo}/archive/refs/heads/${defaultBranch}.zip`;
-		}
-
-		return "";
-	} catch (error) {
-		console.error(`Error fetching ${type} URL:`, error);
-		return "";
-	}
-}
-
 // Common computed fields
 const commonComputedFields = (basePath: string): ComputedFields => ({
 	slug: { type: "string", resolve: (doc) => getSlug(doc) },
 	image: { type: "string", resolve: (doc) => resolveImagePath(basePath, getSlug(doc)) },
-	zip: { type: "string", resolve: (doc) => resolveGitHubUrl(doc.url, "zip") },
 });
 
 // Define Note document type

@@ -86,7 +86,7 @@ export default function ContentPage({
 												</Badge>
 											))}
 										</div>
-										<GitHubLinkSection url={content.url} zip={content.zip} demoUrl={content.demoUrl} />
+										<GitHubLinkSection url={content.url} demoUrl={content.demoUrl} />
 									</>
                 )}
               </>
