@@ -2,8 +2,10 @@
 
 import type { Note as PostType } from "contentlayer/generated";
 import Post from "./Post";
+import PostSkeleton from "./PostSkeleton";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import { getRelativeCoordinates } from "@/app/utils/getRelativeCoordinates";
+import { motion } from "framer-motion";
 
 type PostListProps = {
 	initialPosts: PostType[];
@@ -13,7 +15,7 @@ type PostListProps = {
 	noPin?: boolean;
 };
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 5;
 
 export default function PostList({
 																	 initialPosts,
@@ -114,9 +116,17 @@ export default function PostList({
 				<Post key={post.slug} post={post} mousePosition={mousePosition} shouldShowPin={!noPin} />
 			))}
 			{hasMore && (
-				<li ref={loadMoreRef} className="h-10 flex items-center justify-center">
-					<p>Loading more...</p>
-				</li>
+				<motion.li
+					ref={loadMoreRef}
+					className="py-2"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.5 }}
+				>
+					<PostSkeleton />
+					{/* Add multiple skeletons for a better loading effect */}
+					<PostSkeleton />
+				</motion.li>
 			)}
 		</ul>
 	);
