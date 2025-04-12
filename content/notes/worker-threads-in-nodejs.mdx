@@ -99,7 +99,7 @@ Before worker threads were introduced, developers used several approaches to han
 
 ### 1. Splitting Synchronous Code with setImmediate()
 
-One approach was to break up CPU-intensive tasks into smaller chunks and use `setImmediate()` to yield to the event loop between chunks:
+One approach was to break up CPU-intensive tasks into smaller chunks and use [`setImmediate()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate) to yield to the event loop between chunks:
 
 ```javascript
 const arr = new Array(1000000).fill(1);
@@ -128,11 +128,11 @@ processChunk();
 console.log("Processing started");
 ```
 
-This approach works but makes the code more complex and increases the overall execution time.
+This approach works, but makes the code more complex and increases the overall execution time. Additionally, it is [deprecated](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate#browser_compatibility)
 
 ### 2. Child Processes
 
-Another approach was to use the `child_process` module to spawn separate Node.js processes:
+Another approach was to use the [`child_process`](https://nodejs.org/api/child_process.html) module to spawn separate Node.js processes:
 
 ```javascript
 const { fork } = require('child_process');
