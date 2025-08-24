@@ -1,7 +1,11 @@
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { createWriteStream } from 'fs';
+import fs from 'fs';
 import path from 'path';
-import { allNotes, allProjects } from './.contentlayer/generated/index.mjs';
+
+// Import JSON files directly to avoid the assert syntax issue
+const allNotes = JSON.parse(fs.readFileSync('./.contentlayer/generated/Note/_index.json', 'utf8'));
+const allProjects = JSON.parse(fs.readFileSync('./.contentlayer/generated/Project/_index.json', 'utf8'));
 
 const generateSitemap = async () => {
 	const sitemapStream = new SitemapStream({ hostname: process.env.SITE_URL || 'https://nicholasadamou.com' });

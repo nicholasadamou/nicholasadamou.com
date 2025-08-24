@@ -2,7 +2,8 @@ import fs from 'fs';
 import RSS from 'rss';
 import path from 'path';
 
-import { allNotes } from './.contentlayer/generated/index.mjs';
+// Import JSON files directly to avoid the assert syntax issue
+const allNotes = JSON.parse(fs.readFileSync('./.contentlayer/generated/Note/_index.json', 'utf8'));
 
 // Fetch base URL
 const isDevelopment = process.env.NODE_ENV === 'development';
