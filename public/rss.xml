@@ -1,11 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title><![CDATA[Nicholas Adamou's Blog]]></title>
+        <title><![CDATA[Nicholas Adamou's Notes]]></title>
         <description><![CDATA[I am a full stack software engineer who is on a mission to make the world a better place through code.]]></description>
         <link>https://nicholasadamou.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 25 Aug 2024 01:27:13 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 24 Aug 2025 22:04:35 GMT</lastBuildDate>
         <atom:link href="https://nicholasadamou.com/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[7 Steps to Successfully Onboard to a New Codebase]]></title>
+            <description><![CDATA[Jumping into a new codebase can feel overwhelming, especially in fast-paced engineering teams. Here are seven practical steps to streamline your onboarding and set yourself up for success.]]></description>
+            <link>https://nicholasadamou.com/notes/7-steps-to-successfully-onboard-to-a-new-codebase</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/7-steps-to-successfully-onboard-to-a-new-codebase</guid>
+            <pubDate>Fri, 13 Dec 2024 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/7-steps-to-successfully-onboard-to-a-new-codebase/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[A Deeper Than Not Dive into Two Sum]]></title>
+            <description><![CDATA[Explore the infamous LeetCode problem #1, Two Sum, with a deep dive into its naive and optimized solutions, including a discussion on Hash Maps, binary search, and memory management.]]></description>
+            <link>https://nicholasadamou.com/notes/a-deeper-than-not-dive-into-two-sum</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/a-deeper-than-not-dive-into-two-sum</guid>
+            <pubDate>Fri, 10 Jan 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/a-deeper-than-not-dive-into-two-sum/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Building a Simple Load Balancer with Spring Boot]]></title>
+            <description><![CDATA[Learn how to build a basic load balancer using Spring Boot, featuring health checks and round-robin distribution.]]></description>
+            <link>https://nicholasadamou.com/notes/building-a-simple-load-balancer-with-spring-boot</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/building-a-simple-load-balancer-with-spring-boot</guid>
+            <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/building-a-simple-load-balancer-with-spring-boot/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Handling Large File Uploads (20GB+) in Fast API with S3 Multipart Upload Using Signed URLs]]></title>
+            <description><![CDATA[Learn how to handle large file uploads in Fast API using S3 multipart upload with signed URLs, ensuring efficient and secure file transfers.]]></description>
+            <link>https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</guid>
+            <pubDate>Fri, 28 Mar 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Minimizing Nesting for Readable and Maintainable Code]]></title>
+            <description><![CDATA[Explore how reducing nesting in functions enhances readability and maintainability, with practical examples that illustrate best practices.]]></description>
+            <link>https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</guid>
+            <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[The Power of Stacked Diffs: A Strategy for Better Code Reviews]]></title>
+            <description><![CDATA[Discover the benefits of using stacked diffs to make code reviews easier and faster. Learn how breaking up large PRs into smaller, logical units enhances readability, reduces reviewer fatigue, and improves overall code quality.]]></description>
+            <link>https://nicholasadamou.com/notes/the-power-of-stacked-diffs-for-better-code-reviews</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/the-power-of-stacked-diffs-for-better-code-reviews</guid>
+            <pubDate>Mon, 11 Nov 2024 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/the-power-of-stacked-diffs-for-better-code-reviews/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Trading Space for Time: Boosting Algorithm Efficiency]]></title>
+            <description><![CDATA[Explore how trading space for time can significantly improve the efficiency of an algorithm using a practical example of counting bad pairs in an array.]]></description>
+            <link>https://nicholasadamou.com/notes/trading-space-for-time</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/trading-space-for-time</guid>
+            <pubDate>Sun, 09 Feb 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/trading-space-for-time/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Understanding the Fork Bomb 💣🍴]]></title>
+            <description><![CDATA[A deep dive into one of the simplest yet most destructive shell payloads — the fork bomb.]]></description>
+            <link>https://nicholasadamou.com/notes/understanding-the-fork-bomb</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/understanding-the-fork-bomb</guid>
+            <pubDate>Thu, 08 May 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/understanding-the-fork-bomb/image.png" type="image/png" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Worker Threads in Node.js: The Secret to High Performance Backends]]></title>
+            <description><![CDATA[Node.js is famously single-threaded—but when you hit CPU-heavy operations like encryption, data processing, or image resizing, your app can grind to a halt. That's where Worker Threads come in.]]></description>
+            <link>https://nicholasadamou.com/notes/worker-threads-in-nodejs</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/worker-threads-in-nodejs</guid>
+            <pubDate>Sat, 12 Apr 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.com/notes/worker-threads-in-nodejs/image.png" type="image/png" medium="image"/>
+        </item>
     </channel>
 </rss>

@@ -1,15 +1,16 @@
 import { Metadata } from "next";
-import { allNotes } from "contentlayer/generated";
+import { allNotes } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/app/utils/getBaseUrl";
 
 export async function generateMetadata({
 																				 params,
 																			 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+	const resolvedParams = await params;
 	const note = allNotes.find(
-		(note: { slug: string }) => note.slug === params.slug,
+		(note: { slug: string }) => note.slug === resolvedParams.slug,
 	);
 
 	if (!note) {

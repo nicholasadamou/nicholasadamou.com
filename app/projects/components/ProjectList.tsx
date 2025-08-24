@@ -1,6 +1,6 @@
 "use client";
 
-import type { Project as ProjectType } from "contentlayer/generated";
+import type { Project as ProjectType } from "@/lib/contentlayer-data";
 import Project from "./Project";
 import React, { useRef, useState } from "react";
 import { getRelativeCoordinates } from "@/app/utils/getRelativeCoordinates";

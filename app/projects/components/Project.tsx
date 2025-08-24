@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
 import { formatShortDate } from "@/app/utils/formatShortDate";
-import type { Project } from "contentlayer/generated";
+import type { Project } from "@/lib/contentlayer-data";
 import { Badge } from "@/app/components/ui/badge";
 
 type ProjectProps = {
@@ -35,7 +35,9 @@ export default function Project({ project, mousePosition }: ProjectProps) {
               initial={false}
               transition={{ ease: "easeOut" }}
               style={{ width: imageWidth, height: imageHeight }}
-              className="pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block"
+              {...({
+                className: "pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block"
+              } as any)}
             >
               <Image
                 src={image}

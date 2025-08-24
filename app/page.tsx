@@ -1,4 +1,4 @@
-import { allNotes, allProjects } from "contentlayer/generated";
+import { allNotes, allProjects } from "@/lib/contentlayer-data";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 

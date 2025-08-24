@@ -6,8 +6,9 @@ type Params = {
 	slug: string;
 };
 
-export async function POST(request: Request, { params }: { params: Params }) {
-	const { slug } = params;
+export async function POST(request: Request, { params }: { params: Promise<Params> }) {
+	const resolvedParams = await params;
+	const { slug } = resolvedParams;
 
 	// Get or set a user ID in a cookie
 	const userIdCookie = request.headers.get("cookie")?.match(/user_id=([^;]*)/)?.[1];
@@ -92,8 +93,9 @@ export async function POST(request: Request, { params }: { params: Params }) {
 	}
 }
 
-export async function GET(_: Request, { params }: { params: Params }) {
-	const { slug } = params;
+export async function GET(_: Request, { params }: { params: Promise<Params> }) {
+	const resolvedParams = await params;
+	const { slug } = resolvedParams;
 
 	if (!slug) {
 		console.log("Slug is required");

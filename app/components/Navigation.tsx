@@ -116,12 +116,14 @@ export default function Navigation() {
 			initial={{ y: -100 }}
 			animate={{ y: 0 }}
 			transition={{ type: "spring", stiffness: 100, damping: 20 }}
-			className={clsx(
-				"z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
-				isScrolled
-					? "bg-[#fcfcfc]/75 dark:bg-[#111]/75 text-black dark:text-white"
-					: "bg-transparent text-primary"
-			)}
+			{...({
+				className: clsx(
+					"z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
+					isScrolled
+						? "bg-[#fcfcfc]/75 dark:bg-[#111]/75 text-black dark:text-white"
+						: "bg-transparent text-primary"
+				)
+			} as any)}
 			ref={popoverRef}
 		>
 			<div className="mx-auto pl-0 md:pl-4 max-w-[700px] flex justify-between">

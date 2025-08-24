@@ -1,6 +1,6 @@
 "use client";
 
-import type { Note as PostType } from "contentlayer/generated";
+import type { Note as PostType } from "@/lib/contentlayer-data";
 import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
 import React, { useRef, useState, useEffect, useMemo } from "react";
@@ -118,7 +118,7 @@ export default function PostList({
 			{hasMore && (
 				<motion.li
 					ref={loadMoreRef}
-					className="py-2"
+					{...({className: "py-2"} as any)}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 0.5 }}

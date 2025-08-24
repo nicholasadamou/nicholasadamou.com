@@ -32,7 +32,9 @@ export default function Halo({
   return (
     <motion.div
       ref={ref}
-      className={clsx("relative h-full w-full overflow-hidden", className)}
+      {...({
+        className: clsx("relative h-full w-full overflow-hidden", className)
+      } as any)}
       whileHover="hover"
     >
       <motion.div
@@ -46,7 +48,9 @@ export default function Halo({
               "radial-gradient(#FFFFFF 0%, rgba(188, 255, 219, 0) 60%)",
           } as React.CSSProperties
         }
-        className={`pointer-events-none absolute inset-0 z-50 translate-x-[var(--x)] translate-y-[var(--y)] opacity-0 transition-opacity`}
+        {...({
+          className: `pointer-events-none absolute inset-0 z-50 translate-x-[var(--x)] translate-y-[var(--y)] opacity-0 transition-opacity`
+        } as any)}
         variants={{
           hover: {
             opacity: isMobile ? 0 : strength / 100,

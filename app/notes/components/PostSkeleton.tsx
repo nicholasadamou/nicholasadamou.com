@@ -29,14 +29,14 @@ export default function PostSkeleton() {
     <div className="py-3 transition-opacity">
       <div className="transition-opacity">
         <motion.div
-          className="flex items-center justify-between"
+          {...({className: "flex items-center justify-between"} as any)}
           initial="hidden"
           animate="visible"
           custom={0}
           variants={skeletonVariants}
         >
           <motion.div
-            className="flex-1"
+            {...({className: "flex-1"} as any)}
             variants={skeletonVariants}
             animate="pulse"
           >
@@ -50,7 +50,7 @@ export default function PostSkeleton() {
         </motion.div>
 
         <motion.div
-          className="mt-2"
+          {...({className: "mt-2"} as any)}
           initial="hidden"
           animate="visible"
           custom={1}

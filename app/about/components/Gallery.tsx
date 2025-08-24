@@ -52,7 +52,9 @@ function Photo({
 	const shared = "absolute h-full w-full rounded-xl overflow-hidden";
 	return (
 		<motion.div
-			className={`absolute mx-auto cursor-grab hover:before:block hover:before:w-[calc(100%+55px)] hover:before:h-[300px] hover:before:absolute hover:before:-top-8 hover:before:-left-7`}
+			{...({
+				className: `absolute mx-auto cursor-grab hover:before:block hover:before:w-[calc(100%+55px)] hover:before:h-[300px] hover:before:absolute hover:before:-top-8 hover:before:-left-7`
+			} as any)}
 			style={{rotate: `${rotate}deg`, left, width, height, perspective: 1000}}
 			initial={{
 				width,
@@ -84,7 +86,9 @@ function Photo({
 			whileHover="flipped"
 		>
 			<motion.div
-				className="relative w-full h-full shadow-md rounded-xl will-change-transform"
+				{...({
+					className: "relative w-full h-full shadow-md rounded-xl will-change-transform"
+				} as any)}
 				style={{transformStyle: "preserve-3d"}}
 				transition={{type: "spring", duration: 0.4}}
 				variants={{

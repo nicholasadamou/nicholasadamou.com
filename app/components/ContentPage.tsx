@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
-import type { Note, Project } from "contentlayer/generated";
+import type { Note, Project } from "@/lib/contentlayer-data";
 
 import { ContentHeader } from "@/app/components/ContentHeader";
 import { RelatedContentList } from "@/app/components/RelatedContentList";
@@ -34,7 +34,7 @@ export default function ContentPage({
   content,
   type,
   allContent,
-}: ContentPageProps): JSX.Element | null {
+}: ContentPageProps): React.ReactElement | null {
   const mounted = useMounted();
 
   if (!content) {
@@ -60,7 +60,9 @@ export default function ContentPage({
 
   return (
     <motion.div
-      className="mx-auto flex max-w-[700px] flex-col gap-12 px-4"
+      {...({
+        className: "mx-auto flex max-w-[700px] flex-col gap-12 px-4"
+      } as any)}
       initial="hidden"
       animate="visible"
       variants={fadeIn}

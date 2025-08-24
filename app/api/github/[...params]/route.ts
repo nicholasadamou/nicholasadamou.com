@@ -136,12 +136,13 @@ export async function GET(req: NextRequest) {
 }
 
 // POST function to add a user to a repository or organization team
-export async function POST(req: NextRequest, { params }: { params: { params: string[] } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ params: string[] }> }) {
 	const octokit = createOctokitInstance();
 
 	try {
 		const { username } = await validateRequestBody(req);
-		const pathParams = params.params;
+		const resolvedParams = await params;
+		const pathParams = resolvedParams.params;
 
 		if (pathParams.length === 2) {
 			const [owner, repo] = pathParams;

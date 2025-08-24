@@ -1,14 +1,15 @@
 import { Metadata } from "next";
-import { allProjects } from "contentlayer/generated";
+import { allProjects } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/app/utils/getBaseUrl";
 
 export async function generateMetadata({
 																				 params,
 																			 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-	const project = allProjects.find((project) => project.slug === params.slug);
+	const resolvedParams = await params;
+	const project = allProjects.find((project) => project.slug === resolvedParams.slug);
 
 	if (!project) {
 		notFound();

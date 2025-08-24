@@ -37,7 +37,7 @@ const ListSection: React.FC<ListSectionProps> = ({ heading, items }) => (
 							</div>
 						</Link>
 					) : item.component && React.isValidElement(item.component) ? (
-							React.cloneElement(item.component as React.ReactElement, { icon: item.icon, label: item.label })
+							React.cloneElement(item.component as React.ReactElement, { icon: item.icon, label: item.label } as any)
 					) : null}
 				</li>
 			))}

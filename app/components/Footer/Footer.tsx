@@ -28,18 +28,20 @@ const childVariants = {
 	}
 }
 
-export function Footer(): React.JSX.Element {
+export function Footer(): React.ReactElement {
 	return (
 		<motion.footer
-			className="absolute bottom-0 inset-x-0 px-8 md:px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between"
+			{...({
+				className: "absolute bottom-0 inset-x-0 px-8 md:px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between"
+			} as any)}
 			initial="hidden"
 			animate="visible"
 			variants={footerVariants}
 		>
-			<motion.p className="text-sm text-secondary" variants={childVariants}>
+			<motion.p {...({className: "text-sm text-secondary"} as any)} variants={childVariants}>
 				&copy; {new Date().getFullYear()} Nicholas Adamou.
 			</motion.p>
-			<motion.nav className="sm:ml-auto flex gap-4 sm:gap-6 items-center" variants={childVariants}>
+			<motion.nav {...({className: "sm:ml-auto flex gap-4 sm:gap-6 items-center"} as any)} variants={childVariants}>
 				<motion.div
 					whileHover={{scale: 1.1}}
 					whileTap={{scale: 0.95}}

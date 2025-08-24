@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { Project } from "contentlayer/generated";
+import type { Project } from "@/lib/contentlayer-data";
 import Link from "@/app/components/Link";
 import Halo from "@/app/components/Halo";
 import { Badge } from "@/app/components/ui/badge";

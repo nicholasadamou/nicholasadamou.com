@@ -56,8 +56,13 @@ export default function RootLayout({
 						<Footer />
           </main>
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        {/* Only render analytics in production or when deployment ID is available */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

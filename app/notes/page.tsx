@@ -1,5 +1,5 @@
 import React from "react";
-import { allNotes } from "contentlayer/generated";
+import { allNotes } from "@/lib/contentlayer-data";
 
 import ListPage from "@/app/components/ListPage";
 

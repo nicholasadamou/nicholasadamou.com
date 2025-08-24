@@ -3,12 +3,12 @@
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 import { getBaseUrl } from "@/app/utils/getBaseUrl";
-import { ReactElement, ReactNode, AwaitedReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 const baseUrl = getBaseUrl();
 
 const createTextDiv = (
-	text: string | number | bigint | boolean | ReactElement | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined,
+	text: string | number | bigint | boolean | ReactElement | Iterable<ReactNode> | null | undefined,
 	fontSize: string,
 	color: string,
 	maxWidth: string,

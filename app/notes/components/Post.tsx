@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { Note } from "contentlayer/generated";
+import type { Note } from "@/lib/contentlayer-data";
 
 import Link from "@/app/components/Link";
 import Section from "@/app/components/Section";
@@ -41,7 +41,9 @@ export default function Post({ post, mousePosition, shouldShowPin }: PostProps) 
               initial={false}
               transition={{ ease: "easeOut" }}
               style={{ width: imageWidth, height: imageHeight }}
-              className="pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block"
+              {...({
+                className: "pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block"
+              } as any)}
             >
               <Image
                 src={image}

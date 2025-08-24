@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import type { Note, Project } from "contentlayer/generated";
+import type { Note, Project } from "@/lib/contentlayer-data";
 import PostList from "@/app/notes/components/PostList";
 import ProjectList from "@/app/projects/components/ProjectList";
 import Repositories from "@/app/projects/components/Repositories";

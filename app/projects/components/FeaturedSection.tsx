@@ -49,11 +49,13 @@ const ProjectTabs: React.FC<{
 		{projects.map((project) => (
 			<motion.button
 				key={project.name}
-				className={`px-4 py-2 border rounded-2xl text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-					activeTab === project.name
-						? "bg-black text-white dark:bg-white dark:text-black border-none"
-						: "bg-tertiary text-primary hover:bg-secondary border-secondary"
-				}`}
+				{...({
+					className: `px-4 py-2 border rounded-2xl text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+						activeTab === project.name
+							? "bg-black text-white dark:bg-white dark:text-black border-none"
+							: "bg-tertiary text-primary hover:bg-secondary border-secondary"
+					}`
+				} as any)}
 				onClick={() => onTabClick(project.name)}
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
@@ -96,11 +98,13 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
 					</motion.div>
 				))}
 			</div>
-			<motion.div
-				className="space-y-6"
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.5, delay: 0.6 }}
+				<motion.div
+					{...({
+						className: "space-y-6"
+					} as any)}
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5, delay: 0.6 }}
 			>
 				<h4 className="text-2xl font-bold text-secondary">Key Components</h4>
 				<ul className="text-md list-none space-y-4 text-secondary">
@@ -271,7 +275,9 @@ export function FeaturedSection(): React.JSX.Element {
 
 	return (
 		<motion.section
-			className="mb-3 mt-5 w-full"
+			{...({
+				className: "mb-3 mt-5 w-full"
+			} as any)}
 			initial={{ opacity: 0 }}
 			whileInView={{ opacity: 1 }}
 			transition={{ duration: 0.5 }}
