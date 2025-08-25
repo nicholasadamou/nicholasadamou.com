@@ -1,31 +1,39 @@
 // Type declarations for static assets
+// Type for Next.js optimized images
+interface StaticImageData {
+  src: string;
+  height: number;
+  width: number;
+  placeholder?: string;
+}
+
 declare module "*.svg" {
   const content: any;
   export default content;
 }
 
 declare module "*.png" {
-  const content: string;
+  const content: StaticImageData;
   export default content;
 }
 
 declare module "*.jpg" {
-  const content: string;
+  const content: StaticImageData;
   export default content;
 }
 
 declare module "*.jpeg" {
-  const content: string;
+  const content: StaticImageData;
   export default content;
 }
 
 declare module "*.gif" {
-  const content: string;
+  const content: StaticImageData;
   export default content;
 }
 
 declare module "*.webp" {
-  const content: string;
+  const content: StaticImageData;
   export default content;
 }
 
@@ -35,7 +43,7 @@ declare module "*.ico" {
 }
 
 declare module "*.bmp" {
-  const content: string;
+  const content: StaticImageData;
   export default content;
 }
 
