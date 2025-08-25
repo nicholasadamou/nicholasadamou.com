@@ -150,6 +150,9 @@ nicholasadamou.com/
 │   ├── generate-rss.mjs            # RSS feed generation
 │   └── generate-sitemap.mjs        # Sitemap generation
 │
+├── 📂 docs/                        # Project documentation
+│   └── PRE_COMMIT_SETUP.md         # Pre-commit hooks guide
+│
 └── 📄 Configuration Files
     ├── contentlayer.config.ts      # Content processing
     ├── tailwind.config.js          # Tailwind CSS config
@@ -213,6 +216,11 @@ pnpm dev          # Start development server
 pnpm build        # Build for production
 pnpm start        # Start production server
 pnpm lint         # Run ESLint
+pnpm lint:fix     # Fix ESLint issues automatically
+
+# Code Formatting
+pnpm format       # Format all files with Prettier
+pnpm format:check # Check if files are formatted correctly
 
 # Content Generation
 pnpm generate:rss      # Generate RSS feed
@@ -338,7 +346,8 @@ pnpm start
 
 - Use TypeScript for all new code
 - Follow the existing component patterns
-- Run `pnpm lint` before committing
+- **Pre-commit hooks** automatically format and lint code (see [`docs/PRE_COMMIT_SETUP.md`](docs/PRE_COMMIT_SETUP.md))
+- Run `pnpm lint` and `pnpm format` manually when needed
 - Use semantic commit messages
 
 ## 📄 License
