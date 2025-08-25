@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const { YOUTUBE_API_KEY } = process.env;
-
-if (!YOUTUBE_API_KEY) {
-  throw new Error("YouTube API key is not set");
+// Function to get YouTube API key with runtime validation
+function getYouTubeApiKey(): string {
+  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
+  if (!YOUTUBE_API_KEY) {
+    throw new Error("YouTube API key is not set");
+  }
+  return YOUTUBE_API_KEY;
 }
 
 export async function GET(req: NextRequest) {
@@ -18,8 +21,9 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const apiKey = getYouTubeApiKey();
     const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${YOUTUBE_API_KEY}&part=snippet`
+      `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${apiKey}&part=snippet`
     );
     const data = await response.json();
 
