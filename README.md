@@ -20,9 +20,10 @@ Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://gi
 - **📱 Responsive**: Mobile-first design that works on all devices
 - **⚡ Performance**: Optimized for Core Web Vitals and SEO
 - **🛡️ Type-Safe**: Full TypeScript coverage with strict configuration
-- **🔗 API Integrations**: Gumroad products and GitHub repositories
+- **🔗 API Integrations**: Gumroad products, GitHub repositories, and Unsplash+ images
 - **📊 Analytics**: View tracking with Vercel Postgres
 - **🎯 Accessibility**: Built with accessibility best practices
+- **🖼️ Premium Images**: Support for Unsplash+ premium images with API integration
 
 ## 📋 Table of Contents
 
@@ -225,6 +226,14 @@ pnpm format:check # Check if files are formatted correctly
 # Content Generation
 pnpm generate:rss      # Generate RSS feed
 pnpm generate:sitemap  # Generate sitemap
+
+# Local GitHub Actions Testing
+pnpm act:list       # List all available workflows
+pnpm act:ci         # Run CI pipeline locally
+pnpm act:test       # Run test workflow locally
+pnpm act:coverage   # Run coverage workflow locally
+pnpm act:shellcheck # Run shellcheck workflow locally
+pnpm act:dryrun     # Preview what would be executed
 ```
 
 ### Adding New Content
@@ -342,11 +351,20 @@ pnpm start
 - Add technology tags and descriptions
 - Feature images and project galleries
 
+### Testing GitHub Workflows Locally
+
+This project includes comprehensive GitHub Actions workflows for CI/CD. You can test these workflows locally using ACT before pushing changes:
+
+- **Setup Guide**: See [`docs/ACT_SETUP.md`](docs/ACT_SETUP.md) for complete installation and configuration instructions
+- **Quick Start**: Install ACT with `brew install act` and run `pnpm act:ci` to test the full CI pipeline
+- **Available Commands**: Use `pnpm act:list` to see all available workflows and jobs
+
 ### Code Style
 
 - Use TypeScript for all new code
 - Follow the existing component patterns
 - **Pre-commit hooks** automatically format and lint code (see [`docs/PRE_COMMIT_SETUP.md`](docs/PRE_COMMIT_SETUP.md))
+- **Test workflows locally** with ACT before pushing (see [`docs/ACT_SETUP.md`](docs/ACT_SETUP.md))
 - Run `pnpm lint` and `pnpm format` manually when needed
 - Use semantic commit messages
 

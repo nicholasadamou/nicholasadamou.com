@@ -13,14 +13,15 @@ function useInterval(callback, delay) {
   // Set up the interval.
   useEffect(() => {
     function tick() {
-      savedCallback.current();
+      if (savedCallback.current) {
+        savedCallback.current();
+      }
     }
 
     if (delay !== null) {
       const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
-    return null;
   }, [delay]);
 }
 

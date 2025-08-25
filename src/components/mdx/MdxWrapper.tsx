@@ -4,6 +4,7 @@ import Alert from "@/components/mdx/Alert";
 import LinkPreview from "@/components/mdx/LinkPreview";
 import PlantUML from "@/components/mdx/PlantUML";
 import CustomImage from "@/components/mdx/Image";
+import ImageFromContent from "@/components/mdx/ImageFromContent";
 import CustomLink from "@/components/mdx/CustomLink";
 import YouTubeEmbed from "@/components/mdx/YouTube/YouTubeEmbed";
 import SourceCodeAccess from "@/components/mdx/GitHub/SourceCodeAccess";
@@ -11,6 +12,7 @@ import Latex from "@/components/mdx/Latex";
 
 const components = {
   Image: CustomImage,
+  ImageFromContent: ImageFromContent,
   a: CustomLink,
   Link: CustomLink,
   Alert: Alert,

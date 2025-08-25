@@ -6,12 +6,13 @@ export default function Avatar({
   alt,
   initials,
   size = "sm",
+  ...props
 }: {
   src?: string | StaticImageData;
   alt?: string;
   initials?: string | null;
   size?: "sm" | "md" | "lg";
-}) {
+} & React.HTMLAttributes<HTMLDivElement>) {
   initials = initials?.slice(0, 2);
 
   // Define sizes based on the size prop
@@ -23,11 +24,13 @@ export default function Avatar({
 
   return (
     <div
+      {...props}
       className={clsx(
         "relative inline-flex select-none items-center justify-center overflow-hidden rounded-full align-middle font-medium uppercase text-primary",
         size === "sm" && "h-10 w-10 bg-tertiary text-sm",
         size === "md" && "h-14 w-14 bg-tertiary text-base",
-        size === "lg" && "h-24 w-24 bg-secondary text-2xl"
+        size === "lg" && "h-24 w-24 bg-secondary text-2xl",
+        props.className
       )}
     >
       {!src || src === "" ? (

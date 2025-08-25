@@ -4,7 +4,7 @@
         <description><![CDATA[I am a full stack software engineer who is on a mission to make the world a better place through code.]]></description>
         <link>https://nicholasadamou.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 25 Aug 2025 11:03:56 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 25 Aug 2025 11:24:44 GMT</lastBuildDate>
         <atom:link href="https://nicholasadamou.com/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
         <item>
@@ -13,7 +13,7 @@
             <link>https://nicholasadamou.com/notes/7-steps-to-successfully-onboard-to-a-new-codebase</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/7-steps-to-successfully-onboard-to-a-new-codebase</guid>
             <pubDate>Fri, 13 Dec 2024 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/7-steps-to-successfully-onboard-to-a-new-codebase/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/gitlab-application-screengrab-ZV_64LdGoao" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[A Deeper Than Not Dive into Two Sum]]></title>
@@ -21,7 +21,7 @@
             <link>https://nicholasadamou.com/notes/a-deeper-than-not-dive-into-two-sum</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/a-deeper-than-not-dive-into-two-sum</guid>
             <pubDate>Fri, 10 Jan 2025 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/a-deeper-than-not-dive-into-two-sum/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/dried-hay-or-straw-with-grains-NZYgKwRA4Cg" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[Building a Simple Load Balancer with Spring Boot]]></title>
@@ -29,15 +29,7 @@
             <link>https://nicholasadamou.com/notes/building-a-simple-load-balancer-with-spring-boot</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/building-a-simple-load-balancer-with-spring-boot</guid>
             <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/building-a-simple-load-balancer-with-spring-boot/image.png" type="image/png" medium="image"/>
-        </item>
-        <item>
-            <title><![CDATA[Handling Large File Uploads (20GB+) in Fast API with S3 Multipart Upload Using Signed URLs]]></title>
-            <description><![CDATA[Learn how to handle large file uploads in Fast API using S3 multipart upload with signed URLs, ensuring efficient and secure file transfers.]]></description>
-            <link>https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</link>
-            <guid isPermaLink="true">https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</guid>
-            <pubDate>Fri, 28 Mar 2025 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/an-aerial-view-of-a-train-yard-with-several-trains-ud_kWC-3Bdg" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[Minimizing Nesting for Readable and Maintainable Code]]></title>
@@ -45,7 +37,15 @@
             <link>https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</guid>
             <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/green-leafed-plant-on-clear-glass-vase-filled-with-water-x2Tmfd1-SgA" type="image/jpeg" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Handling Large File Uploads (20GB+) in Fast API with S3 Multipart Upload Using Signed URLs]]></title>
+            <description><![CDATA[Learn how to handle large file uploads in Fast API using S3 multipart upload with signed URLs, ensuring efficient and secure file transfers.]]></description>
+            <link>https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</guid>
+            <pubDate>Fri, 28 Mar 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/3d-render-abstract-minimal-background-with-paper-layers-levitating-sheets-fashion-wallpaper-with-falling-cloth-colorful-pastel-swatches-gR94yU2DQvg" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[The Power of Stacked Diffs: A Strategy for Better Code Reviews]]></title>
@@ -53,7 +53,7 @@
             <link>https://nicholasadamou.com/notes/the-power-of-stacked-diffs-for-better-code-reviews</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/the-power-of-stacked-diffs-for-better-code-reviews</guid>
             <pubDate>Mon, 11 Nov 2024 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/the-power-of-stacked-diffs-for-better-code-reviews/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[Trading Space for Time: Boosting Algorithm Efficiency]]></title>
@@ -61,7 +61,7 @@
             <link>https://nicholasadamou.com/notes/trading-space-for-time</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/trading-space-for-time</guid>
             <pubDate>Sun, 09 Feb 2025 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/trading-space-for-time/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/a-man-in-a-space-suit-with-a-sky-background-JYJwrUIDnL0" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[Understanding the Fork Bomb 💣🍴]]></title>
@@ -69,7 +69,7 @@
             <link>https://nicholasadamou.com/notes/understanding-the-fork-bomb</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/understanding-the-fork-bomb</guid>
             <pubDate>Thu, 08 May 2025 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/understanding-the-fork-bomb/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/a-fork-with-a-piece-of-cake-on-it-gTjGMj8c_f8" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[Worker Threads in Node.js: The Secret to High Performance Backends]]></title>
@@ -77,7 +77,7 @@
             <link>https://nicholasadamou.com/notes/worker-threads-in-nodejs</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/worker-threads-in-nodejs</guid>
             <pubDate>Sat, 12 Apr 2025 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.com/notes/worker-threads-in-nodejs/image.png" type="image/png" medium="image"/>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/two-spools-of-thread-sitting-next-to-each-other-w_CQ_24rwiM" type="image/jpeg" medium="image"/>
         </item>
     </channel>
 </rss>

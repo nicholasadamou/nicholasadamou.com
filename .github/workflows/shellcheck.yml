@@ -1,0 +1,321 @@
+name: Shell Script Validation
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'scripts/**/*.sh'
+      - '.github/workflows/shellcheck.yml'
+  pull_request:
+    branches: [master]
+    paths:
+      - 'scripts/**/*.sh'
+      - '.github/workflows/shellcheck.yml'
+
+env:
+  SHELLCHECK_OPTS: -e SC1091 -S style
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck on scripts/
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+          format: gcc
+          severity: error
+          additional_files: ''
+          ignore_paths: ''
+          ignore_names: ''
+          disable_matcher: false
+        env:
+          SHELLCHECK_OPTS: -e SC1091 -S style
+
+  shellcheck-detailed:
+    name: Detailed ShellCheck Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ShellCheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+
+      - name: Find shell scripts
+        id: find-scripts
+        run: |
+          echo "Found shell scripts:"
+          find scripts -name "*.sh" -type f 2>/dev/null | tee scripts_list.txt || true
+
+      - name: Run ShellCheck on all scripts
+        run: |
+          echo "🔍 Running ShellCheck on shell scripts..."
+
+          # Initialize counters
+          total_files=0
+          passed_files=0
+          failed_files=0
+
+          # Create results directory
+          mkdir -p shellcheck-results
+
+          # Process each script
+          while IFS= read -r script; do
+            if [[ -f "$script" ]]; then
+              echo "📄 Checking: $script"
+              total_files=$((total_files + 1))
+
+              # Run shellcheck and capture output
+              if shellcheck -f gcc -e SC1091 -S style "$script" > "shellcheck-results/$(basename "$script").txt" 2>&1; then
+                echo "✅ $script - PASSED"
+                passed_files=$((passed_files + 1))
+              else
+                echo "❌ $script - FAILED"
+                failed_files=$((failed_files + 1))
+                echo "Error details:"
+                cat "shellcheck-results/$(basename "$script").txt"
+                echo ""
+              fi
+            fi
+          done < scripts_list.txt
+
+          # Summary
+          echo ""
+          echo "📊 ShellCheck Summary:"
+          echo "  Total files: $total_files"
+          echo "  Passed: $passed_files"
+          echo "  Failed: $failed_files"
+
+          # Set outputs for later steps
+          echo "total_files=$total_files" >> $GITHUB_OUTPUT
+          echo "passed_files=$passed_files" >> $GITHUB_OUTPUT
+          echo "failed_files=$failed_files" >> $GITHUB_OUTPUT
+
+          # Fail if any scripts failed
+          if [ $failed_files -gt 0 ]; then
+            echo "❌ ShellCheck found issues in $failed_files script(s)"
+            exit 1
+          else
+            echo "✅ All shell scripts passed ShellCheck validation!"
+          fi
+
+      - name: Upload ShellCheck results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shellcheck-results
+          path: shellcheck-results/
+          retention-days: 7
+
+  validate-executable:
+    name: Validate Script Executability
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check script permissions
+        run: |
+          echo "🔍 Checking script executability..."
+
+          # Find all shell scripts
+          scripts=$(find scripts -name "*.sh" -type f 2>/dev/null || true)
+
+          non_executable=()
+
+          for script in $scripts; do
+            if [[ -x "$script" ]]; then
+              echo "✅ $script - executable"
+            else
+              echo "❌ $script - NOT executable"
+              non_executable+=("$script")
+            fi
+          done
+
+          # Report results
+          if [ ${#non_executable[@]} -eq 0 ]; then
+            echo "✅ All shell scripts are executable!"
+          else
+            echo "❌ Found ${#non_executable[@]} non-executable script(s):"
+            printf '  - %s\n' "${non_executable[@]}"
+            echo ""
+            echo "To fix, run: chmod +x <script-name>"
+            exit 1
+          fi
+
+  syntax-check:
+    name: Shell Syntax Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate shell syntax
+        run: |
+          echo "🔍 Validating shell script syntax..."
+
+          # Find all shell scripts
+          scripts=$(find scripts -name "*.sh" -type f 2>/dev/null || true)
+
+          syntax_errors=()
+
+          for script in $scripts; do
+            echo "📄 Checking syntax: $script"
+
+            # Check syntax with bash
+            if bash -n "$script"; then
+              echo "✅ $script - syntax OK"
+            else
+              echo "❌ $script - syntax ERROR"
+              syntax_errors+=("$script")
+            fi
+          done
+
+          # Report results
+          if [ ${#syntax_errors[@]} -eq 0 ]; then
+            echo "✅ All shell scripts have valid syntax!"
+          else
+            echo "❌ Found syntax errors in ${#syntax_errors[@]} script(s):"
+            printf '  - %s\n' "${syntax_errors[@]}"
+            exit 1
+          fi
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install security scanners
+        run: |
+          # Install shellcheck for security-focused scanning
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+
+      - name: Run security-focused ShellCheck
+        run: |
+          echo "🔒 Running security-focused ShellCheck analysis..."
+
+          # Security-focused shellcheck rules
+          security_rules="-e SC1091 -i SC2034,SC2154 --severity=error"
+
+          # Find and scan scripts
+          scripts=$(find scripts -name "*.sh" -type f 2>/dev/null || true)
+          security_issues=0
+
+          for script in $scripts; do
+            echo "📄 Security scan: $script"
+
+            if ! shellcheck $security_rules "$script"; then
+              security_issues=$((security_issues + 1))
+            fi
+          done
+
+          if [ $security_issues -eq 0 ]; then
+            echo "✅ No security issues found in shell scripts!"
+          else
+            echo "❌ Found potential security issues in shell scripts"
+            exit 1
+          fi
+
+  best-practices:
+    name: Best Practices Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check shell script best practices
+        run: |
+          echo "📋 Checking shell script best practices..."
+
+          scripts=$(find scripts -name "*.sh" -type f 2>/dev/null || true)
+          issues=0
+
+          for script in $scripts; do
+            echo "📄 Analyzing: $script"
+
+            # Check for shebang
+            if ! head -n1 "$script" | grep -q '^#!/'; then
+              echo "❌ Missing shebang in $script"
+              issues=$((issues + 1))
+            fi
+
+            # Check for 'set -e' or error handling
+            if ! grep -q 'set -e\|set -euo pipefail' "$script"; then
+              echo "⚠️  No 'set -e' found in $script (consider adding for error handling)"
+            fi
+
+            # Check for variable quoting (basic check)
+            if grep -q '\$[A-Za-z_][A-Za-z0-9_]*[^"]' "$script" && ! grep -q '".*\$' "$script"; then
+              echo "⚠️  Potential unquoted variables in $script"
+            fi
+
+            # Check for hardcoded paths that might be problematic
+            if grep -q '/tmp/[^"]*[^"]' "$script"; then
+              echo "⚠️  Potential hardcoded /tmp path in $script"
+            fi
+          done
+
+          if [ $issues -eq 0 ]; then
+            echo "✅ Basic best practices check passed!"
+          else
+            echo "❌ Found $issues critical issue(s) in shell scripts"
+            exit 1
+          fi
+
+  summary:
+    name: Shell Script Quality Summary
+    runs-on: ubuntu-latest
+    needs:
+      [
+        shellcheck,
+        shellcheck-detailed,
+        validate-executable,
+        syntax-check,
+        security-scan,
+        best-practices,
+      ]
+    if: always()
+
+    steps:
+      - name: Summary report
+        run: |
+          echo "📊 Shell Script Quality Report Summary"
+          echo "======================================"
+
+          echo "ShellCheck Standard: ${{ needs.shellcheck.result }}"
+          echo "ShellCheck Detailed: ${{ needs.shellcheck-detailed.result }}"
+          echo "Executable Check: ${{ needs.validate-executable.result }}"
+          echo "Syntax Validation: ${{ needs.syntax-check.result }}"
+          echo "Security Scan: ${{ needs.security-scan.result }}"
+          echo "Best Practices: ${{ needs.best-practices.result }}"
+
+          # Determine overall status
+          if [[ "${{ needs.shellcheck.result }}" == "success" &&
+                "${{ needs.shellcheck-detailed.result }}" == "success" &&
+                "${{ needs.validate-executable.result }}" == "success" &&
+                "${{ needs.syntax-check.result }}" == "success" &&
+                "${{ needs.security-scan.result }}" == "success" &&
+                "${{ needs.best-practices.result }}" == "success" ]]; then
+            echo "✅ Overall Status: ALL CHECKS PASSED"
+            echo "🎉 All shell scripts meet quality standards!"
+          else
+            echo "❌ Overall Status: SOME CHECKS FAILED"
+            echo "🔧 Please review and fix the issues above"
+            exit 1
+          fi

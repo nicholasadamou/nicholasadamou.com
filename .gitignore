@@ -44,3 +44,8 @@ generated
 .vscode
 .vscode/
 .idea/
+
+# ACT (GitHub Actions locally)
+.actrc
+.secrets
+.env.act

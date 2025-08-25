@@ -13,12 +13,13 @@ export const formatLongDateWithSuffix = (dateString: string): string => {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   };
   const date = new Date(dateString);
   const formattedDate = date.toLocaleDateString("en-US", options);
 
-  // Get the day as a number
-  const day: number = date.getDate();
+  // Get the day as a number using UTC to avoid timezone issues
+  const day: number = date.getUTCDate();
   const suffix = (day: number): string => {
     if (day > 3 && day < 21) {
       return "th";

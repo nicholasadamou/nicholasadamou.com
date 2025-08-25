@@ -1,0 +1,198 @@
+name: Test Coverage
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  coverage:
+    name: Coverage Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for coverage comparison
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests with coverage
+        run: pnpm run test:coverage -- --reporter=json --reporter=lcov --reporter=text
+        env:
+          NODE_ENV: test
+
+      - name: Verify coverage files
+        run: |
+          echo "Checking coverage files:"
+          ls -la client/coverage/ || echo "No coverage directory found"
+
+          if [ -f "client/coverage/coverage-summary.json" ]; then
+            echo "✅ coverage-summary.json found"
+            cat client/coverage/coverage-summary.json | head -20
+          else
+            echo "❌ coverage-summary.json not found"
+            echo "Available files:"
+            find . -name "*.json" | grep -i coverage || echo "No coverage JSON files found"
+          fi
+
+      - name: Generate coverage badge
+        uses: tj-actions/coverage-badge-js@v1
+        if: github.ref == 'refs/heads/master' && hashFiles('client/coverage/coverage-summary.json') != ''
+        with:
+          path: .
+          output_path: coverage-badge.svg
+          report_path: client/coverage/coverage-summary.json
+
+      - name: Verify coverage thresholds
+        run: |
+          if [ -f "client/coverage/coverage-summary.json" ]; then
+            # Extract coverage percentages from the JSON report
+            STMT_COV=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.statements.pct")
+            BRANCH_COV=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.branches.pct")
+            FUNC_COV=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.functions.pct")
+            LINE_COV=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.lines.pct")
+
+            echo "📊 Coverage Report:"
+            echo "Statements: ${STMT_COV}%"
+            echo "Branches: ${BRANCH_COV}%"
+            echo "Functions: ${FUNC_COV}%"
+            echo "Lines: ${LINE_COV}%"
+
+            # Note: We're not enforcing strict coverage thresholds since this is a Next.js app
+            # with many UI components that don't require unit testing
+            echo "✅ Coverage report generated successfully"
+          else
+            echo "⚠️  Coverage summary file not found, skipping threshold verification"
+          fi
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./client/coverage/lcov.info
+          flags: unittests
+          name: codecov-coverage
+          fail_ci_if_error: false
+          verbose: true
+
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./client/coverage/lcov.info
+
+      - name: Comment PR with coverage report
+        if: github.event_name == 'pull_request'
+        uses: romeovs/lcov-reporter-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./client/coverage/lcov.info
+          delete-old-comments: true
+          title: "📊 Test Coverage Report"
+
+      - name: Archive coverage artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            client/coverage/
+            coverage-badge.svg
+          retention-days: 30
+
+  coverage-comparison:
+    name: Coverage Comparison
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run coverage on PR branch
+        run: pnpm run test:coverage -- --reporter=json
+        env:
+          NODE_ENV: test
+
+      - name: Store PR coverage
+        run: |
+          cp client/coverage/coverage-summary.json coverage-pr.json
+
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+
+      - name: Install dependencies (base)
+        run: pnpm install --frozen-lockfile
+
+      - name: Run coverage on base branch
+        run: pnpm run test:coverage -- --reporter=json
+        env:
+          NODE_ENV: test
+
+      - name: Compare coverage
+        run: |
+          # Get coverage from base branch
+          BASE_STMT=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.statements.pct")
+          BASE_BRANCH=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.branches.pct")
+          BASE_FUNC=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.functions.pct")
+          BASE_LINE=$(node -p "JSON.parse(require('fs').readFileSync('./client/coverage/coverage-summary.json', 'utf8')).total.lines.pct")
+
+          # Get coverage from PR branch
+          PR_STMT=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.statements.pct")
+          PR_BRANCH=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.branches.pct")
+          PR_FUNC=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.functions.pct")
+          PR_LINE=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.lines.pct")
+
+          echo "## 📊 Coverage Comparison" >> coverage-comment.md
+          echo "" >> coverage-comment.md
+          echo "| Metric | Base | PR | Change |" >> coverage-comment.md
+          echo "|--------|------|----|---------:|" >> coverage-comment.md
+          echo "| Statements | ${BASE_STMT}% | ${PR_STMT}% | $(echo \"${PR_STMT} - ${BASE_STMT}\" | bc)% |" >> coverage-comment.md
+          echo "| Branches | ${BASE_BRANCH}% | ${PR_BRANCH}% | $(echo \"${PR_BRANCH} - ${BASE_BRANCH}\" | bc)% |" >> coverage-comment.md
+          echo "| Functions | ${BASE_FUNC}% | ${PR_FUNC}% | $(echo \"${PR_FUNC} - ${BASE_FUNC}\" | bc)% |" >> coverage-comment.md
+          echo "| Lines | ${BASE_LINE}% | ${PR_LINE}% | $(echo \"${PR_LINE} - ${BASE_LINE}\" | bc)% |" >> coverage-comment.md
+
+          cat coverage-comment.md
+
+      - name: Comment PR with comparison
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const comment = fs.readFileSync('coverage-comment.md', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

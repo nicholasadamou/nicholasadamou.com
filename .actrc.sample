@@ -1,0 +1,29 @@
+# ACT Configuration File
+# Copy this file to .actrc to use these settings
+# Note: .actrc should be added to .gitignore
+
+# Platform mappings - use appropriate Docker images
+--platform ubuntu-latest=catthehacker/ubuntu:act-latest
+--platform ubuntu-20.04=catthehacker/ubuntu:act-20.04
+--platform ubuntu-18.04=catthehacker/ubuntu:act-18.04
+
+# Artifact server path for storing artifacts locally
+--artifact-server-path /tmp/artifacts
+
+# Environment file (if exists)
+--env-file .env
+
+# Container settings
+--container-architecture linux/amd64
+
+# Resource settings
+--rm
+
+# Bind mount workspace for better performance
+--bind
+
+# Use host network for better connectivity
+# --network host
+
+# For debugging - uncomment if needed
+# --verbose

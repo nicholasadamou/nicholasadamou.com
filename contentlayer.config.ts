@@ -14,17 +14,19 @@ import remarkPlantUML from "@akebifiky/remark-simple-plantuml";
 import remarkMath from "remark-math";
 
 // Utility function to get the slug
-const getSlug = (doc: any) => doc._raw.sourceFileName.replace(/\.mdx$/, "");
+const getSlug = (doc: any): string => {
+  const filePath = doc._raw.sourceFilePath;
+  // For flat structure: notes/slug.mdx -> slug
+  return path.basename(filePath, ".mdx");
+};
 
-// Utility function to resolve image path
-const resolveImagePath = (basePath: string, slug: string): string | null => {
-  const imagePath = path.join(
-    process.cwd(),
-    "public",
-    basePath,
-    `${slug}/image.png`
-  );
-  return fs.existsSync(imagePath) ? `/${basePath}/${slug}/image.png` : null;
+// Utility function to resolve image path from frontmatter
+const resolveImageFromUrl = (doc: any): string | null => {
+  // Use external image URL if provided in frontmatter
+  if (doc.image_url) {
+    return doc.image_url;
+  }
+  return null;
 };
 
 // Common computed fields
@@ -32,14 +34,14 @@ const commonComputedFields = (basePath: string): ComputedFields => ({
   slug: { type: "string", resolve: (doc) => getSlug(doc) },
   image: {
     type: "string",
-    resolve: (doc) => resolveImagePath(basePath, getSlug(doc)),
+    resolve: (doc) => resolveImageFromUrl(doc),
   },
 });
 
 // Define Note document type
 export const Note = defineDocumentType(() => ({
   name: "Note",
-  filePathPattern: `notes/**/*.mdx`,
+  filePathPattern: `notes/*.mdx`,
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
@@ -64,7 +66,7 @@ export const Note = defineDocumentType(() => ({
 // Define Project document type
 export const Project = defineDocumentType(() => ({
   name: "Project",
-  filePathPattern: `projects/**/*.mdx`,
+  filePathPattern: `projects/*.mdx`,
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
