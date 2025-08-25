@@ -7,39 +7,81 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Helper function to extract Unsplash photo ID from various URL formats
-// This matches the existing utility function in src/lib/utils/unsplash.ts
-function extractUnsplashPhotoId(url) {
+// Photo ID mapping for existing images that can't be resolved automatically
+// You can populate this manually after finding the correct photo IDs
+const PHOTO_ID_MAPPING = {
+  // Premium photos - add mappings as you find them
+  "1678565879444-f87c8bd9f241": {
+    correctId: "bKdOqbLRnnA", // Example: found via search
+    description: "Premium photo 1 - business related",
+    isPremium: true
+  },
+  "1721476529166-1210b1ca371c": {
+    correctId: null, // Replace with actual ID when found  
+    description: "Premium photo 2",
+    isPremium: true
+  },
+  // Regular photos
+  "1755181023996-348eb11282ef": {
+    correctId: null, // Replace with actual ID when found
+    description: "Regular photo 1",
+    isPremium: false
+  },
+  "1558494949-ef010cbdcc31": {
+    correctId: null, // Replace with actual ID when found
+    description: "Regular photo 2", 
+    isPremium: false
+  }
+  // Add more mappings as needed...
+};
+
+// Helper function to extract photo ID and handle mapping
+function extractAndMapUnsplashPhotoId(url) {
   if (!url || typeof url !== 'string') return null;
   
-  // Handle direct image URLs: https://images.unsplash.com/photo-{id}?...
+  // First try the standard extraction for direct photo URLs
   const directImageMatch = url.match(
     /https:\/\/(?:images|plus)\.unsplash\.com\/(?:premium_)?photo-([^?]+)/
   );
+  
   if (directImageMatch) {
-    console.log(`    Extracted photo ID: ${directImageMatch[1]}`);
-    return directImageMatch[1];
+    const extractedId = directImageMatch[1];
+    console.log(`    Extracted timestamp ID: ${extractedId}`);
+    
+    // Check if we have a mapping for this timestamp ID
+    if (PHOTO_ID_MAPPING[extractedId]) {
+      const mapping = PHOTO_ID_MAPPING[extractedId];
+      if (mapping.correctId) {
+        console.log(`    ✅ Found mapping: ${extractedId} -> ${mapping.correctId}`);
+        return mapping.correctId;
+      } else {
+        console.log(`    ⚠️ Mapping exists but needs correct ID to be filled in`);
+        return null;
+      }
+    } else {
+      console.log(`    ⚠️ No mapping found for timestamp ID: ${extractedId}`);
+      return null;
+    }
   }
-
-  // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
+  
+  // Try other URL patterns for standard Unsplash URLs
   const pageUrlMatch = url.match(
     /https:\/\/unsplash\.com\/photos\/[^\/]+-([^\/\?]+)/
   );
   if (pageUrlMatch) {
-    console.log(`    Extracted photo ID: ${pageUrlMatch[1]}`);
+    console.log(`    Extracted from page URL: ${pageUrlMatch[1]}`);
     return pageUrlMatch[1];
   }
-
-  // Handle simple page URLs: https://unsplash.com/photos/{id}
+  
   const simplePageMatch = url.match(
     /https:\/\/unsplash\.com\/photos\/([^\/\?]+)/
   );
   if (simplePageMatch) {
-    console.log(`    Extracted photo ID: ${simplePageMatch[1]}`);
+    console.log(`    Extracted from simple page URL: ${simplePageMatch[1]}`);
     return simplePageMatch[1];
   }
-
-  console.log(`    Could not extract photo ID from URL: ${url}`);
+  
+  console.log(`    Could not extract photo ID from URL`);
   return null;
 }
 
@@ -58,7 +100,7 @@ async function fetchUnsplashPhotoData(photoId) {
   }
 }
 
-// Function to parse MDX frontmatter
+// Function to parse MDX frontmatter (same as before)
 function parseFrontmatter(content) {
   const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
@@ -70,7 +112,6 @@ function parseFrontmatter(content) {
   const frontmatterStr = match[1];
   const body = match[2];
   
-  // Simple YAML-like parsing (basic implementation)
   const frontmatter = {};
   const lines = frontmatterStr.split('\n');
   let currentKey = null;
@@ -81,24 +122,20 @@ function parseFrontmatter(content) {
     if (!trimmed) continue;
     
     if (trimmed.startsWith('- ')) {
-      // Array item
       if (currentKey) {
         currentValue.push(trimmed.slice(2));
       }
     } else if (line.includes(': ')) {
-      // Save previous key-value if exists
       if (currentKey) {
         frontmatter[currentKey] = currentValue.length <= 1 ? currentValue[0] || '' : currentValue;
       }
       
-      // Start new key-value
       const colonIndex = line.indexOf(': ');
       currentKey = line.slice(0, colonIndex).trim();
       currentValue = [line.slice(colonIndex + 2).trim().replace(/^["']|["']$/g, '')];
     }
   }
   
-  // Don't forget the last key-value pair
   if (currentKey) {
     frontmatter[currentKey] = currentValue.length <= 1 ? currentValue[0] || '' : currentValue;
   }
@@ -117,7 +154,6 @@ function serializeFrontmatter(frontmatter) {
         result += `  - ${item}\n`;
       }
     } else {
-      // Quote values that contain special characters or are URLs
       const needsQuotes = typeof value === 'string' && (
         value.includes(':') || 
         value.includes('#') || 
@@ -147,14 +183,15 @@ async function updateMdxFile(filePath) {
       return;
     }
     
-    // Extract photo ID from the URL
-    const photoId = extractUnsplashPhotoId(imageUrl);
+    // Extract photo ID from the URL (now with mapping support)
+    const photoId = extractAndMapUnsplashPhotoId(imageUrl);
     if (!photoId) {
-      console.log(`  Skipping: Could not extract photo ID from URL`);
+      console.log(`  Skipping: Could not extract or map photo ID from URL`);
+      console.log(`  💡 Consider adding a mapping for this URL in the script`);
       return;
     }
     
-    console.log(`  Found photo ID: ${photoId}`);
+    console.log(`  Using photo ID: ${photoId}`);
     
     // Fetch updated data from our API
     const photoData = await fetchUnsplashPhotoData(photoId);
@@ -184,6 +221,43 @@ async function updateMdxFile(filePath) {
   }
 }
 
+// Function to generate a mapping helper for unmapped images
+async function generateMappingHelper() {
+  console.log('\n📋 MAPPING HELPER:\n');
+  
+  const unmappedIds = Object.entries(PHOTO_ID_MAPPING)
+    .filter(([id, mapping]) => !mapping.correctId)
+    .map(([id, mapping]) => ({ id, ...mapping }));
+  
+  if (unmappedIds.length === 0) {
+    console.log('✅ All photo IDs are mapped!');
+    return;
+  }
+  
+  console.log(`❌ Found ${unmappedIds.length} unmapped photo ID(s):`);
+  
+  unmappedIds.forEach((item, index) => {
+    console.log(`\n${index + 1}. Timestamp ID: ${item.id}`);
+    console.log(`   Type: ${item.isPremium ? 'Premium' : 'Regular'}`);
+    console.log(`   Description: ${item.description}`);
+    
+    if (item.isPremium) {
+      console.log(`   Search: curl "http://localhost:3000/api/unsplash?action=search&query=premium+business&per_page=10"`);
+    } else {
+      console.log(`   Search: curl "http://localhost:3000/api/unsplash?action=search&query=professional&per_page=10"`);
+    }
+    
+    console.log(`   Random: curl "http://localhost:3000/api/unsplash?action=random&count=5"`);
+    console.log(`   Test ID: curl "http://localhost:3000/api/unsplash?action=get-photo&id=PHOTO_ID"`);
+  });
+  
+  console.log(`\n💡 To add mappings:`);
+  console.log(`1. Use the search/random endpoints above to find your photos`);
+  console.log(`2. Update the PHOTO_ID_MAPPING object in this script`);
+  console.log(`3. Replace null values with the correct photo IDs`);
+  console.log(`4. Re-run the script to update your MDX files`);
+}
+
 // Function to find all MDX files
 async function findMdxFiles(dir) {
   const files = [];
@@ -206,10 +280,13 @@ async function findMdxFiles(dir) {
 async function main() {
   console.log('🔍 Finding MDX files with Unsplash images...\n');
   
+  // First, show the mapping status
+  await generateMappingHelper();
+  
   const contentDir = path.join(__dirname, '../content');
   const mdxFiles = await findMdxFiles(contentDir);
   
-  console.log(`Found ${mdxFiles.length} MDX files\n`);
+  console.log(`\nFound ${mdxFiles.length} MDX files\n`);
   
   // Process each file
   for (const filePath of mdxFiles) {
@@ -217,8 +294,10 @@ async function main() {
   }
   
   console.log('\n✨ Done! All MDX files have been processed.');
-  console.log('\n📝 Note: Make sure your development server is running on http://localhost:3000');
-  console.log('   for the Unsplash API to work properly.');
+  console.log('\n📝 Notes:');
+  console.log('- Files with unmapped photo IDs were skipped');
+  console.log('- Add mappings to PHOTO_ID_MAPPING and re-run to process them');
+  console.log('- Make sure your development server is running on http://localhost:3000');
 }
 
 // Run the script

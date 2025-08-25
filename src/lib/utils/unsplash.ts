@@ -4,6 +4,10 @@ import type { Basic } from "unsplash-js/dist/methods/photos/types";
 // Initialize Unsplash API client
 const unsplash = createApi({
   accessKey: process.env.UNSPLASH_ACCESS_KEY!,
+  // Add secret key for premium access
+  ...(process.env.UNSPLASH_SECRET_KEY && {
+    secret: process.env.UNSPLASH_SECRET_KEY,
+  }),
 });
 
 export interface UnsplashImageData {

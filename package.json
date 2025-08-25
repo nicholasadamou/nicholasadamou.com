@@ -31,6 +31,8 @@
     "act:shellcheck": "act -W .github/workflows/shellcheck.yml",
     "act:dryrun": "act --dryrun",
     "unsplash:update": "node scripts/update-unsplash-data.mjs",
+    "unsplash:update-with-mapping": "node scripts/update-unsplash-with-mapping.mjs",
+    "unsplash:check-account": "node scripts/check-unsplash-account.mjs",
     "prepare": "husky"
   },
   "dependencies": {
