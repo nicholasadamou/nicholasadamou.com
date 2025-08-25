@@ -97,10 +97,6 @@ global.fetch = vi.fn();
 
 // Mock environment variables
 beforeAll(() => {
-  // Mock NODE_ENV as writable
-  Object.defineProperty(process.env, "NODE_ENV", {
-    value: "test",
-    writable: true,
-    configurable: true,
-  });
+  // Set NODE_ENV for test environment
+  process.env.NODE_ENV = "test";
 });
