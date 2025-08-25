@@ -92,7 +92,15 @@ vi.mock("next-themes", () => ({
   ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
 
+// Mock global fetch
+global.fetch = vi.fn();
+
 // Mock environment variables
 beforeAll(() => {
-  process.env.NODE_ENV = "test";
+  // Mock NODE_ENV as writable
+  Object.defineProperty(process.env, "NODE_ENV", {
+    value: "test",
+    writable: true,
+    configurable: true,
+  });
 });

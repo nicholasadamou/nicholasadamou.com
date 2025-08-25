@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "target": "es2015",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,11 +27,12 @@
   },
   "include": [
     "next-env.d.ts",
+    "vitest-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/**/*",
     ".contentlayer/generated"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/__tests__/**/*"]
 }

@@ -124,7 +124,7 @@ export async function getRandomUnsplashPhotos(
   try {
     const result = await unsplash.photos.getRandom({
       count,
-      collections,
+      collectionIds: collections,
       query,
     });
 

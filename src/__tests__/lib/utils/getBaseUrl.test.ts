@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 describe("getBaseUrl", () => {
@@ -9,26 +9,47 @@ describe("getBaseUrl", () => {
   });
 
   afterEach(() => {
-    process.env.NODE_ENV = originalEnv;
+    // Restore original environment
+    Object.defineProperty(process.env, "NODE_ENV", {
+      value: originalEnv,
+      writable: true,
+      configurable: true,
+    });
   });
 
   it("should return localhost URL in development", () => {
-    process.env.NODE_ENV = "development";
+    Object.defineProperty(process.env, "NODE_ENV", {
+      value: "development",
+      writable: true,
+      configurable: true,
+    });
     expect(getBaseUrl()).toBe("http://localhost:3000");
   });
 
   it("should return production URL in production", () => {
-    process.env.NODE_ENV = "production";
+    Object.defineProperty(process.env, "NODE_ENV", {
+      value: "production",
+      writable: true,
+      configurable: true,
+    });
     expect(getBaseUrl()).toBe("https://nicholasadamou.com");
   });
 
   it("should return production URL in test environment", () => {
-    process.env.NODE_ENV = "test";
+    Object.defineProperty(process.env, "NODE_ENV", {
+      value: "test",
+      writable: true,
+      configurable: true,
+    });
     expect(getBaseUrl()).toBe("https://nicholasadamou.com");
   });
 
   it("should return production URL for undefined NODE_ENV", () => {
-    delete process.env.NODE_ENV;
+    Object.defineProperty(process.env, "NODE_ENV", {
+      value: undefined,
+      writable: true,
+      configurable: true,
+    });
     expect(getBaseUrl()).toBe("https://nicholasadamou.com");
   });
 });
