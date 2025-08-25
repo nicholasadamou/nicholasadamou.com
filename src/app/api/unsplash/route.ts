@@ -50,6 +50,9 @@ export async function GET(request: NextRequest) {
             username: photo.user.username,
             profile_url: `https://unsplash.com/@${photo.user.username}`,
           },
+          // Additional convenience fields for easier usage
+          image_author: photo.user.name,
+          image_author_url: `https://unsplash.com/@${photo.user.username}`,
           description: photo.description || photo.alt_description,
           width: photo.width,
           height: photo.height,
@@ -85,6 +88,9 @@ export async function GET(request: NextRequest) {
             username: photo.user.username,
             profile_url: `https://unsplash.com/@${photo.user.username}`,
           },
+          // Additional convenience fields for easier usage
+          image_author: photo.user.name,
+          image_author_url: `https://unsplash.com/@${photo.user.username}`,
           description: photo.description || photo.alt_description,
           width: photo.width,
           height: photo.height,
@@ -116,6 +122,9 @@ export async function GET(request: NextRequest) {
             username: photo.user.username,
             profile_url: `https://unsplash.com/@${photo.user.username}`,
           },
+          // Additional convenience fields for easier usage
+          image_author: photo.user.name,
+          image_author_url: `https://unsplash.com/@${photo.user.username}`,
           description: photo.description || photo.alt_description,
           width: photo.width,
           height: photo.height,
