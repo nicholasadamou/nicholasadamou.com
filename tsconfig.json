@@ -20,7 +20,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./src/*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
@@ -29,9 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/utils/fetcher.js",
-	"types/**/*.d.ts",
+    "src/**/*",
     ".contentlayer/generated"
-, "app/components/bento/map.js"  ],
+  ],
   "exclude": ["node_modules"]
 }

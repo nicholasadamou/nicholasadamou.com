@@ -3,15 +3,6 @@ const { withContentlayer } = require("next-contentlayer");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	experimental: {},
-	// Turbopack configuration (replaces experimental.turbo)
-	turbopack: {
-		rules: {
-			'*.svg': {
-				loaders: ['@svgr/webpack'],
-				as: '*.js',
-			},
-		},
-	},
 	reactStrictMode: true,
 	// swcMinify is enabled by default in Next.js 15
 	images: {
