@@ -153,6 +153,9 @@ nicholasadamou.com/
 │
 ├── 📂 docs/                        # Project documentation
 │   └── PRE_COMMIT_SETUP.md         # Pre-commit hooks guide
+│   └── ACT_SETUP.md                # Local GitHub Actions testing guide
+│   └── TESTING.md                  # Testing guide
+│   └── UNSPLASH_PLUS.md            # Unsplash+ guide
 │
 └── 📄 Configuration Files
     ├── contentlayer.config.ts      # Content processing
