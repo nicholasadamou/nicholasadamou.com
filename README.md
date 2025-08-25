@@ -39,11 +39,13 @@ Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://gi
 ## 🛠️ Tech Stack
 
 ### Core Framework
+
 - **Next.js 15** - React framework with App Router
 - **React 19** - UI library with concurrent features
 - **TypeScript** - Type-safe JavaScript
 
 ### Styling & UI
+
 - **Tailwind CSS** - Utility-first CSS framework
 - **Radix UI** - Accessible component primitives
 - **Framer Motion** - Animation library
@@ -51,12 +53,14 @@ Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://gi
 - **next-themes** - Theme management
 
 ### Content & Data
+
 - **Contentlayer** - Type-safe content SDK
 - **MDX** - Markdown with React components
 - **Vercel Postgres** - Database for view tracking
 - **Reading Time** - Estimated reading time calculation
 
 ### Development & Deployment
+
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
 - **Vercel** - Deployment platform
@@ -173,22 +177,26 @@ nicholasadamou.com/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/nicholasadamou/nicholasadamou.com.git
    cd nicholasadamou.com
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
 
 4. **Start the development server**
+
    ```bash
    pnpm dev
    ```
@@ -214,6 +222,7 @@ pnpm generate:sitemap  # Generate sitemap
 ### Adding New Content
 
 #### Blog Posts
+
 1. Create a new `.mdx` file in `content/notes/`
 2. Add frontmatter with required fields:
    ```yaml
@@ -225,6 +234,7 @@ pnpm generate:sitemap  # Generate sitemap
    ```
 
 #### Projects
+
 1. Create a new `.mdx` file in `content/projects/`
 2. Add frontmatter with project details:
    ```yaml
@@ -339,4 +349,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ by [Nicholas Adamou](https://nicholasadamou.com)**
 
-*Previous versions: [v1](https://github.com/nicholasadamou/v1) • [v2](https://github.com/nicholasadamou/v2) • [v3](https://github.com/nicholasadamou/v3)*
+_Previous versions: [v1](https://github.com/nicholasadamou/v1) • [v2](https://github.com/nicholasadamou/v2) • [v3](https://github.com/nicholasadamou/v3)_

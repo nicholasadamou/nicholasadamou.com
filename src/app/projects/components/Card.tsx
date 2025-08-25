@@ -1,21 +1,25 @@
-'use client';
+"use client";
 
 import React, { ReactNode } from "react";
 
 interface CardProps {
-	icon: ReactNode;
-	title: string;
-	description: string;
+  icon: ReactNode;
+  title: string;
+  description: string;
 }
 
-export function Card({ icon, title, description }: CardProps): React.JSX.Element {
-	return (
-		<div className={"flex flex-col p-4 rounded-2xl bg-tertiary"}>
-			<div className="flex items-start gap-3 mb-2">
-				<div className="w-3 h-3 mr-2 text-secondary">{icon}</div>
-				<h3 className="text-primary text-lg font-bold">{title}</h3>
-			</div>
-			<p className="text-secondary">{description}</p>
-		</div>
-	);
+export function Card({
+  icon,
+  title,
+  description,
+}: CardProps): React.JSX.Element {
+  return (
+    <div className={"flex flex-col rounded-2xl bg-tertiary p-4"}>
+      <div className="mb-2 flex items-start gap-3">
+        <div className="mr-2 h-3 w-3 text-secondary">{icon}</div>
+        <h3 className="text-lg font-bold text-primary">{title}</h3>
+      </div>
+      <p className="text-secondary">{description}</p>
+    </div>
+  );
 }

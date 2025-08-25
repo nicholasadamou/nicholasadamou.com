@@ -15,11 +15,7 @@ import lockheedMartinLogo from "public/work/lockheed-martin-logo.svg";
 import arizona from "public/gallery/arizona.jpg";
 import lakePlacid from "public/gallery/lake-placid.jpg";
 
-import {
-	Certificates,
-	Resumes,
-	ConnectLinks,
-} from "./data";
+import { Certificates, Resumes, ConnectLinks } from "./data";
 
 export const metadata: Metadata = {
   title: "About | Nicholas Adamou",
@@ -29,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="flex flex-col gap-16 overflow-hidden md:gap-24 md:overflow-visible px-2 max-w-[700px] mx-auto">
+    <div className="mx-auto flex max-w-[700px] flex-col gap-16 overflow-hidden px-2 md:gap-24 md:overflow-visible">
       <div>
         <h1 className="animate-in text-3xl font-black tracking-tight text-primary">
           About
@@ -105,10 +101,7 @@ export default function About() {
                 Bachelor of Arts in Computer Science
               </Link>{" "}
               from{" "}
-              <Link
-                className="underline"
-                href="https://www.cornellcollege.edu"
-              >
+              <Link className="underline" href="https://www.cornellcollege.edu">
                 Cornell College
               </Link>
               . My career is marked by a commitment to leveraging software
@@ -123,7 +116,7 @@ export default function About() {
 
         <ListSection heading="Connect" items={ConnectLinks} />
         <ListSection heading="Certificates" items={Certificates} />
-				<ListSection heading="Resume" items={Resumes} />
+        <ListSection heading="Resume" items={Resumes} />
 
         <Section heading="Work" headingAlignment="left">
           <div className="flex w-full flex-col gap-8">
@@ -145,21 +138,21 @@ export default function About() {
 }
 
 const workplaces = [
-	{
-		title: 'Senior Software Engineer',
-		company: 'Lockheed Martin, Space',
-		date: 'Dec 2024 -',
-		imageSrc: lockheedMartinLogo,
-		link: 'https://www.lockheedmartin.com/en-us/capabilities/space.html'
-	},
-	{
-		title: 'Senior Software Engineer',
-		company: 'Apple',
-		date: 'Sep 2024 - Nov 2024',
-		imageSrc: appleLogo,
-		link: 'https://apple.com',
-		contract: true
-	},
+  {
+    title: "Senior Software Engineer",
+    company: "Lockheed Martin, Space",
+    date: "Dec 2024 -",
+    imageSrc: lockheedMartinLogo,
+    link: "https://www.lockheedmartin.com/en-us/capabilities/space.html",
+  },
+  {
+    title: "Senior Software Engineer",
+    company: "Apple",
+    date: "Sep 2024 - Nov 2024",
+    imageSrc: appleLogo,
+    link: "https://apple.com",
+    contract: true,
+  },
   {
     title: "Senior Software Engineer",
     company: "IBM",

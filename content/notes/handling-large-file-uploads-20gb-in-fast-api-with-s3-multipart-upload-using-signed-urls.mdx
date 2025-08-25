@@ -11,11 +11,11 @@ If you’ve ever tried uploading massive files (20GB–30GB) through your backen
 
 In this detailed guide, I’ll walk you through how to implement a **direct-to-S3 large file uploader** using:
 
-* **Python** for the backend.
-* **AWS SDK for Python** for S3 Mutlipart Upload API with Signed URLs.
-* **Fast API** for the server.
-* **React + Vite** for the frontend.
-* **MongoDB** for tracking uploads.
+- **Python** for the backend.
+- **AWS SDK for Python** for S3 Mutlipart Upload API with Signed URLs.
+- **Fast API** for the server.
+- **React + Vite** for the frontend.
+- **MongoDB** for tracking uploads.
 
 ## 🧠 Why This Approach?
 
@@ -30,20 +30,20 @@ _How does this work?_
 
 This makes the system:
 
-* **Scalable**: Can handle large files without overloading the server.
-* **Secure**: Uses signed URLs to ensure only authorized users can upload files.
-* **Efficient**: Uploads chunks in parallel, reducing the overall upload time.
+- **Scalable**: Can handle large files without overloading the server.
+- **Secure**: Uses signed URLs to ensure only authorized users can upload files.
+- **Efficient**: Uploads chunks in parallel, reducing the overall upload time.
 
 ## 🛠️ Tech Stack
 
-* Backend
-  * **Python**: For the backend server.
-  * **AWS SDK for Python**: For interacting with S3.
-  * **Fast API**: For building the server.
-* Frontend
-  * **React + Vite**: For building the frontend.
-* Database
-  * **MongoDB**: For tracking uploads.
+- Backend
+  - **Python**: For the backend server.
+  - **AWS SDK for Python**: For interacting with S3.
+  - **Fast API**: For building the server.
+- Frontend
+  - **React + Vite**: For building the frontend.
+- Database
+  - **MongoDB**: For tracking uploads.
 
 ## 🔁 Flow Overview
 
@@ -51,13 +51,12 @@ This makes the system:
 2. Frontend sends filename to backend → backend creates multipart upload (S3) and stores metadata (MongoDB).
 3. Frontend splits file into chunks.
 4. For each chunk:
-	- Ask backend for signed URL.
-	- Upload chunk to S3 using that URL.
-	- Notify backend with ETag + part number.
+   - Ask backend for signed URL.
+   - Upload chunk to S3 using that URL.
+   - Notify backend with ETag + part number.
 5. After all chunks are uploaded:
-	- Frontend tells backend to finalize upload.
-	- Backend completes the multipart upload using S3 API.
-
+   - Frontend tells backend to finalize upload.
+   - Backend completes the multipart upload using S3 API.
 
 _Flow Diagram from the Backend Perspective_
 
@@ -128,9 +127,9 @@ Handling large file uploads efficiently is crucial for modern web applications. 
 
 For those who like bullet points to succinctly summarize the key takeaways:
 
-* Use **signed** URLs to offload heavy uploads from your backend.
-* Track everything in MongoDB for status, retries, resumability.
-* Only finalize uploads once all parts are done.
+- Use **signed** URLs to offload heavy uploads from your backend.
+- Track everything in MongoDB for status, retries, resumability.
+- Only finalize uploads once all parts are done.
 
 This is the exact approach I've used in production for multi-GB file uploads. It’s stable, efficient, and easy to extend.
 

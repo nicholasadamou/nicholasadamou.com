@@ -23,10 +23,10 @@ In an era where privacy and security are paramount, DNS traffic often remains a 
 
 The motivation behind PrivyDNS stems from the need to enhance DNS security and reliability. Here are the key reasons for its development:
 
--  **Privacy**: Encrypting DNS queries prevents third parties from monitoring user activity, thus safeguarding user privacy.
--  **Security**: By using encrypted protocols, PrivyDNS helps protect against DNS spoofing and man-in-the-middle attacks.
--  **Performance**: With built-in caching and retry mechanisms, PrivyDNS improves the reliability and speed of DNS queries.
--  **Flexibility**: Supports both synchronous and asynchronous operations, making it suitable for a variety of use cases.
+- **Privacy**: Encrypting DNS queries prevents third parties from monitoring user activity, thus safeguarding user privacy.
+- **Security**: By using encrypted protocols, PrivyDNS helps protect against DNS spoofing and man-in-the-middle attacks.
+- **Performance**: With built-in caching and retry mechanisms, PrivyDNS improves the reliability and speed of DNS queries.
+- **Flexibility**: Supports both synchronous and asynchronous operations, making it suitable for a variety of use cases.
 
 Let's take a deeper dive into DNS over TLS (DoT), DNS over HTTPS (DoH), and DNS over Mutual TLS (mTLS) to understand how PrivyDNS leverages these protocols to enhance DNS security.
 
@@ -142,16 +142,16 @@ Client ->> "mTLS Server": Sends encrypted DNS query
 The adoption of encrypted DNS protocols like DoT, DoH, and mTLS offers several benefits:
 
 1. **Privacy Protection**
-These protocols encrypt DNS traffic, preventing ISPs, network administrators, or malicious actors from monitoring your browsing habits through DNS queries.
+   These protocols encrypt DNS traffic, preventing ISPs, network administrators, or malicious actors from monitoring your browsing habits through DNS queries.
 
 2. **Security Enhancement**
-Encryption protects against various attacks such as DNS spoofing, where attackers redirect users to malicious websites by tampering with DNS responses.
+   Encryption protects against various attacks such as DNS spoofing, where attackers redirect users to malicious websites by tampering with DNS responses.
 
 3. **Bypass Censorship**
-DoH, in particular, is useful for bypassing DNS-level censorship and restrictions. Since it runs over HTTPS (port 443), it is challenging for network filters or firewalls to distinguish it from normal web traffic, making it harder to block.
+   DoH, in particular, is useful for bypassing DNS-level censorship and restrictions. Since it runs over HTTPS (port 443), it is challenging for network filters or firewalls to distinguish it from normal web traffic, making it harder to block.
 
 4. **Improved Security**
-mTLS goes further by providing mutual authentication between client and server, ensuring that only authorized clients can access the DNS service. These mechanisms prevent attackers from providing malicious DNS responses or unauthorized access to DNS services.
+   mTLS goes further by providing mutual authentication between client and server, ensuring that only authorized clients can access the DNS service. These mechanisms prevent attackers from providing malicious DNS responses or unauthorized access to DNS services.
 
 To learn more about these protocols, refer to the following resources:
 
@@ -202,9 +202,9 @@ B --> L
 1. **Client**: Initiates DNS queries, specifying the domain name and desired protocol.
 2. **DNSResolver**: The main class handling DNS queries. It maintains a registry of protocol handlers and delegates queries to the appropriate handler.
 3. **Protocol Handlers**: Specialized classes implementing the `DNSProtocolHandler` abstract base class:
-	- **DoHHandler**: Sends DNS queries over HTTPS (DoH) using `httpx` to communicate with the DoH server.
-	- **DoTHandler**: Sends DNS queries over TLS (DoT) using `dns.query.tls` for secure communication with the DoT server.
-	- **MTLSHandler**: Sends DNS queries over mutual TLS (mTLS) with client certificate authentication.
+   - **DoHHandler**: Sends DNS queries over HTTPS (DoH) using `httpx` to communicate with the DoH server.
+   - **DoTHandler**: Sends DNS queries over TLS (DoT) using `dns.query.tls` for secure communication with the DoT server.
+   - **MTLSHandler**: Sends DNS queries over mutual TLS (mTLS) with client certificate authentication.
 4. **Cache**: Temporarily stores DNS responses to avoid repeated queries, enhancing performance.
 5. **Retry Mechanism**: Automatically retries failed queries a specified number of times before raising an error.
 6. **Logging**: Provides detailed logs about query operations, errors, cache hits/misses, and retry attempts.

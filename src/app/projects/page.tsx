@@ -6,5 +6,5 @@ import { metadata } from "./metadata";
 export { metadata };
 
 export default function ProjectsPage() {
-	return <ListPage content={allProjects} type="projects" />;
+  return <ListPage content={allProjects} type="projects" />;
 }

@@ -55,6 +55,7 @@ coolregex offers a variety of commonly used regex patterns for:
 ### 2. Interactive Testing
 
 Each regex pattern comes with an interactive testing feature that allows you to:
+
 - Enter test strings
 - See real-time validation results
 - Understand how the pattern matches or fails to match your input
@@ -62,12 +63,14 @@ Each regex pattern comes with an interactive testing feature that allows you to:
 ### 3. Syntax Highlighting
 
 The application includes custom syntax highlighting for regex patterns, making them easier to read and understand:
+
 - Different colors for character classes, quantifiers, groups, and anchors
 - Visual distinction between different parts of complex patterns
 
 ### 4. Command Bar
 
 A powerful command bar (activated with ⌘K) allows you to:
+
 - Quickly search for specific patterns
 - Filter the collection based on keywords
 - Navigate the application efficiently
@@ -75,6 +78,7 @@ A powerful command bar (activated with ⌘K) allows you to:
 ### 5. Modern, Responsive UI
 
 Built with Next.js and Tailwind CSS, coolregex offers:
+
 - A clean, minimalist interface
 - Full responsiveness across devices
 - Accessibility features for all users
@@ -199,8 +203,14 @@ The `RegexHighlighter` component is responsible for parsing regex patterns and a
 // Simplified version of the highlighting logic
 const patterns = {
   literal: { regex: /[a-zA-Z0-9]/, style: "" },
-  character_class: { regex: /\[[^\]]*\]/, style: "text-green-600 bg-green-200" },
-  quantifier: { regex: /\*|\+|\?|\{[0-9,]*\}/, style: "text-red-600 bg-red-200" },
+  character_class: {
+    regex: /\[[^\]]*\]/,
+    style: "text-green-600 bg-green-200",
+  },
+  quantifier: {
+    regex: /\*|\+|\?|\{[0-9,]*\}/,
+    style: "text-red-600 bg-red-200",
+  },
   group: { regex: /\(.*?\)/, style: "text-yellow-600 bg-yellow-200" },
   anchor: { regex: /\^|\$/, style: "text-purple-600 bg-purple-200" },
   escaped: { regex: /\\[dDsSwW]/, style: "text-pink-600 bg-pink-200" },

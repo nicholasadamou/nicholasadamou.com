@@ -4,7 +4,7 @@ import Link from "@/components/common/Link";
 
 interface ContentHeaderProps {
   title: string;
-	longSummary?: string;
+  longSummary?: string;
   summary: string;
   date: string;
   author: { name: string; avatar: string };
@@ -25,9 +25,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
   additionalInfo,
 }) => (
   <div className="flex flex-col gap-4">
-    <Link href={additionalInfo.backLink}>
-      ← {additionalInfo.backText}
-    </Link>
+    <Link href={additionalInfo.backLink}>← {additionalInfo.backText}</Link>
     <div className="flex max-w-xl flex-col gap-4 text-pretty">
       <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
         {title}
@@ -38,7 +36,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
     <div className="flex max-w-none items-center gap-4">
       <Avatar src={author.avatar} initials="na" size="sm" />
       <div className="leading-tight">
-				{author.name}
+        {author.name}
         <p className="md:text-md mt-1 flex flex-row flex-wrap justify-center gap-1 text-sm text-secondary">
           <time dateTime={date}>{date}</time>
           {additionalInfo.extraInfo}

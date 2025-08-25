@@ -14,7 +14,8 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({
   imageUrl,
   link,
 }) => {
-  const baseUrl = new URL(link).hostname + '/' + new URL(link).pathname.split('/')[1];
+  const baseUrl =
+    new URL(link).hostname + "/" + new URL(link).pathname.split("/")[1];
 
   return (
     <a

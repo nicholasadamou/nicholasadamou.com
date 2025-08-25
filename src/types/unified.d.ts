@@ -1,3 +1,3 @@
 declare module "unified" {
-	export type Pluggable = any;
+  export type Pluggable = any;
 }

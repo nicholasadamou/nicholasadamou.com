@@ -24,17 +24,13 @@ export default function ThemeSwitcher() {
       <Listbox value={theme} onChange={(value) => setTheme(value)}>
         {({ open }) => {
           const iconClassName = clsx(
-            "w-5 h-5 cursor-pointer transition-colors text-primary",
+            "w-5 h-5 cursor-pointer transition-colors text-primary"
           );
           return (
-            <div
-              className={clsx(
-                "relative rounded-full",
-              )}
-            >
+            <div className={clsx("relative rounded-full")}>
               <Listbox.Button
                 className={clsx(
-                  "relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg",
+                  "relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg"
                 )}
               >
                 {theme === "system" ? (
@@ -55,7 +51,8 @@ export default function ThemeSwitcher() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ type: "spring", bounce: 0.3, duration: 0.3 }}
                     {...({
-                      className: "w-42 absolute right-0 z-10 mt-2 max-h-60 origin-top-right overflow-auto rounded-xl bg-contrast p-2 text-base capitalize shadow-md focus:outline-none sm:text-sm"
+                      className:
+                        "w-42 absolute right-0 z-10 mt-2 max-h-60 origin-top-right overflow-auto rounded-xl bg-contrast p-2 text-base capitalize shadow-md focus:outline-none sm:text-sm",
                     } as any)}
                   >
                     {themes.map((theme) => (
@@ -64,7 +61,7 @@ export default function ThemeSwitcher() {
                         className={({ active }) =>
                           clsx(
                             "relative cursor-pointer select-none rounded-md py-2 pl-10 pr-4 text-primary",
-                            active ? "bg-secondary" : "",
+                            active ? "bg-secondary" : ""
                           )
                         }
                         value={theme}

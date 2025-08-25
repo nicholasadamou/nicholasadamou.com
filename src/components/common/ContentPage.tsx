@@ -17,11 +17,11 @@ import Views from "@/app/notes/components/Views";
 import { Badge } from "@/components/ui/badge";
 
 type UnifiedContent = (Project | Note) & {
-	long_summary?: string;
-	technologies?: string[];
+  long_summary?: string;
+  technologies?: string[];
   pinned?: boolean;
   readingTime?: string;
-	demoUrl?: string;
+  demoUrl?: string;
 };
 
 interface ContentPageProps {
@@ -61,7 +61,7 @@ export default function ContentPage({
   return (
     <motion.div
       {...({
-        className: "mx-auto flex max-w-[700px] flex-col gap-12 px-4"
+        className: "mx-auto flex max-w-[700px] flex-col gap-12 px-4",
       } as any)}
       initial="hidden"
       animate="visible"
@@ -80,16 +80,19 @@ export default function ContentPage({
             linkSection: (
               <>
                 {content.url && (
-									<>
-										<div className="flex flex-wrap items-center gap-1">
-											{content.technologies?.map((tech) => (
-												<Badge variant="secondary" key={tech}>
-													{tech}
-												</Badge>
-											))}
-										</div>
-										<GitHubLinkSection url={content.url} demoUrl={content.demoUrl} />
-									</>
+                  <>
+                    <div className="flex flex-wrap items-center gap-1">
+                      {content.technologies?.map((tech) => (
+                        <Badge variant="secondary" key={tech}>
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                    <GitHubLinkSection
+                      url={content.url}
+                      demoUrl={content.demoUrl}
+                    />
+                  </>
                 )}
               </>
             ),

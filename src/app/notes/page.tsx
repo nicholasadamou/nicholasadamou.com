@@ -7,5 +7,5 @@ import { metadata } from "./metadata";
 export { metadata };
 
 export default function NotesPage() {
-	return <ListPage content={allNotes} type="notes" />;
+  return <ListPage content={allNotes} type="notes" />;
 }

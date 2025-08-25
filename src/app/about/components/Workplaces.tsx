@@ -1,59 +1,76 @@
 "use client";
-import Image, { StaticImageData } from "next/image"
-import clsx from "clsx"
-import Link from "@/components/common/Link"
+import Image, { StaticImageData } from "next/image";
+import clsx from "clsx";
+import Link from "@/components/common/Link";
 
 type Workplace = {
-	title: string
-	company: string
-	imageSrc: string | StaticImageData
-	date?: string
-	link?: string
-	contract?: boolean
-}
+  title: string;
+  company: string;
+  imageSrc: string | StaticImageData;
+  date?: string;
+  link?: string;
+  contract?: boolean;
+};
 
-function Workplace({ title, company, imageSrc, date, link, contract = false }: Workplace) {
-	const content = (
-		<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-2 sm:gap-4">
-			<div className="flex items-center gap-2">
-				<Image
-					src={imageSrc}
-					alt={company}
-					width={48}
-					height={48}
-					className="rounded-full flex-shrink-0"
-				/>
-				<div className="flex flex-col">
-					<p className={clsx("font-medium", link && "external-arrow")}>{title}</p>
-					<p className="text-secondary text-sm">{company}{contract && ' (contract)'}</p>
-				</div>
-			</div>
-			{date && <time className="text-secondary text-sm mt-1 sm:mt-0">{date}</time>}
-		</div>
-	)
+function Workplace({
+  title,
+  company,
+  imageSrc,
+  date,
+  link,
+  contract = false,
+}: Workplace) {
+  const content = (
+    <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="flex items-center gap-2">
+        <Image
+          src={imageSrc}
+          alt={company}
+          width={48}
+          height={48}
+          className="flex-shrink-0 rounded-full"
+        />
+        <div className="flex flex-col">
+          <p className={clsx("font-medium", link && "external-arrow")}>
+            {title}
+          </p>
+          <p className="text-sm text-secondary">
+            {company}
+            {contract && " (contract)"}
+          </p>
+        </div>
+      </div>
+      {date && (
+        <time className="mt-1 text-sm text-secondary sm:mt-0">{date}</time>
+      )}
+    </div>
+  );
 
-	return (
-		<li className="transition-opacity py-3" key={`${company}-${title}`}>
-			{link ? (
-				<Link
-					href={link}
-					className="block w-full no-underline hover:bg-tertiary dark:hover:bg-secondary rounded-lg p-3 -m-2 transition-colors"
-				>
-					{content}
-				</Link>
-			) : (
-				<div className="p-3 -m-3">{content}</div>
-			)}
-		</li>
-	)
+  return (
+    <li className="py-3 transition-opacity" key={`${company}-${title}`}>
+      {link ? (
+        <Link
+          href={link}
+          className="-m-2 block w-full rounded-lg p-3 no-underline transition-colors hover:bg-tertiary dark:hover:bg-secondary"
+        >
+          {content}
+        </Link>
+      ) : (
+        <div className="-m-3 p-3">{content}</div>
+      )}
+    </li>
+  );
 }
 
 export default function Workplaces({ items }: { items: Workplace[] }) {
-	return (
-		<ul className="flex flex-col animated-list">
-			{items.map((workplace, index) => (
-				<Workplace key={`${workplace.company}-${workplace.title}-${index}`} {...workplace} />
-			))}
-		</ul>
-	)
+  return (
+    <ul className="animated-list flex flex-col">
+      {items.map((workplace, index) => (
+        <Workplace
+          key={`${workplace.company}-${workplace.title}-${index}`}
+          {...workplace}
+        />
+      ))}
+    </ul>
+  );
 }

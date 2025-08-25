@@ -10,7 +10,7 @@ type FlipNumberProps = {
 function FlipNumber({ children }: FlipNumberProps) {
   const isMount = useIsMount();
   const [keyframe, setKeyframe] = useState<"initial" | "moveDown" | "out">(
-    "initial",
+    "initial"
   );
   const [numberToShow, setNumberToShow] = useState(children);
   const duration = 75;
@@ -32,7 +32,7 @@ function FlipNumber({ children }: FlipNumberProps) {
           "-translate-y-3 opacity-0 duration-75 ease-in-out",
         keyframe === "initial" &&
           "translate-y-0 opacity-100 duration-75 ease-in-out",
-        keyframe === "moveDown" && "translate-y-3 opacity-0",
+        keyframe === "moveDown" && "translate-y-3 opacity-0"
       )}
     >
       {numberToShow?.toLocaleString()}

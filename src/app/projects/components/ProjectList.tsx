@@ -23,11 +23,17 @@ export default function ProjectList({ projects }: ProjectListProps) {
     <ul
       ref={listRef}
       onMouseMove={(e) => handleMouseMove(e)}
-      className="flex flex-col animated-list"
+      className="animated-list flex flex-col"
     >
-      {projects.length === 0 && <p className="text-secondary">No projects found.</p>}
+      {projects.length === 0 && (
+        <p className="text-secondary">No projects found.</p>
+      )}
       {projects.map((project) => (
-        <Project key={project.slug} project={project} mousePosition={mousePosition} />
+        <Project
+          key={project.slug}
+          project={project}
+          mousePosition={mousePosition}
+        />
       ))}
     </ul>
   );

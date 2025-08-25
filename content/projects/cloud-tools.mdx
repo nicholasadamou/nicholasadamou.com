@@ -99,26 +99,31 @@ api --> authorizer
 ### Architecture Components
 
 **Frontend Layer:**
+
 - **Next.js Application**: Modern React-based frontend with TypeScript and Tailwind CSS
 - **Vercel Deployment**: Optimized hosting with global CDN and serverless functions
 - **Responsive UI**: Mobile-first design with Framer Motion animations
 
 **API Layer:**
+
 - **API Gateway**: RESTful API endpoints with request validation and rate limiting
 - **Lambda Integration**: Seamless integration with processing functions
 - **CORS Configuration**: Secure cross-origin resource sharing
 
 **Processing Layer:**
+
 - **File Conversion Lambda**: Handles various file format conversions
 - **File Compression Lambda**: Optimizes file sizes across different formats
 - **Background Processing**: Asynchronous job processing with SQS integration
 
 **Storage & Data:**
+
 - **S3 Bucket**: Secure file storage with encryption at rest
 - **DynamoDB**: Job tracking and metadata storage with auto-scaling
 - **SQS Queues**: Reliable message queuing with dead letter queue support
 
 **Monitoring & Security:**
+
 - **CloudWatch**: Comprehensive logging and metrics collection
 - **WAF**: Web Application Firewall protection
 - **IAM Roles**: Principle of least privilege access control
@@ -132,7 +137,7 @@ The frontend is built with modern web technologies, emphasizing performance and 
 ```typescript
 // Example component structure
 interface FileProcessingProps {
-  onUpload: (file: File, operation: 'convert' | 'compress') => Promise<void>;
+  onUpload: (file: File, operation: "convert" | "compress") => Promise<void>;
   processing: boolean;
   result?: ProcessingResult;
 }
@@ -140,7 +145,7 @@ interface FileProcessingProps {
 const FileProcessor: React.FC<FileProcessingProps> = ({
   onUpload,
   processing,
-  result
+  result,
 }) => {
   // Component implementation with drag-and-drop support
   // Progress tracking and real-time status updates
@@ -149,6 +154,7 @@ const FileProcessor: React.FC<FileProcessingProps> = ({
 ```
 
 **Key Frontend Features:**
+
 - **Drag & Drop Interface**: Intuitive file upload with visual feedback
 - **Real-time Processing Status**: Live updates on job progress using polling
 - **Type Safety**: Comprehensive TypeScript integration throughout
@@ -161,10 +167,10 @@ The serverless backend demonstrates advanced AWS service integration:
 
 ```typescript
 // Lambda function structure
-import { APIGatewayProxyHandler } from 'aws-lambda';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
-import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
+import { APIGatewayProxyHandler } from "aws-lambda";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 
 export const processFileHandler: APIGatewayProxyHandler = async (event) => {
   // File processing logic with error handling
@@ -175,6 +181,7 @@ export const processFileHandler: APIGatewayProxyHandler = async (event) => {
 ```
 
 **Processing Pipeline:**
+
 1. **File Upload**: Direct upload to S3 with pre-signed URLs
 2. **Job Creation**: DynamoDB record creation with unique job ID
 3. **Queue Processing**: SQS message triggers background Lambda
@@ -188,6 +195,7 @@ One of the key aspects of Cloud Tools is its comprehensive use of Terraform for 
 
 **Why Terraform?**
 Terraform provides several advantages for this project:
+
 - **Declarative Configuration**: Define desired infrastructure state rather than imperative steps
 - **Multi-Cloud Support**: Though focused on AWS, the patterns are transferable
 - **State Management**: Track infrastructure changes and enable collaborative development
@@ -364,6 +372,7 @@ terraform apply -var-file="dev.tfvars" # Apply changes
 ```
 
 **Infrastructure Highlights:**
+
 - **Modular Architecture**: Reusable Terraform modules for different environments
 - **Environment Separation**: Dedicated dev, staging, and production configurations
 - **State Locking**: DynamoDB table prevents concurrent modifications
@@ -408,12 +417,12 @@ The project includes a comprehensive LocalStack setup that mirrors the productio
 
 ```yaml
 # docker-compose.localstack.yml
-version: '3.8'
+version: "3.8"
 services:
   localstack:
     image: localstack/localstack:3.0
     ports:
-      - "4566:4566"            # LocalStack Gateway
+      - "4566:4566" # LocalStack Gateway
     environment:
       - DEBUG=1
       - SERVICES=s3,dynamodb,sqs,lambda,apigateway,cloudwatch,iam
@@ -460,24 +469,25 @@ aws --endpoint-url=http://localhost:4566 sqs create-queue \
 // Environment-aware configuration
 const config = {
   aws: {
-    region: process.env.AWS_REGION || 'us-east-1',
-    endpoint: process.env.NODE_ENV === 'development'
-      ? 'http://localhost:4566'
-      : undefined,
+    region: process.env.AWS_REGION || "us-east-1",
+    endpoint:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:4566"
+        : undefined,
     s3: {
-      bucket: process.env.S3_BUCKET || 'cloud-tools-dev-files'
+      bucket: process.env.S3_BUCKET || "cloud-tools-dev-files",
     },
     dynamodb: {
-      table: process.env.DYNAMODB_TABLE || 'cloud-tools-dev-jobs'
-    }
-  }
+      table: process.env.DYNAMODB_TABLE || "cloud-tools-dev-jobs",
+    },
+  },
 };
 
 // Same code works in both local and cloud environments
 const s3Client = new S3Client({
   region: config.aws.region,
   endpoint: config.aws.endpoint,
-  forcePathStyle: !!config.aws.endpoint // Required for LocalStack
+  forcePathStyle: !!config.aws.endpoint, // Required for LocalStack
 });
 ```
 
@@ -486,11 +496,11 @@ LocalStack enables comprehensive integration testing without external dependenci
 
 ```typescript
 // Integration test example
-import { beforeAll, afterAll, describe, it, expect } from 'vitest';
-import { startLocalStack, stopLocalStack } from '../utils/localstack';
-import { uploadFile, processFile } from '../services/fileProcessing';
+import { beforeAll, afterAll, describe, it, expect } from "vitest";
+import { startLocalStack, stopLocalStack } from "../utils/localstack";
+import { uploadFile, processFile } from "../services/fileProcessing";
 
-describe('File Processing Integration Tests', () => {
+describe("File Processing Integration Tests", () => {
   beforeAll(async () => {
     await startLocalStack();
     // Setup test data and resources
@@ -500,13 +510,13 @@ describe('File Processing Integration Tests', () => {
     await stopLocalStack();
   });
 
-  it('should process file upload and conversion end-to-end', async () => {
+  it("should process file upload and conversion end-to-end", async () => {
     // Test entire workflow without hitting real AWS
-    const file = new File(['test content'], 'test.txt');
+    const file = new File(["test content"], "test.txt");
     const uploadResult = await uploadFile(file);
     const processResult = await processFile(uploadResult.jobId);
 
-    expect(processResult.status).toBe('completed');
+    expect(processResult.status).toBe("completed");
     expect(processResult.outputUrl).toBeDefined();
   });
 });
@@ -515,6 +525,7 @@ describe('File Processing Integration Tests', () => {
 **LocalStack Integration Advantages:**
 
 **For Development:**
+
 - **Zero AWS Costs**: Eliminate development environment expenses
 - **Instant Feedback**: No network latency for rapid iteration
 - **Offline Capability**: Work without internet connectivity
@@ -522,12 +533,14 @@ describe('File Processing Integration Tests', () => {
 - **Consistent State**: Fresh environment for each development session
 
 **For CI/CD:**
+
 - **Parallel Testing**: Multiple test suites can run simultaneously
 - **No Credential Management**: No need for AWS keys in CI environment
 - **Deterministic Tests**: Consistent behavior across test runs
 - **Fast Pipeline Execution**: Local services eliminate network overhead
 
 **For Team Collaboration:**
+
 - **Environment Standardization**: Everyone runs identical AWS service versions
 - **Easy Onboarding**: New team members can start developing immediately
 - **Debugging Simplification**: LocalStack logs are easily accessible
@@ -540,15 +553,15 @@ While LocalStack provides excellent AWS emulation, some differences exist:
 // Handle LocalStack-specific behaviors
 const s3Config = {
   // LocalStack requires path-style URLs
-  forcePathStyle: process.env.NODE_ENV === 'development',
+  forcePathStyle: process.env.NODE_ENV === "development",
   // Some S3 features may have different behavior
-  useAccelerateEndpoint: process.env.NODE_ENV !== 'development'
+  useAccelerateEndpoint: process.env.NODE_ENV !== "development",
 };
 
 // Feature flags for LocalStack vs AWS differences
 const features = {
-  enableS3TransferAcceleration: process.env.NODE_ENV === 'production',
-  useAdvancedDynamoDBFeatures: !process.env.LOCALSTACK_ENDPOINT
+  enableS3TransferAcceleration: process.env.NODE_ENV === "production",
+  useAdvancedDynamoDBFeatures: !process.env.LOCALSTACK_ENDPOINT,
 };
 ```
 
@@ -563,17 +576,26 @@ Cloud Tools implements enterprise-grade monitoring and observability:
 
 ```typescript
 // CloudWatch metrics integration
-import { CloudWatchClient, PutMetricDataCommand } from '@aws-sdk/client-cloudwatch';
+import {
+  CloudWatchClient,
+  PutMetricDataCommand,
+} from "@aws-sdk/client-cloudwatch";
 
-const publishMetrics = async (metricName: string, value: number, unit: string) => {
+const publishMetrics = async (
+  metricName: string,
+  value: number,
+  unit: string
+) => {
   const command = new PutMetricDataCommand({
-    Namespace: 'CloudTools',
-    MetricData: [{
-      MetricName: metricName,
-      Value: value,
-      Unit: unit,
-      Timestamp: new Date()
-    }]
+    Namespace: "CloudTools",
+    MetricData: [
+      {
+        MetricName: metricName,
+        Value: value,
+        Unit: unit,
+        Timestamp: new Date(),
+      },
+    ],
   });
 
   await cloudWatchClient.send(command);
@@ -581,6 +603,7 @@ const publishMetrics = async (metricName: string, value: number, unit: string) =
 ```
 
 **Monitoring Features:**
+
 - **Custom Metrics**: File processing times, success rates, error rates
 - **Alerting**: SNS notifications for failures and performance degradation
 - **Dashboard**: Real-time visualization of system health and performance
@@ -596,10 +619,7 @@ Security is implemented at every layer of the application:
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:PutObject"
-      ],
+      "Action": ["s3:GetObject", "s3:PutObject"],
       "Resource": "arn:aws:s3:::cloud-tools-bucket/*",
       "Condition": {
         "StringEquals": {
@@ -612,6 +632,7 @@ Security is implemented at every layer of the application:
 ```
 
 **Security Measures:**
+
 - **Encryption**: All data encrypted at rest and in transit
 - **Access Control**: Fine-grained IAM policies and resource-based policies
 - **Network Security**: VPC configuration with private subnets (production)
@@ -634,7 +655,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - name: Install dependencies
         run: pnpm install
       - name: Run tests
@@ -644,6 +665,7 @@ jobs:
 ```
 
 **Pipeline Features:**
+
 - **Multi-environment Testing**: Node.js matrix testing across versions
 - **Code Quality**: ESLint, Prettier, and pre-commit hooks
 - **Security Scanning**: Dependency vulnerability checks
@@ -655,12 +677,14 @@ jobs:
 Cloud Tools implements several performance optimization strategies:
 
 **Frontend Optimizations:**
+
 - Next.js App Router with server-side rendering
 - Image optimization with Sharp
 - Bundle analysis and code splitting
 - Progressive Web App features
 
 **Backend Optimizations:**
+
 - Lambda cold start mitigation with provisioned concurrency
 - DynamoDB query optimization with proper indexing
 - S3 transfer acceleration for large files
@@ -687,14 +711,14 @@ Cloud Tools implements a multi-layered testing approach:
 
 ```typescript
 // Integration test example
-import { describe, it, expect } from 'vitest';
-import { testApiEndpoint } from '../utils/test-helpers';
+import { describe, it, expect } from "vitest";
+import { testApiEndpoint } from "../utils/test-helpers";
 
-describe('File Processing API', () => {
-  it('should process file conversion successfully', async () => {
-    const response = await testApiEndpoint('/api/process', {
-      method: 'POST',
-      body: { operation: 'convert', fileType: 'pdf' }
+describe("File Processing API", () => {
+  it("should process file conversion successfully", async () => {
+    const response = await testApiEndpoint("/api/process", {
+      method: "POST",
+      body: { operation: "convert", fileType: "pdf" },
     });
 
     expect(response.status).toBe(200);
@@ -704,6 +728,7 @@ describe('File Processing API', () => {
 ```
 
 **Testing Pyramid:**
+
 - **Unit Tests**: Component and function-level testing with Vitest
 - **Integration Tests**: API endpoint testing with LocalStack
 - **End-to-End Tests**: Full user workflow testing
@@ -735,6 +760,7 @@ repos:
 Cloud Tools demonstrates cost-effective cloud architecture:
 
 **Cost Control Measures:**
+
 - **Serverless Architecture**: Pay only for actual usage
 - **S3 Intelligent Tiering**: Automatic cost optimization for storage
 - **DynamoDB On-Demand**: Scaling based on actual traffic
@@ -742,6 +768,7 @@ Cloud Tools demonstrates cost-effective cloud architecture:
 - **Budget Alerts**: Automated cost monitoring and alerts
 
 **Estimated Costs:**
+
 - Development: ~$10/month with monitoring and alerting
 - Production: Scales with usage, typically $50-200/month for moderate traffic
 
@@ -750,6 +777,7 @@ Cloud Tools demonstrates cost-effective cloud architecture:
 The project roadmap includes several exciting features:
 
 **Planned Features:**
+
 1. **Additional File Formats**: Support for more conversion types
 2. **Batch Processing**: Multiple file processing capabilities
 3. **User Authentication**: AWS Cognito integration for user accounts
@@ -759,6 +787,7 @@ The project roadmap includes several exciting features:
 7. **Analytics Dashboard**: Usage analytics and reporting
 
 **Technical Improvements:**
+
 - **Multi-region Deployment**: Global availability and disaster recovery
 - **Advanced Caching**: Redis integration for improved performance
 - **Machine Learning**: AI-powered file optimization suggestions
@@ -769,18 +798,21 @@ The project roadmap includes several exciting features:
 Building Cloud Tools provided valuable insights into:
 
 **Cloud Architecture:**
+
 - Serverless design patterns and best practices
 - Event-driven architecture with SQS and Lambda
 - Multi-service integration and error handling
 - Cost optimization strategies for AWS services
 
 **Development Practices:**
+
 - Infrastructure as Code with Terraform
 - Comprehensive testing strategies
 - CI/CD pipeline implementation
 - Local development environment setup
 
 **System Design:**
+
 - Scalable architecture patterns
 - Security implementation at scale
 - Monitoring and observability

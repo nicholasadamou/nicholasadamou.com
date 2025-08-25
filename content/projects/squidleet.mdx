@@ -54,6 +54,7 @@ LeetCodeAPI --> LeetCode
 The `CommandParser` component processes CLI arguments and validates inputs. It determines the user's desired practice mode, problem difficulty, and other configuration options.
 
 **Input Arguments:**
+
 - `--practice-mode`: Specifies the mode (e.g., daily, random, custom, study-plan).
 - `--difficulties`: Filters problems by difficulty (easy, medium, hard).
 - `--problems`: Accepts specific problem slugs for custom mode.
@@ -111,22 +112,28 @@ from handlers.CacheHandler import cached_api
 The cache design for `CachedLeetCodeAPI` involves several key components and processes, which are outlined below:
 
 1. **Cache Directory**:
+
 - The cache is stored in a directory, which defaults to the system's temporary directory if not specified. This directory is named "cached_leetcode_api" and is created if it doesn't exist.
 
 2. **Cache Key**:
+
 - A unique cache key is generated for each API request. This key is derived from a unique identifier, such as the query or API parameters, by computing the MD5 hash of the identifier. This ensures that each request has a distinct cache entry.
 
 3. **Cache Expiry**:
+
 - The cache has an expiration time, set by default to 3600 seconds (1 hour). This means cached data older than this duration is considered stale and will be refreshed by making a new API call.
 
 4. **Cache Read/Write Operations**:
+
 - **Reading from Cache**: When a request is made, the system first checks if a valid cache entry exists. If the cache file is present and not expired, the data is read from the cache and returned.
 - **Writing to Cache**: If there is a cache miss or the cache is expired, the data fetched from the API is written to the cache for future use.
 
 5. **Fetching with Cache**:
+
 - The `_fetch_with_cache` method orchestrates the caching logic. It attempts to read from the cache first and, upon a cache miss, invokes the API function to fetch the data and then writes the data back to the cache.
 
 6. **Cached API Methods**:
+
 - The class provides cached versions of several API methods, such as `fetch_problems`, `fetch_daily_challenge`, `fetch_problem`, and `get_study_plan`. Each method uses a unique identifier to manage its cache entries.
 
 Here is a visual representation of the caching process using [PlantUML](https://plantuml.com):
@@ -159,6 +166,7 @@ This diagram illustrates the interaction between the user, the `CachedLeetCodeAP
 The `LeetCodeAPI` module encapsulates all interactions with the LeetCode platform using GraphQL. It supports fetching problems, study plans, and submitting solutions.
 
 **Core Methods:**
+
 - `fetch_problems`: Retrieves a list of problems based on difficulty and filters.
 - `fetch_daily_challenge`: Fetches the daily coding challenge.
 - `fetch_problem`: Retrieves detailed information about a specific problem.
@@ -202,6 +210,7 @@ Here is a step-by-step breakdown of how SquidLeet processes a `--mode daily` com
 4. **Mode Handling:** `PracticeModeManager` delegates the request to `DailyChallengeMode`.
 5. **Problem Fetching:** `LeetCodeAPI` fetches the daily challenge if it is not found in `CachedLeetCodeAPI`.
 6. **Solution Workflow:**
+
 - `SolutionHandler` creates a solution file with the starter code provided by the `LeetCodeAPI`.
 - Opens the file in the editor.
 - Sets up a file watcher to monitor changes.
@@ -210,24 +219,30 @@ Here is a step-by-step breakdown of how SquidLeet processes a `--mode daily` com
 ## Design Considerations
 
 ### 1. **Modular Design**
+
 Each component is designed to perform a specific task, making the codebase maintainable and extensible. For instance, adding a new practice mode requires implementing a new subclass of `PracticeHandler`.
 
 ### 2. **Asynchronous API Calls**
+
 The use of `ThreadPoolExecutor` in `LeetCodeAPI` allows fetching problems in parallel, improving performance for multi-difficulty queries.
 
 ### 3. **Extensibility**
+
 New features like additional practice modes or support for more languages can be added without disrupting existing functionality.
 
 ### 4. **Error Handling**
+
 Graceful error handling ensures that the user is informed of any issues, such as missing session tokens or invalid problem slugs.
 
 ## Challenges and Future Enhancements
 
 ### Challenges
+
 - Managing authentication securely.
 - Handling API rate limits and network failures.
 
 ### Future Enhancements
+
 - **Detailed Analytics:** Track user performance and provide insights.
 - **Enhanced Logging:** Support structured logging for better debugging.
 

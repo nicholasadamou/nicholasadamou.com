@@ -7,6 +7,7 @@ Thank you for your interest in contributing to this project! This guide will hel
 ### Prerequisites
 
 Before contributing, ensure you have:
+
 - Node.js v18.17.0 or higher
 - pnpm (recommended) or npm
 - Git
@@ -85,6 +86,7 @@ pnpm lint --fix
 2. **Props Interface**: Define proper TypeScript interfaces for props
 3. **Default Props**: Use default parameter values instead of defaultProps
 4. **Component Structure**:
+
    ```typescript
    interface ComponentProps {
      // Define props here
@@ -92,7 +94,7 @@ pnpm lint --fix
 
    export default function Component({ prop1, prop2 }: ComponentProps) {
      // Component logic here
-     
+
      return (
        // JSX here
      );
@@ -188,6 +190,7 @@ For feature requests, please:
 ### Pull Request Guidelines
 
 1. **Create a feature branch** from main:
+
    ```bash
    git checkout -b feature/amazing-feature
    ```
@@ -195,6 +198,7 @@ For feature requests, please:
 2. **Make your changes** following the guidelines above
 
 3. **Commit your changes** with clear, semantic commit messages:
+
    ```bash
    git commit -m "feat: add amazing new feature"
    git commit -m "fix: resolve navigation bug"
@@ -202,6 +206,7 @@ For feature requests, please:
    ```
 
 4. **Push to your fork**:
+
    ```bash
    git push origin feature/amazing-feature
    ```

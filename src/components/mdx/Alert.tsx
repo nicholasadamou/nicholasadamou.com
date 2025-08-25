@@ -11,12 +11,12 @@ const Alert = ({
   children: ReactNode;
   type: "warning" | "info";
 }): React.ReactElement => (
-  <div className="flex gap-2 p-4 rounded-md mt-7 border border-secondary text-tertiary">
+  <div className="mt-7 flex gap-2 rounded-md border border-secondary p-4 text-tertiary">
     <div className="w-fit">
       {type === "warning" ? (
-        <ExclamationTriangleIcon className="w-5 h-5" />
+        <ExclamationTriangleIcon className="h-5 w-5" />
       ) : (
-        <InformationCircleIcon className="w-5 h-5" />
+        <InformationCircleIcon className="h-5 w-5" />
       )}
     </div>
     <div className="not-prose text-sm">{children}</div>
@@ -24,4 +24,3 @@ const Alert = ({
 );
 
 export default Alert;
-

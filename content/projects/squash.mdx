@@ -76,7 +76,7 @@ The **low-level system design** revolves around WebAssembly modules for handling
 ### Key System Components:
 
 1. **Compression Options Component**
-Manages format selection and quality settings. Uses **default quality settings** optimized for each format.
+   Manages format selection and quality settings. Uses **default quality settings** optimized for each format.
 
 ```ts
 const DEFAULT_QUALITY_SETTINGS = {
@@ -85,14 +85,16 @@ const DEFAULT_QUALITY_SETTINGS = {
   jxl: 75,
   webp: 75,
 };
-   ```
+```
 
 2. **WebAssembly Compression Engine**
+
 - Dynamically loads the required WebAssembly codec.
 - Decodes and encodes images using optimized buffer handling to minimize memory overhead.
 - Supports parallel image processing with a smart queuing system.
 
 3. **State Management with React Hooks**
+
 - `useImageManager`: Manages image states (pending, queued, processing, complete).
 - `useImageQueue`: Handles the compression queue, ensuring that only a limited number of images are processed simultaneously.
 
@@ -125,18 +127,23 @@ The **Compression Engine** processes each image through a multi-step pipeline:
 Several important design decisions were made to balance performance, scalability, and user experience:
 
 ### 1. **WebAssembly for Performance**
+
 Using WebAssembly for image processing ensures fast and efficient operations, especially for computationally expensive tasks like compression and format conversion.
 
 ### 2. **Client-Side Processing for Privacy**
+
 By keeping all image processing on the client side, Squash eliminates concerns about uploading sensitive images to external servers. This also reduces network latency and enhances performance.
 
 ### 3. **Component-Based Design**
+
 Squash leverages React’s component model to maintain a clean separation of concerns. Each component (e.g., `DropZone`, `CompressionOptions`, `ImageList`) is self-contained and reusable.
 
 ### 4. **Parallel Processing with Smart Queuing**
+
 The compression engine limits the number of concurrent tasks to avoid blocking the main thread. This ensures a smooth user experience, even when processing large batches of images.
 
 ### 5. **Tailwind CSS for Styling**
+
 Tailwind CSS provides utility-based styling, ensuring a consistent and maintainable design without writing custom CSS from scratch.
 
 ## 📦 CI/CD with GitHub Actions and Vercel
@@ -175,23 +182,26 @@ end
 ### 🛠️ How the Workflow Operates
 
 1. **Developer Pushes Code / Creates Pull Request**
-The workflow is automatically triggered on every code push or pull request to the `main` branch.
+   The workflow is automatically triggered on every code push or pull request to the `main` branch.
 
 2. **GitHub Actions CI Process**
-GitHub Actions orchestrates a multi-step process to validate the changes:
+   GitHub Actions orchestrates a multi-step process to validate the changes:
+
 - **Dependency Installation**: Dependencies are installed using **pnpm**, ensuring faster and more efficient builds.
 - **Run Unit Tests**: **Jest** tests all components and modules to validate functionality.
 - **Build Production Application**: **Vite** compiles the application to ensure it can be successfully built for production.
 
 3. **Conditional Check**
-If all steps pass, the application is deployed to **Vercel**.
+   If all steps pass, the application is deployed to **Vercel**.
 
 4. **Automatic Deployment with Vercel**
-Vercel takes the production build and deploys it to its global content delivery network (CDN), providing instant access to the new version.
+   Vercel takes the production build and deploys it to its global content delivery network (CDN), providing instant access to the new version.
+
 - **Preview Deployments**: A unique preview URL is generated for each pull request, enabling easy testing and collaboration.
 - **Production Deployment**: Once changes are merged, the application is deployed to production.
 
 5. **Notifications**
+
 - If all steps pass, the developer receives a **deployment success** notification.
 - If any step fails (tests, build, or deployment), GitHub Actions sends a **failure notification** with detailed logs for debugging.
 
@@ -201,50 +211,51 @@ The GitHub Actions workflow (`.github/workflows/tests.yml`):
 name: Run Tests
 
 on:
-    push:
-        branches: [ main, master ]
-    pull_request:
-        branches: [ main, master ]
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: 10
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
 
-            - name: Get pnpm store directory
-              shell: bash
-              run: |
-                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-            - name: Setup pnpm cache
-              uses: actions/cache@v4
-              with:
-                  path: ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/package.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-store-
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-            - name: Install dependencies
-              run: pnpm install --no-frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
 
-            - name: Run tests
-              run: pnpm test
-   ```
+      - name: Run tests
+        run: pnpm test
+```
 
 3. **Vercel for Continuous Deployment**
-Once the tests pass successfully, **Vercel** handles the deployment of the application. Vercel provides:
+   Once the tests pass successfully, **Vercel** handles the deployment of the application. Vercel provides:
+
 - **Automatic Preview Deployments**: Every pull request is deployed to a unique preview URL, allowing for easy review and testing.
 - **Instant Rollbacks**: In case of an error in the production build, it’s easy to roll back to a previous deployment.
 - **Optimized Build and Delivery**: Vercel optimizes the production build for speed and scalability, ensuring that Squash is always served efficiently.
@@ -252,13 +263,13 @@ Once the tests pass successfully, **Vercel** handles the deployment of the appli
 ### 💡 Benefits of This Setup
 
 1. **Fully Automated Workflow**
-Every change is tested, built, and deployed automatically, ensuring quick feedback and reducing the chance of introducing bugs into production.
+   Every change is tested, built, and deployed automatically, ensuring quick feedback and reducing the chance of introducing bugs into production.
 
 2. **Collaborative Review**
-Preview deployments allow stakeholders and collaborators to test and review features before they are merged into the main branch.
+   Preview deployments allow stakeholders and collaborators to test and review features before they are merged into the main branch.
 
 3. **Scalability and Performance**
-With Vercel’s edge network, the Squash application is served globally with low latency, providing a fast and seamless user experience.
+   With Vercel’s edge network, the Squash application is served globally with low latency, providing a fast and seamless user experience.
 
 To integrate the two README contents into your existing MDX article and replace the Mermaid diagrams with PlantUML diagrams, I'll show you how to:
 
@@ -302,6 +313,7 @@ DecodeData -> ReturnData: Return Decoded ImageData
 Let's explore the core functions of the **Decoders** package in Squash, focusing on the **`wasm.ts`** module that handles dynamic WebAssembly loading and caching.
 
 #### **Dynamic WebAssembly Loading**
+
 The `wasm.ts` module handles dynamic loading and caching of WebAssembly codecs.
 
 Example for `ensureWasmLoaded()`:
@@ -312,11 +324,11 @@ export async function ensureWasmLoaded(format: string): Promise<void> {
   if (wasmInitialized.get(normalizedFormat)) return;
 
   const wasmModules = {
-    avif: async () => import('@jsquash/avif'),
-    jpeg: async () => import('@jsquash/jpeg'),
-    jxl: async () => import('@jsquash/jxl'),
-    png: async () => import('@jsquash/png'),
-    webp: async () => import('@jsquash/webp'),
+    avif: async () => import("@jsquash/avif"),
+    jpeg: async () => import("@jsquash/jpeg"),
+    jxl: async () => import("@jsquash/jxl"),
+    png: async () => import("@jsquash/png"),
+    webp: async () => import("@jsquash/webp"),
   };
 
   const loadWasm = wasmModules[normalizedFormat];
@@ -409,6 +421,7 @@ Process -> UseManager: Update Image State
 We'll explore the core functions of the **`useImageManager`** and **`useImageQueue`** hooks that manage image states and processing queues in Squash.
 
 #### **`useImageManager`**
+
 Manages the lifecycle of images (add, remove, clear, track statuses).
 
 ```typescript
@@ -424,22 +437,29 @@ const removeImage = useCallback((id: string) => {
 ```
 
 #### **`useImageQueue`**
+
 Handles queuing and parallel processing of images.
 
 ```typescript
 const MAX_PARALLEL_PROCESSING = 3;
 const processingCount = useRef(0);
 
-const addToQueue = useCallback((imageId: string) => {
-  if (!queue.includes(imageId)) setQueue((prev) => [...prev, imageId]);
-}, [queue]);
+const addToQueue = useCallback(
+  (imageId: string) => {
+    if (!queue.includes(imageId)) setQueue((prev) => [...prev, imageId]);
+  },
+  [queue]
+);
 
 const processNextInQueue = useCallback(() => {
-  if (processingCount.current >= MAX_PARALLEL_PROCESSING || queue.length === 0) return;
+  if (processingCount.current >= MAX_PARALLEL_PROCESSING || queue.length === 0)
+    return;
 
   setImages((prev) => {
     const imagesToProcess = prev.filter(
-      (img) => queue.includes(img.id) && processingCount.current < MAX_PARALLEL_PROCESSING
+      (img) =>
+        queue.includes(img.id) &&
+        processingCount.current < MAX_PARALLEL_PROCESSING
     );
     imagesToProcess.forEach((image) => processImage(image));
     return prev;

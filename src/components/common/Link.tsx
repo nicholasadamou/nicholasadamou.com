@@ -9,7 +9,9 @@ type LinkProps = {
 } & NextLinkProps;
 
 export default function Link(props: LinkProps) {
-  const isExternal = !props.href.toString().startsWith("/") && !props.href.toString().startsWith("#");
+  const isExternal =
+    !props.href.toString().startsWith("/") &&
+    !props.href.toString().startsWith("#");
   const { underline, ...rest } = props;
   return (
     <NextLink

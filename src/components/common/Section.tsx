@@ -7,8 +7,8 @@ import { PinIcon } from "lucide-react";
 type SectionProps = {
   heading: string;
   headingAlignment?: "right" | "left";
-	showPin?: boolean;
-	isPinned?: boolean;
+  showPin?: boolean;
+  isPinned?: boolean;
   children: ReactNode;
   invert?: boolean;
 };
@@ -16,8 +16,8 @@ type SectionProps = {
 export default function Section({
   heading,
   headingAlignment,
-	showPin = true,
-	isPinned,
+  showPin = true,
+  isPinned,
   children,
   invert = false,
 }: SectionProps) {
@@ -27,22 +27,22 @@ export default function Section({
       id={heading.toLowerCase().replace(/\s/g, "-")}
     >
       <div className="mb-1">
-				<h2
-					className={clsx(
-						"shrink-0 md:w-32",
-						headingAlignment === "right" && "md:text-right",
-						invert ? "font-medium text-primary" : "text-secondary",
-					)}
-				>
-					{heading}
-				</h2>
-				{(showPin && isPinned) && (
-					<div className="inline-flex items-center gap-1 text-tertiary">
-						<PinIcon className="w-[18px]" />
-						(Pinned)
-					</div>
-				)}
-			</div>
+        <h2
+          className={clsx(
+            "shrink-0 md:w-32",
+            headingAlignment === "right" && "md:text-right",
+            invert ? "font-medium text-primary" : "text-secondary"
+          )}
+        >
+          {heading}
+        </h2>
+        {showPin && isPinned && (
+          <div className="inline-flex items-center gap-1 text-tertiary">
+            <PinIcon className="w-[18px]" />
+            (Pinned)
+          </div>
+        )}
+      </div>
       {children}
     </section>
   );

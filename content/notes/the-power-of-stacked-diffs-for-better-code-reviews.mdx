@@ -37,6 +37,7 @@ In the first diff, you make changes only to the database schema. This diff is sm
 ```
 
 The PR description for this diff might read:
+
 > Added a `feature_flag` column to the `users` table to support the new feature. Created an index to improve query performance for feature-flagged users.
 
 This diff is simple and self-contained, allowing reviewers to focus purely on database concerns.
@@ -57,6 +58,7 @@ With the database updated, you can create the next diff to add the API endpoint 
 ```
 
 The PR description for this diff might read:
+
 > Created a new API endpoint `/users/feature-flagged` to fetch users with the `feature_flag` enabled. This builds on the previous database migration.
 
 This diff is still relatively small and focused. Reviewers can evaluate the endpoint logic, security, and response structure without being distracted by unrelated changes.
@@ -98,6 +100,7 @@ Finally, you create a diff to add a new UI component that displays users with th
 ```
 
 The PR description for this diff might read:
+
 > Added a `FeatureFlaggedUsers` component to display users with the feature flag enabled. Integrates with the new `/users/feature-flagged` API endpoint.
 
 Reviewers can now focus solely on the front-end logic, checking for UI best practices, component reusability, and ensuring error handling is in place.

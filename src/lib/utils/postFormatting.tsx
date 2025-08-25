@@ -9,17 +9,17 @@ linkify.tlds(tlds);
 
 export function getContentWithLinks(content: string) {
   return content
-    .split(' ') // split by spaces only
+    .split(" ") // split by spaces only
     .map((word, index) => {
       const match = linkify.match(word);
 
       if (match) {
-        const {url} = match[0];
+        const { url } = match[0];
         const displayUrl = url.replace(/(^\w+:|^)\/\//, ""); // remove http:// or https:// from the url
         const link = ReactDOMServer.renderToStaticMarkup(
           <Link key={index} href={url} className="break-words text-link">
             {displayUrl}
-          </Link>,
+          </Link>
         );
         return link + " "; // add a space only if the word is a URL
       }

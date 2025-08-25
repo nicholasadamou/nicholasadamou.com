@@ -3,7 +3,8 @@ import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 const baseUrl = getBaseUrl();
 
-const description = "I'm always open to new opportunities and challenges. Whether you have a project in mind, want to collaborate, or just want to say hi, I'd love to hear from you.";
+const description =
+  "I'm always open to new opportunities and challenges. Whether you have a project in mind, want to collaborate, or just want to say hi, I'd love to hear from you.";
 
 export const metadata: Metadata = {
   title: "Contact | Nicholas Adamou",
@@ -13,6 +14,11 @@ export const metadata: Metadata = {
     description,
     type: "website",
     url: `${baseUrl}/contact`,
-    images: [{ url: `${baseUrl}/api/og?title=${encodeURIComponent(description)}&type=contact`, alt: "Contact" }],
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=${encodeURIComponent(description)}&type=contact`,
+        alt: "Contact",
+      },
+    ],
   },
 };

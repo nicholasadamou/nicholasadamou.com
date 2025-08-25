@@ -37,7 +37,7 @@ export default function CustomImage({
             "h-auto w-full",
             contained &&
               "overflow-hidden rounded-md border border-secondary bg-secondary md:rounded-lg",
-            size === "lg" && "max-w-none md:-ml-20 md:w-[calc(100%+160px)]",
+            size === "lg" && "max-w-none md:-ml-20 md:w-[calc(100%+160px)]"
           )}
         />
         {caption && <figcaption>{caption}</figcaption>}

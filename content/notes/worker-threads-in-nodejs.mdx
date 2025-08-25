@@ -135,14 +135,14 @@ This approach works, but makes the code more complex and increases the overall e
 Another approach was to use the [`child_process`](https://nodejs.org/api/child_process.html) module to spawn separate Node.js processes:
 
 ```javascript
-const { fork } = require('child_process');
+const { fork } = require("child_process");
 
 function runHeavyTask(data) {
   return new Promise((resolve, reject) => {
-    const child = fork('./heavy-task.js');
+    const child = fork("./heavy-task.js");
 
-    child.on('message', resolve);
-    child.on('error', reject);
+    child.on("message", resolve);
+    child.on("error", reject);
 
     child.send(data);
   });
@@ -150,11 +150,12 @@ function runHeavyTask(data) {
 
 // Usage
 runHeavyTask({ input: 42 })
-  .then(result => console.log(result))
-  .catch(err => console.error(err));
+  .then((result) => console.log(result))
+  .catch((err) => console.error(err));
 ```
 
 While this works, it has significant drawbacks:
+
 - High memory overhead (each process has its own V8 instance)
 - Slow startup time
 - Limited communication (data must be serialized/deserialized)
@@ -212,15 +213,15 @@ Here's a simple example of using worker threads:
 
 ```javascript
 // main.js
-const { Worker } = require('worker_threads');
+const { Worker } = require("worker_threads");
 
 function runWorker(workerData) {
   return new Promise((resolve, reject) => {
-    const worker = new Worker('./worker.js', { workerData });
+    const worker = new Worker("./worker.js", { workerData });
 
-    worker.on('message', resolve);
-    worker.on('error', reject);
-    worker.on('exit', (code) => {
+    worker.on("message", resolve);
+    worker.on("error", reject);
+    worker.on("exit", (code) => {
       if (code !== 0)
         reject(new Error(`Worker stopped with exit code ${code}`));
     });
@@ -229,7 +230,7 @@ function runWorker(workerData) {
 
 async function main() {
   try {
-    const result = await runWorker('Hello from main thread');
+    const result = await runWorker("Hello from main thread");
     console.log(result);
   } catch (err) {
     console.error(err);
@@ -241,7 +242,7 @@ main();
 
 ```javascript
 // worker.js
-const { parentPort, workerData } = require('worker_threads');
+const { parentPort, workerData } = require("worker_threads");
 
 // Perform CPU-intensive task
 function performHeavyTask(data) {
@@ -264,30 +265,33 @@ parentPort.postMessage(result);
 You can also use a single file for both the main thread and worker code:
 
 ```javascript
-const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
+const {
+  Worker,
+  isMainThread,
+  parentPort,
+  workerData,
+} = require("worker_threads");
 
 if (isMainThread) {
   // This code runs in the main thread
 
   const worker = new Worker(__filename, {
-    workerData: 'Hello from main thread'
+    workerData: "Hello from main thread",
   });
 
-  worker.on('message', (result) => {
-    console.log('Worker result:', result);
+  worker.on("message", (result) => {
+    console.log("Worker result:", result);
   });
 
-  worker.on('error', (err) => {
+  worker.on("error", (err) => {
     console.error(err);
   });
 
-  worker.on('exit', (code) => {
-    if (code !== 0)
-      console.error(`Worker stopped with exit code ${code}`);
+  worker.on("exit", (code) => {
+    if (code !== 0) console.error(`Worker stopped with exit code ${code}`);
   });
 
-  console.log('Main thread continues execution...');
-
+  console.log("Main thread continues execution...");
 } else {
   // This code runs in the worker thread
 
@@ -346,11 +350,11 @@ The main thread communicates with workers using `worker.postMessage()` and `work
 
 ```javascript
 // In main thread
-const worker = new Worker('./worker.js');
+const worker = new Worker("./worker.js");
 
-worker.postMessage('Hello worker');
-worker.on('message', (message) => {
-  console.log('Worker says:', message);
+worker.postMessage("Hello worker");
+worker.on("message", (message) => {
+  console.log("Worker says:", message);
 });
 ```
 
@@ -358,11 +362,11 @@ In the worker, you use `parentPort.postMessage()` and `parentPort.on('message')`
 
 ```javascript
 // In worker thread
-const { parentPort } = require('worker_threads');
+const { parentPort } = require("worker_threads");
 
-parentPort.on('message', (message) => {
-  console.log('Main thread says:', message);
-  parentPort.postMessage('Hello main thread');
+parentPort.on("message", (message) => {
+  console.log("Main thread says:", message);
+  parentPort.postMessage("Hello main thread");
 });
 ```
 
@@ -395,7 +399,7 @@ console.log(uint8[0]); // This might have been changed by the worker
 
 ```javascript
 // In worker thread
-parentPort.on('message', ({ shared }) => {
+parentPort.on("message", ({ shared }) => {
   const uint8 = new Uint8Array(shared);
   console.log(uint8[0]); // 123
 
@@ -449,8 +453,8 @@ The diagram above illustrates the worker pool pattern. Instead of creating and d
 
 ```javascript
 // worker-pool.js
-const { Worker } = require('worker_threads');
-const os = require('os');
+const { Worker } = require("worker_threads");
+const os = require("os");
 
 class WorkerPool {
   constructor(workerScript, numWorkers = os.cpus().length) {
@@ -468,7 +472,7 @@ class WorkerPool {
   addNewWorker() {
     const worker = new Worker(this.workerScript);
 
-    worker.on('message', (result) => {
+    worker.on("message", (result) => {
       // Add worker back to free pool
       this.freeWorkers.push(worker);
 
@@ -482,14 +486,14 @@ class WorkerPool {
       }
     });
 
-    worker.on('error', (err) => {
+    worker.on("error", (err) => {
       // Handle worker error
       if (worker.currentReject) {
         worker.currentReject(err);
       }
 
       // Remove this worker and create a new one
-      this.workers = this.workers.filter(w => w !== worker);
+      this.workers = this.workers.filter((w) => w !== worker);
       this.addNewWorker();
     });
 
@@ -529,14 +533,14 @@ module.exports = WorkerPool;
 Usage:
 
 ```javascript
-const WorkerPool = require('./worker-pool');
-const pool = new WorkerPool('./worker.js', 4); // Create 4 workers
+const WorkerPool = require("./worker-pool");
+const pool = new WorkerPool("./worker.js", 4); // Create 4 workers
 
 async function main() {
   const results = await Promise.all([
-    pool.exec({ type: 'fibonacci', n: 42 }),
-    pool.exec({ type: 'prime', max: 10000000 }),
-    pool.exec({ type: 'hash', data: 'large-data' }),
+    pool.exec({ type: "fibonacci", n: 42 }),
+    pool.exec({ type: "prime", max: 10000000 }),
+    pool.exec({ type: "hash", data: "large-data" }),
     // More tasks...
   ]);
 
@@ -605,19 +609,19 @@ The diagram above illustrates a common pattern for parallel data processing with
 
 ```javascript
 // main.js
-const { Worker } = require('worker_threads');
-const fs = require('fs');
-const path = require('path');
+const { Worker } = require("worker_threads");
+const fs = require("fs");
+const path = require("path");
 
 async function resizeImage(imagePath, width, height) {
   return new Promise((resolve, reject) => {
-    const worker = new Worker('./image-worker.js', {
-      workerData: { imagePath, width, height }
+    const worker = new Worker("./image-worker.js", {
+      workerData: { imagePath, width, height },
     });
 
-    worker.on('message', resolve);
-    worker.on('error', reject);
-    worker.on('exit', (code) => {
+    worker.on("message", resolve);
+    worker.on("error", reject);
+    worker.on("exit", (code) => {
       if (code !== 0)
         reject(new Error(`Worker stopped with exit code ${code}`));
     });
@@ -625,12 +629,12 @@ async function resizeImage(imagePath, width, height) {
 }
 
 async function processImages() {
-  const imageDir = './images';
+  const imageDir = "./images";
   const files = fs.readdirSync(imageDir);
 
   const tasks = files
-    .filter(file => /\.(jpg|jpeg|png)$/i.test(file))
-    .map(file => {
+    .filter((file) => /\.(jpg|jpeg|png)$/i.test(file))
+    .map((file) => {
       const imagePath = path.join(imageDir, file);
       return resizeImage(imagePath, 800, 600);
     });
@@ -644,9 +648,9 @@ processImages().catch(console.error);
 
 ```javascript
 // image-worker.js
-const { parentPort, workerData } = require('worker_threads');
-const sharp = require('sharp');
-const path = require('path');
+const { parentPort, workerData } = require("worker_threads");
+const sharp = require("sharp");
+const path = require("path");
 
 async function resizeImage() {
   const { imagePath, width, height } = workerData;
@@ -655,16 +659,14 @@ async function resizeImage() {
     `resized-${path.basename(imagePath)}`
   );
 
-  await sharp(imagePath)
-    .resize(width, height)
-    .toFile(outputPath);
+  await sharp(imagePath).resize(width, height).toFile(outputPath);
 
   return { original: imagePath, resized: outputPath };
 }
 
 resizeImage()
-  .then(result => parentPort.postMessage(result))
-  .catch(err => {
+  .then((result) => parentPort.postMessage(result))
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
@@ -674,18 +676,18 @@ resizeImage()
 
 ```javascript
 // main.js
-const { Worker } = require('worker_threads');
-const os = require('os');
+const { Worker } = require("worker_threads");
+const os = require("os");
 
 function analyzeDataChunk(chunk) {
   return new Promise((resolve, reject) => {
-    const worker = new Worker('./analysis-worker.js', {
-      workerData: chunk
+    const worker = new Worker("./analysis-worker.js", {
+      workerData: chunk,
     });
 
-    worker.on('message', resolve);
-    worker.on('error', reject);
-    worker.on('exit', (code) => {
+    worker.on("message", resolve);
+    worker.on("error", reject);
+    worker.on("exit", (code) => {
       if (code !== 0)
         reject(new Error(`Worker stopped with exit code ${code}`));
     });
@@ -704,7 +706,7 @@ async function analyzeData(data) {
 
   // Process each chunk in parallel
   const results = await Promise.all(
-    chunks.map(chunk => analyzeDataChunk(chunk))
+    chunks.map((chunk) => analyzeDataChunk(chunk))
   );
 
   // Combine results
@@ -715,26 +717,28 @@ async function analyzeData(data) {
 }
 
 // Example usage
-const largeDataset = Array(1000000).fill().map((_, i) => ({
-  id: i,
-  value: Math.random() * 1000
-}));
+const largeDataset = Array(1000000)
+  .fill()
+  .map((_, i) => ({
+    id: i,
+    value: Math.random() * 1000,
+  }));
 
 analyzeData(largeDataset)
-  .then(result => console.log('Analysis complete:', result))
-  .catch(err => console.error('Analysis failed:', err));
+  .then((result) => console.log("Analysis complete:", result))
+  .catch((err) => console.error("Analysis failed:", err));
 ```
 
 ```javascript
 // analysis-worker.js
-const { parentPort, workerData } = require('worker_threads');
+const { parentPort, workerData } = require("worker_threads");
 
 function analyzeData(data) {
   // Perform CPU-intensive analysis
   const sum = data.reduce((acc, item) => acc + item.value, 0);
   const avg = sum / data.length;
-  const max = Math.max(...data.map(item => item.value));
-  const min = Math.min(...data.map(item => item.value));
+  const max = Math.max(...data.map((item) => item.value));
+  const min = Math.min(...data.map((item) => item.value));
 
   return { sum, avg, max, min, count: data.length };
 }
@@ -747,18 +751,18 @@ parentPort.postMessage(result);
 
 ```javascript
 // main.js
-const { Worker } = require('worker_threads');
-const crypto = require('crypto');
+const { Worker } = require("worker_threads");
+const crypto = require("crypto");
 
 function hashPassword(password, iterations = 100000) {
   return new Promise((resolve, reject) => {
-    const worker = new Worker('./crypto-worker.js', {
-      workerData: { password, iterations }
+    const worker = new Worker("./crypto-worker.js", {
+      workerData: { password, iterations },
     });
 
-    worker.on('message', resolve);
-    worker.on('error', reject);
-    worker.on('exit', (code) => {
+    worker.on("message", resolve);
+    worker.on("error", reject);
+    worker.on("exit", (code) => {
       if (code !== 0)
         reject(new Error(`Worker stopped with exit code ${code}`));
     });
@@ -766,42 +770,36 @@ function hashPassword(password, iterations = 100000) {
 }
 
 async function hashPasswords(passwords) {
-  const promises = passwords.map(password => hashPassword(password));
+  const promises = passwords.map((password) => hashPassword(password));
   return Promise.all(promises);
 }
 
 // Example usage
 const passwords = [
-  'password123',
-  'securePassword!',
-  'anotherPassword',
+  "password123",
+  "securePassword!",
+  "anotherPassword",
   // ... more passwords
 ];
 
 hashPasswords(passwords)
-  .then(hashes => console.log('Passwords hashed:', hashes))
-  .catch(err => console.error('Hashing failed:', err));
+  .then((hashes) => console.log("Passwords hashed:", hashes))
+  .catch((err) => console.error("Hashing failed:", err));
 ```
 
 ```javascript
 // crypto-worker.js
-const { parentPort, workerData } = require('worker_threads');
-const crypto = require('crypto');
+const { parentPort, workerData } = require("worker_threads");
+const crypto = require("crypto");
 
 function hashPassword(password, iterations) {
   const salt = crypto.randomBytes(16);
-  const hash = crypto.pbkdf2Sync(
-    password,
-    salt,
-    iterations,
-    64,
-    'sha512'
-  );
+  const hash = crypto.pbkdf2Sync(password, salt, iterations, 64, "sha512");
 
   return {
-    salt: salt.toString('hex'),
-    hash: hash.toString('hex'),
-    iterations
+    salt: salt.toString("hex"),
+    hash: hash.toString("hex"),
+    iterations,
   };
 }
 
@@ -839,7 +837,7 @@ Monitor your workers' CPU and memory usage to ensure they're performing as expec
 For optimal performance, match the number of workers to the number of available CPU cores:
 
 ```javascript
-const os = require('os');
+const os = require("os");
 const numWorkers = os.cpus().length;
 ```
 
@@ -876,9 +874,9 @@ Depending on your use case, you might consider these alternatives:
 For scaling a Node.js server across multiple cores, the `cluster` module is often a better choice:
 
 ```javascript
-const cluster = require('cluster');
-const http = require('http');
-const numCPUs = require('os').cpus().length;
+const cluster = require("cluster");
+const http = require("http");
+const numCPUs = require("os").cpus().length;
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -888,16 +886,18 @@ if (cluster.isMaster) {
     cluster.fork();
   }
 
-  cluster.on('exit', (worker, code, signal) => {
+  cluster.on("exit", (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
   // Workers can share any TCP connection
   // In this case it is an HTTP server
-  http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end('Hello World\n');
-  }).listen(8000);
+  http
+    .createServer((req, res) => {
+      res.writeHead(200);
+      res.end("Hello World\n");
+    })
+    .listen(8000);
 
   console.log(`Worker ${process.pid} started`);
 }
@@ -908,18 +908,18 @@ if (cluster.isMaster) {
 For running separate Node.js instances or external programs:
 
 ```javascript
-const { spawn } = require('child_process');
-const ls = spawn('ls', ['-la']);
+const { spawn } = require("child_process");
+const ls = spawn("ls", ["-la"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```

@@ -12,6 +12,7 @@ When writing code, it’s easy to get carried away with nested conditionals and 
 ## Why is Excessive Nesting Problematic?
 
 Excessive nesting can make code:
+
 1. **Harder to Read**: Deeply nested code blocks can obscure the flow of logic, making it challenging to see the “big picture.”
 2. **Difficult to Maintain**: When bugs arise, or new requirements emerge, modifying highly nested code often leads to more errors or the need for complete rewrites.
 3. **Error-Prone**: Deep nesting increases cognitive load, as developers have to keep track of multiple levels of context, which can lead to mistakes.
@@ -91,7 +92,7 @@ We can reduce the complexity by using a `Set` to eliminate the inner loop:
 ```javascript
 function findMatchingPairs(array1, array2) {
   const set2 = new Set(array2);
-  return array1.filter(item => set2.has(item));
+  return array1.filter((item) => set2.has(item));
 }
 ```
 
@@ -136,7 +137,8 @@ function isPaidOrder(order) {
 }
 
 function processOrder(order) {
-  if (!isValidOrder(order)) return "Order not processed: Invalid or empty order";
+  if (!isValidOrder(order))
+    return "Order not processed: Invalid or empty order";
   if (!isPaidOrder(order)) return "Order not processed: Payment required";
 
   // Process the order
@@ -149,6 +151,7 @@ This approach improves readability by making each condition’s purpose explicit
 ## Benefits of Reducing Nesting
 
 By reducing nesting, you can create functions that are:
+
 - **Easier to Read**: Each line of code tells a single, clear story.
 - **More Maintainable**: Smaller functions with limited nesting make it easier to troubleshoot and update specific parts of the code.
 - **Less Error-Prone**: With reduced cognitive load, there’s a lower risk of overlooking conditions or making logic errors.
@@ -157,20 +160,20 @@ By reducing nesting, you can create functions that are:
 
 These resources can help you further improve your code quality and readability.
 
-*Books*
+_Books_
 
 - [Refactoring: Improving the Design of Existing Code](https://www.oreilly.com/library/view/refactoring-improving-the/9780134757681/): A classic book on refactoring techniques to improve code quality.
 - [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.oreilly.com/library/view/clean-code-a/9780136083238/): Offers practical advice on writing clean, maintainable code.
 
-*Videos*
+_Videos_
 
-The following video serves as an exceptional resource for why "never nesting" is a great practice to follow. Are you a "*never nester*"?
+The following video serves as an exceptional resource for why "never nesting" is a great practice to follow. Are you a "_never nester_"?
 
 <YouTubeEmbed url="https://www.youtube.com/embed/CFRhGnuXG-4" inline />
 
 Given that, I highly recommend subscribing to [CodeAesthetic](https://www.youtube.com/@CodeAesthetic)'s channel for more deeply insightful development content.
 
-*Tools*
+_Tools_
 
 <YouTubeEmbed url="https://youtube.com/embed/Ks4Slmzb1qY" inline />
 

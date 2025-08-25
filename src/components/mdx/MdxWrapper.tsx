@@ -10,16 +10,16 @@ import SourceCodeAccess from "@/components/mdx/GitHub/SourceCodeAccess";
 import Latex from "@/components/mdx/Latex";
 
 const components = {
-	Image: CustomImage,
-	a: CustomLink,
-	Link: CustomLink,
-	Alert: Alert,
-	LinkPreview: LinkPreview,
-	plantuml: PlantUML,
-	PlantUML: PlantUML,
-	YouTubeEmbed: YouTubeEmbed,
-	SourceCodeAccess: SourceCodeAccess,
-	latex: Latex
+  Image: CustomImage,
+  a: CustomLink,
+  Link: CustomLink,
+  Alert: Alert,
+  LinkPreview: LinkPreview,
+  plantuml: PlantUML,
+  PlantUML: PlantUML,
+  YouTubeEmbed: YouTubeEmbed,
+  SourceCodeAccess: SourceCodeAccess,
+  latex: Latex,
 };
 
 export default function MdxWrapper({ code }: { code: string }) {

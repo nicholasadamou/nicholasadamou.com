@@ -14,7 +14,7 @@ The classic form of a fork bomb looks like this:
 
 ```bash
 :(){ :|:& };:
-````
+```
 
 Let’s break it down step by step.
 
@@ -32,9 +32,9 @@ The function body is:
 :|:&
 ```
 
-* `:` calls itself.
-* `|` pipes its output into another call to itself.
-* `&` sends both calls to the background, allowing the parent to continue and spawn more.
+- `:` calls itself.
+- `|` pipes its output into another call to itself.
+- `&` sends both calls to the background, allowing the parent to continue and spawn more.
 
 This means **each function call spawns two new ones**, exponentially increasing the number of processes.
 

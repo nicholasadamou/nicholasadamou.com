@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 // Define proper types based on contentlayer schema
 export interface Note {
@@ -63,7 +63,7 @@ export interface Project {
 function readJsonFile<T>(filePath: string): T[] {
   try {
     const fullPath = path.join(process.cwd(), filePath);
-    const fileContent = fs.readFileSync(fullPath, 'utf8');
+    const fileContent = fs.readFileSync(fullPath, "utf8");
     return JSON.parse(fileContent);
   } catch (error) {
     console.error(`Error reading ${filePath}:`, error);
@@ -72,5 +72,9 @@ function readJsonFile<T>(filePath: string): T[] {
 }
 
 // Load data from the generated JSON files
-export const allNotes = readJsonFile<Note>('.contentlayer/generated/Note/_index.json');
-export const allProjects = readJsonFile<Project>('.contentlayer/generated/Project/_index.json');
+export const allNotes = readJsonFile<Note>(
+  ".contentlayer/generated/Note/_index.json"
+);
+export const allProjects = readJsonFile<Project>(
+  ".contentlayer/generated/Project/_index.json"
+);

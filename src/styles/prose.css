@@ -2,36 +2,42 @@
 
 /* Prose Customizations */
 .prose hr {
-	@apply border-primary;
+  @apply border-primary;
 }
 
 .prose blockquote {
-	@apply border-l-2 border-primary font-serif text-base font-light;
+  @apply border-l-2 border-primary font-serif text-base font-light;
 }
 
 .prose figcaption {
-	@apply mx-auto mb-8 mt-2 max-w-md text-center text-sm text-tertiary;
+  @apply mx-auto mb-8 mt-2 max-w-md text-center text-sm text-tertiary;
 }
 
 .prose h3 {
-	@apply mb-2 mt-12 text-base;
+  @apply mb-2 mt-12 text-base;
 }
 
 .prose p code {
-	@apply whitespace-pre-line rounded border border-primary bg-primary px-1 font-normal text-primary;
+  @apply whitespace-pre-line rounded border border-primary bg-primary px-1 font-normal text-primary;
 }
 
 .prose a {
-	color: currentColor;
-	text-decoration: underline;
+  color: currentColor;
+  text-decoration: underline;
 }
 
 /* Override Prose Styling for Code Elements */
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
-	content: none !important;
+.prose
+  :where(code):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  )::before,
+.prose
+  :where(code):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  )::after {
+  content: none !important;
 }
 
-.prose :where(ul):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
-	padding-inline-start: 2.625em !important;
+.prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  padding-inline-start: 2.625em !important;
 }

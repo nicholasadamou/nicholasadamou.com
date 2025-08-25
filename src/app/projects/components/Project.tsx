@@ -8,21 +8,21 @@ import type { Project } from "@/lib/contentlayer-data";
 import { Badge } from "@/components/ui/badge";
 
 type ProjectProps = {
-	project: Project;
-	mousePosition?: {
-		x: number;
-		y: number;
-	};
+  project: Project;
+  mousePosition?: {
+    x: number;
+    y: number;
+  };
 };
 
 export default function Project({ project, mousePosition }: ProjectProps) {
-	const { date, slug, title, image, pinned } = project;
+  const { date, slug, title, image, pinned } = project;
 
-	const imageHeight = 200; // Set to desired height
-	const imageWidth = 350; // Set to desired width
-	const imageOffset = 24;
+  const imageHeight = 200; // Set to desired height
+  const imageWidth = 350; // Set to desired width
+  const imageOffset = 24;
 
-	return (
+  return (
     <li className="group py-3 transition-opacity first:pt-0 last:pb-0">
       <Link href={`/projects/${slug}`}>
         <div className="transition-opacity">
@@ -36,7 +36,8 @@ export default function Project({ project, mousePosition }: ProjectProps) {
               transition={{ ease: "easeOut" }}
               style={{ width: imageWidth, height: imageHeight }}
               {...({
-                className: "pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block"
+                className:
+                  "pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block",
               } as any)}
             >
               <Image
@@ -57,13 +58,13 @@ export default function Project({ project, mousePosition }: ProjectProps) {
                   {title}
                 </span>
                 <span className="text-tertiary">{project.summary}</span>
-								<div className="flex flex-wrap items-center gap-1">
-									{project.technologies?.map((tech) => (
-										<Badge variant="secondary" key={tech}>
-											{tech}
-										</Badge>
-									))}
-								</div>
+                <div className="flex flex-wrap items-center gap-1">
+                  {project.technologies?.map((tech) => (
+                    <Badge variant="secondary" key={tech}>
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </Section>
           </div>

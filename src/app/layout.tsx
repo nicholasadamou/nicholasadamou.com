@@ -13,7 +13,6 @@ import { ThemeProvider } from "@/components/common/ThemeProvider";
 import Navigation from "@/components/common/Navigation";
 import { Footer } from "@/components/common/Footer/Footer";
 
-
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 const baseUrl = getBaseUrl();
@@ -48,16 +47,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="flex flex-col min-h-screen relative width-full text-primary antialiased">
+      <body className="width-full relative flex min-h-screen flex-col text-primary antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
           <main className="mx-auto w-full px-4 pb-24 pt-28">
             {children}
-						<Footer />
+            <Footer />
           </main>
         </ThemeProvider>
         {/* Only render analytics in production or when deployment ID is available */}
-        {process.env.NODE_ENV === 'production' && (
+        {process.env.NODE_ENV === "production" && (
           <>
             <Analytics />
             <SpeedInsights />
