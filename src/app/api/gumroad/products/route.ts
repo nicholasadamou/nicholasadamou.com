@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 
-const { GUMROAD_ACCESS_TOKEN } = process.env;
-
-if (!GUMROAD_ACCESS_TOKEN) {
-  throw new Error("GUMROAD_ACCESS_TOKEN is not set");
+// Function to get Gumroad token with runtime validation
+function getGumroadToken(): string {
+  const GUMROAD_ACCESS_TOKEN = process.env.GUMROAD_ACCESS_TOKEN;
+  if (!GUMROAD_ACCESS_TOKEN) {
+    throw new Error("GUMROAD_ACCESS_TOKEN is not set");
+  }
+  return GUMROAD_ACCESS_TOKEN;
 }
 
 export const GET = async () => {
   try {
+    const token = getGumroadToken();
     const response = await fetch("https://api.gumroad.com/v2/products", {
       headers: {
-        Authorization: `Bearer ${GUMROAD_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
