@@ -2,12 +2,12 @@ name: Shell Script Validation
 
 on:
   push:
-    branches: [master]
+    branches: [master, main]
     paths:
       - 'scripts/**/*.sh'
       - '.github/workflows/shellcheck.yml'
   pull_request:
-    branches: [master]
+    branches: [master, main]
     paths:
       - 'scripts/**/*.sh'
       - '.github/workflows/shellcheck.yml'
