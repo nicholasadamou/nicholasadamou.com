@@ -18,17 +18,19 @@ const addUserSchema = z.object({
   email: z.string().email(),
 });
 
-// Retrieve the GitHub token from the environment variables
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-
-// Throw an error if the GitHub token is not set
-if (!GITHUB_TOKEN) {
-  throw new Error("GitHub token is not set");
+// Function to get GitHub token with runtime validation
+function getGitHubToken(): string {
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  if (!GITHUB_TOKEN) {
+    throw new Error("GitHub token is not set");
+  }
+  return GITHUB_TOKEN;
 }
 
 // Function to create an Octokit instance
 function createOctokitInstance(): Octokit {
-  return new Octokit({ auth: GITHUB_TOKEN });
+  const token = getGitHubToken();
+  return new Octokit({ auth: token });
 }
 
 // Function to validate the request body for user data
