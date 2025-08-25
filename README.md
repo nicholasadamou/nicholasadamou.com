@@ -293,26 +293,19 @@ Copy `.env.example` to `.env.local` and configure:
 ```bash
 # Database (Vercel Postgres)
 POSTGRES_URL="postgres://..."
-POSTGRES_PRISMA_URL="postgres://..."
-POSTGRES_URL_NON_POOLING="postgres://..."
-POSTGRES_USER="..."
-POSTGRES_HOST="..."
-POSTGRES_PASSWORD="..."
-POSTGRES_DATABASE="..."
 
 # Analytics (optional)
 NEXT_PUBLIC_VERCEL_ANALYTICS_ID="..."
 
 # Email (for contact form)
-SMTP_HOST="..."
-SMTP_PORT="..."
-SMTP_USER="..."
-SMTP_PASSWORD="..."
+FORMCARRY_URL=https://formcarry.com/s/...
 
 # External APIs (optional)
 GITHUB_TOKEN="..."
 GUMROAD_ACCESS_TOKEN="..."
 YOUTUBE_API_KEY="..."
+UNSPLASH_ACCESS_KEY="..."
+UNSPLASH_SECRET_KEY="..."
 ```
 
 ## 🚢 Deployment
