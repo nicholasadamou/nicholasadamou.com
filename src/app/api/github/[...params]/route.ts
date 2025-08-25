@@ -105,6 +105,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const token = getGitHubToken();
     let page = 1;
     let allRepos: Repo[] = [];
     let shouldFetchMore = true;
@@ -115,7 +116,7 @@ export async function GET(req: NextRequest) {
         `https://api.github.com/users/${username}/repos?page=${page}&per_page=100`,
         {
           headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
+            Authorization: `token ${token}`,
             Accept: "application/vnd.github.v3+json", // Set the Accept header for proper API versioning
           },
         }
