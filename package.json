@@ -30,6 +30,7 @@
     "act:coverage": "act -W .github/workflows/coverage.yml",
     "act:shellcheck": "act -W .github/workflows/shellcheck.yml",
     "act:dryrun": "act --dryrun",
+    "unsplash:update": "node scripts/update-unsplash-data.mjs",
     "prepare": "husky"
   },
   "dependencies": {
