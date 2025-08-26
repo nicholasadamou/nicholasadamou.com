@@ -234,8 +234,41 @@ async function main() {
 
   // Check if API key is configured
   if (!process.env.UNSPLASH_ACCESS_KEY) {
-    console.error("❌ UNSPLASH_ACCESS_KEY environment variable not configured");
-    process.exit(1);
+    console.warn("⚠️  UNSPLASH_ACCESS_KEY environment variable not configured");
+    console.log("🔧 Running in fallback mode - creating empty manifest");
+
+    // Create empty manifest for CI builds without API keys
+    const manifest = {
+      generated_at: new Date().toISOString(),
+      build_version: "2.0.0",
+      images: {},
+      stats: {
+        total_found: 0,
+        successfully_cached: 0,
+        failed_to_cache: 0,
+        success_rate: "0%",
+      },
+      metadata: {
+        scan_timestamp: Date.now(),
+        environment: process.env.NODE_ENV || "development",
+        has_secret_key: !!process.env.UNSPLASH_SECRET_KEY,
+        fallback_mode: true,
+        reason: "No API key configured",
+      },
+    };
+
+    const manifestDir = path.join(process.cwd(), "public");
+    await fs.mkdir(manifestDir, { recursive: true });
+    await fs.writeFile(
+      path.join(manifestDir, "unsplash-manifest.json"),
+      JSON.stringify(manifest, null, 2)
+    );
+
+    console.log("📄 Fallback manifest created successfully");
+    console.log(
+      "💡 To enable image caching, set UNSPLASH_ACCESS_KEY environment variable"
+    );
+    return;
   }
 
   console.log("✅ Unsplash API key configured");
@@ -300,14 +333,25 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
 
-  // Generate manifest file
+  // Generate comprehensive manifest file
   const manifest = {
     generated_at: new Date().toISOString(),
+    build_version: "2.0.0",
     images: imageManifest,
     stats: {
       total_found: imageUrls.length,
       successfully_cached: cached,
       failed_to_cache: failed,
+      success_rate:
+        imageUrls.length > 0
+          ? ((cached / imageUrls.length) * 100).toFixed(1) + "%"
+          : "0%",
+    },
+    // Add metadata for debugging
+    metadata: {
+      scan_timestamp: Date.now(),
+      environment: process.env.NODE_ENV || "development",
+      has_secret_key: !!process.env.UNSPLASH_SECRET_KEY,
     },
   };
 

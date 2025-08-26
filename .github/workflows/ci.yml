@@ -137,6 +137,8 @@ jobs:
         run: pnpm run build
         env:
           NODE_ENV: production
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          UNSPLASH_SECRET_KEY: ${{ secrets.UNSPLASH_SECRET_KEY }}
 
       - name: Check for build artifacts
         run: |
