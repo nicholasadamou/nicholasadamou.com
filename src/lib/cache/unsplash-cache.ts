@@ -75,19 +75,29 @@ class UnsplashCache {
     try {
       // Try Redis first
       if (this.redis) {
-        const cached = await this.redis.get(this.generateCacheKey(photoId));
-        if (cached) {
-          this.stats.hits++;
-          const parsed = JSON.parse(cached) as CachedUnsplashPhoto;
+        try {
+          const cached = await this.redis.get(this.generateCacheKey(photoId));
+          if (cached) {
+            try {
+              const parsed = JSON.parse(cached) as CachedUnsplashPhoto;
 
-          // Check if cache is still valid (not older than 24 hours)
-          if (Date.now() - parsed.cached_at < this.CACHE_DURATION * 1000) {
-            console.log(`🎯 Redis cache HIT for photo: ${photoId}`);
-            return parsed;
-          } else {
-            // Cache expired, remove it
-            await this.redis.del(this.generateCacheKey(photoId));
+              // Check if cache is still valid (not older than 24 hours)
+              if (Date.now() - parsed.cached_at < this.CACHE_DURATION * 1000) {
+                this.stats.hits++;
+                console.log(`🎯 Redis cache HIT for photo: ${photoId}`);
+                return parsed;
+              } else {
+                // Cache expired, remove it
+                await this.redis.del(this.generateCacheKey(photoId));
+              }
+            } catch (parseError) {
+              console.error("JSON parse error for Redis data:", parseError);
+              // Continue to memory cache fallback
+            }
           }
+        } catch (redisError) {
+          console.error("Redis get error:", redisError);
+          // Continue to memory cache fallback
         }
       }
 
@@ -217,5 +227,6 @@ class UnsplashCache {
 // Singleton instance
 export const unsplashCache = new UnsplashCache();
 
-// Export types
+// Export class and types
+export { UnsplashCache };
 export type { CachedUnsplashPhoto, CacheStats };

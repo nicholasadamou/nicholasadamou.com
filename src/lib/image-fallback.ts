@@ -43,6 +43,12 @@ export interface ImageMetadata {
 let localManifestCache: LocalImageManifest | null = null;
 let localManifestFetchPromise: Promise<LocalImageManifest | null> | null = null;
 
+// Function to reset cache for testing
+export function resetManifestCache(): void {
+  localManifestCache = null;
+  localManifestFetchPromise = null;
+}
+
 // Dynamically load the local manifest (handles cases where it might not exist)
 async function loadLocalManifest(): Promise<LocalImageManifest | null> {
   if (localManifestCache !== null) {
@@ -68,29 +74,38 @@ async function loadLocalManifest(): Promise<LocalImageManifest | null> {
         console.log(
           "📄 Local image manifest not available, using fallback system"
         );
-        localManifestCache = {
-          generated_at: "",
-          version: "",
-          source_manifest: "",
-          images: {},
-          stats: { total_images: 0, downloaded: 0, failed: 0, skipped: 0 },
-        };
-        return localManifestCache;
+        localManifestCache = null; // Signal that manifest failed to load
+        return null;
       }
     } catch (error) {
       console.log("📄 Local image manifest not found, using fallback system");
-      localManifestCache = {
-        generated_at: "",
-        version: "",
-        source_manifest: "",
-        images: {},
-        stats: { total_images: 0, downloaded: 0, failed: 0, skipped: 0 },
-      };
-      return localManifestCache;
+      localManifestCache = null; // Signal that manifest failed to load
+      return null;
     }
   })();
 
   return localManifestFetchPromise;
+}
+
+/**
+ * Validate if a string matches typical Unsplash photo ID patterns
+ * Unsplash IDs are typically 11-12 characters with a mix of letters, numbers, and underscores
+ */
+function isValidPhotoIdFormat(id: string): boolean {
+  // Must be 11-12 characters
+  if (id.length < 11 || id.length > 12) {
+    return false;
+  }
+
+  // Must contain at least one letter and one number (or underscore)
+  // This helps filter out simple words like "hotoid12345" which is all lowercase + numbers
+  const hasUppercase = /[A-Z]/.test(id);
+  const hasLowercase = /[a-z]/.test(id);
+  const hasNumber = /[0-9]/.test(id);
+  const hasUnderscore = /_/.test(id);
+
+  // Valid Unsplash IDs typically have mixed case or contain underscores
+  return (hasUppercase && (hasLowercase || hasNumber)) || hasUnderscore;
 }
 
 /**
@@ -104,27 +119,20 @@ export function extractUnsplashPhotoId(url: string): string | null {
   const cleanUrl = url.replace(/["'.,;:!?]+$/, "");
 
   // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
+  // Unsplash IDs typically contain both letters and numbers, and often have underscores
   const pageUrlMatch = cleanUrl.match(
-    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
+    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11,12})(?:[\?#]|$)/
   );
-  if (pageUrlMatch) {
+  if (pageUrlMatch && isValidPhotoIdFormat(pageUrlMatch[1])) {
     return pageUrlMatch[1];
   }
 
   // Handle simple page URLs: https://unsplash.com/photos/{id}
   const simplePageMatch = cleanUrl.match(
-    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
+    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11,12})(?:[\?#]|$)/
   );
-  if (simplePageMatch) {
+  if (simplePageMatch && isValidPhotoIdFormat(simplePageMatch[1])) {
     return simplePageMatch[1];
-  }
-
-  // Handle URLs where the ID is at the end of the path (without slug)
-  const endMatch = cleanUrl.match(
-    /https:\/\/unsplash\.com\/photos\/[^/]*([a-zA-Z0-9_-]{11})$/
-  );
-  if (endMatch) {
-    return endMatch[1];
   }
 
   return null;
@@ -216,9 +224,12 @@ export async function getImageMetadata(imageUrl: string): Promise<{
 
   return {
     photoId,
-    localPath: localImage?.local_path || null,
+    localPath:
+      localImage?.local_path && localImage.local_path !== ""
+        ? localImage.local_path
+        : null,
     author: localImage?.author || null,
-    isLocal: !!localImage?.local_path,
+    isLocal: !!localImage?.local_path && localImage.local_path !== "",
   };
 }
 

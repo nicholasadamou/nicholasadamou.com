@@ -114,6 +114,12 @@ export function getOptimizedUnsplashUrl(
 export async function getUnsplashPhoto(
   photoId: string
 ): Promise<UnsplashImageData | null> {
+  // Check if API key is configured
+  if (!process.env.UNSPLASH_ACCESS_KEY) {
+    console.error("❌ UNSPLASH_ACCESS_KEY environment variable is not set");
+    return null;
+  }
+
   try {
     const resp = await fetch(`https://api.unsplash.com/photos/${photoId}`, {
       headers: {
@@ -152,22 +158,32 @@ export async function getUnsplashPhoto(
 export function extractUnsplashPhotoId(url: string): string | null {
   if (!url || !url.includes("unsplash.com/photos/")) return null;
 
+  // Clean the URL first by removing any trailing punctuation
+  const cleanUrl = url.replace(/["'.,;:!?]+$/, "");
+
   // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
   // The photo ID is typically the last segment after the final hyphen and contains alphanumeric characters and underscores
-  const pageUrlMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
+  const pageUrlMatch = cleanUrl.match(
+    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11,12})(?:[\?#]|$)/
   );
   if (pageUrlMatch) {
     return pageUrlMatch[1];
   }
 
   // Handle simple page URLs: https://unsplash.com/photos/{id}
-  // For URLs that might just be the photo ID without a slug
-  const simplePageMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
+  // For URLs that might just be the photo ID without a slug (11-12 characters)
+  const simplePageMatch = cleanUrl.match(
+    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11,12})(?:[\?#]|$)/
   );
   if (simplePageMatch) {
     return simplePageMatch[1];
+  }
+
+  // Extract all potential 11-12 character IDs and pick the last one (most likely to be the photo ID)
+  const allMatches = cleanUrl.match(/[a-zA-Z0-9_-]{11,12}/g);
+  if (allMatches && allMatches.length > 0) {
+    // Return the last match, which is usually the photo ID
+    return allMatches[allMatches.length - 1];
   }
 
   return null;

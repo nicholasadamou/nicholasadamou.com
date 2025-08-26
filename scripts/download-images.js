@@ -33,6 +33,18 @@ function getImageExtension(url) {
   return formatMatch ? formatMatch[1] : "jpg";
 }
 
+function constructDownloadUrl(photoId, ixid) {
+  // Construct the unwatermarked download URL
+  // Format: https://unsplash.com/photos/{photoId}/download?ixid={ixid}&force=true
+  return `https://unsplash.com/photos/${photoId}/download?ixid=${ixid}&force=true`;
+}
+
+function extractIxidFromUrl(url) {
+  // Extract ixid parameter from URL
+  const ixidMatch = url.match(/[?&]ixid=([^&]+)/);
+  return ixidMatch ? ixidMatch[1] : null;
+}
+
 function createProgressBar(total) {
   let completed = 0;
 
@@ -110,6 +122,25 @@ async function downloadImagesBatch(imageEntries, progressBar) {
     const batch = imageEntries.slice(i, i + CONFIG.concurrency);
 
     const batchPromises = batch.map(async ([photoId, imageData]) => {
+      // Determine which URL to use for downloading
+      let downloadUrl;
+      let isUnwatermarked = false;
+
+      // Extract ixid from the optimized_url to construct download URL
+      const ixid = extractIxidFromUrl(imageData.optimized_url);
+
+      if (ixid) {
+        // Use unwatermarked download URL
+        downloadUrl = constructDownloadUrl(photoId, ixid);
+        isUnwatermarked = true;
+      } else {
+        // Fallback to optimized_url if we can't extract ixid
+        downloadUrl = imageData.optimized_url;
+        console.warn(
+          `⚠️  Could not extract ixid for ${photoId}, using optimized URL`
+        );
+      }
+
       const extension = getImageExtension(imageData.optimized_url);
       const filename = `${sanitizeFilename(photoId)}.${extension}`;
       const filepath = path.join(CONFIG.downloadDir, filename);
@@ -128,21 +159,25 @@ async function downloadImagesBatch(imageEntries, progressBar) {
         // File doesn't exist, proceed with download
       }
 
-      const result = await downloadImage(imageData.optimized_url, filepath);
+      const result = await downloadImage(downloadUrl, filepath);
 
       if (result.success) {
         results.successful.push({
           photoId,
           filepath: result.filepath,
           author: imageData.image_author,
-          url: imageData.optimized_url,
+          url: downloadUrl,
+          unwatermarked: isUnwatermarked,
+          original_url: imageData.optimized_url,
         });
       } else {
         results.failed.push({
           photoId,
           filepath: result.filepath,
           error: result.error,
-          url: imageData.optimized_url,
+          url: downloadUrl,
+          unwatermarked: isUnwatermarked,
+          original_url: imageData.optimized_url,
         });
       }
 
@@ -186,9 +221,11 @@ async function createLocalManifest(results, originalManifest) {
     );
     localManifest.images[item.photoId] = {
       local_path: `/${relativePath.replace(/\\/g, "/")}`, // Ensure forward slashes for web
-      original_url: item.url,
+      download_url: item.url,
+      optimized_url: item.original_url,
       author: item.author,
       downloaded_at: new Date().toISOString(),
+      unwatermarked: item.unwatermarked,
     };
   });
 
@@ -244,7 +281,10 @@ async function main() {
   console.log(`📁 Download directory: ${CONFIG.downloadDir}`);
   console.log(`🔧 Concurrency: ${CONFIG.concurrency} simultaneous downloads`);
   console.log(`⏱️  Timeout: ${CONFIG.timeout / 1000}s per download`);
-  console.log(`🔄 Retries: ${CONFIG.retries} attempts per image\n`);
+  console.log(`🔄 Retries: ${CONFIG.retries} attempts per image`);
+  console.log(
+    `🎨 Mode: Downloading unwatermarked versions via Unsplash download API\n`
+  );
 
   // Create download directory
   await fs.mkdir(CONFIG.downloadDir, { recursive: true });
@@ -292,31 +332,6 @@ async function main() {
   );
 
   console.log("\n🎉 Image download complete!");
-  console.log("\n💡 Integration Tips:");
-  console.log("   • Images are now available locally for offline fallback");
-  console.log(
-    "   • Use the local-manifest.json to map photo IDs to local paths"
-  );
-  console.log(
-    "   • Update your UniversalImage component to check local files first"
-  );
-  console.log("   • Run this script after updating your Unsplash manifest");
-
-  // Show sample integration code
-  console.log("\n📝 Sample integration code:");
-  console.log(`
-  // In your image component:
-  const localManifest = require('./public/images/unsplash/local-manifest.json');
-  
-  function getImageSrc(photoId, fallbackUrl) {
-    // Try local first
-    if (localManifest.images[photoId]?.local_path) {
-      return localManifest.images[photoId].local_path;
-    }
-    // Fall back to API/external URL
-    return fallbackUrl;
-  }
-  `);
 
   if (results.failed.length > 0) {
     console.log(

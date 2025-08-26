@@ -123,35 +123,63 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
       setLoading(true);
 
       try {
-        // STEP 1: Try local downloaded images first (fastest option)
-        const localImageSrc = await getOptimizedImageSrc(src);
-        if (
-          localImageSrc !== src &&
-          localImageSrc.startsWith("/images/unsplash/")
-        ) {
-          console.log(`🏠 Using local downloaded image: ${photoId}`);
-          setActualImageSrc(localImageSrc);
-          setLoading(false);
-          return;
-        }
+        // PRODUCTION: Always use Unsplash CDN URLs to comply with hotlinking requirement
+        // Per Unsplash API Terms: "Photos must be hotlinked to the original image URL on Unsplash"
+        if (process.env.NODE_ENV === "production") {
+          // STEP 1: Try the static build manifest (cached at build time)
+          const manifest = await getUnsplashManifest();
+          if (manifest && manifest.images[photoId]) {
+            const imageData = manifest.images[photoId];
+            console.log(
+              `🎯 Using Unsplash CDN from build manifest: ${photoId}`
+            );
 
-        // STEP 2: Try the static build manifest (cached at build time)
-        const manifest = await getUnsplashManifest();
-        if (manifest && manifest.images[photoId]) {
-          const imageData = manifest.images[photoId];
-          console.log(`🎯 Using cached image from build manifest: ${photoId}`);
-
-          // Use the optimized URL from the manifest
-          if (imageData.optimized_url) {
-            setActualImageSrc(imageData.optimized_url);
-          } else if (imageData.urls?.regular) {
-            setActualImageSrc(imageData.urls.regular);
+            // Use the optimized URL from the manifest (Unsplash CDN)
+            if (imageData.optimized_url) {
+              setActualImageSrc(imageData.optimized_url);
+            } else if (imageData.urls?.regular) {
+              setActualImageSrc(imageData.urls.regular);
+            }
+            setLoading(false);
+            return;
           }
-          setLoading(false);
-          return;
+
+          // STEP 2: Fall back to runtime API call
+        } else {
+          // DEVELOPMENT: Try local downloaded images first for faster loading
+          const localImageSrc = await getOptimizedImageSrc(src);
+          if (
+            localImageSrc !== src &&
+            localImageSrc.startsWith("/images/unsplash/")
+          ) {
+            console.log(
+              `🏠 Using local downloaded image (dev only): ${photoId}`
+            );
+            setActualImageSrc(localImageSrc);
+            setLoading(false);
+            return;
+          }
+
+          // Try the static build manifest in development too
+          const manifest = await getUnsplashManifest();
+          if (manifest && manifest.images[photoId]) {
+            const imageData = manifest.images[photoId];
+            console.log(
+              `🎯 Using cached image from build manifest: ${photoId}`
+            );
+
+            // Use the optimized URL from the manifest
+            if (imageData.optimized_url) {
+              setActualImageSrc(imageData.optimized_url);
+            } else if (imageData.urls?.regular) {
+              setActualImageSrc(imageData.urls.regular);
+            }
+            setLoading(false);
+            return;
+          }
         }
 
-        // STEP 3: Fall back to runtime API call (slowest but most reliable)
+        // STEP 3: Fall back to runtime API call (both prod and dev)
         console.log(
           `🌐 Image not found locally or in manifest, fetching from API: ${photoId}`
         );
