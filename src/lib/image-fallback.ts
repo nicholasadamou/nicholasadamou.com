@@ -150,6 +150,10 @@ export async function getOptimizedImageSrc(
   // Load local manifest
   const manifest = await loadLocalManifest();
 
+  if (!manifest) {
+    return fallbackUrl || imageUrl;
+  }
+
   // Try local image first
   const localImage = manifest.images[photoId];
   if (localImage?.local_path) {
@@ -199,6 +203,15 @@ export async function getImageMetadata(imageUrl: string): Promise<{
   }
 
   const manifest = await loadLocalManifest();
+  if (!manifest) {
+    return {
+      photoId,
+      localPath: null,
+      author: null,
+      isLocal: false,
+    };
+  }
+
   const localImage = manifest.images[photoId];
 
   return {

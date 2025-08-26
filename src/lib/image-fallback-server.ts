@@ -79,6 +79,9 @@ export function getOptimizedImageSrcSync(
   }
 
   const manifest = loadLocalManifestSync();
+  if (!manifest) {
+    return fallbackUrl || imageUrl;
+  }
   const localImage = manifest.images[photoId];
 
   if (localImage?.local_path) {
@@ -100,6 +103,14 @@ export function getImageMetadataSync(imageUrl: string): ImageMetadata | null {
   }
 
   const manifest = loadLocalManifestSync();
+  if (!manifest) {
+    return {
+      photoId,
+      localPath: null,
+      author: null,
+      isLocal: false,
+    };
+  }
   const localImage = manifest.images[photoId];
 
   return {
@@ -123,7 +134,7 @@ export function isImageLocalSync(imageUrl: string): boolean {
  */
 export function getAllLocalImages(): Record<string, any> {
   const manifest = loadLocalManifestSync();
-  return manifest.images;
+  return manifest?.images || {};
 }
 
 /**
@@ -137,6 +148,15 @@ export function getLocalManifestStats(): {
   generated_at: string;
 } {
   const manifest = loadLocalManifestSync();
+  if (!manifest) {
+    return {
+      total_images: 0,
+      downloaded: 0,
+      failed: 0,
+      skipped: 0,
+      generated_at: "",
+    };
+  }
   return {
     ...manifest.stats,
     generated_at: manifest.generated_at,
@@ -189,6 +209,18 @@ export function isLocalManifestCurrent(): {
     console.warn("[Server] Failed to load build manifest:", error);
   }
 
+  if (!localManifest) {
+    return {
+      isCurrent: false,
+      localGenerated: "",
+      buildManifestGenerated: buildManifest?.generated_at || null,
+      localImageCount: 0,
+      buildManifestImageCount: buildManifest
+        ? Object.keys(buildManifest.images).length
+        : null,
+    };
+  }
+
   return {
     isCurrent: localManifest.source_manifest === buildManifest?.generated_at,
     localGenerated: localManifest.generated_at,
@@ -226,6 +258,14 @@ export function validateLocalImages(): {
   const manifest = loadLocalManifestSync();
   const valid: string[] = [];
   const missing: string[] = [];
+
+  if (!manifest) {
+    return {
+      valid,
+      missing,
+      total: 0,
+    };
+  }
 
   for (const [photoId, imageData] of Object.entries(manifest.images)) {
     const fullPath = path.join(process.cwd(), "public", imageData.local_path);
