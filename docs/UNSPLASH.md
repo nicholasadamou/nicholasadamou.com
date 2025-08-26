@@ -2,6 +2,8 @@
 
 This comprehensive guide explains how to use Unsplash images in your project, including premium Unsplash+ images, with a sophisticated 3-layer caching and fallback system for maximum performance and reliability.
 
+The system includes both a traditional Node.js script-based downloader and an advanced **Playwright-based image downloader** (`tools/playwright-image-downloader/`) that provides browser automation for better authentication and reliability when downloading images from Unsplash.
+
 ## Table of Contents
 
 - [Setup](#setup)
@@ -307,6 +309,101 @@ The download system includes:
 - **Smart Skipping**: Skips already-downloaded files
 - **Storage Optimization**: Efficient file naming and organization
 - **Validation**: Verifies downloaded files exist and are valid
+
+### Playwright Image Downloader (Advanced)
+
+For enhanced reliability and authentication support, the project includes a sophisticated **Playwright-based image downloader** located in `tools/playwright-image-downloader/`.
+
+#### Key Features
+
+- **🎭 Browser Automation**: Uses Playwright for real browser-based downloading
+- **🔐 Smart Authentication**: Automatic login to Unsplash with fallback to manual login
+- **🔄 Advanced Retry Logic**: Robust retry mechanism with exponential backoff
+- **🏗️ TypeScript Architecture**: Fully typed with modular service-oriented design
+- **🖥️ Debug Mode**: Visual debugging with DevTools support
+- **📊 Comprehensive Stats**: Detailed download statistics and progress tracking
+
+#### When to Use Playwright Downloader
+
+**Recommended for:**
+
+- Premium Unsplash+ content requiring authentication
+- Large batch downloads with advanced retry needs
+- Debugging download issues with visual browser inspection
+- Complex authentication workflows
+
+**Use Traditional Downloader for:**
+
+- Simple, fast downloads without authentication
+- CI/CD environments where browser automation isn't needed
+- Lightweight operations
+
+#### Quick Start with Playwright Downloader
+
+```bash
+# Navigate to the Playwright tool directory
+cd tools/playwright-image-downloader
+
+# Install dependencies and browsers
+pnpm install
+pnpm run install-browsers
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your Unsplash credentials
+
+# Development mode (recommended)
+pnpm run download:dev
+
+# Production mode
+pnpm run download
+
+# Debug mode with visible browser
+pnpm run download:dev -- --no-headless --debug
+```
+
+#### Configuration Options
+
+```bash
+# Download with custom settings
+pnpm run download -- --size large --timeout 45000 --retries 5 --limit 10
+
+# Environment check
+pnpm run download -- check
+
+# List images that would be downloaded
+pnpm run download -- list
+```
+
+**Available Options:**
+
+- `--size <size>`: Image size (original, large, medium, small)
+- `--timeout <ms>`: Request timeout in milliseconds
+- `--retries <n>`: Number of retry attempts
+- `--limit <n>`: Limit number of images to download
+- `--no-headless`: Show browser window (useful for debugging)
+- `--debug`: Enable DevTools and detailed logging
+- `--dry-run`: Preview what would be downloaded
+
+#### Integration with Main Project
+
+Add to your main project's `package.json`:
+
+```json
+{
+  "scripts": {
+    "download:images:playwright": "cd tools/playwright-image-downloader && pnpm run download"
+  }
+}
+```
+
+Then run from your main project:
+
+```bash
+pnpm run download:images:playwright
+```
+
+For detailed documentation, see the [Playwright Image Downloader README](../tools/playwright-image-downloader/README.md).
 
 ## UniversalImage Component
 
@@ -655,6 +752,33 @@ pnpm run build:cache-images   # Build manifest from content (step 1 of prebuild)
 pnpm run download:images      # Download images locally (step 2 of prebuild)
 pnpm run cache:images         # Runtime pre-caching script (development)
 pnpm run cache:images:test    # Test legacy fallback functionality
+```
+
+### Playwright Image Downloader (Advanced)
+
+```bash
+# Navigate to the Playwright tool first
+cd tools/playwright-image-downloader
+
+# Basic download commands
+pnpm run download              # Build and download (production mode)
+pnpm run download:dev          # Development mode with hot reload
+pnpm run download:dev:headless # Development mode headless
+pnpm run download:debug        # Debug mode with DevTools
+
+# Utility commands
+pnpm run download -- check     # Environment validation
+pnpm run download -- list      # List images to be downloaded
+pnpm run build                 # Build TypeScript to JavaScript
+pnpm run type-check            # Type check without compilation
+
+# Testing
+pnpm run test                  # Run Playwright tests
+pnpm run test:ui               # Run tests with UI
+pnpm run test:debug            # Debug tests
+
+# Integration from main project
+pnpm run download:images:playwright  # If integrated in main package.json
 ```
 
 ### Cache Management
