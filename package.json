@@ -44,6 +44,7 @@
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
     "unsplash:verify": "node scripts/verify-unsplash-account.js",
+    "unsplash:url-to-download": "node scripts/unsplash-url-to-download.js",
     "prepare": "husky"
   },
   "dependencies": {

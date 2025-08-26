@@ -7,65 +7,25 @@
  * to help diagnose Unsplash+ premium access issues.
  */
 
+const {
+  colors,
+  log,
+  logSection,
+  logSuccess,
+  logError,
+  logWarning,
+  logInfo,
+  makeApiRequest,
+  checkFetchAvailable,
+} = require("./lib/unsplash-lib");
+
 require("dotenv").config();
 
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const UNSPLASH_SECRET_KEY = process.env.UNSPLASH_SECRET_KEY;
 
-// Colors for console output
-const colors = {
-  green: "\x1b[32m",
-  red: "\x1b[31m",
-  yellow: "\x1b[33m",
-  blue: "\x1b[34m",
-  cyan: "\x1b[36m",
-  reset: "\x1b[0m",
-  bold: "\x1b[1m",
-};
-
-function log(message, color = colors.reset) {
-  console.log(`${color}${message}${colors.reset}`);
-}
-
-function logSection(title) {
-  console.log("\n" + "=".repeat(60));
-  log(`${colors.bold}${colors.cyan}${title}${colors.reset}`);
-  console.log("=".repeat(60));
-}
-
-function logSuccess(message) {
-  log(`✅ ${message}`, colors.green);
-}
-
-function logError(message) {
-  log(`❌ ${message}`, colors.red);
-}
-
-function logWarning(message) {
-  log(`⚠️  ${message}`, colors.yellow);
-}
-
-function logInfo(message) {
-  log(`ℹ️  ${message}`, colors.blue);
-}
-
-async function makeRequest(url, options = {}) {
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    return {
-      ok: response.ok,
-      status: response.status,
-      data,
-      headers: Object.fromEntries(response.headers.entries()),
-    };
-  } catch (error) {
-    return {
-      ok: false,
-      error: error.message,
-    };
-  }
-}
+// Alias for backwards compatibility with existing code
+const makeRequest = makeApiRequest;
 
 async function verifyEnvironmentVariables() {
   logSection("Environment Variables");
@@ -365,8 +325,7 @@ async function main() {
 }
 
 // Check if fetch is available (Node.js 18+)
-if (typeof fetch === "undefined") {
-  logError("This script requires Node.js 18+ or a fetch polyfill");
+if (!checkFetchAvailable()) {
   process.exit(1);
 }
 

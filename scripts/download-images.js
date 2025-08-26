@@ -12,6 +12,14 @@ const fs = require("fs").promises;
 const path = require("path");
 const { createWriteStream } = require("fs");
 const { pipeline } = require("stream/promises");
+const {
+  constructDownloadUrl,
+  extractIxidFromUrl,
+  sanitizeFilename,
+  getImageExtension,
+  createProgressBar,
+  checkFetchAvailable,
+} = require("./lib/unsplash-lib");
 
 // Configuration
 const CONFIG = {
@@ -21,51 +29,6 @@ const CONFIG = {
   retries: 3, // Number of retry attempts for failed downloads
   timeout: 30000, // 30 seconds timeout per download
 };
-
-// Utility functions
-function sanitizeFilename(filename) {
-  return filename.replace(/[^a-zA-Z0-9.-]/g, "_");
-}
-
-function getImageExtension(url) {
-  // Extract format from URL params or default to jpg
-  const formatMatch = url.match(/[?&]fm=([^&]+)/);
-  return formatMatch ? formatMatch[1] : "jpg";
-}
-
-function constructDownloadUrl(photoId, ixid) {
-  // Construct the unwatermarked download URL
-  // Format: https://unsplash.com/photos/{photoId}/download?ixid={ixid}&force=true
-  return `https://unsplash.com/photos/${photoId}/download?ixid=${ixid}&force=true`;
-}
-
-function extractIxidFromUrl(url) {
-  // Extract ixid parameter from URL
-  const ixidMatch = url.match(/[?&]ixid=([^&]+)/);
-  return ixidMatch ? ixidMatch[1] : null;
-}
-
-function createProgressBar(total) {
-  let completed = 0;
-
-  return {
-    update() {
-      completed++;
-      const percentage = ((completed / total) * 100).toFixed(1);
-      const filled = Math.floor((completed / total) * 40);
-      const empty = 40 - filled;
-      const bar = "█".repeat(filled) + "░".repeat(empty);
-
-      process.stdout.write(
-        `\r📥 Progress: [${bar}] ${percentage}% (${completed}/${total})`
-      );
-
-      if (completed === total) {
-        process.stdout.write("\n");
-      }
-    },
-  };
-}
 
 // Download function with timeout and retry logic
 async function downloadImage(url, filepath, retries = CONFIG.retries) {
@@ -342,8 +305,7 @@ async function main() {
 }
 
 // Check if fetch is available (Node.js 18+)
-if (typeof fetch === "undefined") {
-  console.error("❌ This script requires Node.js 18+ or a fetch polyfill");
+if (!checkFetchAvailable()) {
   process.exit(1);
 }
 

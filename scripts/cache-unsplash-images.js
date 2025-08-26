@@ -9,97 +9,13 @@
 
 const fs = require("fs").promises;
 const path = require("path");
+const {
+  extractUnsplashPhotoId,
+  scanMdxFiles,
+  checkFetchAvailable,
+} = require("./lib/unsplash-lib");
+
 require("dotenv").config();
-
-// Extract Unsplash photo ID from page URL (same logic as frontend)
-function extractUnsplashPhotoId(url) {
-  if (!url || !url.includes("unsplash.com/photos/")) return null;
-
-  // Clean the URL first by removing any trailing punctuation
-  const cleanUrl = url.replace(/["'.,;:!?]+$/, "");
-
-  // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
-  const pageUrlMatch = cleanUrl.match(
-    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
-  );
-  if (pageUrlMatch) {
-    return pageUrlMatch[1];
-  }
-
-  // Handle simple page URLs: https://unsplash.com/photos/{id}
-  const simplePageMatch = cleanUrl.match(
-    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
-  );
-  if (simplePageMatch) {
-    return simplePageMatch[1];
-  }
-
-  // Handle URLs where the ID is at the end of the path (without slug)
-  const endMatch = cleanUrl.match(
-    /https:\/\/unsplash\.com\/photos\/[^/]*([a-zA-Z0-9_-]{11})$/
-  );
-  if (endMatch) {
-    return endMatch[1];
-  }
-
-  return null;
-}
-
-// Scan MDX files for image URLs
-async function scanMdxFiles() {
-  const contentDir = path.join(process.cwd(), "content");
-  const imageUrls = new Set();
-
-  async function scanDirectory(dir) {
-    const entries = await fs.readdir(dir, { withFileTypes: true });
-
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry.name);
-
-      if (entry.isDirectory()) {
-        await scanDirectory(fullPath);
-      } else if (entry.name.endsWith(".mdx")) {
-        const content = await fs.readFile(fullPath, "utf-8");
-
-        // Extract frontmatter
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-        if (frontmatterMatch) {
-          const frontmatter = frontmatterMatch[1];
-
-          // Look for image_url in frontmatter
-          const imageUrlMatch = frontmatter.match(
-            /image_url:\s*["']([^"']+)["']/
-          );
-          if (imageUrlMatch) {
-            const imageUrl = imageUrlMatch[1];
-            if (imageUrl.includes("unsplash.com")) {
-              imageUrls.add(imageUrl);
-              console.log(`📄 Found image in ${fullPath}: ${imageUrl}`);
-            }
-          }
-        }
-
-        // Also look for Unsplash URLs in content body
-        const unsplashUrls = content.match(
-          /https:\/\/unsplash\.com\/photos\/[^\s\)"']+/g
-        );
-        if (unsplashUrls) {
-          unsplashUrls.forEach((url) => {
-            // Clean up any trailing punctuation that might have been captured
-            const cleanUrl = url.replace(/["'.,;:!?]+$/, "");
-            imageUrls.add(cleanUrl);
-            console.log(
-              `📄 Found image in content of ${fullPath}: ${cleanUrl}`
-            );
-          });
-        }
-      }
-    }
-  }
-
-  await scanDirectory(contentDir);
-  return Array.from(imageUrls);
-}
 
 // Call local API to cache images
 async function cacheImage(imageUrl) {
@@ -281,8 +197,7 @@ async function main() {
 }
 
 // Check if fetch is available (Node.js 18+)
-if (typeof fetch === "undefined") {
-  console.error("❌ This script requires Node.js 18+ or a fetch polyfill");
+if (!checkFetchAvailable()) {
   process.exit(1);
 }
 

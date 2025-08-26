@@ -400,6 +400,245 @@ const { photographerUrl, unsplashUrl } = generateUnsplashAttribution(
 );
 ```
 
+## Unsplash Library (`scripts/lib/unsplash-lib.js`)
+
+The `scripts/lib/unsplash-lib.js` file provides a comprehensive library of shared functionality used across all Unsplash-related scripts. This library ensures consistency and avoids code duplication across the various tools in the Unsplash integration system.
+
+### Core Features
+
+#### Photo ID Extraction
+
+The library provides robust photo ID extraction from various Unsplash URL formats:
+
+```javascript
+const { extractPhotoId } = require("./scripts/lib/unsplash-lib.js");
+
+// Supports various URL formats:
+const id1 = extractPhotoId(
+  "https://unsplash.com/photos/beautiful-sunset-abc123"
+);
+const id2 = extractPhotoId("https://unsplash.com/photos/abc123");
+// Returns: 'abc123' for both
+```
+
+**Supported URL formats:**
+
+- `https://unsplash.com/photos/{slug}-{id}`
+- `https://unsplash.com/photos/{id}`
+- Direct image URLs with embedded IDs
+- URLs with query parameters and fragments
+
+#### URL Construction and Manipulation
+
+**Generate Download URLs:**
+
+```javascript
+const { generateDownloadUrl } = require("./scripts/lib/unsplash-lib.js");
+
+const downloadUrl = generateDownloadUrl("abc123", "optional-ixid");
+// Returns: 'https://unsplash.com/photos/abc123/download?ixid=optional-ixid&force=true'
+```
+
+**Premium URL Creation:**
+
+```javascript
+const { createPremiumUnsplashUrl } = require("./scripts/lib/unsplash-lib.js");
+
+const premiumUrl = createPremiumUnsplashUrl(
+  "https://plus.unsplash.com/premium-photo-123",
+  "abc123",
+  1200, // width
+  80 // quality
+);
+```
+
+**URL Conversion:**
+
+```javascript
+const { convertToDownloadUrl } = require("./scripts/lib/unsplash-lib.js");
+
+const result = await convertToDownloadUrl(
+  "https://unsplash.com/photos/beautiful-sunset-abc123",
+  true // fetch ixid for better tracking
+);
+
+// Returns:
+// {
+//   success: true,
+//   photoId: 'abc123',
+//   originalUrl: 'https://unsplash.com/photos/beautiful-sunset-abc123',
+//   downloadUrl: 'https://unsplash.com/photos/abc123/download?ixid=...&force=true',
+//   ixid: '...',
+//   hasIxid: true
+// }
+```
+
+#### HTTP Utilities
+
+**API Request Handling:**
+
+```javascript
+const { makeApiRequest } = require("./scripts/lib/unsplash-lib.js");
+
+const response = await makeApiRequest(
+  "https://api.unsplash.com/photos/abc123",
+  {
+    headers: { Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}` },
+  }
+);
+
+// Returns: { ok: boolean, status: number, data: object, headers: object, error?: string }
+```
+
+**Fetch Image Data:**
+
+```javascript
+const { fetchImageData } = require("./scripts/lib/unsplash-lib.js");
+
+const imageData = await fetchImageData("abc123");
+// Automatically handles premium URLs, download tracking, and API compliance
+```
+
+**Download Tracking:**
+
+```javascript
+const { triggerDownloadTracking } = require("./scripts/lib/unsplash-lib.js");
+
+// Required by Unsplash API terms - automatically called by fetchImageData
+await triggerDownloadTracking("abc123");
+```
+
+#### File System Utilities
+
+**Scan MDX Files:**
+
+```javascript
+const { scanMdxFiles } = require("./scripts/lib/unsplash-lib.js");
+
+// Scan content directory for Unsplash URLs
+const urls = await scanMdxFiles("./content");
+// Returns array of unique Unsplash URLs found in frontmatter and content
+```
+
+**File Utilities:**
+
+```javascript
+const {
+  sanitizeFilename,
+  getImageExtension,
+} = require("./scripts/lib/unsplash-lib.js");
+
+const safeFilename = sanitizeFilename("Photo by John Doe!.jpg"); // 'Photo_by_John_Doe_.jpg'
+const extension = getImageExtension(
+  "https://images.unsplash.com/photo-123?fm=webp"
+); // 'webp'
+```
+
+#### Console Output and Progress Tracking
+
+**Colored Logging:**
+
+```javascript
+const {
+  logSuccess,
+  logError,
+  logWarning,
+  logInfo,
+  logSection,
+} = require("./scripts/lib/unsplash-lib.js");
+
+logSection("Processing Images");
+logSuccess("Image downloaded successfully");
+logError("Failed to fetch image");
+logWarning("Rate limit approaching");
+logInfo("Processing photo abc123");
+```
+
+**Progress Bars:**
+
+```javascript
+const { createProgressBar } = require("./scripts/lib/unsplash-lib.js");
+
+const progress = createProgressBar(100);
+for (let i = 0; i < 100; i++) {
+  // ... do work
+  progress.update(); // Updates progress bar display
+}
+```
+
+#### Validation Utilities
+
+**Environment Validation:**
+
+```javascript
+const {
+  checkEnvironmentVariables,
+  checkFetchAvailable,
+} = require("./scripts/lib/unsplash-lib.js");
+
+// Check required environment variables
+if (!checkEnvironmentVariables(true)) {
+  // true = require secret key for premium
+  process.exit(1);
+}
+
+// Check Node.js version compatibility
+if (!checkFetchAvailable()) {
+  process.exit(1);
+}
+```
+
+### Configuration
+
+The library includes default configuration that can be referenced:
+
+```javascript
+const { CONFIG } = require("./scripts/lib/unsplash-lib.js");
+
+// CONFIG contains:
+// {
+//   timeout: 10000,  // 10 seconds timeout for HTTP requests
+//   userAgent: 'Mozilla/5.0 (compatible; Unsplash-Script-Library/1.0)',
+//   retries: 2,      // Number of retry attempts
+//   rateLimitDelay: 100  // Milliseconds between API calls
+// }
+```
+
+### Key Features for Premium/Watermark-Free Images
+
+- **Automatic Premium Detection**: Detects `plus.unsplash.com` URLs and applies appropriate parameters
+- **Client ID Authentication**: Automatically adds required authentication parameters
+- **Minimal Parameter Optimization**: Uses minimal parameters for premium content to maintain quality
+- **Fallback Handling**: Gracefully falls back to regular URLs if premium access fails
+
+### Error Handling
+
+The library implements comprehensive error handling:
+
+- **Graceful Degradation**: Functions return null or default values instead of throwing errors
+- **Timeout Protection**: HTTP requests include configurable timeouts
+- **Rate Limit Awareness**: Detects and handles API rate limit responses
+- **Retry Logic**: Built-in retry mechanisms for failed operations
+
+### Usage in Scripts
+
+This library is used by:
+
+- `scripts/build-cache-images.js` - For building the manifest
+- `scripts/download-images.js` - For downloading images locally
+- `scripts/cache-images.js` - For runtime caching
+- `scripts/unsplash-url-to-download.js` - For URL conversion
+- Various API routes and components
+
+### Backwards Compatibility
+
+The library maintains backwards compatibility with older function names:
+
+- `extractUnsplashPhotoId` → `extractPhotoId`
+- `constructDownloadUrl` → `generateDownloadUrl`
+
+All functions are fully documented with JSDoc comments for better IDE support and development experience.
+
 ## Available Scripts
 
 ### Complete Build Workflow
@@ -431,6 +670,28 @@ pnpm run cache:clear      # Clear the runtime image cache
 pnpm run unsplash:verify      # Verify Unsplash account status and API access
 pnpm run cache:images:test    # Test image fallback functionality
 pnpm run test:integration     # Test complete 3-layer fallback system
+```
+
+### Unsplash URL Utilities
+
+```bash
+pnpm run unsplash:url-to-download           # Convert Unsplash page URLs to download URLs
+pnpm run unsplash:url-to-download --json    # Get JSON output for scripting
+pnpm run unsplash:url-to-download --no-ixid # Skip ixid fetching (faster)
+pnpm run unsplash:url-to-download --help    # Show usage instructions
+```
+
+**Example:**
+
+```bash
+# Convert a regular Unsplash photo URL to a download URL
+pnpm run unsplash:url-to-download "https://unsplash.com/photos/beautiful-sunset-abc123"
+
+# Output includes:
+# - Photo ID extraction
+# - Original URL reference
+# - Direct download URL (unwatermarked)
+# - IXID parameter (for better tracking)
 ```
 
 ### Integration Testing
