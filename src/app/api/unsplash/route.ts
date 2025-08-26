@@ -5,7 +5,9 @@ import {
   getRandomUnsplashPhotos,
   extractUnsplashPhotoId,
   getOptimizedUnsplashUrl,
+  createPremiumUnsplashUrl,
 } from "@/lib/utils/unsplash";
+import { unsplashCache } from "@/lib/cache/unsplash-cache";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -30,6 +32,14 @@ export async function GET(request: NextRequest) {
           );
         }
 
+        // Check cache first
+        const cachedPhoto = await unsplashCache.get(photoId);
+        if (cachedPhoto) {
+          console.log(`🎯 Returning cached photo: ${photoId}`);
+          return NextResponse.json(cachedPhoto);
+        }
+
+        console.log(`🌐 Fetching photo from Unsplash API: ${photoId}`);
         const photo = await getUnsplashPhoto(photoId);
         if (!photo) {
           return NextResponse.json(
@@ -38,12 +48,31 @@ export async function GET(request: NextRequest) {
           );
         }
 
-        // Generate optimized URL
-        const optimizedUrl = getOptimizedUnsplashUrl(photo.id);
+        // Create premium watermark-free URL if we have Unsplash+ credentials
+        // Note: For Unsplash+ watermark removal to work, your API application must be
+        // properly linked to your Unsplash+ subscription. Contact Unsplash support if needed.
+        const premiumUrl = createPremiumUnsplashUrl(
+          photo.urls.regular,
+          photo.id,
+          1200,
+          80
+        );
 
-        return NextResponse.json({
+        // Trigger download tracking as required by Unsplash API terms
+        try {
+          await fetch(`https://api.unsplash.com/photos/${photo.id}/download`, {
+            headers: {
+              Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+            },
+          });
+        } catch (error) {
+          // Download tracking failed, but continue serving the image
+          console.warn("Download tracking failed for photo:", photo.id);
+        }
+
+        const responseData = {
           id: photo.id,
-          optimized_url: optimizedUrl,
+          optimized_url: premiumUrl, // Use watermark-free URL
           urls: photo.urls,
           user: {
             name: photo.user.name,
@@ -56,7 +85,13 @@ export async function GET(request: NextRequest) {
           description: photo.description || photo.alt_description,
           width: photo.width,
           height: photo.height,
-        });
+        };
+
+        // Cache the response
+        await unsplashCache.set(photoId, responseData);
+        console.log(`💾 Cached photo: ${photoId}`);
+
+        return NextResponse.json(responseData);
       }
 
       case "search": {
@@ -79,22 +114,31 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "Search failed" }, { status: 500 });
         }
 
-        const results = photos.map((photo) => ({
-          id: photo.id,
-          optimized_url: getOptimizedUnsplashUrl(photo.id),
-          urls: photo.urls,
-          user: {
-            name: photo.user.name,
-            username: photo.user.username,
-            profile_url: `https://unsplash.com/@${photo.user.username}`,
-          },
-          // Additional convenience fields for easier usage
-          image_author: photo.user.name,
-          image_author_url: `https://unsplash.com/@${photo.user.username}`,
-          description: photo.description || photo.alt_description,
-          width: photo.width,
-          height: photo.height,
-        }));
+        const results = photos.map((photo) => {
+          const premiumUrl = createPremiumUnsplashUrl(
+            photo.urls.regular,
+            photo.id,
+            1200,
+            80
+          );
+
+          return {
+            id: photo.id,
+            optimized_url: premiumUrl,
+            urls: photo.urls,
+            user: {
+              name: photo.user.name,
+              username: photo.user.username,
+              profile_url: `https://unsplash.com/@${photo.user.username}`,
+            },
+            // Additional convenience fields for easier usage
+            image_author: photo.user.name,
+            image_author_url: `https://unsplash.com/@${photo.user.username}`,
+            description: photo.description || photo.alt_description,
+            width: photo.width,
+            height: photo.height,
+          };
+        });
 
         return NextResponse.json({ results });
       }
@@ -113,22 +157,31 @@ export async function GET(request: NextRequest) {
           );
         }
 
-        const results = photos.map((photo) => ({
-          id: photo.id,
-          optimized_url: getOptimizedUnsplashUrl(photo.id),
-          urls: photo.urls,
-          user: {
-            name: photo.user.name,
-            username: photo.user.username,
-            profile_url: `https://unsplash.com/@${photo.user.username}`,
-          },
-          // Additional convenience fields for easier usage
-          image_author: photo.user.name,
-          image_author_url: `https://unsplash.com/@${photo.user.username}`,
-          description: photo.description || photo.alt_description,
-          width: photo.width,
-          height: photo.height,
-        }));
+        const results = photos.map((photo) => {
+          const premiumUrl = createPremiumUnsplashUrl(
+            photo.urls.regular,
+            photo.id,
+            1200,
+            80
+          );
+
+          return {
+            id: photo.id,
+            optimized_url: premiumUrl,
+            urls: photo.urls,
+            user: {
+              name: photo.user.name,
+              username: photo.user.username,
+              profile_url: `https://unsplash.com/@${photo.user.username}`,
+            },
+            // Additional convenience fields for easier usage
+            image_author: photo.user.name,
+            image_author_url: `https://unsplash.com/@${photo.user.username}`,
+            description: photo.description || photo.alt_description,
+            width: photo.width,
+            height: photo.height,
+          };
+        });
 
         return NextResponse.json({ results });
       }

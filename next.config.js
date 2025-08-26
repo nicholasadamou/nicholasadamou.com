@@ -8,6 +8,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "tailwindui.com" },
+      { protocol: "https", hostname: "unsplash.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "plus.unsplash.com" },
       { protocol: "https", hostname: "cdn.dribbble.com" },

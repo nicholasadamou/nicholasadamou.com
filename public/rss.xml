@@ -4,7 +4,7 @@
         <description><![CDATA[I am a full stack software engineer who is on a mission to make the world a better place through code.]]></description>
         <link>https://nicholasadamou.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 25 Aug 2025 11:24:44 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 26 Aug 2025 00:00:59 GMT</lastBuildDate>
         <atom:link href="https://nicholasadamou.com/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
         <item>
@@ -32,20 +32,20 @@
             <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/an-aerial-view-of-a-train-yard-with-several-trains-ud_kWC-3Bdg" type="image/jpeg" medium="image"/>
         </item>
         <item>
-            <title><![CDATA[Minimizing Nesting for Readable and Maintainable Code]]></title>
-            <description><![CDATA[Explore how reducing nesting in functions enhances readability and maintainability, with practical examples that illustrate best practices.]]></description>
-            <link>https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</link>
-            <guid isPermaLink="true">https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</guid>
-            <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
-            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/green-leafed-plant-on-clear-glass-vase-filled-with-water-x2Tmfd1-SgA" type="image/jpeg" medium="image"/>
-        </item>
-        <item>
             <title><![CDATA[Handling Large File Uploads (20GB+) in Fast API with S3 Multipart Upload Using Signed URLs]]></title>
             <description><![CDATA[Learn how to handle large file uploads in Fast API using S3 multipart upload with signed URLs, ensuring efficient and secure file transfers.]]></description>
             <link>https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</link>
             <guid isPermaLink="true">https://nicholasadamou.com/notes/handling-large-file-uploads-20gb-in-fast-api-with-s3-multipart-upload-using-signed-urls</guid>
             <pubDate>Fri, 28 Mar 2025 00:00:00 GMT</pubDate>
             <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/3d-render-abstract-minimal-background-with-paper-layers-levitating-sheets-fashion-wallpaper-with-falling-cloth-colorful-pastel-swatches-gR94yU2DQvg" type="image/jpeg" medium="image"/>
+        </item>
+        <item>
+            <title><![CDATA[Minimizing Nesting for Readable and Maintainable Code]]></title>
+            <description><![CDATA[Explore how reducing nesting in functions enhances readability and maintainability, with practical examples that illustrate best practices.]]></description>
+            <link>https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/minimizing-nesting-for-readable-maintainable-code</guid>
+            <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/green-leafed-plant-on-clear-glass-vase-filled-with-water-x2Tmfd1-SgA" type="image/jpeg" medium="image"/>
         </item>
         <item>
             <title><![CDATA[The Power of Stacked Diffs: A Strategy for Better Code Reviews]]></title>

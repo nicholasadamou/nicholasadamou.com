@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import UniversalImage from "@/components/common/UniversalImage";
 import type { Note } from "@/lib/contentlayer-data";
 
 import Link from "@/components/common/Link";
@@ -24,7 +24,7 @@ export default function Post({
   mousePosition,
   shouldShowPin,
 }: PostProps) {
-  const { date, slug, title, image, pinned } = post;
+  const { date, slug, title, image, image_url, pinned } = post;
 
   const imageHeight = 200; // Set to desired height
   const imageWidth = 350; // Set to desired width
@@ -36,7 +36,7 @@ export default function Post({
     <li className="group py-3 transition-opacity first:pt-0 last:pb-0">
       <Link href={`/notes/${slug}`}>
         <div className="transition-opacity">
-          {image && mousePosition && (
+          {(image_url || image) && mousePosition && (
             <motion.div
               animate={{
                 top: mousePosition.y - imageHeight - imageOffset,
@@ -50,13 +50,12 @@ export default function Post({
                   "pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block",
               } as any)}
             >
-              <Image
-                src={image}
+              <UniversalImage
+                src={image_url || image || ""}
                 alt={title}
                 fill
                 sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-                style={{ objectFit: "cover" }}
-                className="rounded-lg"
+                className="rounded-lg object-cover"
                 priority
               />
             </motion.div>

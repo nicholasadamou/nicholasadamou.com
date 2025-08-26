@@ -1,9 +1,9 @@
-import Image from "next/image";
 import type { Project } from "@/lib/contentlayer-data";
 import Link from "@/components/common/Link";
 import Halo from "@/components/common/Halo";
 import { Badge } from "@/components/ui/badge";
 import GitHubBadge from "@/components/features/projects/GitHubBadge";
+import UniversalImage from "@/components/common/UniversalImage";
 
 type ProjectListProps = {
   projects: Project[];
@@ -23,8 +23,8 @@ export default function PinnedProjectList({ projects }: ProjectListProps) {
             <Link href={`/projects/${project.slug}`}>
               <div className="aspect-video overflow-hidden rounded-md bg-secondary">
                 <Halo strength={10}>
-                  <Image
-                    src={project.image}
+                  <UniversalImage
+                    src={project.image_url || project.image || ""}
                     alt={project.title}
                     fill
                     priority={true}

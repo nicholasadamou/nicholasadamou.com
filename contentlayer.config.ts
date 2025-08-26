@@ -50,8 +50,6 @@ export const Note = defineDocumentType(() => ({
     pinned: { type: "boolean", required: false },
     date: { type: "string", required: true },
     updatedAt: { type: "string", required: false },
-    image_author: { type: "string", required: false },
-    image_author_url: { type: "string", required: false },
     image_url: { type: "string", required: false },
   },
   computedFields: {
@@ -77,8 +75,6 @@ export const Project = defineDocumentType(() => ({
     demoUrl: { type: "string", required: false },
     technologies: { type: "list", of: { type: "string" }, required: false },
     pinned: { type: "boolean", required: false },
-    image_author: { type: "string", required: false },
-    image_author_url: { type: "string", required: false },
     image_url: { type: "string", required: false },
   },
   computedFields: commonComputedFields("projects"),

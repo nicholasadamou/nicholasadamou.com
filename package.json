@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/build-cache-images.js",
     "build": "next build",
     "generate:rss": "node scripts/generate-rss.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
@@ -30,9 +31,11 @@
     "act:coverage": "act -W .github/workflows/coverage.yml",
     "act:shellcheck": "act -W .github/workflows/shellcheck.yml",
     "act:dryrun": "act --dryrun",
-    "unsplash:update": "node scripts/update-unsplash-data.mjs",
-    "unsplash:update-with-mapping": "node scripts/update-unsplash-with-mapping.mjs",
-    "unsplash:check-account": "node scripts/check-unsplash-account.mjs",
+    "cache:images": "node scripts/cache-unsplash-images.js",
+    "cache:images:build": "node scripts/build-cache-images.js",
+    "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
+    "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
+    "unsplash:verify": "node scripts/verify-unsplash-account.js",
     "prepare": "husky"
   },
   "dependencies": {
@@ -50,8 +53,10 @@
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.1",
     "framer-motion": "^10.18.0",
     "geist": "^1.4.2",
+    "ioredis": "^5.7.0",
     "katex": "^0.16.22",
     "linkify-it": "^5.0.0",
     "lucide-react": "^0.456.0",

@@ -33,6 +33,68 @@ export interface UnsplashImageData {
 }
 
 /**
+ * Create premium watermark-free URL for Unsplash+ subscribers
+ * @param baseUrl - Base image URL from Unsplash API
+ * @param photoId - The Unsplash photo ID
+ * @param width - Desired width (default: 1200)
+ * @param quality - Image quality 1-100 (default: 80)
+ */
+export function createPremiumUnsplashUrl(
+  baseUrl: string,
+  photoId: string,
+  width: number = 1200,
+  quality: number = 80
+): string {
+  // If we don't have a secret key, return the regular URL
+  if (!process.env.UNSPLASH_SECRET_KEY) {
+    return baseUrl;
+  }
+
+  try {
+    const url = new URL(baseUrl);
+
+    // For premium content (plus.unsplash.com), we need to ensure proper authentication
+    if (url.hostname === "plus.unsplash.com") {
+      // For premium content, use minimal parameters and ensure client_id is included
+      // Clear existing parameters that might interfere with premium access
+      const cleanUrl = new URL(url.origin + url.pathname);
+
+      // Keep essential Unsplash parameters
+      if (url.searchParams.get("ixid")) {
+        cleanUrl.searchParams.set("ixid", url.searchParams.get("ixid")!);
+      }
+      if (url.searchParams.get("ixlib")) {
+        cleanUrl.searchParams.set("ixlib", url.searchParams.get("ixlib")!);
+      }
+
+      // Add our authentication
+      cleanUrl.searchParams.set("client_id", process.env.UNSPLASH_ACCESS_KEY!);
+
+      // Add minimal optimization parameters
+      cleanUrl.searchParams.set("w", width.toString());
+      cleanUrl.searchParams.set("q", quality.toString());
+      cleanUrl.searchParams.set("fm", "jpg");
+
+      return cleanUrl.toString();
+    } else {
+      // For regular images, add standard optimization parameters
+      url.searchParams.set("w", width.toString());
+      url.searchParams.set("q", quality.toString());
+      url.searchParams.set("fit", "crop");
+      url.searchParams.set("crop", "entropy");
+      url.searchParams.set("cs", "tinysrgb");
+      url.searchParams.set("fm", "jpg");
+      url.searchParams.set("client_id", process.env.UNSPLASH_ACCESS_KEY!);
+    }
+
+    return url.toString();
+  } catch (error) {
+    console.error("Error creating premium Unsplash URL:", error);
+    return baseUrl; // Fallback to original URL
+  }
+}
+
+/**
  * Get optimized image URL from Unsplash with custom parameters
  * @param imageId - The Unsplash photo ID
  * @param width - Desired width (default: 1200)
@@ -47,17 +109,11 @@ export function getOptimizedUnsplashUrl(
   fit: "crop" | "clip" | "fill" | "fillmax" | "max" | "min" | "scale" = "crop",
   format: "auto" | "webp" | "jpg" | "png" = "auto"
 ): string {
-  const baseUrl = `https://images.unsplash.com/photo-${imageId}`;
-  const params = new URLSearchParams({
-    ixlib: "rb-4.0.3",
-    ixid: process.env.UNSPLASH_SECRET_KEY || "",
-    auto: format,
-    fit,
-    w: width.toString(),
-    q: quality.toString(),
-  });
-
-  return `${baseUrl}?${params.toString()}`;
+  // Don't generate custom URLs - let the Unsplash API provide the correct URLs
+  // This function should only be used when we have actual photo data from the API
+  throw new Error(
+    "getOptimizedUnsplashUrl should not be called directly. Use API response URLs instead."
+  );
 }
 
 /**
@@ -154,25 +210,21 @@ export async function getRandomUnsplashPhotos(
  * @returns Photo ID or null if not found
  */
 export function extractUnsplashPhotoId(url: string): string | null {
-  // Handle direct image URLs: https://images.unsplash.com/photo-{id}?...
-  const directImageMatch = url.match(
-    /https:\/\/images\.unsplash\.com\/photo-([^?]+)/
-  );
-  if (directImageMatch) {
-    return directImageMatch[1];
-  }
+  if (!url || !url.includes("unsplash.com/photos/")) return null;
 
   // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
+  // The photo ID is typically the last segment after the final hyphen and contains alphanumeric characters and underscores
   const pageUrlMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/[^\/]+-([^\/\?]+)/
+    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
   );
   if (pageUrlMatch) {
     return pageUrlMatch[1];
   }
 
   // Handle simple page URLs: https://unsplash.com/photos/{id}
+  // For URLs that might just be the photo ID without a slug
   const simplePageMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/([^\/\?]+)/
+    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
   );
   if (simplePageMatch) {
     return simplePageMatch[1];
@@ -196,7 +248,7 @@ export function generateUnsplashAttribution(
   unsplashUrl: string;
   utmParams: string;
 } {
-  const utmParams = "utm_source=your-app-name&utm_medium=referral";
+  const utmParams = "utm_source=nicholasadamou.com&utm_medium=referral";
 
   return {
     photographerUrl: `https://unsplash.com/@${photographerUsername}?${utmParams}`,

@@ -22,6 +22,7 @@ type UnifiedContent = (Project | Note) & {
   pinned?: boolean;
   readingTime?: string;
   demoUrl?: string;
+  image_url?: string;
 };
 
 interface ContentPageProps {
@@ -110,15 +111,12 @@ export default function ContentPage({
             ),
           }}
         />
-        {content.image && (
+        {content.image_url && (
           <>
             <div className="h-8" />
             <HeaderImage
-              imageSrc={content.image}
+              imageSrc={content.image_url}
               imageAlt={`${content.title} project image`}
-              imageAuthor={content.image_author}
-              imageAuthorUrl={content.image_author_url}
-              imageUrl={content.image_url}
             />
             <div className="h-8" />
           </>
