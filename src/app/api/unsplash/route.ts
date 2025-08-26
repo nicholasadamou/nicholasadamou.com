@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   getUnsplashPhoto,
-  searchUnsplashImages,
-  getRandomUnsplashPhotos,
   extractUnsplashPhotoId,
   getOptimizedUnsplashUrl,
   createPremiumUnsplashUrl,
@@ -15,6 +13,7 @@ export async function GET(request: NextRequest) {
 
   // Check if API key is configured
   if (!process.env.UNSPLASH_ACCESS_KEY) {
+    console.error("❌ UNSPLASH_ACCESS_KEY environment variable is not set");
     return NextResponse.json(
       { error: "Unsplash API key not configured" },
       { status: 500 }
@@ -42,8 +41,13 @@ export async function GET(request: NextRequest) {
         console.log(`🌐 Fetching photo from Unsplash API: ${photoId}`);
         const photo = await getUnsplashPhoto(photoId);
         if (!photo) {
+          console.error(`❌ Photo not found or API error for ID: ${photoId}`);
           return NextResponse.json(
-            { error: "Photo not found" },
+            {
+              error: "Photo not found or API error",
+              message:
+                "This could be due to rate limiting, invalid photo ID, or API issues. Please try again later.",
+            },
             { status: 404 }
           );
         }
@@ -92,98 +96,6 @@ export async function GET(request: NextRequest) {
         console.log(`💾 Cached photo: ${photoId}`);
 
         return NextResponse.json(responseData);
-      }
-
-      case "search": {
-        const query = searchParams.get("query");
-        if (!query) {
-          return NextResponse.json(
-            { error: "Search query is required" },
-            { status: 400 }
-          );
-        }
-
-        const perPage = Math.min(
-          parseInt(searchParams.get("per_page") || "10"),
-          30
-        );
-        const page = parseInt(searchParams.get("page") || "1");
-
-        const photos = await searchUnsplashImages(query, perPage, page);
-        if (!photos) {
-          return NextResponse.json({ error: "Search failed" }, { status: 500 });
-        }
-
-        const results = photos.map((photo) => {
-          const premiumUrl = createPremiumUnsplashUrl(
-            photo.urls.regular,
-            photo.id,
-            1200,
-            80
-          );
-
-          return {
-            id: photo.id,
-            optimized_url: premiumUrl,
-            urls: photo.urls,
-            user: {
-              name: photo.user.name,
-              username: photo.user.username,
-              profile_url: `https://unsplash.com/@${photo.user.username}`,
-            },
-            // Additional convenience fields for easier usage
-            image_author: photo.user.name,
-            image_author_url: `https://unsplash.com/@${photo.user.username}`,
-            description: photo.description || photo.alt_description,
-            width: photo.width,
-            height: photo.height,
-          };
-        });
-
-        return NextResponse.json({ results });
-      }
-
-      case "random": {
-        const count = Math.min(parseInt(searchParams.get("count") || "1"), 30);
-        const query = searchParams.get("query") || undefined;
-        const collections =
-          searchParams.get("collections")?.split(",") || undefined;
-
-        const photos = await getRandomUnsplashPhotos(count, collections, query);
-        if (!photos) {
-          return NextResponse.json(
-            { error: "Failed to fetch random photos" },
-            { status: 500 }
-          );
-        }
-
-        const results = photos.map((photo) => {
-          const premiumUrl = createPremiumUnsplashUrl(
-            photo.urls.regular,
-            photo.id,
-            1200,
-            80
-          );
-
-          return {
-            id: photo.id,
-            optimized_url: premiumUrl,
-            urls: photo.urls,
-            user: {
-              name: photo.user.name,
-              username: photo.user.username,
-              profile_url: `https://unsplash.com/@${photo.user.username}`,
-            },
-            // Additional convenience fields for easier usage
-            image_author: photo.user.name,
-            image_author_url: `https://unsplash.com/@${photo.user.username}`,
-            description: photo.description || photo.alt_description,
-            width: photo.width,
-            height: photo.height,
-          };
-        });
-
-        return NextResponse.json({ results });
       }
 
       case "extract-id": {
@@ -235,7 +147,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(
           {
             error:
-              "Invalid action. Supported actions: get-photo, search, random, extract-id, optimize-url",
+              "Invalid action. Supported actions: get-photo, extract-id, optimize-url",
           },
           { status: 400 }
         );

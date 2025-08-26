@@ -29,7 +29,7 @@ UPSTASH_REDIS_REST_URL=your-upstash-url    # Upstash Redis URL (alternative)
 The required packages are already installed:
 
 ```bash
-pnpm add unsplash-js ioredis
+pnpm add ioredis
 ```
 
 ## Using Premium Images
@@ -65,30 +65,6 @@ Response includes:
 - Image dimensions
 - Description
 - All image URLs (raw, full, regular, small, thumb)
-
-#### Search for Images
-
-```bash
-GET /api/unsplash?action=search&query=nature&per_page=10&page=1
-```
-
-Parameters:
-
-- `query`: Search term (required)
-- `per_page`: Results per page (default: 10, max: 30)
-- `page`: Page number (default: 1)
-
-#### Get Random Images
-
-```bash
-GET /api/unsplash?action=random&count=5&query=technology
-```
-
-Parameters:
-
-- `count`: Number of images (default: 1, max: 30)
-- `query`: Optional search term to filter results
-- `collections`: Optional comma-separated list of collection IDs
 
 #### Extract Photo ID from URL
 

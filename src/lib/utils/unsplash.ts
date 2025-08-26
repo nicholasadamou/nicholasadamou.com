@@ -1,14 +1,5 @@
-import { createApi } from "unsplash-js";
-import type { Basic } from "unsplash-js/dist/methods/photos/types";
-
-// Initialize Unsplash API client
-const unsplash = createApi({
-  accessKey: process.env.UNSPLASH_ACCESS_KEY!,
-  // Add secret key for premium access
-  ...(process.env.UNSPLASH_SECRET_KEY && {
-    secret: process.env.UNSPLASH_SECRET_KEY,
-  }),
-});
+// Note: We avoid using the unsplash-js client due to occasional parsing issues in some runtimes.
+// We'll use direct fetch calls to the Unsplash API for reliability.
 
 export interface UnsplashImageData {
   id: string;
@@ -117,36 +108,6 @@ export function getOptimizedUnsplashUrl(
 }
 
 /**
- * Search for Unsplash images
- * @param query - Search query
- * @param perPage - Number of results per page (max 30)
- * @param page - Page number
- */
-export async function searchUnsplashImages(
-  query: string,
-  perPage: number = 10,
-  page: number = 1
-): Promise<Basic[] | null> {
-  try {
-    const result = await unsplash.search.getPhotos({
-      query,
-      perPage,
-      page,
-    });
-
-    if (result.errors) {
-      console.error("Unsplash API errors:", result.errors);
-      return null;
-    }
-
-    return result.response?.results || null;
-  } catch (error) {
-    console.error("Error searching Unsplash images:", error);
-    return null;
-  }
-}
-
-/**
  * Get a specific photo by ID
  * @param photoId - The Unsplash photo ID
  */
@@ -154,52 +115,31 @@ export async function getUnsplashPhoto(
   photoId: string
 ): Promise<UnsplashImageData | null> {
   try {
-    const result = await unsplash.photos.get({
-      photoId,
+    const resp = await fetch(`https://api.unsplash.com/photos/${photoId}`, {
+      headers: {
+        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+        Accept: "application/json",
+      },
     });
 
-    if (result.errors) {
-      console.error("Unsplash API errors:", result.errors);
+    if (!resp.ok) {
+      const text = await resp.text();
+
+      if (resp.status === 403 && text.includes("Rate Limit Exceeded")) {
+        console.warn(`⚠️ Unsplash rate limit exceeded for photo ${photoId}`);
+      } else {
+        console.error(
+          `Unsplash API error: status=${resp.status} ${resp.statusText} body=${text?.slice(0, 500)}`
+        );
+      }
+
       return null;
     }
 
-    return result.response as UnsplashImageData;
+    const data = (await resp.json()) as UnsplashImageData;
+    return data;
   } catch (error) {
-    console.error("Error fetching Unsplash photo:", error);
-    return null;
-  }
-}
-
-/**
- * Get random photos from Unsplash
- * @param count - Number of photos (max 30)
- * @param collections - Collection IDs to search in
- * @param query - Search query to filter random photos
- */
-export async function getRandomUnsplashPhotos(
-  count: number = 1,
-  collections?: string[],
-  query?: string
-): Promise<UnsplashImageData[] | null> {
-  try {
-    const result = await unsplash.photos.getRandom({
-      count,
-      collectionIds: collections,
-      query,
-    });
-
-    if (result.errors) {
-      console.error("Unsplash API errors:", result.errors);
-      return null;
-    }
-
-    if (Array.isArray(result.response)) {
-      return result.response as UnsplashImageData[];
-    } else {
-      return [result.response as UnsplashImageData];
-    }
-  } catch (error) {
-    console.error("Error fetching random Unsplash photos:", error);
+    console.error("Error fetching Unsplash photo (network or parsing):", error);
     return null;
   }
 }

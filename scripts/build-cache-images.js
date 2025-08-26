@@ -9,16 +9,7 @@
 
 const fs = require("fs").promises;
 const path = require("path");
-const { createApi } = require("unsplash-js");
 require("dotenv").config();
-
-// Initialize Unsplash API client
-const unsplash = createApi({
-  accessKey: process.env.UNSPLASH_ACCESS_KEY,
-  ...(process.env.UNSPLASH_SECRET_KEY && {
-    secret: process.env.UNSPLASH_SECRET_KEY,
-  }),
-});
 
 // Extract Unsplash photo ID from page URL (same logic as frontend)
 function extractUnsplashPhotoId(url) {
@@ -170,14 +161,26 @@ async function scanMdxFiles() {
 async function fetchImageData(photoId) {
   try {
     console.log(`🔄 Fetching photo: ${photoId}`);
-    const result = await unsplash.photos.get({ photoId });
+    const response = await fetch(`https://api.unsplash.com/photos/${photoId}`, {
+      headers: {
+        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+        Accept: "application/json",
+      },
+    });
 
-    if (result.errors) {
-      console.log(`❌ API errors for ${photoId}:`, result.errors);
+    if (!response.ok) {
+      const text = await response.text();
+      if (response.status === 403 && text.includes("Rate Limit Exceeded")) {
+        console.log(`⚠️ Rate limit exceeded for ${photoId}`);
+      } else {
+        console.log(
+          `❌ API error for ${photoId}: ${response.status} ${response.statusText}`
+        );
+      }
       return null;
     }
 
-    const photo = result.response;
+    const photo = await response.json();
     if (!photo) {
       console.log(`❌ No photo data for ${photoId}`);
       return null;
