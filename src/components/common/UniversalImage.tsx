@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import {
+  extractUnsplashPhotoId,
+  getOptimizedImageSrc,
+} from "@/lib/image-fallback";
 
 type UniversalImageProps = {
   src: string;
@@ -84,31 +88,6 @@ async function getUnsplashManifest(): Promise<UnsplashManifest | null> {
   return manifestFetchPromise;
 }
 
-// Extract Unsplash photo ID from page URL
-function extractUnsplashPhotoId(url: string): string | null {
-  if (!url || !url.includes("unsplash.com/photos/")) return null;
-
-  // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
-  // The photo ID is typically the last segment after the final hyphen and contains alphanumeric characters and underscores
-  const pageUrlMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
-  );
-  if (pageUrlMatch) {
-    return pageUrlMatch[1];
-  }
-
-  // Handle simple page URLs: https://unsplash.com/photos/{id}
-  // For URLs that might just be the photo ID without a slug
-  const simplePageMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
-  );
-  if (simplePageMatch) {
-    return simplePageMatch[1];
-  }
-
-  return null;
-}
-
 const UniversalImage: React.FC<UniversalImageProps> = ({
   src,
   alt,
@@ -144,11 +123,23 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
       setLoading(true);
 
       try {
-        // First, try to get the image from the static manifest
+        // STEP 1: Try local downloaded images first (fastest option)
+        const localImageSrc = await getOptimizedImageSrc(src);
+        if (
+          localImageSrc !== src &&
+          localImageSrc.startsWith("/images/unsplash/")
+        ) {
+          console.log(`🏠 Using local downloaded image: ${photoId}`);
+          setActualImageSrc(localImageSrc);
+          setLoading(false);
+          return;
+        }
+
+        // STEP 2: Try the static build manifest (cached at build time)
         const manifest = await getUnsplashManifest();
         if (manifest && manifest.images[photoId]) {
           const imageData = manifest.images[photoId];
-          console.log(`🎯 Using cached image from manifest: ${photoId}`);
+          console.log(`🎯 Using cached image from build manifest: ${photoId}`);
 
           // Use the optimized URL from the manifest
           if (imageData.optimized_url) {
@@ -160,9 +151,9 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
           return;
         }
 
-        // If not found in manifest, fall back to API call
+        // STEP 3: Fall back to runtime API call (slowest but most reliable)
         console.log(
-          `🌐 Image not found in manifest, fetching from API: ${photoId}`
+          `🌐 Image not found locally or in manifest, fetching from API: ${photoId}`
         );
 
         try {

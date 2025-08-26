@@ -1,0 +1,23 @@
+{
+  "generated_at": "2025-08-26T00:55:41.720Z",
+  "version": "1.0.0",
+  "source_manifest": "2025-08-26T00:55:41.545Z",
+  "images": {
+    "x2Tmfd1-SgA": {
+      "local_path": "/images/unsplash/x2Tmfd1-SgA.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "4BEVxOv8pkk": {
+      "local_path": "/images/unsplash/4BEVxOv8pkk.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    }
+  },
+  "stats": {
+    "total_images": 2,
+    "downloaded": 0,
+    "failed": 0,
+    "skipped": 2
+  }
+}

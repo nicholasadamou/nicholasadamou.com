@@ -1,6 +1,8 @@
 # Using Unsplash+ Premium Images
 
-This guide explains how to use Unsplash+ premium images in your MDX frontmatter, with information about the caching system and advanced functionality.
+This guide explains how to use Unsplash+ premium images in your MDX frontmatter, with information about the comprehensive multi-layer caching and fallback system.
+
+> **📖 Related Documentation**: For detailed information about the local image download fallback system, see [Image Download Fallback System](./IMAGE_DOWNLOAD_FALLBACK.md).
 
 ## Setup
 
@@ -265,37 +267,77 @@ const { photographerUrl, unsplashUrl } = generateUnsplashAttribution(
 );
 ```
 
-## Build-time Image Caching
+## Comprehensive 3-Layer Image Fallback System
 
-### How Build-time Caching Works
+> **📖 Detailed Guide**: See [Image Download Fallback System](./IMAGE_DOWNLOAD_FALLBACK.md) for complete integration documentation.
 
-The application now includes a sophisticated build-time caching system that pre-fetches Unsplash images during the build process:
+### How the 3-Layer System Works
 
-1. **Static Manifest Generation**: During build, `scripts/build-cache-images.js` scans all MDX files for Unsplash URLs
-2. **Pre-fetching**: Fetches image data and creates optimized URLs for all found images
-3. **Static Manifest**: Creates `/public/unsplash-manifest.json` with cached image data
-4. **Runtime Optimization**: UniversalImage component first checks the static manifest, then falls back to API calls
+The application now features a sophisticated **3-layer fallback system** providing maximum performance and reliability:
 
-### Build Script Integration
+#### Layer 1: Local Downloaded Images (Fastest) 🏠
 
-The build process automatically runs image caching via the `prebuild` script:
+- Images are systematically downloaded to `public/images/unsplash/` during build
+- Served directly from your domain (instant loading)
+- Complete offline capability
+- Zero API dependency for cached images
+
+#### Layer 2: Build Manifest Cache (Fast) 🎯
+
+- Static manifest generation during build via `scripts/build-cache-images.js`
+- Scans all MDX files for Unsplash URLs and pre-fetches metadata
+- Creates `/public/unsplash-manifest.json` with optimized URLs
+- Used when local images aren't available
+
+#### Layer 3: Runtime API Calls (Reliable) 🌐
+
+- Dynamic API calls to `/api/unsplash` as final fallback
+- Redis + memory caching for performance
+- Handles new images not in build cache
+- Comprehensive error handling and retry logic
+
+### Enhanced Build Script Integration
+
+The build process now automatically runs **both** manifest generation and image downloading:
 
 ```json
 {
   "scripts": {
-    "prebuild": "node scripts/build-cache-images.js",
+    "prebuild": "npm-run-all build:cache-images download:images",
+    "build:cache-images": "node scripts/build-cache-images.js",
+    "download:images": "node scripts/download-images.js",
     "build": "next build"
   }
 }
 ```
 
+**What happens during `pnpm run build`:**
+
+1. **`prebuild`** automatically runs:
+   - 📋 **`build:cache-images`** → Scans content and creates manifest
+   - 📥 **`download:images`** → Downloads all images locally
+2. **`build`** → Builds Next.js app with optimized images
+3. **`postbuild`** → Generates RSS and sitemap
+
+### Advanced Download Features
+
+The new download system includes:
+
+- **Progress Tracking**: Real-time download progress with progress bars
+- **Concurrent Downloads**: Configurable simultaneous downloads (default: 3)
+- **Retry Logic**: Automatic retry with exponential backoff
+- **Smart Skipping**: Skips already-downloaded files
+- **Storage Optimization**: Efficient file naming and organization
+- **Validation**: Verifies downloaded files exist and are valid
+
 ### Fallback Mode for CI/CD
 
-The build script supports fallback mode when `UNSPLASH_ACCESS_KEY` is not available:
+The system gracefully handles CI/CD environments without API keys:
 
-- Creates an empty manifest to prevent build failures
-- Allows builds to succeed in CI environments without API keys
-- UniversalImage gracefully falls back to API calls at runtime
+- **Empty Manifest Creation**: Prevents build failures when `UNSPLASH_ACCESS_KEY` is missing
+- **Graceful Degradation**: Components automatically fall back to API calls
+- **Development Mode**: Works seamlessly in local development
+- **Production Ready**: Optimized for deployment scenarios
 
 ## UniversalImage Component
 
@@ -314,12 +356,13 @@ The new `UniversalImage` component provides intelligent image loading:
 />
 ```
 
-### Multi-tier Loading Strategy
+### 3-Layer Loading Strategy 🆕
 
-1. **Static Manifest (Build-time)**: First checks `/public/unsplash-manifest.json`
-2. **API Fallback (Runtime)**: Falls back to `/api/unsplash` for missing images
-3. **Error Handling**: Graceful degradation with placeholder rendering
-4. **Loading States**: Shows loading animation while fetching images
+1. **🏠 Local Downloaded Images (Fastest)**: First checks for locally downloaded images in `/images/unsplash/`
+2. **🎯 Build Manifest Cache (Fast)**: Falls back to static manifest `/public/unsplash-manifest.json`
+3. **🌐 Runtime API Calls (Reliable)**: Final fallback to `/api/unsplash` for missing images
+4. **Error Handling**: Graceful degradation with placeholder rendering at each layer
+5. **Loading States**: Shows loading animation while processing fallback chain
 
 ### Key Features
 
@@ -331,12 +374,31 @@ The new `UniversalImage` component provides intelligent image loading:
 
 ## Available Scripts and Tools
 
-### Build-time Image Caching
+### Complete Build Workflow
 
 ```bash
-pnpm run cache:images:build   # Build-time caching (used in prebuild)
-pnpm run cache:images         # Runtime pre-caching script
-pnpm run cache:images:test    # Test fallback functionality
+pnpm run build              # Full automated build (prebuild + build + postbuild)
+# Automatically runs: build:cache-images → download:images → next build → generate RSS & sitemap
+```
+
+### Build-time Image Management
+
+```bash
+pnpm run build:cache-images   # Build manifest from content (step 1 of prebuild)
+pnpm run download:images      # Download images locally (step 2 of prebuild)  🆕
+pnpm run cache:images         # Runtime pre-caching script (development)
+pnpm run cache:images:test    # Test legacy fallback functionality
+```
+
+### New Image Download System 🆕
+
+```bash
+pnpm run download:images      # Download all images from manifest to public/images/unsplash/
+# • Progress tracking with real-time progress bars
+# • Concurrent downloads (configurable)
+# • Automatic retry with exponential backoff
+# • Smart file skipping (won't re-download existing files)
+# • Creates local-manifest.json for path mapping
 ```
 
 ### Cache Management
@@ -351,6 +413,43 @@ pnpm run cache:clear      # Clear the runtime image cache
 ```bash
 pnpm run unsplash:verify      # Verify Unsplash account status and API access
 pnpm run cache:images:test    # Test image fallback functionality
+pnpm run test:integration     # Test complete 3-layer fallback system  🆕
+```
+
+### New Integration Testing 🆕
+
+The comprehensive integration test validates your entire image system:
+
+```bash
+pnpm run test:integration
+```
+
+**Tests:**
+
+- ✅ Manifest file integrity (build + local manifests)
+- ✅ Downloaded image file validation
+- ✅ Client-side utility functions
+- ✅ Server-side integration
+- ✅ Fallback logic and photo ID extraction
+
+**Sample output:**
+
+```bash
+🚀 Image Fallback System Integration Test
+
+✅ Manifest Integrity
+✅ Image Files
+✅ Client Side Utilities
+✅ Server Side Integration
+
+🎉 Overall Result: All tests passed!
+
+💡 Your image fallback system is fully integrated and working!
+   • Local images will be served when available
+   • Build manifest provides second-level caching
+   • API fallback ensures reliability
+
+🚀 Ready for production!
 ```
 
 ### Test Fallback Functionality

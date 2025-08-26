@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UniversalImage from "@/components/common/UniversalImage";
 import Link from "@/components/common/Link";
+import { extractUnsplashPhotoId, getImageMetadata } from "@/lib/image-fallback";
 
 type ImageAttributionProps = {
   imageSrc: string;
@@ -10,6 +11,7 @@ type ImageAttributionProps = {
 type UnsplashAuthorData = {
   image_author: string;
   image_author_url: string;
+  isLocal?: boolean;
 } | null;
 
 function getDomain(url: string): string {
@@ -18,31 +20,6 @@ function getDomain(url: string): string {
   } catch {
     return "";
   }
-}
-
-// Extract Unsplash photo ID from image URL
-function extractUnsplashPhotoId(url: string): string | null {
-  if (!url || !url.includes("unsplash.com/photos/")) return null;
-
-  // Handle page URLs: https://unsplash.com/photos/{slug}-{id}
-  // The photo ID is typically the last segment after the final hyphen and contains alphanumeric characters and underscores
-  const pageUrlMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/.*-([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
-  );
-  if (pageUrlMatch) {
-    return pageUrlMatch[1];
-  }
-
-  // Handle simple page URLs: https://unsplash.com/photos/{id}
-  // For URLs that might just be the photo ID without a slug
-  const simplePageMatch = url.match(
-    /https:\/\/unsplash\.com\/photos\/([a-zA-Z0-9_-]{11})(?:[\?#]|$)/
-  );
-  if (simplePageMatch) {
-    return simplePageMatch[1];
-  }
-
-  return null;
 }
 
 const HeaderImage: React.FC<ImageAttributionProps> = ({
@@ -65,6 +42,21 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
       setLoading(true);
 
       try {
+        // STEP 1: Try to get author info from local manifest first
+        const imageMetadata = await getImageMetadata(imageSrc);
+        if (imageMetadata?.isLocal && imageMetadata.author) {
+          console.log(`🏠 Using local author data for ${photoId}`);
+          setUnsplashData({
+            image_author: imageMetadata.author,
+            image_author_url: `https://unsplash.com/@${imageMetadata.author.toLowerCase().replace(/\s+/g, "")}`,
+            isLocal: true,
+          });
+          setLoading(false);
+          return;
+        }
+
+        // STEP 2: Fall back to API call for author data
+        console.log(`🌐 Fetching author data from API for ${photoId}`);
         const response = await fetch(
           `/api/unsplash?action=get-photo&id=${photoId}`
         );
@@ -75,12 +67,14 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
             setUnsplashData({
               image_author: data.image_author,
               image_author_url: data.image_author_url,
+              isLocal: false,
             });
           }
         }
         // If the lookup fails, we'll just not show attribution
       } catch (error) {
         // Silently fail - just don't show attribution
+        console.warn("Failed to fetch image metadata:", error);
       } finally {
         setLoading(false);
       }
