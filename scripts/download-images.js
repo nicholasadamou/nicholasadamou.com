@@ -19,7 +19,7 @@ const {
   getImageExtension,
   createProgressBar,
   checkFetchAvailable,
-} = require("./lib/unsplash-lib");
+} = require("./unsplash/unsplash-lib");
 
 // Configuration
 const CONFIG = {

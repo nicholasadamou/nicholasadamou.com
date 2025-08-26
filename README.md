@@ -84,62 +84,126 @@ nicholasadamou.com/
 │   │   │   ├── 📂 data/            # Static data exports
 │   │   │   └── 📂 types/           # Local type definitions
 │   │   ├── 📂 api/                 # API routes
+│   │   │   ├── 📂 cache/           # Cache management
 │   │   │   ├── 📂 commit/          # Git commit info
 │   │   │   ├── 📂 emails/          # Contact form handler
 │   │   │   ├── 📂 github/          # GitHub API proxy
+│   │   │   ├── 📂 gumroad/         # Gumroad API integration
 │   │   │   ├── 📂 notes/           # Blog post views tracking
-│   │   │   └── 📂 og/              # Open Graph image generation
+│   │   │   ├── 📂 og/              # Open Graph image generation
+│   │   │   ├── 📂 unsplash/        # Unsplash API integration
+│   │   │   └── 📂 youtube/         # YouTube API integration
 │   │   ├── 📂 contact/             # Contact page
 │   │   ├── 📂 notes/               # Blog posts
 │   │   │   ├── 📂 components/      # Blog-specific components
 │   │   │   ├── 📂 hooks/           # Blog-specific hooks
 │   │   │   └── 📂 [slug]/          # Dynamic blog post pages
+│   │   ├── 📂 privacy/             # Privacy policy page
 │   │   ├── 📂 projects/            # Projects showcase
 │   │   │   ├── 📂 components/      # Project-specific components
 │   │   │   └── 📂 [slug]/          # Dynamic project pages
+│   │   ├── favicon.ico             # Site favicon
 │   │   ├── layout.tsx              # Root layout
-│   │   ├── page.tsx                # Homepage
-│   │   └── globals.css             # Global styles import
+│   │   ├── not-found.tsx           # 404 page
+│   │   └── page.tsx                # Homepage
+│   │
+│   ├── 📂 __tests__/               # Test files
+│   │   ├── 📂 components/          # Component tests
+│   │   │   ├── 📂 common/          # Common component tests
+│   │   │   └── 📂 ui/              # UI component tests
+│   │   ├── 📂 hooks/               # Hook tests
+│   │   ├── 📂 lib/                 # Library tests
+│   │   │   └── 📂 utils/           # Utility function tests
+│   │   ├── setup.ts                # Test setup configuration
+│   │   └── ...
 │   │
 │   ├── 📂 components/              # Reusable component library
 │   │   ├── 📂 ui/                  # Base UI components (shadcn-style)
+│   │   │   ├── badge.tsx
 │   │   │   ├── button.tsx
 │   │   │   ├── card.tsx
-│   │   │   └── ...
+│   │   │   ├── link.tsx
+│   │   │   ├── skeleton.tsx
+│   │   │   └── tooltip.tsx
 │   │   ├── 📂 common/              # Shared business components
-│   │   │   ├── Navigation.tsx
+│   │   │   ├── Avatar.tsx
+│   │   │   ├── CalButton.tsx
+│   │   │   ├── CardItem.tsx
+│   │   │   ├── ContentHeader.tsx
+│   │   │   ├── ContentPage.tsx
+│   │   │   ├── FlipNumber.tsx
 │   │   │   ├── Footer/
+│   │   │   ├── Halo.tsx
+│   │   │   ├── Link.tsx
+│   │   │   ├── ListPage.tsx
+│   │   │   ├── Navigation.tsx
+│   │   │   ├── NavLink.tsx
+│   │   │   ├── Pagination.tsx
+│   │   │   ├── Parallax.tsx
+│   │   │   ├── ProductList.tsx
+│   │   │   ├── RelatedContentList.tsx
+│   │   │   ├── Section.tsx
+│   │   │   ├── SocialLinks.tsx
+│   │   │   ├── SparkleText.tsx
+│   │   │   ├── TabButton.tsx
+│   │   │   ├── TabThemeChanger.tsx
 │   │   │   ├── ThemeProvider.tsx
-│   │   │   └── ...
+│   │   │   ├── ThemeSwitcher.tsx
+│   │   │   └── UniversalImage.tsx
 │   │   ├── 📂 mdx/                 # MDX-specific components
 │   │   │   ├── Alert.tsx
+│   │   │   ├── CustomLink.tsx
+│   │   │   ├── GitHub/
+│   │   │   ├── HeaderImage.tsx
 │   │   │   ├── Image.tsx
-│   │   │   └── ...
+│   │   │   ├── ImageFromContent.tsx
+│   │   │   ├── Latex.tsx
+│   │   │   ├── LinkButton.tsx
+│   │   │   ├── LinkPreview.tsx
+│   │   │   ├── MdxWrapper.tsx
+│   │   │   ├── PlantUML.tsx
+│   │   │   ├── ProjectLink.tsx
+│   │   │   └── YouTube/
 │   │   └── 📂 features/            # Feature-specific components
-│   │       ├── 📂 projects/        # Project-related components
+│   │       ├── 📂 about/           # About page components
 │   │       ├── 📂 notes/           # Blog-related components
-│   │       └── 📂 about/           # About page components
+│   │       └── 📂 projects/        # Project-related components
 │   │
 │   ├── 📂 hooks/                   # Custom React hooks
 │   │   ├── useGumroadProducts.ts   # Gumroad API integration
-│   │   ├── useMounted.ts           # Client-side mounting
-│   │   └── ...
+│   │   ├── useinterval.js          # Interval hook
+│   │   ├── useismount.js           # Mount detection hook
+│   │   ├── usemounted.ts           # Client-side mounting
+│   │   └── usemouseposition.js     # Mouse position tracking
 │   │
 │   ├── 📂 lib/                     # Utility libraries & config
+│   │   ├── 📂 cache/               # Caching utilities
+│   │   │   └── unsplash-cache.ts   # Unsplash image caching
+│   │   ├── 📂 utils/               # Utility functions
+│   │   │   ├── fetcher.js
+│   │   │   ├── formatShortDate.tsx
+│   │   │   ├── getBaseUrl.ts
+│   │   │   ├── getRelativeCoordinates.ts
+│   │   │   ├── postFormatting.tsx
+│   │   │   ├── unsplash.ts
+│   │   │   └── utils.ts
 │   │   ├── contentlayer-data.ts    # Contentlayer exports
-│   │   ├── utils/                  # Utility functions
-│   │   └── validations/            # Zod schemas
+│   │   ├── image-fallback.ts       # Image fallback handling
+│   │   └── image-fallback-server.ts # Server-side image fallback
 │   │
 │   ├── 📂 styles/                  # Global styles
-│   │   ├── globals.css             # Main stylesheet
 │   │   ├── base.css                # Base styles
+│   │   ├── globals.css             # Main stylesheet
 │   │   ├── prose.css               # Typography styles
 │   │   ├── syntax.css              # Code highlighting
 │   │   └── utilities.css           # Utility classes
 │   │
 │   └── 📂 types/                   # TypeScript definitions
-│       ├── global.d.ts
-│       └── ...
+│       ├── assets.d.ts             # Asset type definitions
+│       ├── canvas-confetti.d.ts    # Canvas confetti types
+│       ├── global.d.ts             # Global type definitions
+│       ├── remark-simple-plantuml.d.ts # PlantUML plugin types
+│       └── unified.d.ts            # Unified processor types
 │
 ├── 📂 content/                     # MDX content files
 │   ├── 📂 notes/                   # Blog posts in MDX
@@ -147,26 +211,82 @@ nicholasadamou.com/
 │
 ├── 📂 public/                      # Static assets
 │   ├── 📂 gallery/                 # Photo gallery images
+│   ├── 📂 images/                  # General images
+│   │   └── 📂 unsplash/            # Cached Unsplash images
 │   ├── 📂 logos/                   # Brand logos
-│   ├── 📂 notes/                   # Blog post assets
-│   ├── 📂 projects/                # Project assets
-│   └── ...
+│   ├── 📂 og/                      # Open Graph images
+│   ├── 📂 prism/                   # Prism.js themes
+│   ├── 📂 work/                    # Work experience logos
+│   ├── avatar.jpeg                 # Profile avatar
+│   ├── friendly-avatar.png         # Alternative avatar
+│   ├── nicholas-adamou.jpeg        # Author photo
+│   ├── photopaper.png              # Background texture
+│   ├── robots.txt                  # Search engine directives
+│   ├── rss.xml                     # RSS feed
+│   ├── sitemap.xml                 # Site map
+│   ├── ticketing.woff2             # Custom font
+│   └── unsplash-manifest.json      # Unsplash image manifest
 │
 ├── 📂 scripts/                     # Build & utility scripts
+│   ├── 📂 unsplash/                # Unsplash-related scripts
+│   │   ├── cache-unsplash-images.js
+│   │   ├── unsplash-lib.js
+│   │   ├── unsplash-url-to-download.js
+│   │   └── verify-unsplash-account.js
+│   ├── build-cache-images.js       # Image caching for build
+│   ├── clean-images.js             # Image cleanup utility
+│   ├── download-images.js          # Image download utility
 │   ├── generate-rss.mjs            # RSS feed generation
-│   └── generate-sitemap.mjs        # Sitemap generation
+│   ├── generate-sitemap.mjs        # Sitemap generation
+│   ├── test-fallback.js            # Fallback testing
+│   └── test-integration.js         # Integration testing
+│
+├── 📂 tools/                       # Development tools
+│   └── 📂 playwright-image-downloader/ # Custom image downloader tool
+│       ├── 📂 src/                 # Tool source code
+│       │   ├── 📂 auth/            # Authentication modules
+│       │   ├── 📂 browser/         # Browser automation
+│       │   ├── 📂 cli/             # Command-line interface
+│       │   ├── 📂 config/          # Configuration management
+│       │   ├── 📂 download/        # Download functionality
+│       │   ├── 📂 fs/              # File system utilities
+│       │   ├── 📂 manifest/        # Manifest handling
+│       │   ├── 📂 stats/           # Statistics tracking
+│       │   └── 📂 types/           # Type definitions
+│       ├── package.json            # Tool dependencies
+│       ├── playwright.config.js    # Playwright configuration
+│       ├── README.md               # Tool documentation
+│       └── tsconfig.json           # TypeScript config
 │
 ├── 📂 docs/                        # Project documentation
-│   └── PRE_COMMIT_SETUP.md         # Pre-commit hooks guide
-│   └── ACT_SETUP.md                # Local GitHub Actions testing guide
-│   └── TESTING.md                  # Testing guide
-│   └── UNSPLASH_PLUS.md            # Unsplash+ guide
+│   ├── ACT_SETUP.md                # Local GitHub Actions testing guide
+│   ├── PRE_COMMIT_SETUP.md         # Pre-commit hooks guide
+│   ├── TESTING.md                  # Testing guide
+│   └── UNSPLASH.md                 # Unsplash integration guide
+│
+├── 📂 coverage/                    # Test coverage reports
+│   ├── 📂 app/                     # App coverage
+│   ├── 📂 components/              # Component coverage
+│   ├── 📂 hooks/                   # Hook coverage
+│   ├── 📂 lib/                     # Library coverage
+│   ├── coverage-final.json         # Final coverage report
+│   └── index.html                  # Coverage HTML report
 │
 └── 📄 Configuration Files
+    ├── .actrc.sample               # ACT configuration sample
+    ├── .env.example                # Environment variables template
+    ├── .eslintrc.json              # ESLint configuration
+    ├── .gitignore                  # Git ignore patterns
+    ├── .prettierrc                 # Prettier configuration
+    ├── components.json             # shadcn/ui configuration
     ├── contentlayer.config.ts      # Content processing
+    ├── next.config.js              # Next.js configuration
+    ├── package.json                # Project dependencies
+    ├── postcss.config.js           # PostCSS configuration
+    ├── prettier.config.js          # Prettier config file
     ├── tailwind.config.js          # Tailwind CSS config
     ├── tsconfig.json               # TypeScript config
-    └── next.config.js              # Next.js config
+    └── vitest.config.ts            # Vitest testing config
 ```
 
 ### 🏗️ Architecture Principles

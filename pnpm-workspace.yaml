@@ -1,0 +1,6 @@
+packages:
+  # Main website package (root)
+  - '.'
+  
+  # Tools workspace
+  - 'tools/*'

@@ -35,5 +35,5 @@
     "src/**/*",
     ".contentlayer/generated"
   ],
-  "exclude": ["node_modules", "src/__tests__/**/*"]
+  "exclude": ["node_modules", "src/__tests__/**/*", "tools/**/*"]
 }

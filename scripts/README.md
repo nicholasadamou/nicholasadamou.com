@@ -70,7 +70,7 @@ public/images/unsplash/
 # Usage (requires dev server running)
 pnpm run cache:images
 # or
-node scripts/cache-unsplash-images.js
+node scripts/unsplash/cache-unsplash-images.js
 ```
 
 **What it does**:
@@ -114,7 +114,7 @@ node scripts/test-fallback.js
 # Usage
 pnpm run unsplash:verify
 # or
-node scripts/verify-unsplash-account.js
+node scripts/unsplash/verify-unsplash-account.js
 ```
 
 **What it does**:
