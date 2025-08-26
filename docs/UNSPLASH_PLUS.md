@@ -123,7 +123,7 @@ private readonly MAX_MEMORY_CACHE_SIZE = 100;   // Maximum memory cache items
 
 ### Cache Management API
 
-Manage the cache through the API:
+The enhanced cache API (`/api/cache`) provides comprehensive cache management:
 
 ```bash
 # Get cache statistics
@@ -133,13 +133,53 @@ GET /api/cache?action=stats
 GET /api/cache?action=clear
 ```
 
-The stats response includes:
+#### Enhanced Stats Response
 
-- Hit count
-- Miss count
-- Total requests
-- Hit rate percentage
-- Memory cache size
+The `/api/cache?action=stats` endpoint now returns detailed cache metrics:
+
+```json
+{
+  "stats": {
+    "hits": 145,
+    "misses": 23,
+    "sets": 23,
+    "deletes": 0,
+    "total_requests": 168
+  },
+  "hit_rate": "86.31%",
+  "memory_cache_size": 23
+}
+```
+
+**Response Fields:**
+
+- `stats.hits`: Number of cache hits (data found in cache)
+- `stats.misses`: Number of cache misses (data not found, fetched from API)
+- `stats.sets`: Number of items stored in cache
+- `stats.deletes`: Number of items removed from cache
+- `stats.total_requests`: Total cache operations
+- `hit_rate`: Cache effectiveness as percentage
+- `memory_cache_size`: Current items in memory cache
+
+#### Clear Cache Response
+
+The `/api/cache?action=clear` endpoint returns confirmation:
+
+```json
+{
+  "message": "Cache cleared successfully"
+}
+```
+
+#### Error Handling
+
+Both endpoints include proper error handling:
+
+```json
+{
+  "error": "Invalid action. Supported: stats, clear"
+}
+```
 
 ### Pre-caching Images
 
@@ -249,21 +289,153 @@ const { photographerUrl, unsplashUrl } = generateUnsplashAttribution(
 );
 ```
 
+## Build-time Image Caching
+
+### How Build-time Caching Works
+
+The application now includes a sophisticated build-time caching system that pre-fetches Unsplash images during the build process:
+
+1. **Static Manifest Generation**: During build, `scripts/build-cache-images.js` scans all MDX files for Unsplash URLs
+2. **Pre-fetching**: Fetches image data and creates optimized URLs for all found images
+3. **Static Manifest**: Creates `/public/unsplash-manifest.json` with cached image data
+4. **Runtime Optimization**: UniversalImage component first checks the static manifest, then falls back to API calls
+
+### Build Script Integration
+
+The build process automatically runs image caching via the `prebuild` script:
+
+```json
+{
+  "scripts": {
+    "prebuild": "node scripts/build-cache-images.js",
+    "build": "next build"
+  }
+}
+```
+
+### Fallback Mode for CI/CD
+
+The build script supports fallback mode when `UNSPLASH_ACCESS_KEY` is not available:
+
+- Creates an empty manifest to prevent build failures
+- Allows builds to succeed in CI environments without API keys
+- UniversalImage gracefully falls back to API calls at runtime
+
+## UniversalImage Component
+
+### Enhanced Image Handling
+
+The new `UniversalImage` component provides intelligent image loading:
+
+```typescript
+// Usage in MDX or React components
+<UniversalImage
+  src="https://unsplash.com/photos/beautiful-sunset-abc123"
+  alt="Beautiful sunset"
+  width={800}
+  height={600}
+  priority={true}
+/>
+```
+
+### Multi-tier Loading Strategy
+
+1. **Static Manifest (Build-time)**: First checks `/public/unsplash-manifest.json`
+2. **API Fallback (Runtime)**: Falls back to `/api/unsplash` for missing images
+3. **Error Handling**: Graceful degradation with placeholder rendering
+4. **Loading States**: Shows loading animation while fetching images
+
+### Key Features
+
+- **Photo ID Extraction**: Automatically extracts Unsplash photo IDs from page URLs
+- **Optimized URLs**: Uses cached optimized URLs when available
+- **Timeout Handling**: 10-second timeout for API fallback requests
+- **Error Recovery**: Comprehensive error logging and fallback rendering
+- **Memory Efficient**: Caches manifest data to avoid repeated fetches
+
 ## Available Scripts and Tools
 
-### Image Caching
+### Build-time Image Caching
 
 ```bash
-pnpm run cache:images     # Pre-cache all Unsplash images from content
+pnpm run cache:images:build   # Build-time caching (used in prebuild)
+pnpm run cache:images         # Runtime pre-caching script
+pnpm run cache:images:test    # Test fallback functionality
+```
+
+### Cache Management
+
+```bash
 pnpm run cache:stats      # Get cache performance statistics
-pnpm run cache:clear      # Clear the image cache
+pnpm run cache:clear      # Clear the runtime image cache
 ```
 
-### Account Verification
+### Testing and Verification
 
 ```bash
-pnpm run unsplash:verify  # Verify Unsplash account status and API access
+pnpm run unsplash:verify      # Verify Unsplash account status and API access
+pnpm run cache:images:test    # Test image fallback functionality
 ```
+
+### Test Fallback Functionality
+
+The `cache:images:test` script (`scripts/test-fallback.js`) provides comprehensive testing of the UniversalImage fallback mechanism:
+
+```bash
+pnpm run cache:images:test
+```
+
+#### What the Test Validates
+
+1. **Manifest Loading**: Verifies the static manifest can be loaded and parsed
+2. **Cache Hit Testing**: Tests images that should be found in the manifest
+3. **Fallback Trigger Testing**: Tests with fake/missing image IDs to verify API fallback
+4. **Statistics Reporting**: Shows cache performance and build metadata
+
+#### Sample Test Output
+
+```bash
+🧪 Testing Unsplash Image Fallback Functionality
+
+✅ Successfully loaded manifest
+📊 Current manifest contains 18 cached images
+
+🔍 Testing scenarios:
+
+📝 Test: Image that should be in manifest
+   Photo ID: abc123def456
+   ✅ PASS: Image found in manifest as expected
+   📄 Image URL: https://plus.unsplash.com/premium-photo-...
+
+📝 Test: Image that should NOT be in manifest (fake ID)
+   Photo ID: FAKE123456
+   ✅ PASS: Image not in manifest - would trigger API fallback as expected
+
+📈 Manifest Statistics:
+   Generated: 2025-08-26T00:05:22.123Z
+   Build version: 2.0.0
+   Total found: 18
+   Successfully cached: 18
+   Failed to cache: 0
+   Success rate: 100%
+
+💡 How the fallback works:
+1. UniversalImage component receives an Unsplash URL
+2. Extracts photo ID from the URL
+3. First checks the static manifest (build-time cached)
+4. If not found, makes API call to /api/unsplash
+5. API route fetches from Unsplash API and caches the result
+6. Returns optimized image URL to the component
+```
+
+#### Integration with CI/CD
+
+The test script is particularly useful for:
+
+- **Pre-deployment validation**: Ensure your manifest is properly generated
+- **CI/CD integration**: Add to your pipeline to validate image caching
+- **Debug assistance**: Identify which images are cached vs. requiring API calls
+- **Performance monitoring**: Track cache hit rates and success percentages
 
 ## Troubleshooting
 

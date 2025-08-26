@@ -164,26 +164,58 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
         console.log(
           `🌐 Image not found in manifest, fetching from API: ${photoId}`
         );
-        const response = await fetch(
-          `/api/unsplash?action=get-photo&id=${photoId}`
-        );
 
-        if (response.ok) {
-          const data = await response.json();
-          // Use the optimized URL from the API response
-          if (data.optimized_url) {
-            setActualImageSrc(data.optimized_url);
-          } else if (data.urls?.regular) {
-            setActualImageSrc(data.urls.regular);
-          }
-        } else {
-          // If API fails, don't render the image
-          console.warn(
-            "API call failed for photo ID:",
-            photoId,
-            "Status:",
-            response.status
+        try {
+          const response = await fetch(
+            `/api/unsplash?action=get-photo&id=${photoId}`,
+            {
+              // Add timeout and retry logic
+              signal: AbortSignal.timeout(10000), // 10 second timeout
+            }
           );
+
+          if (response.ok) {
+            const data = await response.json();
+            console.log(
+              `✅ Successfully fetched image via API fallback: ${photoId}`
+            );
+
+            // Use the optimized URL from the API response
+            if (data.optimized_url) {
+              setActualImageSrc(data.optimized_url);
+            } else if (data.urls?.regular) {
+              setActualImageSrc(data.urls.regular);
+            } else {
+              console.warn(
+                `⚠️ No usable URLs in API response for ${photoId}:`,
+                data
+              );
+              setActualImageSrc(null);
+            }
+          } else {
+            // If API fails, log detailed error information
+            const errorText = await response
+              .text()
+              .catch(() => "Unknown error");
+            console.warn(
+              `❌ API fallback failed for photo ID: ${photoId}`,
+              `Status: ${response.status}`,
+              `Error: ${errorText}`
+            );
+            setActualImageSrc(null);
+          }
+        } catch (fetchError) {
+          if (
+            fetchError instanceof Error &&
+            fetchError.name === "TimeoutError"
+          ) {
+            console.warn(`⏰ API fallback timeout for photo ID: ${photoId}`);
+          } else {
+            console.warn(
+              `❌ API fallback network error for photo ID: ${photoId}:`,
+              fetchError
+            );
+          }
           setActualImageSrc(null);
         }
       } catch (error) {

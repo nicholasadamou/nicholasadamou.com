@@ -33,6 +33,7 @@
     "act:dryrun": "act --dryrun",
     "cache:images": "node scripts/cache-unsplash-images.js",
     "cache:images:build": "node scripts/build-cache-images.js",
+    "cache:images:test": "node scripts/test-fallback.js",
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
     "unsplash:verify": "node scripts/verify-unsplash-account.js",
