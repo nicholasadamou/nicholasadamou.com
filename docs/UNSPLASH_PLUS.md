@@ -44,8 +44,6 @@ If you know the Unsplash photo ID, you can use it directly:
 ---
 title: My Post
 image_url: "https://images.unsplash.com/photo-1234567890-abcdef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
-image_author: "Photographer Name"
-image_author_url: "https://unsplash.com/@photographer?utm_source=nicholasadamou.com&utm_medium=referral"
 image_url_source: "https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral"
 ---
 ```
@@ -63,7 +61,6 @@ GET /api/unsplash?action=get-photo&id=PHOTO_ID
 Response includes:
 
 - Optimized URL with watermark removal (if Unsplash+ enabled)
-- Author information
 - Image dimensions
 - Description
 - All image URLs (raw, full, regular, small, thumb)
@@ -199,8 +196,6 @@ title: My Premium Post
 summary: Using a beautiful premium image
 date: 2024-12-14
 image_url: "https://plus.unsplash.com/premium-photo-12345?ixlib=rb-4.0.3&ixid=YOUR_APP_ID&auto=format&fit=crop&w=1200&q=80"
-image_author: "Premium Photographer"
-image_author_url: "https://unsplash.com/@premium_photographer?utm_source=nicholasadamou.com&utm_medium=referral"
 image_url_source: "https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral"
 ---
 ```
@@ -249,13 +244,7 @@ The system uses different optimization parameters based on the image type:
 
 ## Attribution Requirements
 
-Always include proper attribution for Unsplash images:
-
-```yaml
-image_author: "Photographer Name"
-image_author_url: "https://unsplash.com/@photographer?utm_source=nicholasadamou.com&utm_medium=referral"
-image_url_source: "https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral"
-```
+Always include proper attribution for Unsplash images.
 
 The `generateUnsplashAttribution` utility function can help with this:
 
@@ -554,6 +543,7 @@ Implement fallback images for resilience:
 ```yaml
 # Primary premium image
 image_url: "https://plus.unsplash.com/premium-photo-123..."
+image_url_source: "https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral"
 # Fallback free image
 image_url_fallback: "https://images.unsplash.com/photo-free-456..."
 ```
