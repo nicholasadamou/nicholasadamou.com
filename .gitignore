@@ -49,3 +49,4 @@ generated
 .actrc
 .secrets
 .env.act
+tools/playwright-image-downloader/.env

@@ -303,27 +303,6 @@ describe("Unsplash API Route", () => {
       });
     });
 
-    describe("optimize-url action", () => {
-      it("should return optimized URL with default parameters", async () => {
-        const request = new NextRequest(
-          "http://localhost:3000/api/unsplash?action=optimize-url&id=test-photo-id"
-        );
-        const response = await GET(request);
-
-        expect(response.status).toBe(500); // This should throw an error as per current implementation
-      });
-
-      it("should return 400 when photo ID is missing", async () => {
-        const request = new NextRequest(
-          "http://localhost:3000/api/unsplash?action=optimize-url"
-        );
-        const response = await GET(request);
-        const data = await response.json();
-
-        expect(response.status).toBe(400);
-        expect(data.error).toBe("Photo ID is required");
-      });
-    });
 
     describe("invalid action", () => {
       it("should return 400 for invalid action", async () => {
@@ -335,7 +314,7 @@ describe("Unsplash API Route", () => {
 
         expect(response.status).toBe(400);
         expect(data.error).toBe(
-          "Invalid action. Supported actions: get-photo, extract-id, optimize-url"
+          "Invalid action. Supported actions: get-photo, extract-id"
         );
       });
     });

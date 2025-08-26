@@ -35,3 +35,7 @@ pnpm-lock.yaml
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Submodules
+tools/playwright-image-downloader/
+tools/unsplash-node-utilities/

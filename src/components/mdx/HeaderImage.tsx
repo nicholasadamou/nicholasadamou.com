@@ -13,15 +13,6 @@ type UnsplashAuthorData = {
   image_author_url: string;
   isLocal?: boolean;
 } | null;
-
-function getDomain(url: string): string {
-  try {
-    return new URL(url).hostname.replace("www.", "");
-  } catch {
-    return "";
-  }
-}
-
 const HeaderImage: React.FC<ImageAttributionProps> = ({
   imageSrc,
   imageAlt,

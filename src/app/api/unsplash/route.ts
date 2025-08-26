@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   getUnsplashPhoto,
   extractUnsplashPhotoId,
-  getOptimizedUnsplashUrl,
   createPremiumUnsplashUrl,
 } from "@/lib/utils/unsplash";
 import { unsplashCache } from "@/lib/cache/unsplash-cache";
@@ -11,7 +10,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get("action");
 
-  // Check if API key is configured
+  // Check if an API key is configured
   if (!process.env.UNSPLASH_ACCESS_KEY) {
     console.error("❌ UNSPLASH_ACCESS_KEY environment variable is not set");
     return NextResponse.json(
@@ -118,36 +117,12 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ photo_id: photoId });
       }
 
-      case "optimize-url": {
-        const photoId = searchParams.get("id");
-        if (!photoId) {
-          return NextResponse.json(
-            { error: "Photo ID is required" },
-            { status: 400 }
-          );
-        }
-
-        const width = parseInt(searchParams.get("width") || "1200");
-        const quality = parseInt(searchParams.get("quality") || "80");
-        const fit = (searchParams.get("fit") || "crop") as any;
-        const format = (searchParams.get("format") || "auto") as any;
-
-        const optimizedUrl = getOptimizedUnsplashUrl(
-          photoId,
-          width,
-          quality,
-          fit,
-          format
-        );
-
-        return NextResponse.json({ optimized_url: optimizedUrl });
-      }
 
       default:
         return NextResponse.json(
           {
             error:
-              "Invalid action. Supported actions: get-photo, extract-id, optimize-url",
+              "Invalid action. Supported actions: get-photo, extract-id",
           },
           { status: 400 }
         );

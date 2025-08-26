@@ -85,27 +85,6 @@ export function createPremiumUnsplashUrl(
   }
 }
 
-/**
- * Get optimized image URL from Unsplash with custom parameters
- * @param imageId - The Unsplash photo ID
- * @param width - Desired width (default: 1200)
- * @param quality - Image quality 1-100 (default: 80)
- * @param fit - How to fit the image (default: 'crop')
- * @param format - Image format (default: 'auto')
- */
-export function getOptimizedUnsplashUrl(
-  imageId: string,
-  width: number = 1200,
-  quality: number = 80,
-  fit: "crop" | "clip" | "fill" | "fillmax" | "max" | "min" | "scale" = "crop",
-  format: "auto" | "webp" | "jpg" | "png" = "auto"
-): string {
-  // Don't generate custom URLs - let the Unsplash API provide the correct URLs
-  // This function should only be used when we have actual photo data from the API
-  throw new Error(
-    "getOptimizedUnsplashUrl should not be called directly. Use API response URLs instead."
-  );
-}
 
 /**
  * Get a specific photo by ID
@@ -114,7 +93,7 @@ export function getOptimizedUnsplashUrl(
 export async function getUnsplashPhoto(
   photoId: string
 ): Promise<UnsplashImageData | null> {
-  // Check if API key is configured
+  // Check if an API key is configured
   if (!process.env.UNSPLASH_ACCESS_KEY) {
     console.error("❌ UNSPLASH_ACCESS_KEY environment variable is not set");
     return null;
@@ -187,28 +166,4 @@ export function extractUnsplashPhotoId(url: string): string | null {
   }
 
   return null;
-}
-
-/**
- * Generate proper Unsplash attribution
- * @param photographer - Photographer's name
- * @param photographerUsername - Photographer's username
- * @param photoId - Photo ID for tracking
- */
-export function generateUnsplashAttribution(
-  photographer: string,
-  photographerUsername: string,
-  photoId: string
-): {
-  photographerUrl: string;
-  unsplashUrl: string;
-  utmParams: string;
-} {
-  const utmParams = "utm_source=nicholasadamou.com&utm_medium=referral";
-
-  return {
-    photographerUrl: `https://unsplash.com/@${photographerUsername}?${utmParams}`,
-    unsplashUrl: `https://unsplash.com/?${utmParams}`,
-    utmParams,
-  };
 }

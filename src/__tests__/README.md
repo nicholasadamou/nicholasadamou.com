@@ -12,7 +12,6 @@ Tests the main API route at `/api/unsplash` with all its actions:
 
 - ✅ `get-photo` action with caching behavior
 - ✅ `extract-id` action for URL parsing
-- ✅ `optimize-url` action (currently throws error as intended)
 - ✅ Error handling (404, rate limits, network errors)
 - ✅ Environment variable validation
 - ✅ Premium photo handling

@@ -1,20 +1,24 @@
 # Scripts Directory
 
-This directory contains various utility scripts for managing your website's images, RSS feeds, and other build-time operations.
+This directory contains utility scripts for managing your website's RSS feeds, sitemaps, and other build-time operations.
 
-## Image Management Scripts
+## 🔄 Migrated to Submodule
+
+Most Unsplash-related scripts have been moved to the `tools/unsplash-node-utilities` submodule to eliminate duplication and improve maintainability. See the [Unsplash Utilities Documentation](../tools/unsplash-node-utilities/README.md) for details.
+
+## Local Scripts
 
 ### Core Image Scripts
 
-#### `build-cache-images.js`
+#### `build-cache-images.js` → **Moved to submodule**
 
 **Purpose**: Build-time Unsplash image caching for static generation.
 
 ```bash
 # Usage
-pnpm run cache:images:build
+pnpm run build:cache-images
 # or
-node scripts/build-cache-images.js
+node tools/unsplash-node-utilities/build-cache-images.js
 ```
 
 **What it does**:
@@ -29,7 +33,7 @@ node scripts/build-cache-images.js
 
 ---
 
-#### `download-images.js` ⭐ **NEW**
+#### `download-images.js` → **Moved to submodule**
 
 **Purpose**: Downloads all Unsplash images locally for complete offline fallback.
 
@@ -37,7 +41,7 @@ node scripts/build-cache-images.js
 # Usage
 pnpm run download:images
 # or
-node scripts/download-images.js
+node tools/unsplash-node-utilities/download-images.js
 ```
 
 **What it does**:
@@ -62,7 +66,7 @@ public/images/unsplash/
 
 ---
 
-#### `cache-unsplash-images.js`
+#### `cache-unsplash-images.js` → **Moved to submodule**
 
 **Purpose**: Development-time image caching via local API.
 
@@ -70,7 +74,7 @@ public/images/unsplash/
 # Usage (requires dev server running)
 pnpm run cache:images
 # or
-node scripts/unsplash/cache-unsplash-images.js
+node tools/unsplash-node-utilities/cache-unsplash-images.js
 ```
 
 **What it does**:
@@ -84,15 +88,15 @@ node scripts/unsplash/cache-unsplash-images.js
 
 ---
 
-#### `test-fallback.js`
+#### `test-fallback.js` → **Moved to submodule**
 
 **Purpose**: Test the fallback functionality of your image system.
 
 ```bash
 # Usage
-pnpm run cache:images:test
+pnpm run test:fallback
 # or
-node scripts/test-fallback.js
+node tools/unsplash-node-utilities/test-fallback.js
 ```
 
 **What it does**:
@@ -106,15 +110,15 @@ node scripts/test-fallback.js
 
 ---
 
-#### `verify-unsplash-account.js`
+#### `verify-unsplash-account.js` → **Moved to submodule**
 
 **Purpose**: Verify Unsplash API credentials and account status.
 
 ```bash
 # Usage
-pnpm run unsplash:verify
+pnpm run verify:unsplash
 # or
-node scripts/unsplash/verify-unsplash-account.js
+node tools/unsplash-node-utilities/verify-unsplash-account.js
 ```
 
 **What it does**:
@@ -132,16 +136,16 @@ node scripts/unsplash/verify-unsplash-account.js
 
 ```bash
 # 1. First, ensure you have valid Unsplash credentials
-pnpm run unsplash:verify
+pnpm run verify:unsplash
 
 # 2. Build the image cache manifest (fetches metadata)
-pnpm run cache:images:build
+pnpm run build:cache-images
 
 # 3. Download all images locally (complete offline fallback)
 pnpm run download:images
 
 # 4. Test the fallback system
-pnpm run cache:images:test
+pnpm run test:fallback
 
 # 5. Build your site
 pnpm run build
@@ -155,24 +159,24 @@ pnpm run dev              # Start dev server
 pnpm run cache:images     # Pre-cache via local API (optional)
 
 # When adding new images to content:
-pnpm run cache:images:build  # Update manifest
-pnpm run download:images     # Download new images
+pnpm run build:cache-images  # Update manifest
+pnpm run download:images      # Download new images
 ```
 
 ### Troubleshooting Workflow
 
 ```bash
 # Check API credentials
-pnpm run unsplash:verify
+pnpm run verify:unsplash
 
 # Clear and rebuild everything
 rm public/unsplash-manifest.json
 rm -rf public/images/unsplash/
-pnpm run cache:images:build
+pnpm run build:cache-images
 pnpm run download:images
 
 # Test the system
-pnpm run cache:images:test
+pnpm run test:fallback
 ```
 
 ## Other Scripts
@@ -240,7 +244,7 @@ Update `package.json`:
 ```json
 {
   "scripts": {
-    "prebuild": "npm-run-all cache:images:build download:images",
+    "prebuild": "npm-run-all build:cache-images download:images",
     "build": "next build"
   }
 }
@@ -288,13 +292,13 @@ Scripts are optimized for:
 ### Regular Tasks
 
 - Run `download:images` when adding new content
-- Check `unsplash:verify` if downloads start failing
+- Check `verify:unsplash` if downloads start failing
 - Monitor storage usage in `public/images/`
 - Update scripts when adding new image sources
 
 ### Troubleshooting
 
-- **"Manifest not found"**: Run `cache:images:build` first
+- **"Manifest not found"**: Run `build:cache-images` first
 - **"API key invalid"**: Check environment variables
 - **"Downloads failing"**: Check internet connection and rate limits
 - **"Out of space"**: Clean old downloads or increase storage

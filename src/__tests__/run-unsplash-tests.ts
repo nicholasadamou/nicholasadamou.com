@@ -33,7 +33,6 @@ describe("Unsplash Integration Test Suite", () => {
  *    - GET /api/unsplash with different actions
  *    - get-photo action with caching
  *    - extract-id action with various URL formats
- *    - optimize-url action
  *    - Error handling (404, rate limits, network errors)
  *    - Environment variable validation
  *
