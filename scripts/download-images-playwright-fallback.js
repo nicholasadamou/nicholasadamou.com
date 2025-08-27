@@ -20,7 +20,7 @@ function runPlaywrightImageDownloader() {
     // Check if submodules exist
     if (!fs.existsSync(playwrightPath)) {
       throw new Error(
-        `Playwright image downloader not found at ${playwrightPath}`
+        `Playwright image downloader not found at ${playwrightPath} - submodules not available in CI environment`
       );
     }
 
