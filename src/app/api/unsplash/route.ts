@@ -117,12 +117,10 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ photo_id: photoId });
       }
 
-
       default:
         return NextResponse.json(
           {
-            error:
-              "Invalid action. Supported actions: get-photo, extract-id",
+            error: "Invalid action. Supported actions: get-photo, extract-id",
           },
           { status: 400 }
         );

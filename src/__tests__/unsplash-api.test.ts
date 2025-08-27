@@ -303,7 +303,6 @@ describe("Unsplash API Route", () => {
       });
     });
 
-
     describe("invalid action", () => {
       it("should return 400 for invalid action", async () => {
         const request = new NextRequest(

@@ -85,7 +85,6 @@ export function createPremiumUnsplashUrl(
   }
 }
 
-
 /**
  * Get a specific photo by ID
  * @param photoId - The Unsplash photo ID
