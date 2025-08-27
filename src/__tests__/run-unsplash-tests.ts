@@ -40,7 +40,6 @@ describe("Unsplash Integration Test Suite", () => {
  *    - getUnsplashPhoto function
  *    - extractUnsplashPhotoId with various URL formats
  *    - createPremiumUnsplashUrl for regular and premium images
- *    - generateUnsplashAttribution
  *    - Error handling and edge cases
  *
  * 3. Cache Tests (unsplash-cache.test.ts):

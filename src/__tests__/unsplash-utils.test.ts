@@ -13,7 +13,6 @@ import {
   getUnsplashPhoto,
   extractUnsplashPhotoId,
   createPremiumUnsplashUrl,
-  generateUnsplashAttribution,
 } from "@/lib/utils/unsplash";
 
 // Mock environment variables
@@ -292,42 +291,6 @@ describe("Unsplash Utility Functions", () => {
       );
 
       consoleSpy.mockRestore();
-    });
-  });
-
-  describe("generateUnsplashAttribution", () => {
-    it("should generate proper attribution URLs", () => {
-      const photographer = "Test Photographer";
-      const photographerUsername = "test-photographer";
-      const photoId = "test-photo-id";
-
-      const attribution = generateUnsplashAttribution(
-        photographer,
-        photographerUsername,
-        photoId
-      );
-
-      expect(attribution).toEqual({
-        photographerUrl:
-          "https://unsplash.com/@test-photographer?utm_source=nicholasadamou.com&utm_medium=referral",
-        unsplashUrl:
-          "https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral",
-        utmParams: "utm_source=nicholasadamou.com&utm_medium=referral",
-      });
-    });
-
-    it("should handle special characters in username", () => {
-      const photographer = "Test Photographer";
-      const photographerUsername = "test-photographer_123";
-      const photoId = "test-photo-id";
-
-      const attribution = generateUnsplashAttribution(
-        photographer,
-        photographerUsername,
-        photoId
-      );
-
-      expect(attribution.photographerUrl).toContain("@test-photographer_123");
     });
   });
 });
