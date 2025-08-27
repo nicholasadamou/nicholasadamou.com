@@ -359,16 +359,46 @@ nicholasadamou.com/
 pnpm dev          # Start development server
 pnpm build        # Build for production
 pnpm start        # Start production server
+pnpm type-check   # TypeScript type checking
+
+# Code Quality
 pnpm lint         # Run ESLint
 pnpm lint:fix     # Fix ESLint issues automatically
-
-# Code Formatting
 pnpm format       # Format all files with Prettier
 pnpm format:check # Check if files are formatted correctly
+
+# Testing
+pnpm test         # Run tests in watch mode
+pnpm test:run     # Run tests once
+pnpm test:ui      # Run tests with UI interface
+pnpm test:coverage # Run tests with coverage report
+pnpm test:watch   # Run tests in watch mode (explicit)
+
+# Specialized Testing
+pnpm test:unsplash         # Run Unsplash-specific tests
+pnpm test:unsplash:watch   # Run Unsplash tests in watch mode
+pnpm test:unsplash:coverage # Run Unsplash tests with coverage
 
 # Content Generation
 pnpm generate:rss      # Generate RSS feed
 pnpm generate:sitemap  # Generate sitemap
+
+# Image Management
+pnpm download:images        # Download images using utilities
+pnpm download:images:playwright # Download images using Playwright
+pnpm clean:images           # Clean up image files
+pnpm cache:images           # Cache Unsplash images
+pnpm build:cache-images     # Build image cache for production
+
+# Unsplash Utilities
+pnpm verify:unsplash    # Verify Unsplash account
+pnpm test:fallback      # Test fallback functionality
+pnpm test:integration   # Run integration tests
+pnpm url-to-download    # Convert Unsplash URL to download format
+
+# Cache Management
+pnpm cache:stats        # Get cache statistics (requires running server)
+pnpm cache:clear        # Clear cache (requires running server)
 
 # Local GitHub Actions Testing
 pnpm act:list       # List all available workflows
