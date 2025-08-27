@@ -104,13 +104,22 @@ export async function getUnsplashPhoto(
         Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
         Accept: "application/json",
       },
+      // Add timeout to prevent hanging requests
+      signal: AbortSignal.timeout(15000), // 15 second timeout
     });
 
     if (!resp.ok) {
       const text = await resp.text();
 
-      if (resp.status === 403 && text.includes("Rate Limit Exceeded")) {
-        console.warn(`⚠️ Unsplash rate limit exceeded for photo ${photoId}`);
+      if (
+        resp.status === 429 ||
+        (resp.status === 403 && text.includes("Rate Limit Exceeded"))
+      ) {
+        console.warn(
+          `⚠️ Unsplash rate limit exceeded for photo ${photoId} (status: ${resp.status})`
+        );
+        // Throw error for rate limits so backoff logic can handle it
+        throw new Error(`Rate Limit Exceeded: ${resp.status} - ${text}`);
       } else {
         console.error(
           `Unsplash API error: status=${resp.status} ${resp.statusText} body=${text?.slice(0, 500)}`
@@ -123,7 +132,19 @@ export async function getUnsplashPhoto(
     const data = (await resp.json()) as UnsplashImageData;
     return data;
   } catch (error) {
-    console.error("Error fetching Unsplash photo (network or parsing):", error);
+    // Re-throw rate limit errors so backoff logic can handle them
+    if (error instanceof Error && error.message.includes("Rate Limit")) {
+      throw error;
+    }
+
+    if (error instanceof Error && error.name === "TimeoutError") {
+      console.error(`Timeout fetching Unsplash photo ${photoId}`);
+    } else {
+      console.error(
+        "Error fetching Unsplash photo (network or parsing):",
+        error
+      );
+    }
     return null;
   }
 }
