@@ -45,7 +45,7 @@
     "download:images:playwright": "node scripts/download-images-playwright-fallback.js",
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
