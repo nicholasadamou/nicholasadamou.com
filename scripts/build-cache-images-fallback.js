@@ -80,7 +80,7 @@ function cleanupSubmoduleStructure() {
 }
 
 function main() {
-  const submodulePath = "tools/unsplash-node-utilities/build-cache-images.js";
+  const submodulePath = "tools/unsplash-node-utilities/src/cli/build-cache.js";
 
   if (fs.existsSync(submodulePath)) {
     console.log(
