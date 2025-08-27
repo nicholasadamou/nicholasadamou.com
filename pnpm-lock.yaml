@@ -239,7 +239,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@20.19.11)(happy-dom@18.0.1)(jiti@1.21.7)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(msw@2.10.5(@types/node@20.19.11)(typescript@5.9.2))(tsx@4.20.5)(yaml@2.8.1)
 
-  tools/playwright-image-downloader:
+  tools/playwright-unsplash-downloader:
     dependencies:
       chalk:
         specifier: ^5.3.0
@@ -6798,7 +6798,7 @@ snapshots:
 
   '@types/pg@8.11.6':
     dependencies:
-      '@types/node': 20.19.11
+      '@types/node': 22.18.0
       pg-protocol: 1.10.3
       pg-types: 4.1.0
 
@@ -6820,7 +6820,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 20.19.11
+      '@types/node': 22.18.0
 
   '@types/statuses@2.0.6': {}
 
@@ -9865,7 +9865,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.19.11
+      '@types/node': 22.18.0
       long: 5.3.2
 
   proxy-from-env@1.1.0: {}
