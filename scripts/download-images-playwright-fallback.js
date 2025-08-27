@@ -12,6 +12,25 @@ const { execSync } = require("child_process");
 function runPlaywrightImageDownloader() {
   console.log("🎭 Attempting to run Playwright image downloader...");
 
+  // Check if we're in a CI environment
+  const isCI =
+    process.env.CI === "true" ||
+    process.env.VERCEL === "1" ||
+    process.env.NODE_ENV === "production";
+
+  if (isCI) {
+    console.log(
+      "⚠️  Detected CI/production environment - skipping Playwright image downloader"
+    );
+    console.log(
+      "🔧 This is expected in CI environments without git submodule access"
+    );
+    console.log(
+      "💡 Build will continue without downloaded images - they will be fetched at runtime"
+    );
+    return;
+  }
+
   const playwrightPath = "tools/playwright-image-downloader";
   const setupScriptPath = "scripts/setup-playwright-env.js";
   const mainManifestPath = "public/unsplash-manifest.json";
