@@ -99,22 +99,36 @@ function createSubmoduleEnvFile(env) {
   }
 }
 
+function getEnvironmentVariables() {
+  // First try to get from environment files (.env.local or .env)
+  const envFile = findEnvFile();
+
+  if (envFile) {
+    console.log(`📄 Found environment file: ${envFile}`);
+    return parseEnvFile(envFile);
+  }
+
+  // If no file found, try to get from process.env (for CI environments like Vercel)
+  console.log(
+    "📄 No .env file found, checking process environment variables..."
+  );
+  return process.env;
+}
+
 function main() {
   console.log("🔧 Setting up Playwright Image Downloader environment...\n");
 
-  const envFile = findEnvFile();
-  if (!envFile) {
-    console.error("❌ No environment file found (.env.local or .env)");
-    console.log("   Please create one with your Unsplash API credentials");
-    process.exit(1);
-  }
-
-  const env = parseEnvFile(envFile);
+  const env = getEnvironmentVariables();
   const success = createSubmoduleEnvFile(env);
 
   if (!success) {
-    console.error("❌ Failed to setup environment for Playwright downloader");
-    process.exit(1);
+    console.warn("⚠️  Failed to setup environment for Playwright downloader");
+    console.log(
+      "💡 This is expected in CI environments without Unsplash credentials"
+    );
+    console.log("💡 Build will continue with fallback behavior");
+    // Don't exit with error in CI - let the build continue
+    return;
   }
 
   console.log(
