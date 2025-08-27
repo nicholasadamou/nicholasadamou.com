@@ -1,0 +1,18 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "github": {
+    "enabled": true,
+    "autoAlias": false
+  },
+  "build": {
+    "env": {
+      "ENABLE_GIT_SUBMODULES": "true"
+    }
+  },
+  "installCommand": "git submodule update --init --recursive && pnpm install",
+  "buildCommand": "pnpm run build"
+}

@@ -9,8 +9,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm-run-all build:cache-images download:images:playwright",
-    "build:cache-images": "node tools/unsplash-node-utilities/build-cache-images.js",
+    "prebuild": "node scripts/check-submodules.js && npm-run-all build:cache-images download:images:playwright",
+    "build:cache-images": "node scripts/build-cache-images-fallback.js",
     "build": "next build",
     "generate:rss": "node scripts/generate-rss.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
@@ -42,7 +42,7 @@
     "test:integration": "node tools/unsplash-node-utilities/test-integration.js",
     "verify:unsplash": "node tools/unsplash-node-utilities/verify-unsplash-account.js",
     "url-to-download": "node tools/unsplash-node-utilities/unsplash-url-to-download.js",
-    "download:images:playwright": "git submodule update --init --recursive && node scripts/setup-playwright-env.js && cd tools/playwright-image-downloader && pnpm install && pnpm run download",
+    "download:images:playwright": "node scripts/download-images-playwright-fallback.js",
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
     "prepare": "husky"
