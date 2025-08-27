@@ -228,35 +228,42 @@ nicholasadamou.com/
 │   └── unsplash-manifest.json      # Unsplash image manifest
 │
 ├── 📂 scripts/                     # Build & utility scripts
-│   ├── 📂 unsplash/                # Unsplash-related scripts
-│   │   ├── cache-unsplash-images.js
-│   │   ├── unsplash-lib.js
-│   │   ├── unsplash-url-to-download.js
-│   │   └── verify-unsplash-account.js
-│   ├── build-cache-images.js       # Image caching for build
-│   ├── clean-images.js             # Image cleanup utility
-│   ├── download-images.js          # Image download utility
-│   ├── generate-rss.mjs            # RSS feed generation
-│   ├── generate-sitemap.mjs        # Sitemap generation
-│   ├── test-fallback.js            # Fallback testing
-│   └── test-integration.js         # Integration testing
+│   ├── build-cache-images-fallback.js    # Image caching fallback
+│   ├── check-submodules.js               # Git submodule checker
+│   ├── download-images-playwright-fallback.js # Playwright image fallback
+│   ├── generate-rss.mjs                  # RSS feed generation
+│   ├── generate-sitemap.mjs              # Sitemap generation
+│   ├── README.md                         # Scripts documentation
+│   └── setup-playwright-env.js          # Playwright environment setup
 │
 ├── 📂 tools/                       # Development tools
-│   └── 📂 playwright-image-downloader/ # Custom image downloader tool
-│       ├── 📂 src/                 # Tool source code
-│       │   ├── 📂 auth/            # Authentication modules
-│       │   ├── 📂 browser/         # Browser automation
-│       │   ├── 📂 cli/             # Command-line interface
-│       │   ├── 📂 config/          # Configuration management
-│       │   ├── 📂 download/        # Download functionality
-│       │   ├── 📂 fs/              # File system utilities
-│       │   ├── 📂 manifest/        # Manifest handling
-│       │   ├── 📂 stats/           # Statistics tracking
-│       │   └── 📂 types/           # Type definitions
-│       ├── package.json            # Tool dependencies
-│       ├── playwright.config.js    # Playwright configuration
-│       ├── README.md               # Tool documentation
-│       └── tsconfig.json           # TypeScript config
+│   ├── 📂 playwright-image-downloader/ # Custom image downloader tool
+│   │   ├── 📂 src/                 # Tool source code
+│   │   │   ├── 📂 auth/            # Authentication modules
+│   │   │   ├── 📂 browser/         # Browser automation
+│   │   │   ├── 📂 cli/             # Command-line interface
+│   │   │   ├── 📂 config/          # Configuration management
+│   │   │   ├── 📂 download/        # Download functionality
+│   │   │   ├── 📂 fs/              # File system utilities
+│   │   │   ├── 📂 manifest/        # Manifest handling
+│   │   │   ├── 📂 stats/           # Statistics tracking
+│   │   │   └── 📂 types/           # Type definitions
+│   │   ├── package.json            # Tool dependencies
+│   │   ├── playwright.config.js    # Playwright configuration
+│   │   ├── README.md               # Tool documentation
+│   │   └── tsconfig.json           # TypeScript config
+│   └── 📂 unsplash-node-utilities/  # Unsplash image utilities
+│       ├── build-cache-images.js    # Image caching for build
+│       ├── cache-unsplash-images.js # Cache Unsplash images
+│       ├── clean-images.js         # Image cleanup utility
+│       ├── download-images.js      # Image download utility
+│       ├── package.json            # Dependencies
+│       ├── README.md               # Utilities documentation
+│       ├── test-fallback.js        # Fallback testing
+│       ├── test-integration.js     # Integration testing
+│       ├── unsplash-lib.js         # Unsplash library functions
+│       ├── unsplash-url-to-download.js # URL conversion utility
+│       └── verify-unsplash-account.js # Account verification
 │
 ├── 📂 docs/                        # Project documentation
 │   ├── ACT_SETUP.md                # Local GitHub Actions testing guide
@@ -272,20 +279,28 @@ nicholasadamou.com/
 │   ├── coverage-final.json         # Final coverage report
 │   └── index.html                  # Coverage HTML report
 │
-└── 📄 Configuration Files
+└── 📞 Configuration Files
     ├── .actrc.sample               # ACT configuration sample
     ├── .env.example                # Environment variables template
     ├── .eslintrc.json              # ESLint configuration
     ├── .gitignore                  # Git ignore patterns
+    ├── .prettierignore             # Prettier ignore patterns
     ├── .prettierrc                 # Prettier configuration
     ├── components.json             # shadcn/ui configuration
     ├── contentlayer.config.ts      # Content processing
+    ├── CONTRIBUTING.md             # Contribution guidelines
+    ├── LICENSE                     # Project license
     ├── next.config.js              # Next.js configuration
     ├── package.json                # Project dependencies
+    ├── pnpm-lock.yaml              # Package lock file
+    ├── pnpm-workspace.yaml         # PNPM workspace configuration
     ├── postcss.config.js           # PostCSS configuration
     ├── prettier.config.js          # Prettier config file
+    ├── README.md                   # Project documentation
     ├── tailwind.config.js          # Tailwind CSS config
     ├── tsconfig.json               # TypeScript config
+    ├── vercel.json                 # Vercel configuration
+    ├── vitest-env.d.ts             # Vitest environment types
     └── vitest.config.ts            # Vitest testing config
 ```
 
@@ -375,6 +390,7 @@ pnpm act:dryrun     # Preview what would be executed
    title: "Your Post Title"
    summary: "Brief description"
    date: "2024-01-01"
+   image_url: "https://unsplash.com/photo/..."
    ---
    ```
 
@@ -389,6 +405,7 @@ pnpm act:dryrun     # Preview what would be executed
    date: "2024-01-01"
    url: "https://github.com/username/repo"
    technologies: ["Next.js", "TypeScript"]
+   image_url: "https://unsplash.com/photo/..."
    ---
    ```
 
