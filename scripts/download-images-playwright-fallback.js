@@ -63,9 +63,10 @@ function runPlaywrightImageDownloader() {
     }
 
     console.log("⬇️  Running image download...");
+    // Use tsx to run TypeScript directly instead of building first
     const downloadCommand = manifestPathArg
-      ? `node dist/cli.js ${manifestPathArg}`
-      : "node dist/cli.js";
+      ? `npx tsx src/cli.ts ${manifestPathArg}`
+      : "npx tsx src/cli.ts";
 
     execSync(downloadCommand, {
       stdio: "inherit",
