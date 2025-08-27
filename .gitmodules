@@ -1,6 +1,6 @@
-[submodule "tools/playwright-image-downloader"]
-	path = tools/playwright-image-downloader
-	url = https://github.com/nicholasadamou/playwright-unsplash-downloader.git
 [submodule "tools/unsplash-node-utilities"]
 	path = tools/unsplash-node-utilities
 	url = https://github.com/nicholasadamou/unsplash-node-utilities.git
+[submodule "tools/playwright-unsplash-downloader"]
+	path = tools/playwright-unsplash-downloader
+	url = https://github.com/nicholasadamou/playwright-unsplash-downloader.git

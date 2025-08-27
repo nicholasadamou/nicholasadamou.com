@@ -38,7 +38,7 @@ function main() {
 
   const submodules = [
     "tools/unsplash-node-utilities",
-    "tools/playwright-image-downloader",
+    "tools/playwright-unsplash-downloader",
   ];
 
   let allExist = true;

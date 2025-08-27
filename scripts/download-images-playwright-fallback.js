@@ -2,7 +2,7 @@
 
 /**
  * Fallback script for download:images:playwright when submodules are not available
- * This ensures the build process doesn't fail due to missing playwright-image-downloader submodule
+ * This ensures the build process doesn't fail due to missing playwright-unsplash-downloader submodule
  */
 
 const fs = require("fs");
@@ -31,7 +31,7 @@ function runPlaywrightImageDownloader() {
     return;
   }
 
-  const playwrightPath = "tools/playwright-image-downloader";
+  const playwrightPath = "tools/playwright-unsplash-downloader";
   const setupScriptPath = "scripts/setup-playwright-env.js";
   const mainManifestPath = "public/unsplash-manifest.json";
 

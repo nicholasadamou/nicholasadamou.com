@@ -54,7 +54,7 @@ function parseEnvFile(filePath) {
 function createSubmoduleEnvFile(env) {
   const submoduleEnvPath = path.join(
     "tools",
-    "playwright-image-downloader",
+    "playwright-unsplash-downloader",
     ".env"
   );
 

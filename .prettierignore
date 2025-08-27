@@ -37,5 +37,5 @@ pnpm-lock.yaml
 Thumbs.db
 
 # Submodules
-tools/playwright-image-downloader/
+tools/playwright-unsplash-downloader/
 tools/unsplash-node-utilities/
