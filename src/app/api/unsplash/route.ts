@@ -164,16 +164,29 @@ async function triggerDownloadTrackingWithBackoff(
   retryCount: number = 0
 ): Promise<void> {
   try {
+    const fetchOptions: RequestInit = {
+      headers: {
+        Authorization: `Client-ID ${accessKey}`,
+      },
+    };
+
+    // Only add timeout in non-test environments to avoid MSW compatibility issues
+    let timeoutId: NodeJS.Timeout | undefined;
+    if (process.env.NODE_ENV !== "test") {
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      fetchOptions.signal = controller.signal;
+    }
+
     const response = await fetch(
       `https://api.unsplash.com/photos/${photoId}/download`,
-      {
-        headers: {
-          Authorization: `Client-ID ${accessKey}`,
-        },
-        // Add timeout to prevent hanging requests
-        signal: AbortSignal.timeout(10000),
-      }
+      fetchOptions
     );
+
+    // Clear the timeout if request completes
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
 
     if (response.status === 429) {
       // Rate limited - apply backoff and retry

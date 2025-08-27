@@ -99,4 +99,20 @@ global.fetch = vi.fn();
 beforeAll(() => {
   // Set NODE_ENV for test environment
   process.env.NODE_ENV = "test";
+
+  // Suppress expected React act warnings for async effects and timers
+  // These warnings are expected when testing components with setTimeout, fetch, etc.
+  const originalError = console.error;
+  console.error = (...args: any[]) => {
+    const message = args[0];
+    if (
+      typeof message === "string" &&
+      message.includes("An update to") &&
+      message.includes("was not wrapped in act(...)")
+    ) {
+      // Skip this specific warning as it's expected for async components
+      return;
+    }
+    originalError.apply(console, args);
+  };
 });

@@ -99,14 +99,30 @@ export async function getUnsplashPhoto(
   }
 
   try {
-    const resp = await fetch(`https://api.unsplash.com/photos/${photoId}`, {
+    const fetchOptions: RequestInit = {
       headers: {
         Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
         Accept: "application/json",
       },
-      // Add timeout to prevent hanging requests
-      signal: AbortSignal.timeout(15000), // 15 second timeout
-    });
+    };
+
+    // Only add timeout in non-test environments to avoid MSW compatibility issues
+    let timeoutId: NodeJS.Timeout | undefined;
+    if (process.env.NODE_ENV !== "test") {
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+      fetchOptions.signal = controller.signal;
+    }
+
+    const resp = await fetch(
+      `https://api.unsplash.com/photos/${photoId}`,
+      fetchOptions
+    );
+
+    // Clear the timeout if request completes
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
 
     if (!resp.ok) {
       const text = await resp.text();

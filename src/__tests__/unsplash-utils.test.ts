@@ -100,9 +100,11 @@ describe("Unsplash Utility Functions", () => {
     it("should handle rate limiting", async () => {
       const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 
-      const photo = await getUnsplashPhoto("rate-limited");
+      // Rate limiting should throw an error to be handled by the API route
+      await expect(getUnsplashPhoto("rate-limited")).rejects.toThrow(
+        "Rate Limit Exceeded: 403 - Rate Limit Exceeded"
+      );
 
-      expect(photo).toBeNull();
       expect(consoleSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           "Unsplash rate limit exceeded for photo rate-limited"

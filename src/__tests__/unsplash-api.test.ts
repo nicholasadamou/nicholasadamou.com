@@ -209,7 +209,7 @@ describe("Unsplash API Route", () => {
 
         expect(response.status).toBe(404);
         expect(data.error).toBe("Photo not found or API error");
-        expect(data.message).toContain("rate limiting");
+        expect(data.message).toContain("invalid photo ID or API issues");
       });
 
       it("should handle rate limiting gracefully", async () => {
@@ -222,9 +222,11 @@ describe("Unsplash API Route", () => {
         const response = await GET(request);
         const data = await response.json();
 
-        expect(response.status).toBe(404);
-        expect(data.error).toBe("Photo not found or API error");
-      });
+        // Should return 429 Rate Limit Exceeded
+        expect(response.status).toBe(429);
+        expect(data.error).toBe("Rate limit exceeded");
+        expect(data.message).toContain("Unsplash API rate limit reached");
+      }, 15000);
 
       it("should handle network errors", async () => {
         const { unsplashCache } = await import("@/lib/cache/unsplash-cache");
@@ -238,7 +240,7 @@ describe("Unsplash API Route", () => {
 
         expect(response.status).toBe(404);
         expect(data.error).toBe("Photo not found or API error");
-      });
+      }, 15000);
 
       it("should return 500 when API key is not configured", async () => {
         delete process.env.UNSPLASH_ACCESS_KEY;

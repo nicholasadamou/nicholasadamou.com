@@ -10,6 +10,12 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/__tests__/setup.ts"],
     css: true,
+    exclude: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.next/**",
+      "tools/**", // Exclude tools directory from test discovery
+    ],
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
@@ -23,6 +29,7 @@ export default defineConfig({
         ".contentlayer/",
         "scripts/",
         "public/",
+        "tools/", // Exclude tools directory from coverage
       ],
     },
   },
