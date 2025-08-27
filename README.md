@@ -475,12 +475,14 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID="..."
 # Email (for contact form)
 FORMCARRY_URL=https://formcarry.com/s/...
 
-# External APIs (optional)
+# External APIs
 GITHUB_TOKEN="..."
 GUMROAD_ACCESS_TOKEN="..."
 YOUTUBE_API_KEY="..."
 UNSPLASH_ACCESS_KEY="..."
 UNSPLASH_SECRET_KEY="..."
+UNSPLASH_EMAIL="..."
+UNSPLASH_PASWORD="..."
 ```
 
 ## 🚢 Deployment
