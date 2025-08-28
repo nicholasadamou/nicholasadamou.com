@@ -13,8 +13,8 @@ import { Link } from "@/components/ui/link";
 
 const links = [
   { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Projects", href: "/projects" },
   { label: "Notes", href: "/notes" },
   { label: "Contact", href: "/contact" },
 ];
