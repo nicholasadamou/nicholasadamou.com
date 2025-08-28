@@ -6,6 +6,7 @@ import Section from "@/components/common/Section";
 import { formatShortDate } from "@/lib/utils/formatShortDate";
 import type { Project } from "@/lib/contentlayer-data";
 import { Badge } from "@/components/ui/badge";
+import { getBoundedPosition } from "@/lib/utils/getBoundedPosition";
 
 type ProjectProps = {
   project: Project;
@@ -22,42 +23,14 @@ export default function Project({ project, mousePosition }: ProjectProps) {
   const imageWidth = 350; // Set to desired width
   const imageOffset = 24;
 
-  // Calculate bounded position to prevent image from going off-screen
-  const getBoundedPosition = () => {
-    if (!mousePosition) return { top: 0, left: 0 };
-
-    const viewportWidth =
-      typeof window !== "undefined" ? window.innerWidth : 1024;
-    const viewportHeight =
-      typeof window !== "undefined" ? window.innerHeight : 768;
-
-    let top = mousePosition.y - imageHeight - imageOffset;
-    let left = mousePosition.x - imageWidth / 2;
-
-    // Prevent going off the right edge
-    if (left + imageWidth > viewportWidth - 20) {
-      left = viewportWidth - imageWidth - 20;
-    }
-
-    // Prevent going off the left edge
-    if (left < 20) {
-      left = 20;
-    }
-
-    // Prevent going off the top edge
-    if (top < 20) {
-      top = mousePosition.y + imageOffset;
-    }
-
-    // Prevent going off the bottom edge
-    if (top + imageHeight > viewportHeight - 20) {
-      top = viewportHeight - imageHeight - 20;
-    }
-
-    return { top, left };
-  };
-
-  const boundedPosition = getBoundedPosition();
+  const boundedPosition = mousePosition
+    ? getBoundedPosition({
+        mousePosition,
+        imageWidth,
+        imageHeight,
+        imageOffset,
+      })
+    : { top: 0, left: 0 };
 
   return (
     <li className="group py-3 transition-opacity first:pt-0 last:pb-0">
@@ -71,7 +44,7 @@ export default function Project({ project, mousePosition }: ProjectProps) {
               style={{ width: imageWidth, height: imageHeight }}
               {...({
                 className:
-                  "pointer-events-none absolute z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block",
+                  "pointer-events-none fixed z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block",
               } as any)}
             >
               <UniversalImage
