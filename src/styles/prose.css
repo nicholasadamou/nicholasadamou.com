@@ -41,3 +41,32 @@
 .prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   padding-inline-start: 2.625em !important;
 }
+
+/* Image styling improvements */
+.prose img {
+  @apply h-auto max-w-full rounded-lg;
+}
+
+.prose figure {
+  @apply mx-auto;
+}
+
+.prose figure img {
+  @apply mx-auto;
+}
+
+/* Ensure images don't exceed container bounds */
+.prose :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0.5rem;
+}
+
+/* Better responsive image containers */
+.prose .image-container {
+  @apply relative w-full overflow-hidden rounded-lg;
+}
+
+.prose .image-container img {
+  @apply h-full w-full object-cover;
+}

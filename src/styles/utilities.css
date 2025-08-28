@@ -39,3 +39,37 @@ input:-webkit-autofill:focus {
 .overflow-x-scroll.snap-x::-webkit-scrollbar {
   display: none;
 }
+
+/* Image Utilities */
+.image-responsive {
+  @apply h-auto max-w-full;
+}
+
+.image-fit-cover {
+  @apply h-full w-full object-cover;
+}
+
+.image-fit-contain {
+  @apply h-full w-full object-contain;
+}
+
+.image-container {
+  @apply relative w-full overflow-hidden;
+}
+
+.image-container.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.image-container.aspect-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+/* Prevent image overflow in flex containers */
+.image-flex-safe {
+  @apply min-w-0 flex-shrink;
+}
+
+.image-flex-safe img {
+  @apply h-auto max-w-full;
+}

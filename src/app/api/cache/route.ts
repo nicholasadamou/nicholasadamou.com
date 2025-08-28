@@ -4,6 +4,7 @@ import { unsplashCache } from "@/lib/cache/unsplash-cache";
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get("action");
+  const id = searchParams.get("id");
 
   try {
     switch (action) {
@@ -19,6 +20,23 @@ export async function GET(request: NextRequest) {
         });
       }
 
+      case "check": {
+        if (!id) {
+          return NextResponse.json(
+            { error: "ID parameter is required for check action" },
+            { status: 400 }
+          );
+        }
+
+        // Check if the image is in runtime cache
+        const cachedData = await unsplashCache.get(id);
+
+        return NextResponse.json({
+          cached: !!cachedData,
+          data: cachedData || null,
+        });
+      }
+
       case "clear": {
         await unsplashCache.clearCache();
         return NextResponse.json({ message: "Cache cleared successfully" });
@@ -26,7 +44,7 @@ export async function GET(request: NextRequest) {
 
       default:
         return NextResponse.json(
-          { error: "Invalid action. Supported: stats, clear" },
+          { error: "Invalid action. Supported: stats, check, clear" },
           { status: 400 }
         );
     }

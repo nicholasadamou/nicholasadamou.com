@@ -49,7 +49,11 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
         // STEP 2: Fall back to API call for author data
         console.log(`🌐 Fetching author data from API for ${photoId}`);
         const response = await fetch(
-          `/api/unsplash?action=get-photo&id=${photoId}`
+          `/api/unsplash?action=get-photo&id=${photoId}`,
+          {
+            // Add timeout to prevent hanging
+            signal: AbortSignal.timeout(5000), // 5 second timeout for attribution
+          }
         );
 
         if (response.ok) {
@@ -61,11 +65,20 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
               isLocal: false,
             });
           }
+        } else if (response.status === 429) {
+          // Handle rate limit - just don't show attribution
+          console.warn(
+            `🚫 Rate limit encountered while fetching author data for ${photoId}. Skipping attribution.`
+          );
         }
         // If the lookup fails, we'll just not show attribution
       } catch (error) {
-        // Silently fail - just don't show attribution
-        console.warn("Failed to fetch image metadata:", error);
+        // Handle timeout and other errors - just don't show attribution
+        if (error instanceof Error && error.name === "TimeoutError") {
+          console.warn(`⌚ Timeout fetching author data for ${photoId}`);
+        } else {
+          console.warn("Failed to fetch image metadata:", error);
+        }
       } finally {
         setLoading(false);
       }
@@ -82,14 +95,14 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="relative h-[350px] overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden">
         <UniversalImage
           src={imageSrc}
           alt={imageAlt}
           fill
           className="rounded-lg object-cover"
           priority
-          sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
         />
       </div>
       {hasAttribution && (

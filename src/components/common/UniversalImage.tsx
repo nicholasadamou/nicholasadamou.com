@@ -16,6 +16,8 @@ type UniversalImageProps = {
   priority?: boolean;
   sizes?: string;
   className?: string;
+  objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
+  objectPosition?: string;
 };
 
 // Types for the static manifest
@@ -97,9 +99,12 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
   priority,
   sizes,
   className,
+  objectFit = "cover",
+  objectPosition = "center",
 }) => {
   const [actualImageSrc, setActualImageSrc] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isRateLimited, setIsRateLimited] = useState(false);
 
   useEffect(() => {
     // Check if this is an Unsplash page URL
@@ -211,6 +216,13 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
               );
               setActualImageSrc(null);
             }
+          } else if (response.status === 429) {
+            // Handle rate limit specifically - don't retry, just show placeholder
+            console.warn(
+              `🚫 Rate limit encountered for photo ID: ${photoId}. Showing placeholder instead of retrying.`
+            );
+            setIsRateLimited(true);
+            setActualImageSrc(null);
           } else {
             // If API fails, log detailed error information
             const errorText = await response
@@ -265,14 +277,33 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
 
   // Only render the Image when we have a valid actualImageSrc
   if (!actualImageSrc) {
+    const isUnsplash = src.includes("unsplash.com");
     return (
       <div
-        className={`bg-secondary ${className}`}
+        className={`flex items-center justify-center bg-secondary ${className}`}
         style={{
           width: fill ? "100%" : width,
           height: fill ? "100%" : height,
         }}
-      />
+      >
+        {isRateLimited && isUnsplash ? (
+          <div className="p-4 text-center">
+            <div className="mb-2 text-2xl">🚫</div>
+            <div className="text-sm text-tertiary">
+              Image temporarily unavailable
+              <br />
+              <span className="text-xs opacity-70">Rate limit reached</span>
+            </div>
+          </div>
+        ) : (
+          isUnsplash && (
+            <div className="p-4 text-center">
+              <div className="mb-2 text-2xl">🖼️</div>
+              <div className="text-sm text-tertiary">Image unavailable</div>
+            </div>
+          )
+        )}
+      </div>
     );
   }
 
@@ -286,6 +317,10 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
       priority={priority}
       sizes={sizes}
       className={className}
+      style={{
+        objectFit,
+        objectPosition,
+      }}
     />
   );
 };
