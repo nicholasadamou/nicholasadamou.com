@@ -276,6 +276,43 @@ importers:
         specifier: ^5.7.2
         version: 5.9.2
 
+  tools/playwright-vsco-downloader:
+    dependencies:
+      chalk:
+        specifier: ^5.3.0
+        version: 5.6.0
+      commander:
+        specifier: ^12.1.0
+        version: 12.1.0
+      dotenv:
+        specifier: ^17.2.1
+        version: 17.2.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.3.1
+      mime:
+        specifier: ^4.0.4
+        version: 4.0.7
+      playwright:
+        specifier: ^1.55.0
+        version: 1.55.0
+    devDependencies:
+      '@playwright/test':
+        specifier: ^1.55.0
+        version: 1.55.0
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/node':
+        specifier: ^22.10.2
+        version: 22.18.0
+      tsx:
+        specifier: ^4.19.2
+        version: 4.20.5
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.2
+
   tools/unsplash-node-utilities:
     dependencies:
       dotenv:

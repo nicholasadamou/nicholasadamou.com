@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/check-submodules.js && npm-run-all build:cache-images download:images:playwright",
+    "prebuild": "node scripts/check-submodules.js && npm-run-all build:cache-images download:images:unsplash",
     "build:cache-images": "node scripts/build-cache-images-fallback.js",
     "build": "next build",
     "generate:rss": "node scripts/generate-rss.mjs",
@@ -42,7 +42,8 @@
     "test:integration": "node tools/unsplash-node-utilities/src/tests/integration.test.js",
     "verify:unsplash": "node tools/unsplash-node-utilities/src/cli/verify.js",
     "url-to-download": "node tools/unsplash-node-utilities/src/cli/url-to-download.js",
-    "download:images:playwright": "node scripts/download-images-playwright-fallback.js",
+    "download:images:unsplash": "node scripts/download-images-unsplash-fallback.js",
+    "download:images:vsco": "node scripts/download-images-vsco-fallback.js",
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
     "prepare": "husky || true"

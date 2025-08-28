@@ -498,9 +498,7 @@ describe("Image Fallback Utilities", () => {
 
       // Should only fetch manifest once due to caching
       expect(mockFetch).toHaveBeenCalledTimes(1);
-      expect(mockFetch).toHaveBeenCalledWith(
-        "/images/unsplash/local-manifest.json"
-      );
+      expect(mockFetch).toHaveBeenCalledWith("/images/unsplash/manifest.json");
     });
 
     it("should handle concurrent manifest requests", async () => {

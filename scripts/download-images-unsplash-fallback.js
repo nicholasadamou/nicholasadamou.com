@@ -9,7 +9,7 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 
-function runPlaywrightImageDownloader() {
+function runPlaywrightUnsplashDownloader() {
   console.log("🎭 Attempting to run Playwright image downloader...");
 
   // Check if we're in a CI environment
@@ -20,7 +20,7 @@ function runPlaywrightImageDownloader() {
 
   if (isCI) {
     console.log(
-      "⚠️  Detected CI/production environment - skipping Playwright image downloader"
+      "⚠️  Detected CI/production environment - skipping Playwright unsplash downloader"
     );
     console.log(
       "🔧 This is expected in CI environments without git submodule access"
@@ -54,9 +54,9 @@ function runPlaywrightImageDownloader() {
       cwd: process.cwd(),
     });
 
-    // Run setup script
-    console.log("⚙️  Running setup script...");
-    execSync(`node ${setupScriptPath}`, {
+    // Run setup script for Unsplash specifically
+    console.log("⚙️  Setting up Unsplash downloader environment...");
+    execSync(`node ${setupScriptPath} playwright-unsplash-downloader`, {
       stdio: "inherit",
       cwd: process.cwd(),
     });
@@ -84,7 +84,7 @@ function runPlaywrightImageDownloader() {
     console.log("⬇️  Running image download...");
     // Use tsx to run TypeScript directly instead of building first
     const downloadCommand = manifestPathArg
-      ? `npx tsx src/cli.ts ${manifestPathArg}`
+      ? `npx tsx src/cli.ts ${manifestPathArg} --download-dir ../../public/images/unsplash`
       : "npx tsx src/cli.ts";
 
     execSync(downloadCommand, {
@@ -105,12 +105,12 @@ function runPlaywrightImageDownloader() {
 }
 
 function main() {
-  console.log("🚀 Starting Playwright image download process...");
-  runPlaywrightImageDownloader();
+  console.log("🚀 Starting Playwright Unsplash download process...");
+  runPlaywrightUnsplashDownloader();
 }
 
 if (require.main === module) {
   main();
 }
 
-module.exports = { runPlaywrightImageDownloader };
+module.exports = { runPlaywrightUnsplashDownloader };

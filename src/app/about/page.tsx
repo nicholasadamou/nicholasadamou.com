@@ -7,6 +7,7 @@ import Section from "@/components/common/Section";
 import ListSection from "./components/ListSection";
 import Workplaces from "./components/Workplaces";
 import Gallery from "./components/Gallery";
+import PhotographySection from "./components/PhotographySection";
 
 import ibmLogo from "public/work/ibm-logo.svg";
 import appleLogo from "public/work/apple-logo.svg";
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="mx-auto flex max-w-[700px] flex-col gap-16 overflow-hidden px-2 md:gap-24 md:overflow-visible">
+    <div className="mx-auto flex max-w-[700px] flex-col gap-16 overflow-hidden px-4 md:gap-24 md:overflow-visible">
       <div>
         <h1 className="animate-in text-3xl font-black tracking-tight text-primary">
           About
@@ -117,6 +118,8 @@ export default function About() {
         <ListSection heading="Connect" items={ConnectLinks} />
         <ListSection heading="Certificates" items={Certificates} />
         <ListSection heading="Resume" items={Resumes} />
+
+        <PhotographySection />
 
         <Section heading="Work" headingAlignment="left">
           <div className="flex w-full flex-col gap-8">

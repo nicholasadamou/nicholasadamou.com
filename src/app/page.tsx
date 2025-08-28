@@ -10,6 +10,7 @@ import SocialLinks, { socialLinks } from "@/components/common/SocialLinks";
 import { PinIcon } from "lucide-react";
 import ProductList from "@/components/common/ProductList";
 import SparkleText from "@/components/common/SparkleText";
+import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 
 export default function Home() {
   const projects = allProjects.sort(
@@ -93,8 +94,25 @@ export default function Home() {
       </div>
 
       <div
-        className="mb-5 flex animate-in flex-col gap-4"
+        className="flex animate-in flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
+      >
+        <Link
+          className="group flex items-center gap-2 tracking-tight text-primary"
+          href="/gallery"
+        >
+          Recent Photos
+          <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+        </Link>
+        <p className="mt-[-8px] max-w-xl text-secondary">
+          A few recent shots from my VSCO. See more on the full gallery page.
+        </p>
+        <FeaturedGallery />
+      </div>
+
+      <div
+        className="mb-5 flex animate-in flex-col gap-4"
+        style={{ "--index": 5 } as React.CSSProperties}
       >
         <Link
           className="group flex items-center gap-2 tracking-tight text-primary"

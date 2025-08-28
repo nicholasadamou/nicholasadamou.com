@@ -4,3 +4,6 @@
 [submodule "tools/playwright-unsplash-downloader"]
 	path = tools/playwright-unsplash-downloader
 	url = https://github.com/nicholasadamou/playwright-unsplash-downloader.git
+[submodule "tools/playwright-vsco-downloader"]
+	path = tools/playwright-vsco-downloader
+	url = https://github.com/nicholasadamou/playwright-vsco-downloader

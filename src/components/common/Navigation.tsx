@@ -14,6 +14,7 @@ import { Link } from "@/components/ui/link";
 const links = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Notes", href: "/notes" },
   { label: "Contact", href: "/contact" },
 ];
@@ -134,7 +135,7 @@ export default function Navigation() {
       } as any)}
       ref={popoverRef}
     >
-      <div className="mx-auto flex max-w-[700px] justify-between pl-0 md:pl-4">
+      <div className="mx-auto flex max-w-[700px] justify-between pl-0">
         <nav className="flex gap-3 py-3">
           <Link href="/" variant="ghost" className="shrink-0 text-primary">
             <svg

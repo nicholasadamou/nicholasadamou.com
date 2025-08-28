@@ -1,0 +1,103 @@
+{
+  "generated_at": "2025-08-28T11:01:43.275Z",
+  "version": "1.0.0",
+  "source_manifest": "2025-08-28T11:01:37.091Z",
+  "images": {
+    "ZV_64LdGoao": {
+      "local_path": "/images/unsplash/ZV_64LdGoao.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "NZYgKwRA4Cg": {
+      "local_path": "/images/unsplash/NZYgKwRA4Cg.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "ud_kWC-3Bdg": {
+      "local_path": "/images/unsplash/ud_kWC-3Bdg.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "gR94yU2DQvg": {
+      "local_path": "/images/unsplash/gR94yU2DQvg.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "x2Tmfd1-SgA": {
+      "local_path": "/images/unsplash/x2Tmfd1-SgA.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "842ofHC6MaI": {
+      "local_path": "/images/unsplash/842ofHC6MaI.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "gTjGMj8c_f8": {
+      "local_path": "/images/unsplash/gTjGMj8c_f8.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "JYJwrUIDnL0": {
+      "local_path": "/images/unsplash/JYJwrUIDnL0.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "w_CQ_24rwiM": {
+      "local_path": "/images/unsplash/w_CQ_24rwiM.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "Pl5rI5WbcCg": {
+      "local_path": "/images/unsplash/Pl5rI5WbcCg.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "M5tzZtFCOfs": {
+      "local_path": "/images/unsplash/M5tzZtFCOfs.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "4BEVxOv8pkk": {
+      "local_path": "/images/unsplash/4BEVxOv8pkk.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "86T4OpohLTI": {
+      "local_path": "/images/unsplash/86T4OpohLTI.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "KPAQpJYzH0Y": {
+      "local_path": "/images/unsplash/KPAQpJYzH0Y.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "W_JehBhi8wo": {
+      "local_path": "/images/unsplash/W_JehBhi8wo.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "ESb4PFDQQCw": {
+      "local_path": "/images/unsplash/ESb4PFDQQCw.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "mKhPLJ5JQI4": {
+      "local_path": "/images/unsplash/mKhPLJ5JQI4.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    },
+    "T8LMIN09-mo": {
+      "local_path": "/images/unsplash/T8LMIN09-mo.jpg",
+      "skipped": true,
+      "reason": "Already exists"
+    }
+  },
+  "stats": {
+    "total_images": 18,
+    "downloaded": 0,
+    "failed": 0,
+    "skipped": 18
+  }
+}

@@ -61,7 +61,7 @@ async function loadLocalManifest(): Promise<LocalImageManifest | null> {
 
   localManifestFetchPromise = (async (): Promise<LocalImageManifest | null> => {
     try {
-      const response = await fetch("/images/unsplash/local-manifest.json");
+      const response = await fetch("/images/unsplash/manifest.json");
       if (response.ok) {
         localManifestCache = await response.json();
         console.log(
