@@ -29,6 +29,7 @@ Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://gi
 - **📊 Analytics**: View tracking with Vercel Postgres
 - **🎯 Accessibility**: Built with accessibility best practices
 - **🖼️ Premium Images**: Support for Unsplash+ premium images with API integration
+- **📸 Photography Gallery**: VSCO integration with infinite scroll and local image caching
 
 ## 📋 Table of Contents
 
@@ -92,8 +93,13 @@ nicholasadamou.com/
 │   │   │   ├── 📂 notes/           # Blog post views tracking
 │   │   │   ├── 📂 og/              # Open Graph image generation
 │   │   │   ├── 📂 unsplash/        # Unsplash API integration
+│   │   │   ├── 📂 vsco/            # VSCO API integration
 │   │   │   └── 📂 youtube/         # YouTube API integration
 │   │   ├── 📂 contact/             # Contact page
+│   │   ├── 📂 gallery/             # Photography gallery
+│   │   │   ├── layout.tsx          # Gallery layout
+│   │   │   ├── metadata.ts         # Gallery SEO metadata
+│   │   │   └── page.tsx            # Main gallery page
 │   │   ├── 📂 notes/               # Blog posts
 │   │   │   ├── 📂 components/      # Blog-specific components
 │   │   │   ├── 📂 hooks/           # Blog-specific hooks
@@ -166,15 +172,22 @@ nicholasadamou.com/
 │   │   │   └── YouTube/
 │   │   └── 📂 features/            # Feature-specific components
 │   │       ├── 📂 about/           # About page components
+│   │       ├── 📂 gallery/         # Gallery-related components
+│   │       │   ├── FeaturedGallery.tsx      # Featured photos section
+│   │       │   ├── VscoGallery.tsx          # Main VSCO gallery
+│   │       │   └── VscoGallerySkeleton.tsx  # Loading skeleton
 │   │       ├── 📂 notes/           # Blog-related components
 │   │       └── 📂 projects/        # Project-related components
 │   │
 │   ├── 📂 hooks/                   # Custom React hooks
 │   │   ├── useGumroadProducts.ts   # Gumroad API integration
+│   │   ├── useInfiniteVscoGallery.ts # Infinite scroll VSCO gallery
+│   │   ├── useIntersectionObserver.ts # Intersection observer utility
 │   │   ├── useinterval.js          # Interval hook
 │   │   ├── useismount.js           # Mount detection hook
 │   │   ├── usemounted.ts           # Client-side mounting
-│   │   └── usemouseposition.js     # Mouse position tracking
+│   │   ├── usemouseposition.js     # Mouse position tracking
+│   │   └── useVscoGallery.ts       # Basic VSCO gallery hook
 │   │
 │   ├── 📂 lib/                     # Utility libraries & config
 │   │   ├── 📂 cache/               # Caching utilities
@@ -186,7 +199,8 @@ nicholasadamou.com/
 │   │   │   ├── getRelativeCoordinates.ts
 │   │   │   ├── postFormatting.tsx
 │   │   │   ├── unsplash.ts
-│   │   │   └── utils.ts
+│   │   │   ├── utils.ts
+│   │   │   └── vsco-local.ts
 │   │   ├── contentlayer-data.ts    # Contentlayer exports
 │   │   ├── image-fallback.ts       # Image fallback handling
 │   │   └── image-fallback-server.ts # Server-side image fallback
@@ -203,7 +217,8 @@ nicholasadamou.com/
 │       ├── canvas-confetti.d.ts    # Canvas confetti types
 │       ├── global.d.ts             # Global type definitions
 │       ├── remark-simple-plantuml.d.ts # PlantUML plugin types
-│       └── unified.d.ts            # Unified processor types
+│       ├── unified.d.ts            # Unified processor types
+│       └── vsco.ts                 # VSCO type definitions
 │
 ├── 📂 content/                     # MDX content files
 │   ├── 📂 notes/                   # Blog posts in MDX
@@ -212,7 +227,11 @@ nicholasadamou.com/
 ├── 📂 public/                      # Static assets
 │   ├── 📂 gallery/                 # Photo gallery images
 │   ├── 📂 images/                  # General images
-│   │   └── 📂 unsplash/            # Cached Unsplash images
+│   │   ├── 📂 unsplash/            # Cached Unsplash images
+│   │   │   └── manifest.json       # Unsplash image manifest
+│   │   └── 📂 vsco/                # Cached VSCO images
+│   │       ├── manifest.json       # VSCO image manifest
+│   │       └── 📂 [username]/      # User-specific VSCO images
 │   ├── 📂 logos/                   # Brand logos
 │   ├── 📂 og/                      # Open Graph images
 │   ├── 📂 prism/                   # Prism.js themes
@@ -225,19 +244,20 @@ nicholasadamou.com/
 │   ├── rss.xml                     # RSS feed
 │   ├── sitemap.xml                 # Site map
 │   ├── ticketing.woff2             # Custom font
-│   └── unsplash-manifest.json      # Unsplash image manifest
+│   └── unsplash-manifest.json      # Legacy Unsplash manifest
 │
 ├── 📂 scripts/                     # Build & utility scripts
 │   ├── build-cache-images-fallback.js    # Image caching fallback
 │   ├── check-submodules.js               # Git submodule checker
-│   ├── download-images-playwright-fallback.js # Playwright image fallback
+│   ├── download-images-unsplash-fallback.js # Unsplash image fallback
+│   ├── download-images-vsco-fallback.js   # VSCO image fallback
 │   ├── generate-rss.mjs                  # RSS feed generation
 │   ├── generate-sitemap.mjs              # Sitemap generation
 │   ├── README.md                         # Scripts documentation
 │   └── setup-playwright-env.js          # Playwright environment setup
 │
 ├── 📂 tools/                       # Development tools
-│   ├── 📂 playwright-image-downloader/ # Custom image downloader tool
+│   ├── 📂 playwright-unsplash-downloader/ # Unsplash image downloader tool
 │   │   ├── 📂 src/                 # Tool source code
 │   │   │   ├── 📂 auth/            # Authentication modules
 │   │   │   ├── 📂 browser/         # Browser automation
@@ -248,6 +268,12 @@ nicholasadamou.com/
 │   │   │   ├── 📂 manifest/        # Manifest handling
 │   │   │   ├── 📂 stats/           # Statistics tracking
 │   │   │   └── 📂 types/           # Type definitions
+│   │   ├── package.json            # Tool dependencies
+│   │   ├── playwright.config.js    # Playwright configuration
+│   │   ├── README.md               # Tool documentation
+│   │   └── tsconfig.json           # TypeScript config
+│   ├── 📂 playwright-vsco-downloader/ # VSCO image downloader tool
+│   │   ├── 📂 src/                 # Tool source code
 │   │   ├── package.json            # Tool dependencies
 │   │   ├── playwright.config.js    # Playwright configuration
 │   │   ├── README.md               # Tool documentation
@@ -269,7 +295,8 @@ nicholasadamou.com/
 │   ├── ACT_SETUP.md                # Local GitHub Actions testing guide
 │   ├── PRE_COMMIT_SETUP.md         # Pre-commit hooks guide
 │   ├── TESTING.md                  # Testing guide
-│   └── UNSPLASH.md                 # Unsplash integration guide
+│   ├── UNSPLASH.md                 # Unsplash integration guide
+│   └── VSCO.md                     # VSCO integration guide
 │
 ├── 📂 coverage/                    # Test coverage reports
 │   ├── 📂 app/                     # App coverage
@@ -385,7 +412,8 @@ pnpm generate:sitemap  # Generate sitemap
 
 # Image Management
 pnpm download:images        # Download images using utilities
-pnpm download:images:playwright # Download images using Playwright
+pnpm download:images:unsplash # Download Unsplash images using Playwright
+pnpm download:images:vsco   # Download VSCO images using Playwright
 pnpm clean:images           # Clean up image files
 pnpm cache:images           # Cache Unsplash images
 pnpm build:cache-images     # Build image cache for production
@@ -483,6 +511,10 @@ UNSPLASH_ACCESS_KEY="..."
 UNSPLASH_SECRET_KEY="..."
 UNSPLASH_EMAIL="..."
 UNSPLASH_PASSWORD="..."
+
+# VSCO Integration (optional)
+VSCO_EMAIL="..."
+VSCO_PASSWORD="..."
 ```
 
 ## 🚢 Deployment
