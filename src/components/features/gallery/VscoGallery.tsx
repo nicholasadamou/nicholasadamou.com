@@ -64,7 +64,7 @@ function Lightbox({
             className="h-10 rounded-full bg-white/10 px-4 text-white backdrop-blur-sm hover:bg-white/20"
           >
             <a
-              href="https://vsco.co/nicholasadamou"
+              href={currentImage.vsco_url || "https://vsco.co/nicholasadamou"}
               target="_blank"
               rel="noopener noreferrer"
             >

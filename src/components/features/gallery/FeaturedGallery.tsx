@@ -59,7 +59,10 @@ export default function FeaturedGallery() {
               "group relative aspect-square cursor-pointer overflow-hidden rounded-lg bg-secondary",
           } as any)}
           onClick={() =>
-            window.open(`https://vsco.co/nicholasadamou`, "_blank")
+            window.open(
+              image.vsco_url || `https://vsco.co/nicholasadamou`,
+              "_blank"
+            )
           }
         >
           <Image
