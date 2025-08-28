@@ -98,14 +98,19 @@ function isValidPhotoIdFormat(id: string): boolean {
   }
 
   // Must contain at least one letter and one number (or underscore)
-  // This helps filter out simple words like "hotoid12345" which is all lowercase + numbers
+  // This helps filter out simple words but allows all valid Unsplash ID patterns
   const hasUppercase = /[A-Z]/.test(id);
   const hasLowercase = /[a-z]/.test(id);
   const hasNumber = /[0-9]/.test(id);
   const hasUnderscore = /_/.test(id);
+  const hasLetter = hasUppercase || hasLowercase;
 
-  // Valid Unsplash IDs typically have mixed case or contain underscores
-  return (hasUppercase && (hasLowercase || hasNumber)) || hasUnderscore;
+  // Valid Unsplash IDs have mixed case, letters+numbers, or underscores
+  return (
+    (hasUppercase && (hasLowercase || hasNumber)) || // Mixed case
+    (hasLetter && hasNumber) || // Letters + numbers (any case)
+    hasUnderscore // Contains underscore
+  );
 }
 
 /**

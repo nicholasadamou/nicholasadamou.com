@@ -169,12 +169,28 @@ describe("Image Fallback Utilities", () => {
       const invalidPhotoIds = [
         "https://unsplash.com/photos/short", // Too short
         "https://unsplash.com/photos/toolongforphotoid12345", // Too long
-        "https://unsplash.com/photos/invalid-id", // Wrong format
-        "https://unsplash.com/photos/hotoid12345", // Wrong format (not 11 chars)
+        "https://unsplash.com/photos/invalid-id", // Wrong format - too short
+        "https://unsplash.com/photos/alllettersno", // All letters, no numbers
+        "https://unsplash.com/photos/12345678901", // All numbers, no letters
       ];
 
       invalidPhotoIds.forEach((url) => {
         expect(extractUnsplashPhotoId(url)).toBeNull();
+      });
+    });
+
+    it("should accept valid lowercase photo IDs with numbers", async () => {
+      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const validPhotoIds = [
+        "https://unsplash.com/photos/hotoid12345", // Lowercase + numbers (11 chars)
+        "https://unsplash.com/photos/a-woman-is-typing-on-a-computer-keyboard-9a1rahl70i4", // Real example
+        "https://unsplash.com/photos/abc123def45", // Mixed letters and numbers
+      ];
+
+      const expectedIds = ["hotoid12345", "9a1rahl70i4", "abc123def45"];
+
+      validPhotoIds.forEach((url, index) => {
+        expect(extractUnsplashPhotoId(url)).toBe(expectedIds[index]);
       });
     });
   });
