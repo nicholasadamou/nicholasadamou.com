@@ -368,15 +368,18 @@ You Build It includes comprehensive developer tooling for maintainability and co
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "analyze": "ANALYZE=true next build"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{md,mdx}": ["prettier --write"]
+    "!(content/challenges/**)*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "!(content/challenges/**)*.{json,md,css,scss}": ["prettier --write"]
   }
 }
 ```
