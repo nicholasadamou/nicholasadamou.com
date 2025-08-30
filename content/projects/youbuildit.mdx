@@ -3,7 +3,7 @@ title: "🛠️ You Build It: Interactive Coding Challenges Platform"
 date: "2025-08-30"
 summary: "An interactive coding challenges platform designed to help developers improve their programming skills through hands-on, practical projects that build real-world applications and tools."
 longSummary: "You Build It is a modern Next.js-powered platform that revolutionizes coding education by focusing on practical, real-world projects instead of traditional algorithmic puzzles. Built with TypeScript, Tailwind CSS, and Framer Motion, it features dynamic challenge loading, rich MDX content, and an elegant user experience that guides developers through building actual tools like Docker containers, web servers, databases, and command-line utilities."
-url: "https://github.com/youbuildit/youbuildit.dev"
+url: "https://youbuildit.vercel.app"
 demoUrl: "https://youbuildit.vercel.app"
 technologies:
   - Next.js 15
@@ -214,93 +214,6 @@ const useFilteredChallenges = (
       return true;
     });
   }, [challenges, filters]);
-};
-```
-
-### Rich MDX Content Experience
-
-Each challenge leverages MDX to provide rich, interactive content that goes beyond traditional markdown:
-
-````mdx path=null start=null
----
-title: Build Your Own Docker
-summary: Implement a basic container runtime from scratch
-difficulty: Advanced
-category: Systems Programming
-skills:
-  - Containerization
-  - Linux Internals
-  - System Calls
-estimatedTime: 8-10 hours
----
-
-# Building Container Isolation
-
-Learn how Docker creates isolated environments using Linux namespaces:
-
-<CodeExample language="c" title="Creating a new namespace">
-```c
-#include <sched.h>
-#include <sys/wait.h>
-
-int create_container() {
-// Create new namespaces for isolation
-if (unshare(CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWUTS) != 0) {
-perror("unshare failed");
-return -1;
-}
-
-    // Execute command in isolated environment
-    execvp(args[0], args);
-    return 0;
-
-}
-````
-
-</CodeExample>
-
-<TechStack
-  technologies={["Linux Namespaces", "Cgroups", "System Calls"]}
-  difficulty="Advanced"
-/>
-```
-
-### Responsive Design System
-
-The platform employs a mobile-first design approach with Tailwind CSS, ensuring excellent experiences across all devices:
-
-```javascript path=null start=null
-const ChallengeCard = ({ challenge, index }) => {
-  return (
-    <motion.div
-      className="group relative rounded-lg border border-gray-200 bg-white transition-all duration-200 hover:border-[--brand] hover:shadow-lg"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5 }}
-    >
-      <div className="p-6">
-        <div className="mb-3 flex items-start justify-between">
-          <h3 className="line-clamp-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-[--brand]">
-            {challenge.title}
-          </h3>
-          <DifficultyBadge difficulty={challenge.difficulty} />
-        </div>
-
-        <p className="mb-4 line-clamp-2 text-gray-600">{challenge.summary}</p>
-
-        <div className="flex items-center justify-between">
-          <ChallengeMetadata
-            category={challenge.category}
-            estimatedTime={challenge.estimatedTime}
-          />
-          <ArrowRight className="h-4 w-4 text-[--brand] transition-transform group-hover:translate-x-1" />
-        </div>
-
-        <SkillTags skills={challenge.skills.slice(0, 3)} />
-      </div>
-    </motion.div>
-  );
 };
 ```
 
