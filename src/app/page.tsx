@@ -8,7 +8,7 @@ import PinnedProjectList from "@/components/features/projects/PinnedProjectList"
 import React from "react";
 import SocialLinks, { socialLinks } from "@/components/common/SocialLinks";
 import { PinIcon } from "lucide-react";
-import ProductList from "@/components/common/ProductList";
+import ProductList from "@/components/common/ProductListClient";
 import SparkleText from "@/components/common/SparkleText";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 
