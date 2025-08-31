@@ -1,4 +1,6 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import * as RHF from "react-hook-form";
+const { useForm } = RHF;
+type SubmitHandler<T> = RHF.SubmitHandler<T>;
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Toaster } from "react-hot-toast";

@@ -1,11 +1,39 @@
 import fs from "fs";
 import RSS from "rss";
 import path from "path";
+import matter from "gray-matter";
 
-// Import JSON files directly to avoid the assert syntax issue
-const allNotes = JSON.parse(
-  fs.readFileSync("./.contentlayer/generated/Note/_index.json", "utf8")
-);
+// Function to get all notes (replicated from our lib)
+function getAllNotes() {
+  const contentDir = path.join(process.cwd(), "content", "notes");
+
+  if (!fs.existsSync(contentDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(contentDir);
+  const mdxFiles = files.filter((file) => file.endsWith(".mdx"));
+
+  return mdxFiles
+    .map((file) => {
+      const filePath = path.join(contentDir, file);
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const { data: frontmatter } = matter(fileContent);
+      const slug = path.basename(file, ".mdx");
+
+      return {
+        slug,
+        title: frontmatter.title,
+        summary: frontmatter.summary,
+        date: frontmatter.date,
+        image: frontmatter.image_url || null,
+        ...frontmatter,
+      };
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+const allNotes = getAllNotes();
 
 // Fetch base URL
 const isDevelopment = process.env.NODE_ENV === "development";

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { allNotes } from "@/lib/contentlayer-data";
+import { getNoteBySlug } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
@@ -9,9 +9,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const note = allNotes.find(
-    (note: { slug: string }) => note.slug === resolvedParams.slug
-  );
+  const note = getNoteBySlug(resolvedParams.slug);
 
   if (!note) {
     notFound();
@@ -26,7 +24,7 @@ export async function generateMetadata({
   } = note;
 
   const baseUrl = getBaseUrl();
-  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image)}&type=note`;
+  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image || "")}&type=note`;
 
   return {
     metadataBase: new URL(baseUrl),

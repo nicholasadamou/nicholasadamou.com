@@ -1,4 +1,18 @@
-const { withContentlayer } = require("next-contentlayer");
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [
+      require("@akebifiky/remark-simple-plantuml"),
+      require("remark-math"),
+    ],
+    rehypePlugins: [
+      require("rehype-slug"),
+      [require("rehype-autolink-headings"), { behavior: "wrap" }],
+      require("@mapbox/rehype-prism"),
+      require("rehype-katex"),
+    ],
+  },
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -25,4 +39,4 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 };
 
-module.exports = withContentlayer(nextConfig);
+module.exports = withMDX(nextConfig);

@@ -1,15 +1,11 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 import type { Note, Project } from "@/lib/contentlayer-data";
 
 import { ContentHeader } from "@/components/common/ContentHeader";
 import { RelatedContentList } from "@/components/common/RelatedContentList";
-import Mdx from "@/components/mdx/MdxWrapper";
-import { useMounted } from "@/hooks/usemounted";
+import MDXRenderer from "@/components/mdx/MDXRenderer";
 import Me from "../../../public/avatar.jpeg";
 import HeaderImage from "@/components/mdx/HeaderImage";
 import GitHubLinkSection from "@/components/features/projects/GitHubLinkSection";
@@ -31,43 +27,28 @@ interface ContentPageProps {
   allContent: UnifiedContent[];
 }
 
-export default function ContentPage({
+export default async function ContentPage({
   content,
   type,
   allContent,
-}: ContentPageProps): React.ReactElement | null {
-  const mounted = useMounted();
-
+}: ContentPageProps): Promise<React.ReactElement | null> {
   if (!content) {
     notFound();
   }
 
   const readingStats = readingTime(content.body.raw);
 
-  const fadeIn = {
-    hidden: { opacity: 0, y: 0 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
-
-  if (!mounted) return null;
-
   const relatedItems = allContent
     .filter((item) => item.slug !== content.slug)
     .slice(0, 2);
   const relatedItemsWithStats = relatedItems.map((item) => ({
     ...item,
+    image: item.image || undefined, // Convert null to undefined for compatibility
     readingTime: readingTime(item.body.raw).text,
   }));
 
   return (
-    <motion.div
-      {...({
-        className: "mx-auto flex max-w-[700px] flex-col gap-12 px-4",
-      } as any)}
-      initial="hidden"
-      animate="visible"
-      variants={fadeIn}
-    >
+    <div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
       <article>
         <ContentHeader
           title={content.title}
@@ -122,7 +103,7 @@ export default function ContentPage({
           </>
         )}
         <div className="prose prose-neutral text-pretty">
-          <Mdx code={content.body.code} />
+          <MDXRenderer source={content.body.code} />
         </div>
       </article>
       <h2 className="text-2xl font-bold leading-tight tracking-tight text-primary">
@@ -130,6 +111,6 @@ export default function ContentPage({
         <p className="mt-1 text-secondary">You will love these as well.</p>
       </h2>
       <RelatedContentList items={relatedItemsWithStats} basePath={`${type}s`} />
-    </motion.div>
+    </div>
   );
 }

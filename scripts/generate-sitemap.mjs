@@ -2,14 +2,39 @@ import { SitemapStream, streamToPromise } from "sitemap";
 import { createWriteStream } from "fs";
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 
-// Import JSON files directly to avoid the assert syntax issue
-const allNotes = JSON.parse(
-  fs.readFileSync("./.contentlayer/generated/Note/_index.json", "utf8")
-);
-const allProjects = JSON.parse(
-  fs.readFileSync("./.contentlayer/generated/Project/_index.json", "utf8")
-);
+// Function to get all content
+function getAllContent(contentType) {
+  const contentDir = path.join(process.cwd(), "content", contentType);
+
+  if (!fs.existsSync(contentDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(contentDir);
+  const mdxFiles = files.filter((file) => file.endsWith(".mdx"));
+
+  return mdxFiles
+    .map((file) => {
+      const filePath = path.join(contentDir, file);
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const { data: frontmatter } = matter(fileContent);
+      const slug = path.basename(file, ".mdx");
+
+      return {
+        slug,
+        title: frontmatter.title,
+        summary: frontmatter.summary,
+        date: frontmatter.date,
+        ...frontmatter,
+      };
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+const allNotes = getAllContent("notes");
+const allProjects = getAllContent("projects");
 
 const generateSitemap = async () => {
   const sitemapStream = new SitemapStream({
