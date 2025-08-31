@@ -31,13 +31,13 @@ export default function Section({
           className={clsx(
             "shrink-0 md:w-32",
             headingAlignment === "right" && "md:text-right",
-            invert ? "font-medium text-primary" : "text-secondary"
+            invert ? "text-primary font-medium" : "text-secondary"
           )}
         >
           {heading}
         </h2>
         {showPin && isPinned && (
-          <div className="inline-flex items-center gap-1 text-tertiary">
+          <div className="text-tertiary inline-flex items-center gap-1">
             <PinIcon className="w-[18px]" />
             (Pinned)
           </div>

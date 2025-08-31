@@ -17,24 +17,24 @@ interface Repo {
 
 const RepositoryCard = ({ repo }: { repo: Repo }) => (
   <Parallax className="h-full w-full">
-    <CardItem className="flex h-full flex-col items-start rounded-md bg-tertiary p-4 backdrop-blur-3xl">
+    <CardItem className="bg-tertiary flex h-full flex-col items-start rounded-md p-4 backdrop-blur-3xl">
       <div className="flex-grow">
-        <h3 className="mb-2 text-lg font-bold text-primary">{repo.name}</h3>
+        <h3 className="text-primary mb-2 text-lg font-bold">{repo.name}</h3>
         {repo.description && (
-          <p className="mb-4 line-clamp-2 text-secondary">{repo.description}</p>
+          <p className="text-secondary mb-4 line-clamp-2">{repo.description}</p>
         )}
       </div>
       <div className="mb-4 flex items-center gap-4">
         <div className="flex items-center space-x-1">
-          <Star className="h-4 w-4 text-secondary" />
+          <Star className="text-secondary h-4 w-4" />
           <span className="text-xs">{repo.stars.toLocaleString()}</span>
         </div>
         <div className="flex items-center space-x-1">
-          <GitFork className="h-4 w-4 text-secondary" />
+          <GitFork className="text-secondary h-4 w-4" />
           <span className="text-xs">{repo.forks.toLocaleString()}</span>
         </div>
         {repo.language && (
-          <span className="rounded-full bg-primary px-2 py-1 text-xs text-secondary">
+          <span className="bg-primary text-secondary rounded-full px-2 py-1 text-xs">
             {repo.language}
           </span>
         )}

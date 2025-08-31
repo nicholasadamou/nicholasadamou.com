@@ -1,3 +1,7 @@
+/* Tailwind v4 imports */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 /* Radix Color Imports */
 @import "@radix-ui/colors/gray.css";
 @import "@radix-ui/colors/gray-dark.css";
@@ -8,8 +12,257 @@
 @import "@radix-ui/colors/blue-alpha.css";
 @import "@radix-ui/colors/blue-dark-alpha.css";
 
-@tailwind base;
-@tailwind components;
+/* Tailwind v4 Configuration */
+@theme {
+  --font-family-sans: var(--font-geist-sans);
+  --font-family-mono: var(--font-geist-mono);
+
+  /* Colors for text-* classes */
+  --color-primary: var(--gray-12);
+  --color-secondary: var(--gray-11);
+  --color-tertiary: var(--gray-9);
+  --color-link: var(--blue-11);
+  --color-contrast: var(--contrast-color);
+
+  /* Background colors */
+  --background-primary: var(--gray-1);
+  --background-secondary: var(--gray-2);
+  --background-tertiary: var(--gray-3);
+  --background-contrast: var(--contrast-color);
+
+  /* Border colors */
+  --border-primary: var(--gray-6);
+  --border-secondary: var(--gray-3);
+
+  /* Divide colors */
+  --divide-primary: var(--gray-6);
+  --divide-secondary: var(--gray-3);
+
+  --ring-offset-primary: var(--gray-12);
+
+  --shadow-soft: 0 15px 30px 0 rgba(0, 0, 0, 0.04);
+}
+
+@keyframes in {
+  0% {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes in-reverse {
+  0% {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* Custom Utility Classes */
+@layer utilities {
+  .animate-in {
+    animation: in 0.6s both;
+  }
+
+  .animate-in-reverse {
+    animation: in-reverse 0.6s both;
+  }
+
+  .shadow-soft {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  /* Text Colors */
+  .text-primary {
+    color: var(--gray-12);
+  }
+
+  .text-secondary {
+    color: var(--gray-11);
+  }
+
+  .text-tertiary {
+    color: var(--gray-9);
+  }
+
+  .text-link {
+    color: var(--blue-11);
+  }
+
+  /* Background Colors */
+  .bg-primary {
+    background-color: var(--gray-1);
+  }
+
+  .bg-secondary {
+    background-color: var(--gray-2);
+  }
+
+  .bg-tertiary {
+    background-color: var(--gray-3);
+  }
+
+  .bg-contrast {
+    background-color: var(--contrast-color);
+  }
+
+  /* Hover Background Colors */
+  .hover\:bg-primary:hover {
+    background-color: var(--gray-1);
+  }
+
+  .hover\:bg-secondary:hover {
+    background-color: var(--gray-2);
+  }
+
+  .hover\:bg-tertiary:hover {
+    background-color: var(--gray-3);
+  }
+
+  /* Dark mode Background Colors */
+  .dark .dark\:bg-primary {
+    background-color: var(--gray-1);
+  }
+
+  .dark .dark\:bg-secondary {
+    background-color: var(--gray-2);
+  }
+
+  .dark .dark\:bg-tertiary {
+    background-color: var(--gray-3);
+  }
+
+  /* Border Colors */
+  .border-primary {
+    border-color: var(--gray-6);
+  }
+
+  .border-secondary {
+    border-color: var(--gray-3);
+  }
+
+  /* Divide Colors */
+  .divide-primary {
+    border-color: var(--gray-6);
+  }
+
+  .divide-secondary {
+    border-color: var(--gray-3);
+  }
+
+  /* Text Decoration */
+  .no-underline {
+    text-decoration: none !important;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  .hover\:no-underline:hover {
+    text-decoration: none;
+  }
+
+  /* Force no underlines on social links */
+  .animated-list a {
+    text-decoration: none !important;
+  }
+
+  .animated-list a:hover {
+    text-decoration: none !important;
+  }
+
+  /* Spacing utilities */
+  .space-y-1 > * + * {
+    margin-top: 0.25rem;
+  }
+
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+
+  .space-y-5 > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .space-x-1 > * + * {
+    margin-left: 0.25rem;
+  }
+
+  .space-x-2 > * + * {
+    margin-left: 0.5rem;
+  }
+
+  .space-x-3 > * + * {
+    margin-left: 0.75rem;
+  }
+
+  .space-x-4 > * + * {
+    margin-left: 1rem;
+  }
+
+  /* Data attribute selectors for TabButton */
+  .data-\[state\=active\]\:bg-contrast[data-state="active"] {
+    background-color: var(--contrast-color);
+  }
+
+  .data-\[state\=active\]\:text-primary[data-state="active"] {
+    color: var(--gray-12);
+  }
+
+  .data-\[state\=active\]\:bg-secondary[data-state="active"] {
+    background-color: var(--gray-2);
+  }
+
+  .data-\[state\=active\]\:text-secondary[data-state="active"] {
+    color: var(--gray-11);
+  }
+
+  .data-\[state\=active\]\:shadow-sm[data-state="active"] {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  /* Hover states */
+  .hover\:text-primary:hover {
+    color: var(--gray-12);
+  }
+
+  /* Cursor utilities */
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .cursor-default {
+    cursor: default;
+  }
+
+  .cursor-not-allowed {
+    cursor: not-allowed;
+  }
+
+  .cursor-text {
+    cursor: text;
+  }
+}
 
 /* Define Color Variables and Base Styling */
 @layer base {
@@ -57,6 +310,31 @@
 
   .main-header {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prose styling fixes for content pages */
+  .prose {
+    --tw-prose-body: var(--gray-11);
+    --tw-prose-headings: var(--gray-12);
+    --tw-prose-lead: var(--gray-11);
+    --tw-prose-links: var(--blue-11);
+    --tw-prose-bold: var(--gray-12);
+    --tw-prose-counters: var(--gray-9);
+    --tw-prose-bullets: var(--gray-9);
+    --tw-prose-hr: var(--gray-6);
+    --tw-prose-quotes: var(--gray-11);
+    --tw-prose-quote-borders: var(--gray-6);
+    --tw-prose-captions: var(--gray-9);
+    --tw-prose-code: var(--gray-11);
+    --tw-prose-pre-code: var(--gray-11);
+    --tw-prose-pre-bg: var(--gray-2);
+    --tw-prose-th-borders: var(--gray-6);
+    --tw-prose-td-borders: var(--gray-6);
+  }
+
+  .prose-neutral {
+    --tw-prose-body: var(--gray-11);
+    --tw-prose-headings: var(--gray-12);
   }
 }
 

@@ -21,10 +21,10 @@ export default function GalleryPage() {
       variants={fadeIn}
     >
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
+        <h1 className="text-primary text-3xl font-bold leading-tight tracking-tight">
           Gallery
         </h1>
-        <p className="max-w-xl text-secondary">
+        <p className="text-secondary max-w-xl">
           A curated collection of my photography work, showcasing moments and
           perspectives through the lens.
         </p>

@@ -53,7 +53,7 @@ export function Footer(): React.ReactElement {
       >
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
           <Link
-            className="flex items-center gap-1 text-sm text-secondary transition-colors duration-200 hover:text-primary"
+            className="text-secondary hover:text-primary flex items-center gap-1 text-sm transition-colors duration-200"
             href="https://vsco.co/nicholasadamou"
             target="_blank"
             rel="noopener noreferrer"
@@ -72,7 +72,7 @@ export function Footer(): React.ReactElement {
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
           <Link
-            className="flex items-center gap-1 text-sm text-secondary transition-colors duration-200 hover:text-primary"
+            className="text-secondary hover:text-primary flex items-center gap-1 text-sm transition-colors duration-200"
             href="https://github.com/nicholasadamou"
             target="_blank"
             rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export function Footer(): React.ReactElement {
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
           <Link
-            className="flex items-center gap-1 text-sm text-secondary transition-colors duration-200 hover:text-primary"
+            className="text-secondary hover:text-primary flex items-center gap-1 text-sm transition-colors duration-200"
             href="https://www.linkedin.com/in/nicholas-adamou"
             target="_blank"
             rel="noopener noreferrer"
@@ -92,7 +92,7 @@ export function Footer(): React.ReactElement {
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
           <Link
-            className="flex items-center gap-1 text-sm text-secondary transition-colors duration-200 hover:text-primary"
+            className="text-secondary hover:text-primary flex items-center gap-1 text-sm transition-colors duration-200"
             href="https://leetcode.com/nicholasadamou"
             target="_blank"
             rel="noopener noreferrer"

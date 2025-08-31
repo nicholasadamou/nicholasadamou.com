@@ -51,7 +51,7 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="width-full relative flex min-h-screen flex-col text-primary antialiased">
+      <body className="width-full text-primary relative flex min-h-screen flex-col antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
           <main className="mx-auto w-full px-4 pb-24 pt-28">

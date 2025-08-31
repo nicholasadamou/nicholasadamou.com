@@ -20,7 +20,7 @@ export function TabButton({
       role="tab"
       aria-selected={isActive}
       data-state={isActive ? "active" : "inactive"}
-      className={`inline-flex min-w-[50px] items-center justify-center rounded-full px-3 py-1.5 text-sm font-medium text-secondary transition-all disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-secondary data-[state=active]:text-secondary data-[state=active]:shadow-sm dark:text-slate-200 dark:data-[state=active]:bg-secondary dark:data-[state=active]:text-slate-100 md:min-w-[30px]`}
+      className={`text-secondary data-[state=active]:bg-contrast data-[state=active]:text-primary hover:text-primary inline-flex min-w-[50px] cursor-pointer items-center justify-center rounded-full px-3 py-1.5 text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm md:min-w-[30px]`}
       onClick={onClick}
       aria-label={label}
     >

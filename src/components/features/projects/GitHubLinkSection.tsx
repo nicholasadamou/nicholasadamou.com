@@ -14,7 +14,7 @@ const GitHubLinkSection: React.FC<GitHubLinkSectionProps> = ({
   demoUrl = "",
 }) => {
   return (
-    <section className="animated-list flex max-w-full animate-in snap-x snap-mandatory flex-nowrap gap-3 overflow-x-scroll md:overflow-auto">
+    <section className="animated-list animate-in flex max-w-full snap-x snap-mandatory flex-nowrap gap-3 overflow-x-scroll md:overflow-auto">
       <div className="min-w-fit snap-start">
         <LinkButton
           href={url || ""}

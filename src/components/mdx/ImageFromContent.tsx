@@ -61,12 +61,12 @@ export default function ImageFromContent({
           className={clsx(
             "h-auto w-full",
             contained &&
-              "overflow-hidden rounded-md border border-secondary bg-secondary md:rounded-lg",
+              "border-secondary bg-secondary overflow-hidden rounded-md border md:rounded-lg",
             size === "lg" && "max-w-none md:-ml-20 md:w-[calc(100%+160px)]"
           )}
         />
         {caption && (
-          <figcaption className="text-center text-sm italic text-tertiary">
+          <figcaption className="text-tertiary text-center text-sm italic">
             {caption}
           </figcaption>
         )}

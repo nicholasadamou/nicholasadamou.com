@@ -1,16 +1,42 @@
 @tailwind components;
 
+/* Prose Text Color Fixes */
+.prose {
+  color: var(--gray-11) !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--gray-12) !important;
+}
+
+.prose p {
+  color: var(--gray-11) !important;
+}
+
+.prose li {
+  color: var(--gray-11) !important;
+}
+
+.prose strong {
+  color: var(--gray-12) !important;
+}
+
 /* Prose Customizations */
 .prose hr {
   @apply border-primary;
 }
 
 .prose blockquote {
-  @apply border-l-2 border-primary font-serif text-base font-light;
+  @apply border-primary border-l-2 font-serif text-base font-light;
 }
 
 .prose figcaption {
-  @apply mx-auto mb-8 mt-2 max-w-md text-center text-sm text-tertiary;
+  @apply text-tertiary mx-auto mb-8 mt-2 max-w-md text-center text-sm;
 }
 
 .prose h3 {
@@ -18,7 +44,7 @@
 }
 
 .prose p code {
-  @apply whitespace-pre-line rounded border border-primary bg-primary px-1 font-normal text-primary;
+  @apply border-primary bg-primary text-primary whitespace-pre-line rounded border px-1 font-normal;
 }
 
 .prose a {

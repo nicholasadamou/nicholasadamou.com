@@ -131,7 +131,7 @@ function Photo({
                 )}
               >
                 <p className="text-secondary">{fileName}</p>
-                {meta && <p className="text-sm text-secondary">{meta}</p>}
+                {meta && <p className="text-secondary text-sm">{meta}</p>}
               </div>
             </div>
           </Halo>

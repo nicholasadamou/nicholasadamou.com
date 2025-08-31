@@ -34,14 +34,14 @@ function Workplace({
           <p className={clsx("font-medium", link && "external-arrow")}>
             {title}
           </p>
-          <p className="text-sm text-secondary">
+          <p className="text-secondary text-sm">
             {company}
             {contract && " (contract)"}
           </p>
         </div>
       </div>
       {date && (
-        <time className="mt-1 text-sm text-secondary sm:mt-0">{date}</time>
+        <time className="text-secondary mt-1 text-sm sm:mt-0">{date}</time>
       )}
     </div>
   );
@@ -51,7 +51,7 @@ function Workplace({
       {link ? (
         <Link
           href={link}
-          className="-m-2 block w-full rounded-lg p-3 no-underline transition-colors hover:bg-tertiary dark:hover:bg-secondary"
+          className="hover:bg-tertiary dark:hover:bg-secondary -m-2 block w-full rounded-lg p-3 no-underline transition-colors"
         >
           {content}
         </Link>

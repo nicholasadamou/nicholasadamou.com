@@ -96,7 +96,7 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
   }
 
   if (filteredRepos.length === 0) {
-    return <p className="mt-5 text-secondary">No repositories found.</p>;
+    return <p className="text-secondary mt-5">No repositories found.</p>;
   }
 
   return (

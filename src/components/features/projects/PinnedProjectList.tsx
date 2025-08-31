@@ -21,7 +21,7 @@ export default function PinnedProjectList({ projects }: ProjectListProps) {
         >
           <div className="space-y-4">
             <Link href={`/projects/${project.slug}`}>
-              <div className="aspect-video overflow-hidden rounded-md bg-secondary">
+              <div className="bg-secondary aspect-video overflow-hidden rounded-md">
                 <Halo strength={10}>
                   <UniversalImage
                     src={project.image_url || project.image || ""}

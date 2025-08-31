@@ -27,7 +27,7 @@ export default function ProductList() {
             className="col-span-1 min-w-72 snap-start transition-opacity"
           >
             <div className="space-y-4 no-underline">
-              <div className="aspect-video overflow-hidden rounded-md bg-secondary">
+              <div className="bg-secondary aspect-video overflow-hidden rounded-md">
                 <Skeleton className="h-full w-full" />
               </div>
               <div className="flex flex-row items-center justify-between gap-1">
@@ -51,7 +51,7 @@ export default function ProductList() {
           className="col-span-1 min-w-72 snap-start transition-opacity"
         >
           <Link href={product.short_url} className="space-y-4 no-underline">
-            <div className="aspect-video overflow-hidden rounded-md bg-secondary">
+            <div className="bg-secondary aspect-video overflow-hidden rounded-md">
               <Halo strength={10}>
                 <Image
                   src={product.thumbnail_url}

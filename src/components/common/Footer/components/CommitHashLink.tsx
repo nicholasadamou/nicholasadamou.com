@@ -39,7 +39,7 @@ function CommitHashLink(): React.JSX.Element | null {
         <TooltipTrigger asChild>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              className="flex items-center gap-1 rounded-full bg-tertiary px-2 py-1 text-sm text-secondary transition-colors duration-200 hover:bg-tertiary dark:bg-secondary"
+              className="bg-tertiary text-secondary hover:bg-tertiary dark:bg-secondary flex items-center gap-1 rounded-full px-2 py-1 text-sm transition-colors duration-200"
               href={`https://github.com/nicholasadamou/nicholasadamou.com/commit/${commitHash}`}
               target="_blank"
               rel="noopener noreferrer"

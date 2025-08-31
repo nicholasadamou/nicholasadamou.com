@@ -78,8 +78,8 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
     transition={{ duration: 0.5 }}
   >
     <div>
-      <h3 className="mb-6 text-3xl font-bold text-primary">{project.name}</h3>
-      <p className="mb-6 text-xl text-secondary">{project.description}</p>
+      <h3 className="text-primary mb-6 text-3xl font-bold">{project.name}</h3>
+      <p className="text-secondary mb-6 text-xl">{project.description}</p>
       <div className="mb-6 grid place-content-center gap-8 md:grid-cols-2">
         {project.features.map((feature, index) => (
           <motion.div
@@ -104,13 +104,13 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
-        <h4 className="text-2xl font-bold text-secondary">Key Components</h4>
-        <ul className="text-md list-none space-y-4 text-secondary">
+        <h4 className="text-secondary text-2xl font-bold">Key Components</h4>
+        <ul className="text-md text-secondary list-none space-y-4">
           {project.components.map((component, index) => (
             <li key={index} className="flex items-start gap-3">
               <div className="flex-shrink-0">{component.icon}</div>
               <div>
-                <h3 className="text-lg font-bold text-primary">
+                <h3 className="text-primary text-lg font-bold">
                   {component.title}
                 </h3>
                 <p className="mt-1 text-base">{component.description}</p>
@@ -145,13 +145,13 @@ export function FeaturedSection(): React.JSX.Element {
           "Automate and simplify the setup and maintenance of macOS or Debian Linux development environments.",
         features: [
           {
-            icon: <Clock className="mr-5 h-7 w-7 text-primary" />,
+            icon: <Clock className="text-primary mr-5 h-7 w-7" />,
             title: "Cut Setup Time by 99%",
             description:
               "Reduce environment setup time from hours to minutes, allowing you to start being productive almost immediately.",
           },
           {
-            icon: <CheckCircle2 className="mr-5 h-7 w-7 text-primary" />,
+            icon: <CheckCircle2 className="text-primary mr-5 h-7 w-7" />,
             title: "Consistent Setups",
             description:
               "Ensure your development environment is set up the same way every time, reducing configuration errors.",
@@ -159,18 +159,18 @@ export function FeaturedSection(): React.JSX.Element {
         ],
         components: [
           {
-            icon: <FileCode className="h-6 w-6 text-primary" />,
+            icon: <FileCode className="text-primary h-6 w-6" />,
             title: "set-me-up blueprint",
             description: "A customizable template for managing your setup.",
           },
           {
-            icon: <Terminal className="h-6 w-6 text-primary" />,
+            icon: <Terminal className="text-primary h-6 w-6" />,
             title: "set-me-up installer",
             description:
               "A universal installer script for Mac or Debian-based machines.",
           },
           {
-            icon: <Package className="h-6 w-6 text-primary" />,
+            icon: <Package className="text-primary h-6 w-6" />,
             title: "set-me-up Universal Modules",
             description:
               "A framework for setting up diverse development environments.",
@@ -184,13 +184,13 @@ export function FeaturedSection(): React.JSX.Element {
           "A modular, maintainable, and customizable security-compliant DevOps strategy designed for use with 👷🏼 Travis CI.",
         features: [
           {
-            icon: <Shield className="mr-5 h-7 w-7 text-primary" />,
+            icon: <Shield className="text-primary mr-5 h-7 w-7" />,
             title: "Enhanced Security",
             description:
               "Integrate security practices directly into your CI/CD pipeline without sacrificing productivity.",
           },
           {
-            icon: <Code className="mr-5 h-7 w-7 text-primary" />,
+            icon: <Code className="text-primary mr-5 h-7 w-7" />,
             title: "Flexible Architecture",
             description:
               "Easily adapt to a wide range of CI/CD solutions and cloud providers, enhancing efficiency and enabling faster releases.",
@@ -198,19 +198,19 @@ export function FeaturedSection(): React.JSX.Element {
         ],
         components: [
           {
-            icon: <Lock className="h-6 w-6 text-primary" />,
+            icon: <Lock className="text-primary h-6 w-6" />,
             title: "AppScan Integration",
             description:
               "Static Application Security Testing (SAST) for comprehensive code analysis.",
           },
           {
-            icon: <Zap className="h-6 w-6 text-primary" />,
+            icon: <Zap className="text-primary h-6 w-6" />,
             title: "Contrast Security",
             description:
               "Interactive Application Security Testing (IAST) for runtime vulnerability detection.",
           },
           {
-            icon: <Search className="h-6 w-6 text-primary" />,
+            icon: <Search className="text-primary h-6 w-6" />,
             title: "Detect Secrets",
             description:
               "Automated scanning for accidental secret exposure in your codebase.",
@@ -224,13 +224,13 @@ export function FeaturedSection(): React.JSX.Element {
           "A command-line wrapper tool around the GitHub CLI (gh) to enhance repository cloning into structured directories.",
         features: [
           {
-            icon: <Folder className="mr-5 h-7 w-7 text-primary" />,
+            icon: <Folder className="text-primary mr-5 h-7 w-7" />,
             title: "Enhanced Cloning",
             description:
               "Clone repositories into a structured directory format for better organization and management.",
           },
           {
-            icon: <ArrowRightCircle className="mr-5 h-6 w-6 text-primary" />,
+            icon: <ArrowRightCircle className="text-primary mr-5 h-6 w-6" />,
             title: "Pass-Through Commands",
             description:
               "Seamlessly pass through any other commands to the official GitHub CLI for a consistent experience.",
@@ -238,19 +238,19 @@ export function FeaturedSection(): React.JSX.Element {
         ],
         components: [
           {
-            icon: <GitBranch className="h-6 w-6 text-primary" />,
+            icon: <GitBranch className="text-primary h-6 w-6" />,
             title: "Custom Directory Structure",
             description:
               "Clone repositories into folders based on domain, owner, and repository for easy navigation.",
           },
           {
-            icon: <Terminal className="h-6 w-6 text-primary" />,
+            icon: <Terminal className="text-primary h-6 w-6" />,
             title: "Dry Run Feature",
             description:
               "Preview commands before execution, ensuring you understand the effect before proceeding.",
           },
           {
-            icon: <ArrowUpCircle className="h-6 w-6 text-primary" />,
+            icon: <ArrowUpCircle className="text-primary h-6 w-6" />,
             title: "Automatic Updates",
             description:
               "Easily update the CLI wrapper to the latest release with a simple command.",
@@ -286,10 +286,10 @@ export function FeaturedSection(): React.JSX.Element {
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <h3 className="mb-2 text-2xl font-bold text-primary">
+      <h3 className="text-primary mb-2 text-2xl font-bold">
         Featured Projects from <em>DotBrains</em>.
       </h3>
-      <p className="mb-6 text-lg text-secondary">
+      <p className="text-secondary mb-6 text-lg">
         Explore our flagship projects that revolutionize developer workflows and
         enhance security practices.
       </p>

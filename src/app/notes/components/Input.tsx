@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div
           className={clsx(
             error ? "border-red-600" : "",
-            "flex w-fit items-center rounded-full bg-secondary focus-within:outline"
+            "bg-secondary flex w-fit items-center rounded-full focus-within:outline"
           )}
         >
           {pfix && (
@@ -28,7 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             type={type}
             id={id}
-            className="h-10 bg-transparent pr-4 outline-none placeholder:text-secondary"
+            className="placeholder:text-secondary h-10 bg-transparent pr-4 outline-none"
             ref={ref}
             {...otherProps}
           />

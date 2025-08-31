@@ -36,7 +36,7 @@ export default function CustomImage({
           className={clsx(
             "h-auto w-full",
             contained &&
-              "overflow-hidden rounded-md border border-secondary bg-secondary md:rounded-lg",
+              "border-secondary bg-secondary overflow-hidden rounded-md border md:rounded-lg",
             size === "lg" && "max-w-none md:-ml-20 md:w-[calc(100%+160px)]"
           )}
         />

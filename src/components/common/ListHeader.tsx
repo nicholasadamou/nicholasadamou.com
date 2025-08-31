@@ -17,7 +17,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({ type }) => (
       {type.charAt(0).toUpperCase() + type.slice(1)}
     </h1>
     <p
-      className="mt-5 animate-in text-secondary"
+      className="animate-in text-secondary mt-5"
       style={{ "--index": 1 } as React.CSSProperties}
     >
       {CONTENT_DESCRIPTIONS[type]}

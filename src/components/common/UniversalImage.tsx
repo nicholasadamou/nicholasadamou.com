@@ -266,7 +266,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
   if (isUnsplashPageUrl && loading) {
     return (
       <div
-        className={`animate-pulse bg-secondary ${className}`}
+        className={`bg-secondary animate-pulse ${className}`}
         style={{
           width: fill ? "100%" : width,
           height: fill ? "100%" : height,
@@ -280,7 +280,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
     const isUnsplash = src.includes("unsplash.com");
     return (
       <div
-        className={`flex items-center justify-center bg-secondary ${className}`}
+        className={`bg-secondary flex items-center justify-center ${className}`}
         style={{
           width: fill ? "100%" : width,
           height: fill ? "100%" : height,
@@ -289,7 +289,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
         {isRateLimited && isUnsplash ? (
           <div className="p-4 text-center">
             <div className="mb-2 text-2xl">🚫</div>
-            <div className="text-sm text-tertiary">
+            <div className="text-tertiary text-sm">
               Image temporarily unavailable
               <br />
               <span className="text-xs opacity-70">Rate limit reached</span>
@@ -299,7 +299,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
           isUnsplash && (
             <div className="p-4 text-center">
               <div className="mb-2 text-2xl">🖼️</div>
-              <div className="text-sm text-tertiary">Image unavailable</div>
+              <div className="text-tertiary text-sm">Image unavailable</div>
             </div>
           )
         )}

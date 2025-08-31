@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
           Privacy Policy
         </h1>
         <p
-          className="mt-5 animate-in text-secondary"
+          className="animate-in text-secondary mt-5"
           style={{ "--index": 1 } as React.CSSProperties}
         >
           Welcome to nicholasadamou.com. I respect your privacy and are
@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
       </div>
       <div className="mx-auto">
         <div
-          className="relative isolate mx-auto w-full animate-in overflow-hidden rounded-3xl pb-16 pt-12"
+          className="animate-in relative isolate mx-auto w-full overflow-hidden rounded-3xl pb-16 pt-12"
           style={{ "--index": 2 } as React.CSSProperties}
         >
           <section className="[&amp;_p]:text-gray-500">

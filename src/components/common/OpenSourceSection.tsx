@@ -14,9 +14,9 @@ export const OpenSourceSection: React.FC<OpenSourceSectionProps> = ({
   type,
 }) => (
   <div className="animate-in" style={{ "--index": 4 } as React.CSSProperties}>
-    <h2 className="mb-2 mt-4 text-2xl font-black leading-tight tracking-tight text-primary">
+    <h2 className="text-primary mb-2 mt-4 text-2xl font-black leading-tight tracking-tight">
       Open Source
-      <p className="mb-3 mt-1 font-bold text-secondary">
+      <p className="text-secondary mb-3 mt-1 font-bold">
         You can find all of my projects on my{" "}
         <a
           href="https://github.com/nicholasadamou"

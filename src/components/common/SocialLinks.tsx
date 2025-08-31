@@ -14,7 +14,7 @@ type SocialLinksProps = {
 export default function SocialLinks({ links }: SocialLinksProps) {
   return (
     <ul
-      className="animated-list max-w-108 flex animate-in snap-x snap-mandatory flex-nowrap gap-2 overflow-x-scroll text-sm sm:gap-3 md:overflow-auto"
+      className="animated-list max-w-108 animate-in flex snap-x snap-mandatory flex-nowrap gap-2 overflow-x-scroll text-sm sm:gap-3 md:overflow-auto"
       style={{ "--index": 2 } as React.CSSProperties}
     >
       {links.map((link) => (
@@ -24,10 +24,11 @@ export default function SocialLinks({ links }: SocialLinksProps) {
         >
           <Link
             href={link.href}
-            className="flex w-fit items-center rounded-full bg-tertiary px-3 py-1 no-underline transition-colors hover:bg-tertiary dark:bg-secondary"
+            underline={false}
+            className="bg-tertiary hover:bg-tertiary dark:bg-secondary flex w-fit items-center rounded-full px-3 py-1 no-underline transition-colors"
           >
             {link.label}
-            <ArrowUpRightIcon className="ml-1 h-4 w-4 text-tertiary" />
+            <ArrowUpRightIcon className="text-tertiary ml-1 h-4 w-4" />
           </Link>
         </li>
       ))}

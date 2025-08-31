@@ -39,7 +39,7 @@ export const RelatedContentList: React.FC<RelatedContentListProps> = ({
             />
           </div>
         )}
-        <p className="text-md font-bold leading-tight tracking-tight text-primary md:text-xl">
+        <p className="text-md text-primary font-bold leading-tight tracking-tight md:text-xl">
           {title} — {readingTime}
         </p>
         <p className="text-secondary">{summary}</p>

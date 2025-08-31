@@ -23,7 +23,7 @@ export default function PhotographySection() {
         </p>
 
         <div className="mt-4">
-          <h4 className="mb-4 text-sm font-medium text-secondary">
+          <h4 className="text-secondary mb-4 text-sm font-medium">
             Recent Photos
           </h4>
           <Suspense
@@ -32,7 +32,7 @@ export default function PhotographySection() {
                 {Array.from({ length: 4 }).map((_, i) => (
                   <div
                     key={i}
-                    className="aspect-square animate-pulse rounded-lg bg-secondary"
+                    className="bg-secondary aspect-square animate-pulse rounded-lg"
                   />
                 ))}
               </div>

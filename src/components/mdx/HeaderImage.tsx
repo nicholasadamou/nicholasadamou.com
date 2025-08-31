@@ -108,7 +108,7 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
         />
       </div>
       {hasAttribution && (
-        <small className="italic text-tertiary">
+        <small className="text-tertiary italic">
           Photo by <Link href={finalAuthorUrl}>{finalAuthor}</Link> on{" "}
           <Link
             href={`${imageSrc}?utm_source=nicholasadamou.com&utm_medium=referral`}

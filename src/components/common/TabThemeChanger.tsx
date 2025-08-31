@@ -26,7 +26,7 @@ export default function TabThemeChanger() {
     <div
       role="tablist"
       aria-orientation="horizontal"
-      className="flex items-center justify-center rounded-full bg-tertiary p-1"
+      className="bg-tertiary flex items-center justify-center rounded-full p-1"
       tabIndex={0}
     >
       <AnimatePresence>

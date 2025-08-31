@@ -83,12 +83,12 @@ export default function Contact() {
     <div className="mx-auto max-w-[700px] px-4">
       <Toaster />
       <div className="mx-auto">
-        <div className="relative isolate mx-auto w-full animate-in overflow-hidden pb-16 pt-8">
+        <div className="animate-in relative isolate mx-auto w-full overflow-hidden pb-16 pt-8">
           <div>
             <h1 className="text-3xl font-black tracking-tight">
               Let’s talk about your project
             </h1>
-            <p className="mt-5 text-secondary">
+            <p className="text-secondary mt-5">
               I help companies and individuals build out their digital presence.
             </p>
           </div>

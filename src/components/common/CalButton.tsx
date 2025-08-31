@@ -27,7 +27,7 @@ export default function CalButton(props: CalButtonProps) {
       data-cal-namespace="15min"
       data-cal-link="nicholas-adamou/15min"
       data-cal-config='{"layout":"month_view"}'
-      className="inline-grid w-full rounded-lg bg-secondary p-4 no-underline transition-opacity"
+      className="bg-secondary inline-grid w-full rounded-lg p-4 no-underline transition-opacity"
     >
       <div className="flex items-center gap-3">
         <span className="text-xl">{icon}</span>
@@ -36,7 +36,7 @@ export default function CalButton(props: CalButtonProps) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="ml-auto h-5 w-5 text-secondary"
+          className="text-secondary ml-auto h-5 w-5"
         >
           <path
             fillRule="evenodd"

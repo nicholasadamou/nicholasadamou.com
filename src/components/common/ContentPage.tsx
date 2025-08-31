@@ -106,9 +106,9 @@ export default async function ContentPage({
           <MDXRenderer source={content.body.code} />
         </div>
       </article>
-      <h2 className="text-2xl font-bold leading-tight tracking-tight text-primary">
+      <h2 className="text-primary text-2xl font-bold leading-tight tracking-tight">
         If you liked this {type}.
-        <p className="mt-1 text-secondary">You will love these as well.</p>
+        <p className="text-secondary mt-1">You will love these as well.</p>
       </h2>
       <RelatedContentList items={relatedItemsWithStats} basePath={`${type}s`} />
     </div>

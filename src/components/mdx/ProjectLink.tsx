@@ -8,7 +8,7 @@ interface ProjectLinkProps {
 
 const DEFAULT_ICON = (
   <svg
-    className="w-[16px] text-secondary"
+    className="text-secondary w-[16px]"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
@@ -27,7 +27,7 @@ function getIconForDomain(url: string | undefined): ReactElement {
   if (domain.includes("github.com")) {
     return (
       <svg
-        className="w-[16px] text-secondary"
+        className="text-secondary w-[16px]"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"

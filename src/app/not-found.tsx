@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 const Custom404 = (): React.ReactNode => (
   <div className="mx-auto flex max-w-[700px] flex-col gap-2 px-4">
-    <h1 className="text-3xl font-bold tracking-tight text-primary">404</h1>
-    <p className="max-w-sm text-secondary">
+    <h1 className="text-primary text-3xl font-bold tracking-tight">404</h1>
+    <p className="text-secondary max-w-sm">
       404 - Oh no, you found a page that&apos;s missing stuff.
     </p>
     <div className="h-2" />

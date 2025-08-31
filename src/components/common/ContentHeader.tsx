@@ -32,7 +32,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
     <div className="flex flex-col gap-4">
       <Link href={additionalInfo.backLink}>← {additionalInfo.backText}</Link>
       <div className="flex max-w-xl flex-col gap-4 text-pretty">
-        <h1 className="text-3xl font-bold leading-tight tracking-tight text-primary">
+        <h1 className="text-primary text-3xl font-bold leading-tight tracking-tight">
           {title}
         </h1>
         <p className="text-secondary">{longSummary || summary}</p>
@@ -42,7 +42,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
         <Avatar src={author.avatar} initials="na" size="sm" />
         <div className="leading-tight">
           {author.name}
-          <p className="md:text-md mt-1 flex flex-row flex-wrap justify-center gap-1 text-sm text-secondary">
+          <p className="md:text-md text-secondary mt-1 flex flex-row flex-wrap justify-center gap-1 text-sm">
             <time dateTime={dateString}>{dateString}</time>
             {additionalInfo.extraInfo}
           </p>

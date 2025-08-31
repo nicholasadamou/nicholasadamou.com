@@ -17,7 +17,7 @@ export function getContentWithLinks(content: string) {
         const { url } = match[0];
         const displayUrl = url.replace(/(^\w+:|^)\/\//, ""); // remove http:// or https:// from the url
         const link = ReactDOMServer.renderToStaticMarkup(
-          <Link key={index} href={url} className="break-words text-link">
+          <Link key={index} href={url} className="text-link break-words">
             {displayUrl}
           </Link>
         );

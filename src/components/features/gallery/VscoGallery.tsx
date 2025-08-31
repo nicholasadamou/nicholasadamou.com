@@ -169,7 +169,7 @@ export default function VscoGallery() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="group relative overflow-hidden rounded-lg">
-            <div className="aspect-square w-full animate-pulse bg-secondary" />
+            <div className="bg-secondary aspect-square w-full animate-pulse" />
           </div>
         ))}
       </div>
@@ -178,14 +178,14 @@ export default function VscoGallery() {
 
   if (error && images.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-secondary p-12 text-center">
-        <div className="mb-4 rounded-full bg-secondary p-3">
-          <X className="h-6 w-6 text-tertiary" />
+      <div className="border-secondary flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
+        <div className="bg-secondary mb-4 rounded-full p-3">
+          <X className="text-tertiary h-6 w-6" />
         </div>
-        <h3 className="mb-2 text-lg font-semibold text-primary">
+        <h3 className="text-primary mb-2 text-lg font-semibold">
           Unable to load gallery
         </h3>
-        <p className="mb-4 text-sm text-secondary">
+        <p className="text-secondary mb-4 text-sm">
           {error.message || "Something went wrong while loading the photos."}
         </p>
         <Button variant="outline" asChild>
@@ -204,14 +204,14 @@ export default function VscoGallery() {
 
   if (images.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-secondary p-12 text-center">
-        <div className="mb-4 rounded-full bg-secondary p-3">
-          <ExternalLink className="h-6 w-6 text-tertiary" />
+      <div className="border-secondary flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
+        <div className="bg-secondary mb-4 rounded-full p-3">
+          <ExternalLink className="text-tertiary h-6 w-6" />
         </div>
-        <h3 className="mb-2 text-lg font-semibold text-primary">
+        <h3 className="text-primary mb-2 text-lg font-semibold">
           No photos found
         </h3>
-        <p className="mb-4 text-sm text-secondary">
+        <p className="text-secondary mb-4 text-sm">
           Check back later for new photography updates.
         </p>
         <Button variant="outline" asChild>
@@ -270,7 +270,7 @@ export default function VscoGallery() {
             className="flex flex-col items-center gap-4 py-8"
           >
             {loading && (
-              <div className="flex items-center gap-2 text-secondary">
+              <div className="text-secondary flex items-center gap-2">
                 <Loader2 className="h-5 w-5 animate-spin" />
                 <span>Loading more photos...</span>
               </div>
@@ -299,7 +299,7 @@ export default function VscoGallery() {
 
         {/* Gallery Stats */}
         {totalCount > 0 && (
-          <div className="text-center text-sm text-secondary">
+          <div className="text-secondary text-center text-sm">
             Showing {images.length} of {totalCount} photos
           </div>
         )}

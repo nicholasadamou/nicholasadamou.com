@@ -27,11 +27,11 @@ export default function Home() {
       <div className="flex flex-col gap-8">
         <div className="flex flex-col-reverse gap-4 sm:flex-row">
           <div className="space-y-4">
-            <h1 className="animate-in text-3xl font-semibold tracking-tight text-primary">
+            <h1 className="animate-in text-primary text-3xl font-semibold tracking-tight">
               Hey, I&apos;m Nick Adamou
             </h1>
             <p
-              className="max-w-lg animate-in text-secondary"
+              className="animate-in text-secondary max-w-lg"
               style={{ "--index": 1 } as React.CSSProperties}
             >
               I am a full-stack software engineer with a passion for leveraging
@@ -48,24 +48,24 @@ export default function Home() {
             alt="Nicholas Adamou"
             priority
             style={{ "--index": 2 } as React.CSSProperties}
-            className="flex-1 animate-in rounded-2xl grayscale-[0.25]"
+            className="animate-in flex-1 rounded-2xl grayscale-[0.25]"
           />
         </div>
       </div>
 
       <div
-        className="flex animate-in flex-col gap-4"
+        className="animate-in flex flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
       >
         <Link
-          className="group flex items-center gap-2 tracking-tight text-primary"
+          className="text-primary group flex items-center gap-2 tracking-tight"
           href="/projects"
         >
-          <PinIcon className="h-5 w-5 text-tertiary" />
+          <PinIcon className="text-tertiary h-5 w-5" />
           <SparkleText>Pinned Projects</SparkleText>
-          <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
-        <p className="mt-[-8px] max-w-xl text-secondary">
+        <p className="text-secondary mt-[-8px] max-w-xl">
           I love building projects, whether they are simple websites or more
           complex web apps. Below are a few of my favorites.
         </p>
@@ -73,11 +73,11 @@ export default function Home() {
       </div>
 
       <div
-        className="flex animate-in flex-col gap-4"
+        className="animate-in flex flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
       >
         <Link
-          className="group flex items-center gap-2 tracking-tight text-primary no-underline"
+          className="text-primary group flex items-center gap-2 tracking-tight no-underline"
           href="https://nicholasadamou.gumroad.com"
         >
           <Image
@@ -88,40 +88,40 @@ export default function Home() {
             className="dark:invert"
           />
           Products
-          <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
         <ProductList />
       </div>
 
       <div
-        className="flex animate-in flex-col gap-4"
+        className="animate-in flex flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
       >
         <Link
-          className="group flex items-center gap-2 tracking-tight text-primary"
+          className="text-primary group flex items-center gap-2 tracking-tight"
           href="/gallery"
         >
           Recent Photos
-          <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
-        <p className="mt-[-8px] max-w-xl text-secondary">
+        <p className="text-secondary mt-[-8px] max-w-xl">
           A few recent shots from my VSCO. See more on the full gallery page.
         </p>
         <FeaturedGallery />
       </div>
 
       <div
-        className="mb-5 flex animate-in flex-col gap-4"
+        className="animate-in mb-5 flex flex-col gap-4"
         style={{ "--index": 5 } as React.CSSProperties}
       >
         <Link
-          className="group flex items-center gap-2 tracking-tight text-primary"
+          className="text-primary group flex items-center gap-2 tracking-tight"
           href="/notes"
         >
           Recent Notes
-          <ArrowUpRightIcon className="h-5 w-5 text-tertiary transition-all group-hover:text-primary" />
+          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
-        <p className="mt-[-8px] max-w-xl text-secondary">
+        <p className="text-secondary mt-[-8px] max-w-xl">
           I occasionally share valuable insights on programming, productivity,
           and a variety of other engaging topics. My notes features a range of
           articles that delve into the latest trends, tips, and best practices

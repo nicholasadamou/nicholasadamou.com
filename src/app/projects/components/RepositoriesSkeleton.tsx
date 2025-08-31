@@ -14,7 +14,7 @@ const RepositoriesSkeleton = () => {
       <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
         {Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
           <Parallax key={index} className="h-full w-full">
-            <CardItem className="flex h-full flex-col items-start rounded-md bg-tertiary p-4 backdrop-blur-3xl">
+            <CardItem className="bg-tertiary flex h-full flex-col items-start rounded-md p-4 backdrop-blur-3xl">
               <div className="w-full flex-grow">
                 <div className="bg-primary/20 mb-2 h-6 w-3/4 animate-pulse rounded" />
                 <div className="bg-secondary/20 mb-4 h-4 w-full animate-pulse rounded" />

@@ -16,7 +16,7 @@ export default function FeaturedGallery() {
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
-            className="aspect-square animate-pulse rounded-lg bg-secondary"
+            className="bg-secondary aspect-square animate-pulse rounded-lg"
           />
         ))}
       </div>
@@ -25,11 +25,11 @@ export default function FeaturedGallery() {
 
   if (error || !data || data.images.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-secondary p-8 text-center">
-        <div className="mb-3 rounded-full bg-secondary p-2">
-          <Camera className="h-5 w-5 text-tertiary" />
+      <div className="border-secondary flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+        <div className="bg-secondary mb-3 rounded-full p-2">
+          <Camera className="text-tertiary h-5 w-5" />
         </div>
-        <p className="mb-3 text-sm text-secondary">
+        <p className="text-secondary mb-3 text-sm">
           Unable to load recent photos
         </p>
         <Button variant="outline" size="sm" asChild>

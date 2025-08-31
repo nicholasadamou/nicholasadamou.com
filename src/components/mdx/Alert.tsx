@@ -11,7 +11,7 @@ const Alert = ({
   children: ReactNode;
   type: "warning" | "info";
 }): React.ReactElement => (
-  <div className="mt-7 flex gap-2 rounded-md border border-secondary p-4 text-tertiary">
+  <div className="border-secondary text-tertiary mt-7 flex gap-2 rounded-md border p-4">
     <div className="w-fit">
       {type === "warning" ? (
         <ExclamationTriangleIcon className="h-5 w-5" />

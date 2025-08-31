@@ -127,7 +127,7 @@ export default function Navigation() {
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
       {...({
         className: clsx(
-          "z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
+          "z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 left-1/2 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
           isScrolled
             ? "bg-[#fcfcfc]/75 dark:bg-[#111]/75 text-black dark:text-white"
             : "bg-transparent text-primary"
@@ -137,7 +137,7 @@ export default function Navigation() {
     >
       <div className="mx-auto flex max-w-[700px] justify-between pl-0">
         <nav className="flex gap-3 py-3">
-          <Link href="/" variant="ghost" className="shrink-0 text-primary">
+          <Link href="/" variant="ghost" className="text-primary shrink-0">
             <svg
               width="27"
               height="27"
@@ -162,8 +162,8 @@ export default function Navigation() {
         <div className="flex items-center gap-3 md:mr-[1em]">
           <TabThemeChanger />
           <Popover className="relative mr-[-5px] md:hidden" ref={popoverRef}>
-            <Popover.Button className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary">
-              <Bars3Icon className="h-6 w-6 cursor-pointer text-primary transition-colors hover:text-primary" />
+            <Popover.Button className="text-secondary flex h-8 w-8 items-center justify-center rounded-lg">
+              <Bars3Icon className="text-primary hover:text-primary h-6 w-6 cursor-pointer transition-colors" />
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -174,7 +174,7 @@ export default function Navigation() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute right-0 z-10 mt-2 w-40 origin-top-right overflow-auto rounded-xl bg-contrast p-2 text-base shadow-md focus:outline-none sm:text-sm">
+              <Popover.Panel className="bg-contrast absolute right-0 z-10 mt-2 w-40 origin-top-right overflow-auto rounded-xl p-2 text-base shadow-md focus:outline-none sm:text-sm">
                 <div className="grid">
                   {links.map((link) => (
                     <Link

@@ -17,7 +17,7 @@ const ListSection: React.FC<ListSectionProps> = ({ heading, items }) => (
           {item.href ? (
             <Link
               href={item.href}
-              className="inline-grid w-full rounded-lg bg-tertiary p-4 no-underline transition-opacity dark:bg-secondary"
+              className="bg-tertiary dark:bg-secondary inline-grid w-full rounded-lg p-4 no-underline transition-opacity"
             >
               <div className="flex items-center gap-3">
                 <span className="text-xl">{item.icon}</span>
@@ -26,7 +26,7 @@ const ListSection: React.FC<ListSectionProps> = ({ heading, items }) => (
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  className="ml-auto h-5 w-5 text-secondary"
+                  className="text-secondary ml-auto h-5 w-5"
                 >
                   <path
                     fillRule="evenodd"
