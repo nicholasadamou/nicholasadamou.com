@@ -40,7 +40,7 @@ async function validateRequestBody(req: NextRequest) {
 
   if (!parseResult.success) {
     throw new Error(
-      `Invalid input data: ${JSON.stringify(parseResult.error.errors)}`
+      `Invalid input data: ${JSON.stringify(parseResult.error.issues)}`
     );
   }
 

@@ -20,6 +20,13 @@ module.exports = {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],
       },
+      colors: {
+        primary: "var(--gray-12)",
+        secondary: "var(--gray-11)",
+        tertiary: "var(--gray-9)",
+        link: "var(--blue-11)",
+        contrast: "var(--contrast-color)",
+      },
       textColor: {
         primary: "var(--gray-12)",
         secondary: "var(--gray-11)",
