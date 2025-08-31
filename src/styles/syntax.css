@@ -1,11 +1,9 @@
 /* Syntax Highlighting Theme */
 @import "../../public/prism/one-dark.css";
 
-@tailwind components;
-
 /* Syntax Highlighting */
 pre[class*="language-"] {
-  @apply rounded-md bg-tertiary text-[13px] text-xs text-primary dark:bg-contrast;
+  @apply bg-tertiary text-primary dark:bg-contrast rounded-md text-[13px] text-xs;
 }
 
 .code-highlight {

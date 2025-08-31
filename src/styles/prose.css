@@ -1,5 +1,3 @@
-@tailwind components;
-
 /* Prose Text Color Fixes */
 .prose {
   color: var(--gray-11) !important;
@@ -43,8 +41,20 @@
   @apply mb-2 mt-12 text-base;
 }
 
-.prose p code {
-  @apply border-primary bg-primary text-primary whitespace-pre-line rounded border px-1 font-normal;
+.prose p code,
+.prose li code,
+.prose td code,
+.prose th code,
+.prose h1 code,
+.prose h2 code,
+.prose h3 code,
+.prose h4 code,
+.prose h5 code,
+.prose h6 code {
+  @apply whitespace-pre-line rounded border px-1 font-normal;
+  background-color: var(--gray-2) !important;
+  color: var(--gray-12) !important;
+  border-color: var(--gray-6) !important;
 }
 
 .prose a {

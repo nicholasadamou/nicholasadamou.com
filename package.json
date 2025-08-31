@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "pnpm format && node scripts/check-submodules.js && npm-run-all build:cache-images download:images:unsplash download:images:vsco",
     "build:cache-images": "node scripts/build-cache-images-fallback.js",
     "build": "next build",
     "generate:rss": "node scripts/generate-rss.mjs",

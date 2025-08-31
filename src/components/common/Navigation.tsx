@@ -36,11 +36,17 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Update the fill color based on the current theme
+    // Update the fill color based on the current theme and scroll state
     if (resolvedTheme) {
-      setSvgFill(resolvedTheme === "dark" ? "white" : "black");
+      if (isScrolled) {
+        // When scrolled: bg-contrast (white in light, dark in dark) - logo needs to be opposite
+        setSvgFill(resolvedTheme === "dark" ? "white" : "black");
+      } else {
+        // When not scrolled: transparent bg, use theme-appropriate logo color
+        setSvgFill(resolvedTheme === "dark" ? "white" : "black");
+      }
     }
-  }, [resolvedTheme]);
+  }, [resolvedTheme, isScrolled]);
 
   useEffect(() => {
     setIsScrolled(window.scrollY > 20); // On initial load, apply blur if scrolled
@@ -129,7 +135,7 @@ export default function Navigation() {
         className: clsx(
           "z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 left-1/2 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
           isScrolled
-            ? "bg-[#fcfcfc]/75 dark:bg-[#111]/75 text-black dark:text-white"
+            ? "bg-contrast/90 text-primary"
             : "bg-transparent text-primary"
         ),
       } as any)}

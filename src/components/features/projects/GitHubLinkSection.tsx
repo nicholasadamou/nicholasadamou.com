@@ -19,7 +19,7 @@ const GitHubLinkSection: React.FC<GitHubLinkSectionProps> = ({
         <LinkButton
           href={url || ""}
           icon={Github}
-          className="border border-[#191919] bg-[#191919] text-[#efefef] hover:bg-[#efefef] hover:text-[#191919] dark:bg-[#efefef] dark:text-[#191919] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
+          className="btn-filled border transition-colors"
         >
           GitHub
         </LinkButton>
@@ -29,7 +29,7 @@ const GitHubLinkSection: React.FC<GitHubLinkSectionProps> = ({
           <LinkButton
             href={demoUrl}
             icon={BookDashed}
-            className="border border-[#efefef] bg-transparent text-[#191919] hover:bg-[#efefef] hover:text-[#191919] dark:border-[#191919] dark:text-[#efefef] dark:hover:bg-[#191919] dark:hover:text-[#efefef]"
+            className="btn-outline border transition-colors"
           >
             Demo
           </LinkButton>

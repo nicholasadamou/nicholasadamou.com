@@ -14,12 +14,12 @@ export default function NavLink({ href, children }: NavLinkProps) {
 
   return (
     <Link
-      variant={active ? "secondary" : "ghost"}
+      variant="ghost"
       className={clsx(
-        "hover:text-primary rounded-lg px-4 py-2 text-sm transition-colors",
+        "rounded-lg px-4 py-2 text-sm transition-colors",
         active
-          ? "decoration-react-link text-primary decoration-2"
-          : "text-secondary"
+          ? "nav-active decoration-react-link decoration-2"
+          : "text-secondary hover:text-primary"
       )}
       href={href}
     >

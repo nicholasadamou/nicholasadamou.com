@@ -1,4 +1,4 @@
-@tailwind utilities;
+/* Browser-specific utilities and fixes */
 
 /* Hide Scrollbars */
 .no-scrollbar::-webkit-scrollbar {
@@ -10,6 +10,11 @@
   scrollbar-width: none;
 }
 
+.overflow-x-scroll.snap-x::-webkit-scrollbar {
+  display: none;
+}
+
+/* Input Fixes */
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
@@ -20,6 +25,8 @@ input:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+/* Interactive Effects */
+
 /* Hover Effect for Animated Lists */
 @media (hover: hover) {
   .animated-list:hover li {
@@ -29,15 +36,6 @@ input:-webkit-autofill:focus {
   .animated-list:hover li:hover {
     opacity: 1;
   }
-}
-
-/* Animation Delay Utility */
-.animate-in {
-  animation-delay: calc(var(--index) * 130ms);
-}
-
-.overflow-x-scroll.snap-x::-webkit-scrollbar {
-  display: none;
 }
 
 /* Image Utilities */

@@ -107,7 +107,7 @@ export default function Contact() {
                     type="text"
                     placeholder="Name"
                     {...register("name")}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-zinc-200 placeholder:text-zinc-400 focus:ring-1 focus:ring-inset dark:ring-zinc-700"
+                    className="placeholder:text-tertiary input-field block w-full rounded-md border px-3.5 py-2 shadow-sm outline-none focus:outline-none focus:ring-0"
                   />
                   {errors.name && (
                     <p className="mt-1 text-sm text-red-500">
@@ -127,7 +127,7 @@ export default function Contact() {
                     type="email"
                     placeholder="Email"
                     {...register("email")}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-zinc-200 placeholder:text-zinc-400 focus:ring-1 focus:ring-inset dark:ring-zinc-700"
+                    className="placeholder:text-tertiary input-field block w-full rounded-md border px-3.5 py-2 shadow-sm outline-none focus:outline-none focus:ring-0"
                   />
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-500">
@@ -146,7 +146,7 @@ export default function Contact() {
                     id="message"
                     placeholder="Message"
                     {...register("message")}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-zinc-200 placeholder:text-zinc-400 focus:ring-1 focus:ring-inset dark:ring-zinc-700"
+                    className="placeholder:text-tertiary input-field block min-h-[120px] w-full rounded-md border px-3.5 py-2 shadow-sm outline-none focus:outline-none focus:ring-0"
                   />
                   {errors.message && (
                     <p className="mt-1 text-sm text-red-500">
@@ -158,13 +158,16 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-10 block w-full rounded-md bg-[#111] px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-opacity-90 dark:bg-white dark:text-black dark:hover:bg-opacity-90"
+                className="btn-filled mt-10 block w-full cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading ? "Sending..." : "Let’s talk"}
+                {loading ? "Sending..." : "Let's talk"}
               </button>
-              <p className="mt-4 text-sm text-zinc-500">
+              <p className="text-tertiary mt-4 text-sm">
                 By submitting this form, I agree to the{" "}
-                <a className="font-medium underline" href="/privacy">
+                <a
+                  className="text-secondary hover:text-primary font-medium underline"
+                  href="/privacy"
+                >
                   privacy policy
                 </a>
                 .
