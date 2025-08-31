@@ -18,7 +18,7 @@ export default function NavLink({ href, children }: NavLinkProps) {
       className={clsx(
         "rounded-lg px-4 py-2 text-sm transition-colors",
         active
-          ? "nav-active decoration-react-link decoration-2"
+          ? "text-primary nav-active decoration-react-link decoration-2"
           : "text-secondary hover:text-primary"
       )}
       href={href}
