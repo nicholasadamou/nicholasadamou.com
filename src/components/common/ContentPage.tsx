@@ -102,7 +102,7 @@ export default async function ContentPage({
             <div className="h-8" />
           </>
         )}
-        <div className="prose prose-neutral max-w-3xl text-pretty">
+        <div className="prose prose-neutral max-w-4xl text-pretty">
           <MDXRenderer source={content.body.code} />
         </div>
       </article>
