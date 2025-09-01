@@ -349,11 +349,11 @@ export async function GET(request: NextRequest) {
           user: {
             name: photo.user.name,
             username: photo.user.username,
-            profile_url: `https://unsplash.com/@${photo.user.username}`,
+            profile_url: `https://unsplash.com/@${photo.user.username}?utm_source=nicholasadamou.com&utm_medium=referral`,
           },
           // Additional convenience fields for easier usage
           image_author: photo.user.name,
-          image_author_url: `https://unsplash.com/@${photo.user.username}`,
+          image_author_url: `https://unsplash.com/@${photo.user.username}?utm_source=nicholasadamou.com&utm_medium=referral`,
           description: photo.description || photo.alt_description,
           width: photo.width,
           height: photo.height,

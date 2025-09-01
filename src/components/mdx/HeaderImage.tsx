@@ -41,7 +41,7 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
           console.log(`🏠 Using local author data for ${photoId}`);
           setUnsplashData({
             image_author: imageMetadata.author,
-            image_author_url: `https://unsplash.com/@${imageMetadata.author.toLowerCase().replace(/\s+/g, "")}`,
+            image_author_url: `https://unsplash.com/@${imageMetadata.author.toLowerCase().replace(/\s+/g, "")}?utm_source=nicholasadamou.com&utm_medium=referral`,
             isLocal: true,
           });
           setLoading(false);
@@ -111,7 +111,7 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
         <small className="text-tertiary italic">
           Photo by <Link href={finalAuthorUrl}>{finalAuthor}</Link> on{" "}
           <Link
-            href={`${imageSrc}?utm_source=nicholasadamou.com&utm_medium=referral`}
+            href={`https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral`}
           >
             Unsplash
           </Link>
