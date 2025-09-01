@@ -80,7 +80,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="mx-auto max-w-[700px] px-4">
+    <div className="mx-auto max-w-4xl px-4">
       <Toaster />
       <div className="mx-auto">
         <div className="animate-in relative isolate mx-auto w-full overflow-hidden pb-16 pt-8">

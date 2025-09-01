@@ -31,7 +31,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
   return (
     <div className="flex flex-col gap-4">
       <Link href={additionalInfo.backLink}>← {additionalInfo.backText}</Link>
-      <div className="flex max-w-xl flex-col gap-4 text-pretty">
+      <div className="flex max-w-3xl flex-col gap-4 text-pretty">
         <h1 className="text-primary text-3xl font-bold leading-tight tracking-tight">
           {title}
         </h1>

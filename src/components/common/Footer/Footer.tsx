@@ -33,7 +33,7 @@ export function Footer(): React.ReactElement {
     <motion.footer
       {...({
         className:
-          "absolute bottom-0 inset-x-0 px-8 md:px-4 max-w-[700px] mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between",
+          "absolute bottom-0 inset-x-0 px-8 md:px-4 max-w-4xl mx-auto flex flex-row gap-2 mt-32 py-6 w-full shrink-0 items-center justify-between",
       } as any)}
       initial="hidden"
       animate="visible"

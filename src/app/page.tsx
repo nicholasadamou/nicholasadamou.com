@@ -1,6 +1,7 @@
 import { allNotes, allProjects } from "@/lib/contentlayer-data";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import ThemeAwareGumroadLogo from "@/components/common/ThemeAwareGumroadLogo";
 
 import Link from "@/components/common/Link";
 import PostList from "./notes/components/PostList";
@@ -23,33 +24,51 @@ export default function Home() {
   );
 
   return (
-    <div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
+    <div className="mx-auto flex max-w-4xl flex-col gap-12 px-4">
       <div className="flex flex-col gap-8">
-        <div className="flex flex-col-reverse gap-4 sm:flex-row">
-          <div className="space-y-4">
-            <h1 className="animate-in text-primary text-3xl font-semibold tracking-tight">
-              Hey, I&apos;m Nick Adamou
-            </h1>
-            <p
-              className="animate-in text-secondary max-w-lg"
-              style={{ "--index": 1 } as React.CSSProperties}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
+          <div className="order-2 space-y-6 lg:order-1 lg:col-span-2">
+            <div className="space-y-4">
+              <h1 className="animate-in text-primary text-4xl font-bold leading-tight tracking-tight lg:text-5xl">
+                Hey, I&apos;m{" "}
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent dark:from-blue-400 dark:via-purple-400 dark:to-blue-600">
+                  Nick Adamou
+                </span>
+              </h1>
+              <p
+                className="animate-in text-secondary text-lg leading-relaxed"
+                style={{ "--index": 1 } as React.CSSProperties}
+              >
+                I am a full-stack software engineer with a passion for
+                leveraging technology to create positive change in the world. My
+                mission is to harness the power of code to develop innovative
+                solutions that address real-world challenges and improve
+                people&apos;s lives. I believe in building software that not
+                only functions beautifully but also makes a meaningful impact on
+                communities and individuals.
+              </p>
+            </div>
+            <div
+              className="animate-in"
+              style={{ "--index": 2 } as React.CSSProperties}
             >
-              I am a full-stack software engineer with a passion for leveraging
-              technology to create positive change in the world. My mission is
-              to harness the power of code to develop innovative solutions that
-              address real-world challenges and improve people&apos;s lives.
-            </p>
-            <SocialLinks links={socialLinks} />
+              <SocialLinks links={socialLinks} />
+            </div>
           </div>
-          <Image
-            src="/nicholas-adamou.jpeg"
-            width={200}
-            height={100}
-            alt="Nicholas Adamou"
-            priority
-            style={{ "--index": 2 } as React.CSSProperties}
-            className="animate-in flex-1 rounded-2xl grayscale-[0.25]"
-          />
+          <div className="justify-left order-1 flex lg:order-2 lg:col-span-1 lg:justify-end">
+            <div className="group relative">
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 opacity-25 blur transition duration-1000 group-hover:opacity-40 group-hover:duration-200"></div>
+              <Image
+                src="/nicholas-adamou.jpeg"
+                width={280}
+                height={320}
+                alt="Nicholas Adamou"
+                priority
+                style={{ "--index": 3 } as React.CSSProperties}
+                className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.15] transition-all duration-300 group-hover:scale-[1.02] group-hover:grayscale-0 lg:h-80 lg:w-64"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -65,7 +84,7 @@ export default function Home() {
           <SparkleText>Pinned Projects</SparkleText>
           <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
-        <p className="text-secondary mt-[-8px] max-w-xl">
+        <p className="text-secondary mt-[-8px] max-w-3xl">
           I love building projects, whether they are simple websites or more
           complex web apps. Below are a few of my favorites.
         </p>
@@ -80,13 +99,7 @@ export default function Home() {
           className="text-primary group flex items-center gap-2 tracking-tight no-underline"
           href="https://nicholasadamou.gumroad.com"
         >
-          <Image
-            src="/logos/gumroad.svg"
-            alt="Gumroad"
-            width={83}
-            height={10}
-            className="dark:invert"
-          />
+          <ThemeAwareGumroadLogo />
           Products
           <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
@@ -104,7 +117,7 @@ export default function Home() {
           Recent Photos
           <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
-        <p className="text-secondary mt-[-8px] max-w-xl">
+        <p className="text-secondary mt-[-8px] max-w-3xl">
           A few recent shots from my VSCO. See more on the full gallery page.
         </p>
         <FeaturedGallery />
@@ -121,7 +134,7 @@ export default function Home() {
           Recent Notes
           <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
-        <p className="text-secondary mt-[-8px] max-w-xl">
+        <p className="text-secondary mt-[-8px] max-w-3xl">
           I occasionally share valuable insights on programming, productivity,
           and a variety of other engaging topics. My notes features a range of
           articles that delve into the latest trends, tips, and best practices

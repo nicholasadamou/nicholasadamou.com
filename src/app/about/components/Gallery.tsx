@@ -144,7 +144,7 @@ function Photo({
 export default function Gallery() {
   return (
     <>
-      <section className="relative flex h-[268px] gap-4">
+      <section className="relative mx-auto flex h-[268px] max-w-[700px] justify-center gap-4">
         <Photo
           src={arizona}
           meta="2021-07-12"

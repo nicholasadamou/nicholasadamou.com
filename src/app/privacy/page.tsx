@@ -4,7 +4,7 @@ import React from "react";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="mx-auto max-w-[700px] px-4">
+    <div className="mx-auto max-w-4xl px-4">
       <div>
         <h1 className="animate-in text-3xl font-bold tracking-tight">
           Privacy Policy

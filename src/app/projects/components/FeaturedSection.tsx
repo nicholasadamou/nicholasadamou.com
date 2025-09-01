@@ -50,7 +50,7 @@ const ProjectTabs: React.FC<{
       <motion.button
         key={project.name}
         {...({
-          className: `px-4 py-2 border rounded-2xl text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+          className: `px-4 py-2 border rounded-2xl text-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer ${
             activeTab === project.name
               ? "bg-black text-white dark:bg-white dark:text-black border-none"
               : "bg-tertiary text-primary hover:bg-secondary border-secondary"

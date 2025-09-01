@@ -9,7 +9,7 @@ export default function GitHubBadge({ href }: GitHubBadgeProps) {
     <Link
       href={href || "#"}
       target="_blank"
-      className="light:bg-black hover:bg-primary/80 focus:ring-ring inline-flex items-center gap-1.5 rounded-full border border-transparent bg-black px-2 py-0.5 text-[12px] font-semibold text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-white dark:text-black"
+      className="border-primary bg-contrast text-primary hover:bg-secondary inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[12px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
       <svg viewBox="0 0 438.549 438.549" className="size-3">
         <path

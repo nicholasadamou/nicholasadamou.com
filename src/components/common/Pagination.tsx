@@ -23,7 +23,7 @@ const Pagination = ({
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         variant="outline"
-        className="light:bg-black light:text-white p-4 disabled:cursor-not-allowed dark:bg-white dark:text-black"
+        className="cursor-pointer p-4 disabled:cursor-not-allowed"
       >
         Previous
       </Button>
@@ -31,7 +31,7 @@ const Pagination = ({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         variant="outline"
-        className="light:bg-black light:text-white p-4 dark:bg-white dark:text-black"
+        className="cursor-pointer p-4 disabled:cursor-not-allowed"
       >
         Next
       </Button>

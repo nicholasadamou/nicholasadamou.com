@@ -48,7 +48,7 @@ export default async function ContentPage({
   }));
 
   return (
-    <div className="mx-auto flex max-w-[700px] flex-col gap-12 px-4">
+    <div className="mx-auto flex max-w-4xl flex-col gap-12 px-4">
       <article>
         <ContentHeader
           title={content.title}
@@ -102,7 +102,7 @@ export default async function ContentPage({
             <div className="h-8" />
           </>
         )}
-        <div className="prose prose-neutral text-pretty">
+        <div className="prose prose-neutral max-w-3xl text-pretty">
           <MDXRenderer source={content.body.code} />
         </div>
       </article>

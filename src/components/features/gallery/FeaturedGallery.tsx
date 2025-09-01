@@ -8,12 +8,12 @@ import Link from "@/components/common/Link";
 import { Button } from "@/components/ui/button";
 
 export default function FeaturedGallery() {
-  const { data, loading, error } = useVscoGallery({ limit: 4 });
+  const { data, loading, error } = useVscoGallery({ limit: 8 });
 
   if (loading) {
     return (
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {Array.from({ length: 4 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
             className="bg-secondary aspect-square animate-pulse rounded-lg"
@@ -48,7 +48,7 @@ export default function FeaturedGallery() {
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {data.images.slice(0, 4).map((image, index) => (
+      {data.images.slice(0, 8).map((image, index) => (
         <motion.div
           key={image.id}
           initial={{ opacity: 0, scale: 0.9 }}

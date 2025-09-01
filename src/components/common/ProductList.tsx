@@ -20,19 +20,16 @@ export default function ProductList() {
 
   if (loading) {
     return (
-      <ul className="animated-list flex snap-x snap-mandatory grid-cols-2 flex-nowrap gap-5 overflow-x-scroll md:grid md:overflow-auto">
-        {Array.from({ length: 2 }).map((_, index) => (
-          <li
-            key={index}
-            className="col-span-1 min-w-72 snap-start transition-opacity"
-          >
-            <div className="space-y-4 no-underline">
-              <div className="bg-secondary aspect-video overflow-hidden rounded-md">
+      <ul className="animated-list grid grid-cols-1 gap-8 md:grid-cols-2">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <li key={index} className="group transition-opacity">
+            <div className="space-y-4">
+              <div className="bg-secondary aspect-video overflow-hidden rounded-xl">
                 <Skeleton className="h-full w-full" />
               </div>
-              <div className="flex flex-row items-center justify-between gap-1">
-                <Skeleton className="h-6 w-1/2" />
-                <Skeleton className="h-6 w-12" />
+              <div className="flex items-center justify-between gap-3">
+                <Skeleton className="h-6 w-2/3" />
+                <Skeleton className="h-6 w-16" />
               </div>
             </div>
           </li>
@@ -44,30 +41,32 @@ export default function ProductList() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <ul className="animated-list flex snap-x snap-mandatory grid-cols-2 flex-nowrap gap-5 overflow-x-scroll md:grid md:overflow-auto">
+    <ul className="animated-list grid grid-cols-1 gap-8 md:grid-cols-2">
       {products.slice(0, 3).map((product: Product) => (
-        <li
-          key={product.id}
-          className="col-span-1 min-w-72 snap-start transition-opacity"
-        >
-          <Link href={product.short_url} className="space-y-4 no-underline">
-            <div className="bg-secondary aspect-video overflow-hidden rounded-md">
+        <li key={product.id} className="group transition-opacity">
+          <Link
+            href={product.short_url}
+            className="block space-y-4 no-underline"
+          >
+            <div className="bg-secondary aspect-video overflow-hidden rounded-xl">
               <Halo strength={10}>
                 <Image
                   src={product.thumbnail_url}
                   alt={product.name}
                   fill
                   priority={true}
-                  sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-                  className="h-full w-full object-cover object-left-top"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="h-full w-full object-cover object-left-top transition-transform duration-200 group-hover:scale-[1.02]"
                 />
               </Halo>
             </div>
-            <div className="flex flex-row items-center justify-between gap-1">
-              <p className="font-medium leading-tight">{product.name}</p>
-              <p className="text-tertiary no-underline">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-primary font-semibold leading-tight transition-colors hover:text-blue-600 dark:hover:text-blue-400">
+                {product.name}
+              </h3>
+              <span className="text-tertiary text-sm font-medium no-underline">
                 {product.formatted_price}
-              </p>
+              </span>
             </div>
           </Link>
         </li>

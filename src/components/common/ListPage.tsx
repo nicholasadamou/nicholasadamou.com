@@ -27,7 +27,7 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
   const [repoSearchTerm, setRepoSearchTerm] = useState("");
 
   return (
-    <div className="mx-auto flex max-w-[700px] flex-col gap-8 px-4">
+    <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4">
       <ListHeader type={type} />
 
       <SearchBar
