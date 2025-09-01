@@ -144,7 +144,6 @@ function main() {
 
   let needsInitialization = false;
   let needsUpdate = false;
-  const submoduleStatus = [];
 
   // Check each configured submodule
   for (const submodule of configuredSubmodules) {
@@ -153,7 +152,6 @@ function main() {
     if (!exists) {
       console.log(`⚠️  Submodule missing: ${submodule.path}`);
       needsInitialization = true;
-      submoduleStatus.push({ ...submodule, exists: false, upToDate: false });
     } else {
       console.log(`✅ Submodule found: ${submodule.path}`);
 
@@ -175,20 +173,8 @@ function main() {
           );
         }
         needsUpdate = true;
-        submoduleStatus.push({
-          ...submodule,
-          exists: true,
-          upToDate: false,
-          status,
-        });
       } else {
         console.log(`✅ Submodule up to date: ${submodule.path}`);
-        submoduleStatus.push({
-          ...submodule,
-          exists: true,
-          upToDate: true,
-          status,
-        });
       }
     }
   }
