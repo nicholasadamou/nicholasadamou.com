@@ -21,11 +21,13 @@ function checkSubmoduleExists(submodulePath) {
 function initializeSubmodules() {
   console.log("🔧 Initializing git submodules...");
   try {
-    execSync("git submodule update --init --recursive", {
+    execSync("git submodule update --init --recursive --remote", {
       stdio: "inherit",
       cwd: process.cwd(),
     });
-    console.log("✅ Git submodules initialized successfully");
+    console.log(
+      "✅ Git submodules initialized successfully with latest versions"
+    );
     return true;
   } catch (error) {
     console.error("❌ Failed to initialize git submodules:", error.message);
