@@ -535,12 +535,12 @@ try {
 **✅ Our Implementation**: **FULLY COMPLIANT**
 
 ```typescript
-// Attribution in HeaderImage.tsx (lines 95-105)
+// Attribution in HeaderImage.tsx (lines 112-118)
 {hasAttribution && (
-  <small className="italic text-tertiary">
+  <small className="text-tertiary italic">
     Photo by <Link href={finalAuthorUrl}>{finalAuthor}</Link> on{" "}
     <Link
-      href={`${imageSrc}?utm_source=nicholasadamou.com&utm_medium=referral`}
+      href="https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral"
     >
       Unsplash
     </Link>
@@ -559,8 +559,8 @@ try {
 
 **Code References:**
 
-- `src/components/mdx/HeaderImage.tsx`: Lines 95-105 (attribution display)
-- `src/app/api/unsplash/route.ts`: Lines 80-90 (author data)
+- `src/components/mdx/HeaderImage.tsx`: Lines 112-118 (attribution display)
+- `src/app/api/unsplash/route.ts`: Lines 352-356 (author data with UTM parameters)
 
 #### 4. API Key Security Requirement
 
