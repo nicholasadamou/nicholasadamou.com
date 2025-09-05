@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import type { Note, Project } from "@/lib/contentlayer-data";
 import SearchBar from "@/app/notes/components/SearchBar";
+import FilterBar from "@/components/common/FilterBar";
 import { useSearchAndPagination } from "@/hooks/useSearchAndPagination";
 import { ListHeader } from "@/components/common/ListHeader";
 import { ContentSection } from "@/components/common/ContentSection";
@@ -18,6 +19,9 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
   const {
     searchTerm,
     setSearchTerm,
+    filters,
+    setFilters,
+    availableTechnologies,
     currentPage,
     setCurrentPage,
     sortedContent,
@@ -30,13 +34,29 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4">
       <ListHeader type={type} />
 
-      <SearchBar
-        className="animate-in"
-        style={{ "--index": 2 } as React.CSSProperties}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        kind={type}
-      />
+      {type === "projects" ? (
+        <div
+          className="animate-in"
+          style={{ "--index": 2 } as React.CSSProperties}
+        >
+          <FilterBar
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            filters={filters}
+            setFilters={setFilters}
+            availableTechnologies={availableTechnologies}
+            kind={type}
+          />
+        </div>
+      ) : (
+        <SearchBar
+          className="animate-in"
+          style={{ "--index": 2 } as React.CSSProperties}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          kind={type}
+        />
+      )}
 
       <ContentSection
         type={type}
