@@ -3,6 +3,9 @@
  * Handles loading, processing, and conversion of images for Next.js ImageResponse
  */
 
+import { readFile } from "fs/promises";
+import { extname, join } from "path";
+
 /**
  * Loads an image and converts it to base64 data URL for better compatibility with ImageResponse
  * @param imagePath - Path to image (local or external URL)
@@ -14,9 +17,9 @@ export const loadImageAsBase64 = async (
   try {
     if (imagePath.startsWith("http")) {
       return await loadExternalImageAsBase64(imagePath);
-    } else {
-      return await loadLocalImageAsBase64(imagePath);
     }
+
+    return await loadLocalImageAsBase64(imagePath);
   } catch (error) {
     console.error("Error loading image:", error);
     return null;
@@ -41,20 +44,23 @@ const loadExternalImageAsBase64 = async (
     }
 
     const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    // Ensure proper conversion from ArrayBuffer to Buffer
+    const buffer = Buffer.from(new Uint8Array(arrayBuffer));
     const contentType = response.headers.get("content-type") || "image/jpeg";
 
     // Check file size and optimize if needed
     const maxSize = 200 * 1024; // 200KB
     if (buffer.length > maxSize) {
       console.log(
-        `OG Route - External image ${imageUrl} is large (${buffer.length} bytes), optimizing...`
+        `External image ${imageUrl} is large (${buffer.length} bytes), optimizing...`
       );
       const optimizedBuffer = await optimizeImageBuffer(buffer, contentType);
       if (optimizedBuffer) {
         // Since we optimize to JPEG, use jpeg content type
         return `data:image/jpeg;base64,${optimizedBuffer.toString("base64")}`;
       }
+      // If optimization failed and returned null, return null
+      return null;
     }
 
     return `data:${contentType};base64,${buffer.toString("base64")}`;
@@ -73,31 +79,49 @@ const loadLocalImageAsBase64 = async (
   imagePath: string
 ): Promise<string | null> => {
   try {
-    const fs = await import("fs/promises");
-    const path = await import("path");
+    if (!imagePath) {
+      throw new Error("Image path is required");
+    }
 
     // Construct full path to image in public directory
-    const fullImagePath = path.join(
+    const fullImagePath = join(
       process.cwd(),
       "public",
       imagePath.startsWith("/") ? imagePath.slice(1) : imagePath
     );
 
-    const buffer = await fs.readFile(fullImagePath);
-    const extension = path.extname(imagePath).toLowerCase();
-    const contentType = getContentTypeFromExtension(extension);
+    // Verify fullImagePath is valid before proceeding
+    if (
+      !fullImagePath ||
+      typeof fullImagePath !== "string" ||
+      fullImagePath.trim() === ""
+    ) {
+      console.error("Invalid fullImagePath:", fullImagePath);
+      throw new Error("Invalid image path constructed");
+    }
+
+    const buffer = await readFile(fullImagePath);
+    const extension = extname(fullImagePath);
+
+    // Ensure extension is valid before calling toLowerCase
+    const normalizedExtension =
+      extension && typeof extension === "string" ? extension.toLowerCase() : "";
+
+    const contentType = getContentTypeFromExtension(normalizedExtension);
 
     // Check file size and optimize if needed (limit to 200KB for better performance)
     const maxSize = 200 * 1024; // 200KB
     if (buffer.length > maxSize) {
       console.log(
-        `OG Route - Image ${imagePath} is large (${buffer.length} bytes), optimizing...`
+        `Image ${imagePath} is large (${buffer.length} bytes), optimizing...`
       );
       const optimizedBuffer = await optimizeImageBuffer(buffer, contentType);
       if (optimizedBuffer) {
         // Since we optimize to JPEG, use jpeg content type
         return `data:image/jpeg;base64,${optimizedBuffer.toString("base64")}`;
       }
+      // If optimization failed and returned null, return null
+      return null;
     }
 
     return `data:${contentType};base64,${buffer.toString("base64")}`;
@@ -119,13 +143,14 @@ const optimizeImageBuffer = async (
 ): Promise<Buffer | null> => {
   try {
     // Use Sharp for proper image optimization
-    const sharp = (await import("sharp")).default;
+    const sharp = await import("sharp");
+    const sharpInstance = sharp.default || sharp;
 
     console.log(`Optimizing ${contentType} image with Sharp...`);
 
     // Resize image to reasonable dimensions for OG images
     // OG layout uses 480x640 for images, so let's optimize around that
-    const optimizedBuffer = await sharp(buffer)
+    const optimizedBuffer = await sharpInstance(buffer)
       .resize({
         width: 480,
         height: 640,
@@ -139,15 +164,19 @@ const optimizeImageBuffer = async (
       })
       .toBuffer();
 
+    // Safeguard against undefined buffer lengths
+    const originalSize = buffer?.length || 0;
+    const optimizedSize = optimizedBuffer?.length || 0;
+
     console.log(
-      `Image optimized: ${buffer.length} bytes -> ${optimizedBuffer.length} bytes`
+      `Image optimized: ${originalSize} bytes -> ${optimizedSize} bytes`
     );
 
     return optimizedBuffer;
   } catch (error) {
     console.error("Error optimizing image with Sharp:", error);
 
-    // Fallback: if optimization fails, try simple size check
+    // Fallback: if optimization fails, check the image size
     const targetSize = 300 * 1024; // 300KB target
     if (buffer.length > targetSize) {
       console.log(
@@ -156,6 +185,8 @@ const optimizeImageBuffer = async (
       return null;
     }
 
+    // For smaller images, return the original buffer
+    console.log("Small image optimization failed, using original buffer");
     return buffer;
   }
 };
@@ -190,14 +221,50 @@ const getContentTypeFromExtension = (extension: string): string => {
 export const isValidImagePath = (imagePath?: string): boolean => {
   if (!imagePath || imagePath.trim() === "") return false;
 
-  // Check for valid URL
-  if (imagePath.startsWith("http")) {
+  // Check if it looks like a URL (contains protocol)
+  if (imagePath.includes("://")) {
     try {
-      new URL(imagePath);
-      return true;
+      const url = new URL(imagePath);
+      // Only allow http and https protocols
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return false;
+      }
+      // Check for valid hostname
+      if (!url.hostname || url.hostname === "") {
+        return false;
+      }
+      // Additional validation for malformed URLs
+      if (url.hostname.includes("..") || url.hostname.includes("[")) {
+        return false;
+      }
+      // Check for valid image extension in URL path
+      const validExtensions = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".webp",
+        ".svg",
+      ];
+      const pathname = url.pathname.toLowerCase();
+
+      return validExtensions.some((ext) => pathname.includes(ext));
     } catch {
       return false;
     }
+  }
+
+  // For non-URL paths, ensure they don't look like URLs without protocol
+  // Only check if it doesn't start with './' or '../' (valid relative paths)
+  if (
+    imagePath.includes(".") &&
+    imagePath.includes("/") &&
+    !imagePath.startsWith("./") &&
+    !imagePath.startsWith("../") &&
+    imagePath.indexOf(".") < imagePath.indexOf("/")
+  ) {
+    // This might be a malformed URL like "example.com/image.png"
+    return false;
   }
 
   // Check for valid local path with image extension
