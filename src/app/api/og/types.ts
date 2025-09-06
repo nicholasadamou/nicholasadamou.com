@@ -28,7 +28,14 @@ export interface StyleConfig {
   color: string;
   letterSpacing?: string;
   lineHeight?: string;
-  textTransform?: string;
+  textTransform?:
+    | "none"
+    | "capitalize"
+    | "uppercase"
+    | "lowercase"
+    | "initial"
+    | "inherit"
+    | "unset";
   marginBottom?: string;
   background?: string;
   backgroundClip?: string;

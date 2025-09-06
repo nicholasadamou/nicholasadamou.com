@@ -4,9 +4,17 @@
         <description><![CDATA[I am a full stack software engineer who is on a mission to make the world a better place through code.]]></description>
         <link>https://nicholasadamou.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 31 Aug 2025 10:40:14 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 06 Sep 2025 08:21:46 GMT</lastBuildDate>
         <atom:link href="https://nicholasadamou.com/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[ArgoCD Selective Sync: Per-App Architecture for Ultimate GitOps Precision]]></title>
+            <description><![CDATA[Discover how per-application selective syncing in ArgoCD provides ultimate precision for GitOps deployments, ensuring changes to one app only trigger syncs for that specific application while maintaining complete isolation across environments.]]></description>
+            <link>https://nicholasadamou.com/notes/argocd-selective-sync-per-app-architecture</link>
+            <guid isPermaLink="true">https://nicholasadamou.com/notes/argocd-selective-sync-per-app-architecture</guid>
+            <pubDate>Fri, 05 Sep 2025 00:00:00 GMT</pubDate>
+            <media:content url="https://nicholasadamou.comhttps://unsplash.com/photos/diagram-Am6pBe2FpJw" type="image/jpeg" medium="image"/>
+        </item>
         <item>
             <title><![CDATA[Understanding the Fork Bomb 💣🍴]]></title>
             <description><![CDATA[A deep dive into one of the simplest yet most destructive shell payloads — the fork bomb.]]></description>
