@@ -56,54 +56,55 @@ export default function FilterBar({
     demo: React.useRef<HTMLButtonElement>(null),
   };
 
-  // Calculate dropdown positions and close on outside click
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
+  // Create memoized callbacks to avoid dependencies
+  const handleClickOutside = React.useCallback((event: MouseEvent) => {
+    const target = event.target as Node;
 
-      // Check tech dropdown
-      if (
-        dropdownRefs.tech.current &&
-        !dropdownRefs.tech.current.contains(target) &&
-        buttonRefs.tech.current &&
-        !buttonRefs.tech.current.contains(target)
-      ) {
-        setShowTechDropdown(false);
-      }
+    // Check tech dropdown
+    if (
+      dropdownRefs.tech.current &&
+      !dropdownRefs.tech.current.contains(target) &&
+      buttonRefs.tech.current &&
+      !buttonRefs.tech.current.contains(target)
+    ) {
+      setShowTechDropdown(false);
+    }
 
-      // Check status dropdown
-      if (
-        dropdownRefs.status.current &&
-        !dropdownRefs.status.current.contains(target) &&
-        buttonRefs.status.current &&
-        !buttonRefs.status.current.contains(target)
-      ) {
-        setShowStatusDropdown(false);
-      }
+    // Check status dropdown
+    if (
+      dropdownRefs.status.current &&
+      !dropdownRefs.status.current.contains(target) &&
+      buttonRefs.status.current &&
+      !buttonRefs.status.current.contains(target)
+    ) {
+      setShowStatusDropdown(false);
+    }
 
-      // Check date dropdown
-      if (
-        dropdownRefs.date.current &&
-        !dropdownRefs.date.current.contains(target) &&
-        buttonRefs.date.current &&
-        !buttonRefs.date.current.contains(target)
-      ) {
-        setShowDateDropdown(false);
-      }
+    // Check date dropdown
+    if (
+      dropdownRefs.date.current &&
+      !dropdownRefs.date.current.contains(target) &&
+      buttonRefs.date.current &&
+      !buttonRefs.date.current.contains(target)
+    ) {
+      setShowDateDropdown(false);
+    }
 
-      // Check demo dropdown
-      if (
-        dropdownRefs.demo.current &&
-        !dropdownRefs.demo.current.contains(target) &&
-        buttonRefs.demo.current &&
-        !buttonRefs.demo.current.contains(target)
-      ) {
-        setShowDemoDropdown(false);
-      }
-    };
+    // Check demo dropdown
+    if (
+      dropdownRefs.demo.current &&
+      !dropdownRefs.demo.current.contains(target) &&
+      buttonRefs.demo.current &&
+      !buttonRefs.demo.current.contains(target)
+    ) {
+      setShowDemoDropdown(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const updatePositions = () => {
-      const newPositions = { ...dropdownPositions };
+  const updatePositions = React.useCallback(() => {
+    setDropdownPositions((prevPositions) => {
+      const newPositions = { ...prevPositions };
 
       if (buttonRefs.tech.current && showTechDropdown) {
         const rect = buttonRefs.tech.current.getBoundingClientRect();
@@ -141,9 +142,18 @@ export default function FilterBar({
         };
       }
 
-      setDropdownPositions(newPositions);
-    };
+      return newPositions;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    showTechDropdown,
+    showStatusDropdown,
+    showDateDropdown,
+    showDemoDropdown,
+  ]);
 
+  // Calculate dropdown positions and close on outside click
+  React.useEffect(() => {
     const anyDropdownOpen =
       showTechDropdown ||
       showStatusDropdown ||
@@ -167,6 +177,8 @@ export default function FilterBar({
     showStatusDropdown,
     showDateDropdown,
     showDemoDropdown,
+    handleClickOutside,
+    updatePositions,
   ]);
 
   const toggleTechDropdown = () => {
