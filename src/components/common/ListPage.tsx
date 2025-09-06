@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import type { Note, Project } from "@/lib/contentlayer-data";
 import SearchBar from "@/app/notes/components/SearchBar";
 import FilterBar from "@/components/common/FilterBar";
@@ -9,6 +10,12 @@ import { ListHeader } from "@/components/common/ListHeader";
 import { ContentSection } from "@/components/common/ContentSection";
 import { OpenSourceSection } from "@/components/common/OpenSourceSection";
 import { DotBrainsSection } from "@/components/common/DotBrainsSection";
+import {
+  pageVariants,
+  containerVariants,
+  DURATION,
+  EASING,
+} from "@/lib/animations";
 
 interface ListPageProps {
   content: Array<Note | Project>;
@@ -31,13 +38,34 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
   const [repoSearchTerm, setRepoSearchTerm] = useState("");
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4">
-      <ListHeader type={type} />
+    <motion.div
+      className="mx-auto flex max-w-4xl flex-col gap-8 px-4"
+      variants={pageVariants}
+      initial="initial"
+      animate="enter"
+      exit="exit"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.1,
+          duration: DURATION.normal,
+          ease: EASING.easeOut,
+        }}
+      >
+        <ListHeader type={type} />
+      </motion.div>
 
       {type === "projects" ? (
-        <div
-          className="animate-in"
-          style={{ "--index": 2 } as React.CSSProperties}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.2,
+            duration: DURATION.normal,
+            ease: EASING.easeOut,
+          }}
         >
           <FilterBar
             searchTerm={searchTerm}
@@ -47,36 +75,79 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
             availableTechnologies={availableTechnologies}
             kind={type}
           />
-        </div>
+        </motion.div>
       ) : (
-        <SearchBar
-          className="animate-in"
-          style={{ "--index": 2 } as React.CSSProperties}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          kind={type}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.2,
+            duration: DURATION.normal,
+            ease: EASING.easeOut,
+          }}
+        >
+          <SearchBar
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            kind={type}
+          />
+        </motion.div>
       )}
 
-      <ContentSection
-        type={type}
-        content={sortedContent}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        onPageChange={setCurrentPage}
-      />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.3,
+          duration: DURATION.slow,
+          ease: EASING.easeOut,
+        }}
+      >
+        <ContentSection
+          type={type}
+          content={sortedContent}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
+        />
+      </motion.div>
 
       {type === "projects" && (
-        <>
-          <OpenSourceSection
-            searchTerm={repoSearchTerm}
-            setSearchTerm={setRepoSearchTerm}
-            type={type}
-          />
-          <DotBrainsSection />
-        </>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.5 }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.6,
+              duration: DURATION.slow,
+              ease: EASING.easeOut,
+            }}
+          >
+            <OpenSourceSection
+              searchTerm={repoSearchTerm}
+              setSearchTerm={setRepoSearchTerm}
+              type={type}
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.7,
+              duration: DURATION.slow,
+              ease: EASING.easeOut,
+            }}
+          >
+            <DotBrainsSection />
+          </motion.div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

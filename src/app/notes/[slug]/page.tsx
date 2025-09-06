@@ -1,5 +1,5 @@
 import { getAllNotes, getNoteBySlug } from "@/lib/contentlayer-data";
-import ContentPage from "@/components/common/ContentPage";
+import ServerContentPage from "@/components/common/ServerContentPage";
 
 import { generateMetadata } from "./metadata";
 export { generateMetadata };
@@ -20,7 +20,7 @@ export default async function NotePage({
   const note = getNoteBySlug(resolvedParams.slug);
   const allNotes = getAllNotes();
   return (
-    <ContentPage
+    <ServerContentPage
       content={note || undefined}
       type="note"
       allContent={allNotes}

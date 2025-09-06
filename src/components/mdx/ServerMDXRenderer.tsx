@@ -35,11 +35,13 @@ const components = {
   MetricsTable: MetricsTable,
 };
 
-interface MDXRendererProps {
+interface ServerMDXRendererProps {
   source: string;
 }
 
-export default function MDXRenderer({ source }: MDXRendererProps) {
+export default async function ServerMDXRenderer({
+  source,
+}: ServerMDXRendererProps) {
   return (
     <MDXRemote
       source={source}

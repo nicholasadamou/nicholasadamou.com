@@ -6,76 +6,117 @@ import Section from "@/components/common/Section";
 import { formatShortDate } from "@/lib/utils/formatShortDate";
 import type { Project } from "@/lib/contentlayer-data";
 import { Badge } from "@/components/ui/badge";
-import { getBoundedPosition } from "@/lib/utils/getBoundedPosition";
+import {
+  cardVariants,
+  buttonVariants,
+  DURATION,
+  EASING,
+  getStaggerDelay,
+} from "@/lib/animations";
 
 type ProjectProps = {
   project: Project;
-  mousePosition?: {
-    x: number;
-    y: number;
-  };
 };
 
-export default function Project({ project, mousePosition }: ProjectProps) {
+export default function Project({ project }: ProjectProps) {
   const { date, slug, title, image, image_url, pinned } = project;
 
-  const imageHeight = 200; // Set to desired height
-  const imageWidth = 350; // Set to desired width
-  const imageOffset = 24;
-
-  const boundedPosition = mousePosition
-    ? getBoundedPosition({
-        mousePosition,
-        imageWidth,
-        imageHeight,
-        imageOffset,
-      })
-    : { top: 0, left: 0 };
-
   return (
-    <li className="group py-3 transition-opacity first:pt-0 last:pb-0">
+    <motion.li
+      className="group py-3 transition-opacity first:pt-0 last:pb-0"
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
+      whileTap="tap"
+      layout
+    >
       <Link href={`/projects/${slug}`}>
-        <div className="transition-opacity">
-          {(image_url || image) && mousePosition && (
-            <motion.div
-              animate={boundedPosition}
-              initial={false}
-              transition={{ ease: "easeOut" }}
-              style={{ width: imageWidth, height: imageHeight }}
-              {...({
-                className:
-                  "pointer-events-none fixed z-10 hidden overflow-hidden rounded-lg bg-tertiary shadow-sm sm:group-hover:block",
-              } as any)}
-            >
-              <UniversalImage
-                src={image_url || image || ""}
-                alt={title}
-                fill
-                sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-                className="rounded-lg object-cover"
-                priority
-              />
-            </motion.div>
-          )}
-          <div className="mt-4 flex items-center justify-between gap-6">
+        <motion.div className="transition-opacity" layout>
+          <motion.div
+            className="mt-4 flex items-center justify-between gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.1,
+              duration: DURATION.normal,
+              ease: EASING.easeOut,
+            }}
+          >
             <Section heading={formatShortDate(date)} isPinned={pinned}>
-              <div>
-                <span className="flex gap-2 text-pretty font-medium leading-tight">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  delay: 0.2,
+                  duration: DURATION.normal,
+                  ease: EASING.easeOut,
+                }}
+              >
+                <motion.span
+                  className="flex gap-2 text-pretty font-medium leading-tight"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.3,
+                    duration: DURATION.normal,
+                    ease: EASING.easeOut,
+                  }}
+                >
                   {title}
-                </span>
-                <span className="text-tertiary">{project.summary}</span>
-                <div className="flex flex-wrap items-center gap-1">
-                  {project.technologies?.map((tech) => (
-                    <Badge variant="secondary" key={tech}>
-                      {tech}
-                    </Badge>
+                </motion.span>
+                <motion.span
+                  className="text-tertiary"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.4,
+                    duration: DURATION.normal,
+                    ease: EASING.easeOut,
+                  }}
+                >
+                  {project.summary}
+                </motion.span>
+                <motion.div
+                  className="flex flex-wrap items-center gap-1"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    delay: 0.5,
+                    duration: DURATION.normal,
+                    ease: EASING.easeOut,
+                  }}
+                >
+                  {project.technologies?.map((tech, index) => (
+                    <motion.div
+                      key={tech}
+                      variants={buttonVariants}
+                      initial="initial"
+                      whileHover="hover"
+                      whileTap="tap"
+                      style={{
+                        animationDelay: getStaggerDelay(index, 0.05) + "s",
+                      }}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          delay: 0.6 + getStaggerDelay(index, 0.05),
+                          duration: DURATION.normal,
+                          ease: EASING.bouncy,
+                        }}
+                      >
+                        <Badge variant="secondary">{tech}</Badge>
+                      </motion.div>
+                    </motion.div>
                   ))}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </Section>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </Link>
-    </li>
+    </motion.li>
   );
 }

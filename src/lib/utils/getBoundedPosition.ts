@@ -56,8 +56,35 @@ export const getBoundedPosition = ({
   imageHeight,
   imageOffset,
 }: BoundedPositionOptions): { top: number; left: number } => {
-  const top = mousePosition.y - imageHeight - imageOffset;
-  const left = mousePosition.x - imageWidth / 2;
+  // Calculate initial position
+  let top = mousePosition.y - imageHeight - imageOffset;
+  let left = mousePosition.x - imageWidth / 2;
+
+  // Only apply viewport constraints if we're in the browser
+  if (typeof window !== "undefined") {
+    // Ensure the image stays within the viewport bounds
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const padding = 16; // Minimum padding from viewport edges
+
+    // Constrain horizontal position
+    if (left < padding) {
+      left = padding;
+    } else if (left + imageWidth > viewportWidth - padding) {
+      left = viewportWidth - imageWidth - padding;
+    }
+
+    // Constrain vertical position
+    if (top < padding) {
+      // If image would go above viewport, show it below the mouse instead
+      top = mousePosition.y + imageOffset;
+    }
+
+    if (top + imageHeight > viewportHeight - padding) {
+      // If image would go below viewport, position it above the mouse
+      top = mousePosition.y - imageHeight - imageOffset;
+    }
+  }
 
   return { top, left };
 };

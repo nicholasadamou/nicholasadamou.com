@@ -31,9 +31,7 @@ export default function Home() {
             <div className="space-y-4">
               <h1 className="animate-in text-primary text-4xl font-bold leading-tight tracking-tight lg:text-5xl">
                 Hey, I&apos;m{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent dark:from-blue-400 dark:via-purple-400 dark:to-blue-600">
-                  Nick Adamou
-                </span>
+                <SparkleText className="font-bold">Nick Adamou</SparkleText>
               </h1>
               <p
                 className="animate-in text-secondary text-lg leading-relaxed"
@@ -65,7 +63,7 @@ export default function Home() {
                 alt="Nicholas Adamou"
                 priority
                 style={{ "--index": 3 } as React.CSSProperties}
-                className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.15] transition-all duration-300 lg:h-80 lg:w-64"
+                className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.5] transition-all duration-300 lg:h-80 lg:w-64"
               />
             </div>
           </div>
@@ -81,7 +79,7 @@ export default function Home() {
           href="/projects"
         >
           <PinIcon className="text-tertiary h-5 w-5" />
-          <SparkleText>Pinned Projects</SparkleText>
+          Pinned Projects
           <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
         </Link>
         <p className="text-secondary mt-[-8px] max-w-3xl">

@@ -4,33 +4,23 @@ export const getRelativeCoordinates = (
   event: React.MouseEvent<HTMLUListElement>,
   referenceElement: HTMLElement | null
 ) => {
+  // Use clientX/clientY for viewport-relative coordinates instead of pageX/pageY
+  // This is more reliable with fixed positioning and animated layouts
   const position = {
-    x: event.pageX,
-    y: event.pageY,
+    x: event.clientX,
+    y: event.clientY,
   };
 
   if (!referenceElement) {
-    // Handle the case where referenceElement is null
-    return position; // or return { x: 0, y: 0 } or any default values
+    // Return viewport coordinates when no reference element
+    return position;
   }
 
-  const offset = {
-    left: referenceElement.offsetLeft,
-    top: referenceElement.clientTop,
-    width: referenceElement.clientWidth,
-    height: referenceElement.clientHeight,
-  };
-
-  let reference = referenceElement.offsetParent as HTMLElement | null;
-
-  while (reference) {
-    offset.left += reference.offsetLeft;
-    offset.top += reference.offsetTop;
-    reference = reference.offsetParent as HTMLElement | null;
-  }
+  // Use getBoundingClientRect for more accurate positioning with transforms
+  const rect = referenceElement.getBoundingClientRect();
 
   return {
-    x: position.x - offset.left,
-    y: position.y - offset.top,
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top,
   };
 };

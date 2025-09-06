@@ -1,5 +1,5 @@
 import { getAllProjects, getProjectBySlug } from "@/lib/contentlayer-data";
-import ContentPage from "@/components/common/ContentPage";
+import ServerContentPage from "@/components/common/ServerContentPage";
 
 import { generateMetadata } from "./metadata";
 export { generateMetadata };
@@ -20,7 +20,7 @@ export default async function ProjectPage({
   const project = getProjectBySlug(resolvedParams.slug);
   const allProjects = getAllProjects();
   return (
-    <ContentPage
+    <ServerContentPage
       content={project || undefined}
       type="project"
       allContent={allProjects}

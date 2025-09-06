@@ -7,6 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, Toaster } from "react-hot-toast";
 import Confetti from "react-confetti";
 import ReactDOM from "react-dom";
+import { motion } from "framer-motion";
+import {
+  containerVariants,
+  itemVariants,
+  slideUpVariants,
+  buttonVariants,
+  getStaggerDelay,
+  DURATION,
+  EASING,
+} from "@/lib/animations";
 
 // Define the form validation schema using zod
 const schema = z.object({
@@ -80,116 +90,344 @@ export default function Contact() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4">
+    <motion.div
+      className="mx-auto max-w-4xl px-4"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            duration: DURATION.slow,
+            ease: EASING.easeOut,
+            delayChildren: 0.2,
+            staggerChildren: 0.1,
+          },
+        },
+      }}
+    >
       <Toaster />
-      <div className="mx-auto">
-        <div className="animate-in relative isolate mx-auto w-full overflow-hidden pb-16 pt-8">
-          <div>
-            <h1 className="text-3xl font-black tracking-tight">
-              Let’s talk about your project
-            </h1>
-            <p className="text-secondary mt-5">
+      <motion.div className="mx-auto">
+        <motion.div className="relative isolate mx-auto w-full overflow-hidden pb-16 pt-8">
+          {/* Header Section */}
+          <motion.div
+            variants={slideUpVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              delay: getStaggerDelay(0),
+              duration: DURATION.slow,
+              ease: EASING.spring,
+            }}
+          >
+            <motion.h1
+              className="text-3xl font-black tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: getStaggerDelay(0, 0.1),
+                duration: DURATION.slow,
+                ease: EASING.easeOut,
+              }}
+            >
+              Let&apos;s talk about your project
+            </motion.h1>
+            <motion.p
+              className="text-secondary mt-5"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: getStaggerDelay(1, 0.1),
+                duration: DURATION.normal,
+                ease: EASING.easeOut,
+              }}
+            >
               I help companies and individuals build out their digital presence.
-            </p>
-          </div>
-          <div className="relative">
-            <form className="mt-16" onSubmit={handleSubmit(onSubmit)}>
-              <div className="grid grid-cols-1 gap-x-8 gap-y-6 px-2 sm:grid-cols-2">
-                <div>
-                  <label
+            </motion.p>
+          </motion.div>
+
+          {/* Form Section */}
+          <motion.div
+            className="relative"
+            variants={slideUpVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              delay: getStaggerDelay(1),
+              duration: DURATION.slow,
+              ease: EASING.spring,
+            }}
+          >
+            <motion.form
+              className="mt-16"
+              onSubmit={handleSubmit(onSubmit)}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div
+                className="grid grid-cols-1 gap-x-8 gap-y-6 px-2 sm:grid-cols-2"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {/* Name Field */}
+                <motion.div
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    delay: getStaggerDelay(0, 0.1),
+                    duration: DURATION.normal,
+                    ease: EASING.easeOut,
+                  }}
+                >
+                  <motion.label
                     htmlFor="name"
                     className="block text-sm font-semibold leading-6"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: getStaggerDelay(0, 0.15),
+                      duration: DURATION.fast,
+                      ease: EASING.easeOut,
+                    }}
                   >
                     Name
-                  </label>
-                  <input
+                  </motion.label>
+                  <motion.input
                     id="name"
                     type="text"
                     placeholder="Name"
                     {...register("name")}
                     className="placeholder:text-tertiary input-field block w-full rounded-md border px-3.5 py-2 shadow-sm outline-none focus:outline-none focus:ring-0"
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      delay: getStaggerDelay(0, 0.2),
+                      duration: DURATION.normal,
+                      ease: EASING.easeOut,
+                    }}
+                    whileFocus={{
+                      scale: 1.02,
+                      transition: {
+                        duration: DURATION.fast,
+                        ease: EASING.easeOut,
+                      },
+                    }}
                   />
                   {errors.name && (
-                    <p className="mt-1 text-sm text-red-500">
+                    <motion.p
+                      className="mt-1 text-sm text-red-500"
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: DURATION.fast }}
+                    >
                       {errors.name.message}
-                    </p>
+                    </motion.p>
                   )}
-                </div>
-                <div>
-                  <label
+                </motion.div>
+
+                {/* Email Field */}
+                <motion.div
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    delay: getStaggerDelay(1, 0.1),
+                    duration: DURATION.normal,
+                    ease: EASING.easeOut,
+                  }}
+                >
+                  <motion.label
                     htmlFor="email"
                     className="block text-sm font-semibold leading-6"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: getStaggerDelay(1, 0.15),
+                      duration: DURATION.fast,
+                      ease: EASING.easeOut,
+                    }}
                   >
                     Email
-                  </label>
-                  <input
+                  </motion.label>
+                  <motion.input
                     id="email"
                     type="email"
                     placeholder="Email"
                     {...register("email")}
                     className="placeholder:text-tertiary input-field block w-full rounded-md border px-3.5 py-2 shadow-sm outline-none focus:outline-none focus:ring-0"
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      delay: getStaggerDelay(1, 0.2),
+                      duration: DURATION.normal,
+                      ease: EASING.easeOut,
+                    }}
+                    whileFocus={{
+                      scale: 1.02,
+                      transition: {
+                        duration: DURATION.fast,
+                        ease: EASING.easeOut,
+                      },
+                    }}
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">
+                    <motion.p
+                      className="mt-1 text-sm text-red-500"
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: DURATION.fast }}
+                    >
                       {errors.email.message}
-                    </p>
+                    </motion.p>
                   )}
-                </div>
-                <div className="sm:col-span-2">
-                  <label
+                </motion.div>
+
+                {/* Message Field */}
+                <motion.div
+                  className="sm:col-span-2"
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    delay: getStaggerDelay(2, 0.1),
+                    duration: DURATION.normal,
+                    ease: EASING.easeOut,
+                  }}
+                >
+                  <motion.label
                     htmlFor="message"
                     className="block text-sm font-semibold leading-6"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: getStaggerDelay(2, 0.15),
+                      duration: DURATION.fast,
+                      ease: EASING.easeOut,
+                    }}
                   >
                     Message
-                  </label>
-                  <textarea
+                  </motion.label>
+                  <motion.textarea
                     id="message"
                     placeholder="Message"
                     {...register("message")}
                     className="placeholder:text-tertiary input-field block min-h-[120px] w-full rounded-md border px-3.5 py-2 shadow-sm outline-none focus:outline-none focus:ring-0"
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      delay: getStaggerDelay(2, 0.2),
+                      duration: DURATION.normal,
+                      ease: EASING.easeOut,
+                    }}
+                    whileFocus={{
+                      scale: 1.02,
+                      transition: {
+                        duration: DURATION.fast,
+                        ease: EASING.easeOut,
+                      },
+                    }}
                   />
                   {errors.message && (
-                    <p className="mt-1 text-sm text-red-500">
+                    <motion.p
+                      className="mt-1 text-sm text-red-500"
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: DURATION.fast }}
+                    >
                       {errors.message.message}
-                    </p>
+                    </motion.p>
                   )}
-                </div>
-              </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn-filled mt-10 block w-full cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+                </motion.div>
+              </motion.div>
+
+              {/* Submit Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: getStaggerDelay(3, 0.1),
+                  duration: DURATION.normal,
+                  ease: EASING.easeOut,
+                }}
               >
-                {loading ? "Sending..." : "Let's talk"}
-              </button>
-              <p className="text-tertiary mt-4 text-sm">
+                <motion.button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-filled mt-10 block w-full cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+                  variants={buttonVariants}
+                  initial="initial"
+                  whileHover={loading ? "initial" : "hover"}
+                  whileTap={loading ? "initial" : "tap"}
+                  animate={
+                    loading
+                      ? {
+                          scale: [1, 1.02, 1],
+                          transition: {
+                            duration: 1,
+                            ease: EASING.easeInOut,
+                            repeat: Infinity,
+                          },
+                        }
+                      : "initial"
+                  }
+                >
+                  {loading ? "Sending..." : "Let&apos;s talk"}
+                </motion.button>
+              </motion.div>
+
+              {/* Privacy Policy Text */}
+              <motion.p
+                className="text-tertiary mt-4 text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  delay: getStaggerDelay(4, 0.1),
+                  duration: DURATION.normal,
+                  ease: EASING.easeOut,
+                }}
+              >
                 By submitting this form, I agree to the{" "}
-                <a
+                <motion.a
                   className="text-secondary hover:text-primary font-medium underline"
                   href="/privacy"
+                  whileHover={{
+                    x: 2,
+                    transition: {
+                      duration: DURATION.fast,
+                      ease: EASING.easeOut,
+                    },
+                  }}
                 >
                   privacy policy
-                </a>
+                </motion.a>
                 .
-              </p>
-            </form>
-          </div>
+              </motion.p>
+            </motion.form>
+          </motion.div>
+
           {/* Confetti effect */}
           {showConfetti &&
             ReactDOM.createPortal(
               <Confetti
                 width={windowSize.width}
                 height={windowSize.height}
-                run={runConfetti} // Control whether confetti runs or not
+                run={runConfetti}
                 recycle={false}
                 numberOfPieces={300}
-                onConfettiComplete={stopConfetti} // Stop confetti when it reaches the bottom
+                onConfettiComplete={stopConfetti}
                 style={{ zIndex: 9999, position: "fixed", top: 0 }}
               />,
               document.body
             )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
