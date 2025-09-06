@@ -12,24 +12,33 @@ import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/common/ThemeProvider";
 import Navigation from "@/components/common/Navigation";
 import { Footer } from "@/components/common/Footer/Footer";
+import { DynamicOGMetaTags } from "@/components/common/DynamicOGMetaTags";
 
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateHomepageOGUrl } from "@/lib/utils/themeDetection";
+import { generateHomepageOGVariants } from "@/lib/utils/themeDetection";
 
 const baseUrl = getBaseUrl();
+const description =
+  "Software Engineer passionate about making the world better through software.";
+const ogVariants = generateHomepageOGVariants(
+  "Working hard to make the world better through software."
+);
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: "Nicholas Adamou",
-  description:
-    "Software Engineer passionate about making the world better through software.",
+  description,
   openGraph: {
     title: "Nicholas Adamou",
     url: baseUrl,
     images: [
       {
-        url: `${baseUrl}${generateHomepageOGUrl("Working hard to make the world better through software.")}`,
-        alt: "nicholasadamou.com",
+        url: `${baseUrl}${ogVariants.dark}`,
+        alt: "nicholasadamou.com - Dark Theme",
+      },
+      {
+        url: `${baseUrl}${ogVariants.light}`,
+        alt: "nicholasadamou.com - Light Theme",
       },
     ],
   },
@@ -54,6 +63,11 @@ export default function RootLayout({
     >
       <body className="width-full text-primary relative flex min-h-screen flex-col antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <DynamicOGMetaTags
+            lightOGImage={ogVariants.light}
+            darkOGImage={ogVariants.dark}
+            title="Working hard to make the world better through software."
+          />
           <Navigation />
           <main className="mx-auto w-full px-4 pb-24 pt-28">
             {children}

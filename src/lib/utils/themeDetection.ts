@@ -1,58 +1,30 @@
-import { headers, cookies } from "next/headers";
 import type { OGTheme } from "@/app/api/og/types";
 
 /**
- * Detects the user's theme preference for server-side rendering
- * Uses multiple sources in order of preference:
- * 1. Theme cookie (set by next-themes)
- * 2. Prefers-color-scheme header
- * 3. User-Agent hints for system theme
- * 4. Fallback to dark theme
+ * Since theme detection requires dynamic APIs that aren't available during static generation,
+ * we'll use a simpler approach that defaults to a specific theme for OG images.
+ *
+ * For better social media compatibility, we default to dark theme as it's more visually
+ * appealing on most social platforms, but this can be overridden per-route if needed.
  */
-export function detectThemePreference(): OGTheme {
-  try {
-    // First, check for theme cookie (next-themes default)
-    const cookieStore = cookies();
-    const themeCookie = cookieStore.get("theme")?.value;
+export function getDefaultTheme(): OGTheme {
+  // Default to dark theme for better social media appearance
+  // This can be changed to "light" if you prefer light theme as default
+  return "dark";
+}
 
-    if (themeCookie === "light" || themeCookie === "dark") {
-      return themeCookie;
-    }
-
-    // If theme is "system" or not set, try to detect from headers
-    const headersList = headers();
-
-    // Check for Sec-CH-Prefers-Color-Scheme header (Chrome 93+)
-    const prefersColorScheme = headersList.get("sec-ch-prefers-color-scheme");
-    if (prefersColorScheme === "light" || prefersColorScheme === "dark") {
-      return prefersColorScheme;
-    }
-
-    // Check User-Agent for potential system hints
-    const userAgent = headersList.get("user-agent");
-    if (userAgent) {
-      // Some mobile browsers include theme hints in User-Agent
-      if (userAgent.includes("light")) return "light";
-      if (userAgent.includes("dark")) return "dark";
-    }
-
-    // Check Accept header for potential theme preferences
-    const accept = headersList.get("accept");
-    if (accept?.includes("theme=light")) return "light";
-    if (accept?.includes("theme=dark")) return "dark";
-
-    // Default fallback - you can change this to "light" if preferred
-    return "dark";
-  } catch (error) {
-    console.warn("Failed to detect theme preference:", error);
-    return "dark";
-  }
+/**
+ * Interface for OG image variants
+ */
+export interface OGImageVariants {
+  light: string;
+  dark: string;
 }
 
 /**
  * Generates a theme-aware OG image URL
  * @param baseParams - Base OG image parameters
- * @param forceTheme - Optional theme to force (overrides detection)
+ * @param forceTheme - Optional theme to force (overrides default)
  * @returns Complete OG image URL with theme parameter
  */
 export function generateThemeAwareOGUrl(
@@ -64,7 +36,7 @@ export function generateThemeAwareOGUrl(
   },
   forceTheme?: OGTheme
 ): string {
-  const theme = forceTheme || detectThemePreference();
+  const theme = forceTheme || getDefaultTheme();
 
   const params = new URLSearchParams({
     ...baseParams,
@@ -128,4 +100,57 @@ export function generateNoteOGUrl(
     },
     forceTheme
   );
+}
+
+/**
+ * Generates both light and dark theme variants for homepage OG images
+ */
+export function generateHomepageOGVariants(title: string): OGImageVariants {
+  return {
+    light: generateHomepageOGUrl(title, "light"),
+    dark: generateHomepageOGUrl(title, "dark"),
+  };
+}
+
+/**
+ * Generates both light and dark theme variants for project OG images
+ */
+export function generateProjectOGVariants(
+  title: string,
+  description?: string,
+  image?: string
+): OGImageVariants {
+  return {
+    light: generateProjectOGUrl(title, description, image, "light"),
+    dark: generateProjectOGUrl(title, description, image, "dark"),
+  };
+}
+
+/**
+ * Generates both light and dark theme variants for note/blog post OG images
+ */
+export function generateNoteOGVariants(
+  title: string,
+  description?: string,
+  image?: string
+): OGImageVariants {
+  return {
+    light: generateNoteOGUrl(title, description, image, "light"),
+    dark: generateNoteOGUrl(title, description, image, "dark"),
+  };
+}
+
+/**
+ * Generates both theme variants for any OG image type
+ */
+export function generateOGVariants(baseParams: {
+  title?: string;
+  description?: string;
+  type?: string;
+  image?: string;
+}): OGImageVariants {
+  return {
+    light: generateThemeAwareOGUrl(baseParams, "light"),
+    dark: generateThemeAwareOGUrl(baseParams, "dark"),
+  };
 }

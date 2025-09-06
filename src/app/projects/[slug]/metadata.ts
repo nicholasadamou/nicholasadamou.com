@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getProjectBySlug } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateProjectOGUrl } from "@/lib/utils/themeDetection";
+import { generateProjectOGVariants } from "@/lib/utils/themeDetection";
 
 export async function generateMetadata({
   params,
@@ -25,7 +25,11 @@ export async function generateMetadata({
   } = project;
 
   const baseUrl = getBaseUrl();
-  const ogImage = `${baseUrl}${generateProjectOGUrl(title, description, image || undefined)}`;
+  const ogVariants = generateProjectOGVariants(
+    title,
+    description,
+    image || undefined
+  );
 
   return {
     metadataBase: new URL(baseUrl),
@@ -37,7 +41,10 @@ export async function generateMetadata({
       type: "article",
       publishedTime,
       url: `${baseUrl}/projects/${slug}`,
-      images: [{ url: ogImage, alt: title }],
+      images: [
+        { url: `${baseUrl}${ogVariants.dark}`, alt: `${title} - Dark Theme` },
+        { url: `${baseUrl}${ogVariants.light}`, alt: `${title} - Light Theme` },
+      ],
     },
   };
 }
