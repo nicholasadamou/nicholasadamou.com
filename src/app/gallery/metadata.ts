@@ -5,6 +5,14 @@ const title = "Gallery";
 const description =
   "A curated collection of my photography work, showcasing moments and perspectives through the lens.";
 
+// Dynamic OG image URL using the new gallery page type
+const ogImageUrl = `${getBaseUrl()}/api/og?${new URLSearchParams({
+  title,
+  description,
+  type: "gallery",
+  image: "/gallery/arizona.jpg",
+}).toString()}`;
+
 export const metadata: Metadata = {
   title,
   description,
@@ -15,9 +23,9 @@ export const metadata: Metadata = {
     url: `${getBaseUrl()}/gallery`,
     images: [
       {
-        url: `${getBaseUrl()}/og/gallery.png`,
-        width: 1200,
-        height: 630,
+        url: ogImageUrl,
+        width: 1920,
+        height: 1080,
         alt: title,
       },
     ],
@@ -26,6 +34,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: [`${getBaseUrl()}/og/gallery.png`],
+    images: [ogImageUrl],
   },
 };
