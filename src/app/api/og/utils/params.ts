@@ -3,6 +3,7 @@ import { OGParams, OGType, OGTheme, ProcessedOGParams } from "../types";
 import { isValidImagePath } from "./image";
 import { isUnsplashPhotoUrl, resolveUnsplashImage } from "./unsplash";
 import { logImageLoadSuccess, logProcessingStep } from "./logger";
+import { detectThemePreference } from "@/lib/utils/themeDetection";
 
 /**
  * Cleans and normalizes URL search parameters
@@ -32,14 +33,20 @@ export const extractOGParams = (searchParams: URLSearchParams): OGParams => {
   const title = searchParams.get("title") ?? DEFAULTS.title;
   const description = searchParams.get("description") ?? "";
   const type = (searchParams.get("type") ?? DEFAULTS.type) as OGType;
-  const theme = (searchParams.get("theme") ?? DEFAULTS.theme) as OGTheme;
+
+  // Enhanced theme detection: use URL parameter if provided, otherwise detect from request
+  let theme = searchParams.get("theme") as OGTheme;
+  if (!theme || !isValidOGTheme(theme)) {
+    theme = detectThemePreference();
+  }
+
   const image = searchParams.get("image") ?? "";
 
   return {
     title,
     description: description || undefined,
     type: isValidOGType(type) ? type : DEFAULTS.type,
-    theme: isValidOGTheme(theme) ? theme : DEFAULTS.theme,
+    theme,
     image: image || undefined,
   };
 };

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { generateThemeAwareOGUrl } from "@/lib/utils/themeDetection";
 
 const baseUrl = getBaseUrl();
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     url: `${baseUrl}/contact`,
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent(description)}&type=contact`,
+        url: `${baseUrl}${generateThemeAwareOGUrl({ title: description, type: "contact" })}`,
         alt: "Contact",
       },
     ],

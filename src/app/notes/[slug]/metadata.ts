@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getNoteBySlug } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { generateNoteOGUrl } from "@/lib/utils/themeDetection";
 
 export async function generateMetadata({
   params,
@@ -24,7 +25,7 @@ export async function generateMetadata({
   } = note;
 
   const baseUrl = getBaseUrl();
-  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(title)}&image=${encodeURIComponent(image || "")}&type=note`;
+  const ogImage = `${baseUrl}${generateNoteOGUrl(title, description, image || undefined)}`;
 
   return {
     metadataBase: new URL(baseUrl),

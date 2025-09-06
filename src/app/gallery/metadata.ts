@@ -1,17 +1,18 @@
 import { Metadata } from "next";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { generateThemeAwareOGUrl } from "@/lib/utils/themeDetection";
 
 const title = "Gallery";
 const description =
   "A curated collection of my photography work, showcasing moments and perspectives through the lens.";
 
-// Dynamic OG image URL using the new gallery page type
-const ogImageUrl = `${getBaseUrl()}/api/og?${new URLSearchParams({
+// Dynamic OG image URL using the new gallery page type with theme awareness
+const ogImageUrl = `${getBaseUrl()}${generateThemeAwareOGUrl({
   title,
   description,
   type: "gallery",
   image: "/gallery/arizona.jpg",
-}).toString()}`;
+})}`;
 
 export const metadata: Metadata = {
   title,

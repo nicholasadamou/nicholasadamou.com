@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getProjectBySlug } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { generateProjectOGUrl } from "@/lib/utils/themeDetection";
 
 export async function generateMetadata({
   params,
@@ -24,11 +25,7 @@ export async function generateMetadata({
   } = project;
 
   const baseUrl = getBaseUrl();
-  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(
-    title
-  )}&image=${encodeURIComponent(image || "")}&description=${encodeURIComponent(
-    description
-  )}&type=project`;
+  const ogImage = `${baseUrl}${generateProjectOGUrl(title, description, image || undefined)}`;
 
   return {
     metadataBase: new URL(baseUrl),

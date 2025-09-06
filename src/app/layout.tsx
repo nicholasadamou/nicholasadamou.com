@@ -14,6 +14,7 @@ import Navigation from "@/components/common/Navigation";
 import { Footer } from "@/components/common/Footer/Footer";
 
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { generateHomepageOGUrl } from "@/lib/utils/themeDetection";
 
 const baseUrl = getBaseUrl();
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     url: baseUrl,
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent("Working hard to make the world better through software.")}&type=homepage`,
+        url: `${baseUrl}${generateHomepageOGUrl("Working hard to make the world better through software.")}`,
         alt: "nicholasadamou.com",
       },
     ],
