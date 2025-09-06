@@ -133,9 +133,9 @@ export default function Navigation() {
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
       {...({
         className: clsx(
-          "z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 left-1/2 transform -translate-x-1/2 w-full transition-all duration-300 backdrop-blur-sm",
+          "z-30 mx-auto py-4 px-8 md:px-0 fixed top-0 left-1/2 transform -translate-x-1/2 w-full transition-all duration-300",
           isScrolled
-            ? "bg-contrast/90 text-primary"
+            ? "bg-contrast/90 text-primary backdrop-blur-sm"
             : "bg-transparent text-primary"
         ),
       } as any)}

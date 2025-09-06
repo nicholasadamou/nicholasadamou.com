@@ -57,7 +57,7 @@ export default function Home() {
           </div>
           <div className="justify-left order-1 flex lg:order-2 lg:col-span-1 lg:justify-end">
             <div className="group relative">
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 opacity-25 blur transition duration-1000 group-hover:opacity-40 group-hover:duration-200"></div>
+              <div className="animate-slow-pulse absolute -inset-2 rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 opacity-50 blur-md transition-all duration-1000"></div>
               <Image
                 src="/nicholas-adamou.jpeg"
                 width={280}
@@ -65,7 +65,7 @@ export default function Home() {
                 alt="Nicholas Adamou"
                 priority
                 style={{ "--index": 3 } as React.CSSProperties}
-                className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.15] transition-all duration-300 group-hover:scale-[1.02] group-hover:grayscale-0 lg:h-80 lg:w-64"
+                className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.15] transition-all duration-300 lg:h-80 lg:w-64"
               />
             </div>
           </div>
