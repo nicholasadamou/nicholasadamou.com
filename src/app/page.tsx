@@ -12,6 +12,7 @@ import { PinIcon } from "lucide-react";
 import ProductList from "@/components/common/ProductListClient";
 import SparkleText from "@/components/common/SparkleText";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
+import { getOptimizedImageProps } from "@/lib/performance";
 
 export default function Home() {
   const projects = allProjects.sort(
@@ -25,7 +26,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-12 px-4">
-      <div className="flex flex-col gap-8">
+      <header className="flex flex-col gap-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           <div className="order-2 space-y-6 lg:order-1 lg:col-span-2">
             <div className="space-y-4">
@@ -57,81 +58,100 @@ export default function Home() {
             <div className="group relative">
               <div className="animate-slow-pulse absolute -inset-2 rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 opacity-50 blur-md transition-all duration-1000"></div>
               <Image
-                src="/nicholas-adamou.jpeg"
-                width={280}
-                height={320}
-                alt="Nicholas Adamou"
-                priority
+                {...getOptimizedImageProps(
+                  "/nicholas-adamou.jpeg",
+                  "Nicholas Adamou - Full Stack Software Engineer and technology enthusiast",
+                  {
+                    priority: true,
+                    quality: "hero",
+                    sizes: "sm",
+                    width: 280,
+                    height: 320,
+                  }
+                )}
+                alt="Nicholas Adamou - Full Stack Software Engineer and technology enthusiast"
                 style={{ "--index": 3 } as React.CSSProperties}
                 className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.5] transition-all duration-300 lg:h-80 lg:w-64"
               />
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div
+      <section
         className="animate-in flex flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
+        aria-labelledby="projects-heading"
       >
-        <Link
-          className="text-primary group flex items-center gap-2 tracking-tight"
-          href="/projects"
-        >
-          <PinIcon className="text-tertiary h-5 w-5" />
-          Pinned Projects
-          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-        </Link>
+        <h2 id="projects-heading">
+          <Link
+            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight"
+            href="/projects"
+          >
+            <PinIcon className="text-tertiary h-5 w-5" />
+            Pinned Projects
+            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
+          </Link>
+        </h2>
         <p className="text-secondary mt-[-8px] max-w-3xl">
           I love building projects, whether they are simple websites or more
           complex web apps. Below are a few of my favorites.
         </p>
         <PinnedProjectList projects={projects} />
-      </div>
+      </section>
 
-      <div
+      <section
         className="animate-in flex flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
+        aria-labelledby="products-heading"
       >
-        <Link
-          className="text-primary group flex items-center gap-2 tracking-tight no-underline"
-          href="https://nicholasadamou.gumroad.com"
-        >
-          <ThemeAwareGumroadLogo />
-          Products
-          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-        </Link>
+        <h2 id="products-heading">
+          <Link
+            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight no-underline"
+            href="https://nicholasadamou.gumroad.com"
+          >
+            <ThemeAwareGumroadLogo />
+            Products
+            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
+          </Link>
+        </h2>
         <ProductList />
-      </div>
+      </section>
 
-      <div
+      <section
         className="animate-in flex flex-col gap-4"
         style={{ "--index": 4 } as React.CSSProperties}
+        aria-labelledby="gallery-heading"
       >
-        <Link
-          className="text-primary group flex items-center gap-2 tracking-tight"
-          href="/gallery"
-        >
-          Recent Photos
-          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-        </Link>
+        <h2 id="gallery-heading">
+          <Link
+            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight"
+            href="/gallery"
+          >
+            Recent Photos
+            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
+          </Link>
+        </h2>
         <p className="text-secondary mt-[-8px] max-w-3xl">
           A few recent shots from my VSCO. See more on the full gallery page.
         </p>
         <FeaturedGallery />
-      </div>
+      </section>
 
-      <div
+      <section
         className="animate-in mb-5 flex flex-col gap-4"
         style={{ "--index": 5 } as React.CSSProperties}
+        aria-labelledby="notes-heading"
       >
-        <Link
-          className="text-primary group flex items-center gap-2 tracking-tight"
-          href="/notes"
-        >
-          Recent Notes
-          <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-        </Link>
+        <h2 id="notes-heading">
+          <Link
+            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight"
+            href="/notes"
+          >
+            Recent Notes
+            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
+          </Link>
+        </h2>
         <p className="text-secondary mt-[-8px] max-w-3xl">
           I occasionally share valuable insights on programming, productivity,
           and a variety of other engaging topics. My notes features a range of
@@ -141,7 +161,7 @@ export default function Home() {
           boost your productivity.
         </p>
         <PostList initialPosts={allNotes} topNPosts={3} mostRecentFirst noPin />
-      </div>
+      </section>
     </div>
   );
 }
