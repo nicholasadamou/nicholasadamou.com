@@ -12,8 +12,6 @@ dist/
 build/
 
 # Generated files
-public/rss.xml
-public/sitemap.xml
 
 # Logs
 *.log
