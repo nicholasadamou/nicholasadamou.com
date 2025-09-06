@@ -9,6 +9,8 @@ import {
   containerVariants,
   itemVariants,
   fadeVariants,
+  pageTransitionVariants,
+  pageTransitionItemVariants,
   getStaggerDelay,
   DURATION,
   EASING,
@@ -62,24 +64,25 @@ export default function ProjectList({
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
-          {currentProjects.map((project, index) => (
-            <motion.div
-              key={project.slug}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              transition={{
-                delay: getStaggerDelay(index, 0.08),
-                duration: DURATION.slow,
-                ease: EASING.easeOut,
-              }}
-              layout
-            >
-              <Project project={project} />
-            </motion.div>
-          ))}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`page-${currentPage}`}
+            variants={pageTransitionVariants}
+            initial="exit"
+            animate="enter"
+            exit="exit"
+            className="flex flex-col"
+          >
+            {currentProjects.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                variants={pageTransitionItemVariants}
+                className="w-full"
+              >
+                <Project project={project} />
+              </motion.div>
+            ))}
+          </motion.div>
         </AnimatePresence>
       </motion.ul>
 

@@ -1,8 +1,13 @@
 "use client";
 
 import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import Pagination from "@/components/common/Pagination";
+import {
+  pageTransitionVariants,
+  pageTransitionItemVariants,
+} from "@/lib/animations";
 
 import RepositoriesSkeleton from "./RepositoriesSkeleton";
 import RepositoryCard from "./RepositoryCard";
@@ -87,6 +92,11 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
     fetchRepos();
   }, [fetchRepos]);
 
+  // Reset to first page when search term changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   if (isLoading) {
     return <RepositoriesSkeleton />;
   }
@@ -101,11 +111,22 @@ const Repositories = ({ searchTerm }: RepositoriesProps) => {
 
   return (
     <>
-      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        {currentRepos.map((repo) => (
-          <RepositoryCard key={repo.name} repo={repo} />
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`repos-page-${currentPage}`}
+          variants={pageTransitionVariants}
+          initial="exit"
+          animate="enter"
+          exit="exit"
+          className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2"
+        >
+          {currentRepos.map((repo) => (
+            <motion.div key={repo.name} variants={pageTransitionItemVariants}>
+              <RepositoryCard repo={repo} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
       <Pagination
         currentPage={currentPage}

@@ -287,6 +287,52 @@ export const floatingVariants: Variants = {
   },
 };
 
+// Page transition variants for smooth pagination
+export const pageTransitionVariants: Variants = {
+  enter: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: DURATION.normal,
+      ease: EASING.easeOut,
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: DURATION.fast,
+      ease: EASING.easeIn,
+      staggerChildren: 0.03,
+      staggerDirection: -1,
+    },
+  },
+};
+
+// Page transition item variants
+export const pageTransitionItemVariants: Variants = {
+  enter: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: DURATION.normal,
+      ease: EASING.easeOut,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 0.98,
+    transition: {
+      duration: DURATION.fast,
+      ease: EASING.easeIn,
+    },
+  },
+};
+
 // Stagger delay function
 export const getStaggerDelay = (index: number, baseDelay = 0.1): number => {
   return baseDelay * index;
