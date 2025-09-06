@@ -281,6 +281,7 @@ describe("OG Route - Image Rendering Tests", () => {
       expect(ImageResponse).toHaveBeenCalled();
 
       // Verify the call was made with the processedImage being undefined/null
+      // @ts-ignore
       const [[reactElement]] = ImageResponse.mock.calls;
       expect(reactElement).toBeDefined();
     });
@@ -563,7 +564,8 @@ describe("OG Route - Image Rendering Tests", () => {
       // Check that console.log was called with a message containing "OG Route"
       expect(
         consoleLogSpy.mock.calls.some(
-          (call) => typeof call[0] === "string" && call[0].includes("OG Route")
+          (call: (string | string[])[]) =>
+            typeof call[0] === "string" && call[0].includes("OG Route")
         )
       ).toBe(true);
     });
