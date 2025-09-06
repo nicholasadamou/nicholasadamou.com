@@ -67,6 +67,9 @@ vi.mock("sharp", () => ({
 let consoleLogSpy: any;
 let consoleErrorSpy: any;
 
+// Get properly typed mock for ImageResponse
+const MockedImageResponse = vi.mocked(ImageResponse);
+
 describe("OG Route - Image Rendering Tests", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -509,7 +512,7 @@ describe("OG Route - Image Rendering Tests", () => {
   describe("Error Recovery and Fallback Images", () => {
     it("should return error fallback image when route fails completely", async () => {
       // Force an error in the main route logic
-      vi.mocked(ImageResponse).mockImplementationOnce(() => {
+      MockedImageResponse.mockImplementationOnce(() => {
         throw new Error("Catastrophic failure");
       });
 
