@@ -6,7 +6,6 @@ import UniversalImage from "@/components/common/UniversalImage";
 import {
   containerVariants,
   cardVariants,
-  imageHoverVariants,
   buttonVariants,
   getStaggerDelay,
   DURATION,
@@ -65,25 +64,15 @@ export const RelatedContentList: React.FC<RelatedContentListProps> = ({
                 duration: DURATION.normal,
                 ease: EASING.easeOut,
               }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: DURATION.normal, ease: EASING.easeOut },
-              }}
             >
-              <motion.div
-                variants={imageHoverVariants}
-                initial="initial"
-                whileHover="hover"
-              >
-                <UniversalImage
-                  src={image_url || image || ""}
-                  alt={`${title} image`}
-                  fill
-                  className="rounded-lg object-cover"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
-                />
-              </motion.div>
+              <UniversalImage
+                src={image_url || image || ""}
+                alt={`${title} image`}
+                fill
+                className="rounded-lg object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
+              />
             </motion.div>
           )}
 
