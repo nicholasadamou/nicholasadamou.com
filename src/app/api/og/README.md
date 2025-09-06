@@ -34,9 +34,9 @@ src/app/api/og/
 
 ### Image Support
 
-- **Local images**: Loads from `public/` directory with base64 conversion
-- **External images**: Fetches and processes remote images
+- **Local images**: Loads from `public/` directory using direct URLs
 - **Multiple formats**: Support for JPG, PNG, GIF, WebP, SVG
+- **Satori compatibility**: Uses simple `<img>` tags with absolute URLs
 - **Graceful fallbacks**: Camera emoji when images fail to load
 
 ### Page Types
@@ -168,13 +168,15 @@ The route includes comprehensive logging:
 
 ### Optimizations
 
-- **Base64 conversion**: Eliminates external image loading issues
+- **Direct URLs**: Simple image serving without complex processing
+- **Satori compatibility**: Uses approaches that work reliably with the rendering engine
 - **Modular loading**: Only loads required utilities
 - **Error boundaries**: Graceful fallbacks prevent route failures
 - **Efficient caching**: Leverages Next.js caching mechanisms
 
 ### Best Practices
 
-- Images are resized/optimized during base64 conversion
+- Images are served directly from the public directory
+- Simple `<img>` tags work better than complex CSS approaches in Satori
 - Fallback content is lightweight and fast to generate
 - TypeScript ensures type safety and prevents runtime errors

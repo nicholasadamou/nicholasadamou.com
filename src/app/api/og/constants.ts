@@ -3,7 +3,7 @@ import { LayoutDimensions, OGType, OGTheme, StyleConfig } from "./types";
 // Layout dimensions
 export const LAYOUT: LayoutDimensions = {
   container: { width: 1920, height: 1080 },
-  image: { width: 700, height: 640 },
+  image: { width: 640, height: 640 },
 };
 
 // Color constants - Aligned with site's black/white/grey aesthetic

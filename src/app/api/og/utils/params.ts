@@ -1,11 +1,8 @@
 import { DEFAULTS, HEADER_TEXT } from "../constants";
 import { OGParams, OGType, OGTheme, ProcessedOGParams } from "../types";
-import { loadImageAsBase64, isValidImagePath } from "./image";
-import {
-  logImageLoadFailure,
-  logImageLoadSuccess,
-  logProcessingStep,
-} from "./logger";
+import { isValidImagePath } from "./image";
+import { isUnsplashPhotoUrl, resolveUnsplashImage } from "./unsplash";
+import { logImageLoadSuccess, logProcessingStep } from "./logger";
 
 /**
  * Cleans and normalizes URL search parameters
@@ -55,23 +52,46 @@ export const extractOGParams = (searchParams: URLSearchParams): OGParams => {
 export const processOGParams = async (
   params: OGParams
 ): Promise<ProcessedOGParams> => {
+  // Auto-include avatar for homepage when no image is provided
+  let imageToProcess = params.image;
+  if (!imageToProcess && params.type === "homepage") {
+    imageToProcess = "/avatar.jpeg";
+    logProcessingStep("Using default avatar for homepage", imageToProcess);
+  }
+
   logProcessingStep("Processing OG parameters", {
     title: params.title,
     type: params.type,
-    hasImage: !!params.image,
+    hasImage: !!imageToProcess,
   });
 
-  // Process image if provided
+  // Process image if provided - convert to absolute URL for Satori compatibility
   let processedImage: string | undefined;
-  if (params.image && isValidImagePath(params.image)) {
-    logProcessingStep("Loading image", params.image);
+  if (imageToProcess && isValidImagePath(imageToProcess)) {
+    logProcessingStep("Processing image", imageToProcess);
 
-    const base64Image = await loadImageAsBase64(params.image);
-    if (base64Image) {
-      processedImage = base64Image;
-      logImageLoadSuccess(params.image);
+    // Handle Unsplash URLs by resolving them through the manifest
+    if (isUnsplashPhotoUrl(imageToProcess)) {
+      const resolvedImage = resolveUnsplashImage(imageToProcess);
+      if (resolvedImage) {
+        // Convert to absolute URL for Satori compatibility
+        const baseUrl = process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : "http://localhost:3000";
+        processedImage = resolvedImage.startsWith("http")
+          ? resolvedImage // Already an absolute URL
+          : `${baseUrl}${resolvedImage}`; // Convert local path to absolute URL
+        logImageLoadSuccess(imageToProcess);
+      }
     } else {
-      logImageLoadFailure(params.image);
+      // Handle regular image URLs and local paths
+      const baseUrl = process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000";
+      processedImage = imageToProcess.startsWith("http")
+        ? imageToProcess // Already an absolute URL
+        : `${baseUrl}${imageToProcess}`; // Convert local path to absolute URL
+      logImageLoadSuccess(imageToProcess);
     }
   }
 

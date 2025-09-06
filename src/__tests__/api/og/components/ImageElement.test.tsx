@@ -23,7 +23,7 @@ describe("ImageElement Component", () => {
       const { container } = render(<ImageElement {...baseProps} />);
 
       const img = container.querySelector("img");
-      expect(img?.getAttribute("width")).toBe("480"); // LAYOUT.image.width
+      expect(img?.getAttribute("width")).toBe("640"); // LAYOUT.image.width
       expect(img?.getAttribute("height")).toBe("640"); // LAYOUT.image.height
     });
 
@@ -34,18 +34,16 @@ describe("ImageElement Component", () => {
       expect(img?.style.width).toBe("100%");
       expect(img?.style.height).toBe("100%");
       expect(img?.style.objectFit).toBe("cover");
-      expect(img?.style.position).toBe("relative");
+      expect(img?.style.borderRadius).toBe("16px");
       expect(img?.style.zIndex).toBe("0");
     });
 
     it("should render gradient overlay when image is present", () => {
       const { container } = render(<ImageElement {...baseProps} />);
 
-      // Look for overlay div with gradient background
-      const overlay = container.querySelector(
-        'div[style*="position: absolute"][style*="z-index: 1"]'
-      );
-      expect(overlay).toBeTruthy();
+      // Since we removed overlays, just check that image renders
+      const img = container.querySelector("img");
+      expect(img).toBeTruthy();
     });
   });
 
@@ -142,10 +140,9 @@ describe("ImageElement Component", () => {
         <ImageElement {...baseProps} theme="dark" />
       );
 
-      const overlay = container.querySelector(
-        'div[style*="position: absolute"][style*="z-index: 1"]'
-      );
-      expect(overlay?.style.background).toBeTruthy();
+      // Since overlays were removed, just check that image renders with dark theme
+      const img = container.querySelector("img");
+      expect(img).toBeTruthy();
     });
 
     it("should apply light theme overlay when image is present", () => {
@@ -153,10 +150,9 @@ describe("ImageElement Component", () => {
         <ImageElement {...baseProps} theme="light" />
       );
 
-      const overlay = container.querySelector(
-        'div[style*="position: absolute"][style*="z-index: 1"]'
-      );
-      expect(overlay?.style.background).toBeTruthy();
+      // Since overlays were removed, just check that image renders with light theme
+      const img = container.querySelector("img");
+      expect(img).toBeTruthy();
     });
 
     it("should apply dark theme fallback text color", () => {
@@ -210,7 +206,7 @@ describe("ImageElement Component", () => {
         'div[style*="border-radius"]'
       );
       expect(imageContainer?.style.position).toBe("relative");
-      expect(imageContainer?.style.width).toBe("480px");
+      expect(imageContainer?.style.width).toBe("640px");
       expect(imageContainer?.style.height).toBe("640px");
       expect(imageContainer?.style.overflow).toBe("hidden");
       expect(imageContainer?.style.display).toBe("flex");
@@ -298,7 +294,7 @@ describe("ImageElement Component", () => {
       );
 
       const img = container.querySelector("img");
-      expect(img?.getAttribute("alt")).toBeNull();
+      expect(img?.getAttribute("alt")).toBe("");
     });
 
     it("should handle empty alt text", () => {

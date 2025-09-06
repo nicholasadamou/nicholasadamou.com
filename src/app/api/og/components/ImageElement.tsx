@@ -42,42 +42,33 @@ export const ImageElement = ({
         }}
       >
         {imageSrc ? (
-          <>
-            {/* Gradient overlay for better integration */}
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background:
-                  theme === "light"
-                    ? COLORS.gradient.overlayLight
-                    : COLORS.gradient.overlay,
-                zIndex: 1,
-              }}
-            />
-            {/*
-             * ESLint exception: <img> is required for Next.js ImageResponse (OG image generation)
-             * Next/Image component is not supported in ImageResponse context
-             * Images are already optimized via Sharp before reaching this component
-             */}
+          <div
+            style={{
+              position: "relative",
+              width: `${LAYOUT.image.width}px`,
+              height: `${LAYOUT.image.height}px`,
+              borderRadius: "16px",
+              overflow: "hidden",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
-              alt={altText}
+              alt={altText || ""}
               width={LAYOUT.image.width}
               height={LAYOUT.image.height}
               style={{
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                position: "relative",
+                borderRadius: "16px",
                 zIndex: 0,
               }}
             />
-          </>
+          </div>
         ) : (
           // Fallback when no image or invalid URL
           <div
