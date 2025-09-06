@@ -5,7 +5,6 @@ import { useEffect } from "react";
 interface DynamicOGMetaTagsProps {
   lightOGImage: string;
   darkOGImage: string;
-  title: string;
 }
 
 /**
@@ -20,7 +19,6 @@ interface DynamicOGMetaTagsProps {
 export function DynamicOGMetaTags({
   lightOGImage,
   darkOGImage,
-  title,
 }: DynamicOGMetaTagsProps) {
   useEffect(() => {
     const updateOGImage = () => {
@@ -113,7 +111,7 @@ export function DynamicOGMetaTags({
       }
       observer.disconnect();
     };
-  }, [lightOGImage, darkOGImage, title]);
+  }, [lightOGImage, darkOGImage]);
 
   // This component doesn't render anything visible
   return null;

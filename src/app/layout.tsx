@@ -66,7 +66,6 @@ export default function RootLayout({
           <DynamicOGMetaTags
             lightOGImage={ogVariants.light}
             darkOGImage={ogVariants.dark}
-            title="Working hard to make the world better through software."
           />
           <Navigation />
           <main className="mx-auto w-full px-4 pb-24 pt-28">
