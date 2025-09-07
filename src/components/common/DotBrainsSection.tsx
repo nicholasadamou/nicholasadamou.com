@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
@@ -5,7 +7,7 @@ import { FeaturedSection } from "@/app/projects/components/FeaturedSection";
 
 export const DotBrainsSection: React.FC = () => (
   <div className="animate-in" style={{ "--index": 5 } as React.CSSProperties}>
-    <h2 className="text-primary mb-2 mt-4 text-2xl font-bold leading-tight tracking-tight">
+    <h2 className="text-primary text-md mb-2 mt-4 font-bold leading-tight tracking-tight">
       <div className="flex items-center gap-2">
         <Image
           src="/logos/dotbrains.png"

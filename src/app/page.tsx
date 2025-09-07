@@ -13,6 +13,7 @@ import ProductList from "@/components/common/ProductListClient";
 import SparkleText from "@/components/common/SparkleText";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 import { getOptimizedImageProps } from "@/lib/performance";
+import { DotBrainsSection } from "@/components/common/DotBrainsSection";
 
 export default function Home() {
   const projects = allProjects.sort(
@@ -100,9 +101,11 @@ export default function Home() {
         <PinnedProjectList projects={projects} />
       </section>
 
+      <DotBrainsSection />
+
       <section
         className="animate-in flex flex-col gap-4"
-        style={{ "--index": 4 } as React.CSSProperties}
+        style={{ "--index": 6 } as React.CSSProperties}
         aria-labelledby="products-heading"
       >
         <h2 id="products-heading">
@@ -120,7 +123,7 @@ export default function Home() {
 
       <section
         className="animate-in flex flex-col gap-4"
-        style={{ "--index": 4 } as React.CSSProperties}
+        style={{ "--index": 7 } as React.CSSProperties}
         aria-labelledby="gallery-heading"
       >
         <h2 id="gallery-heading">
@@ -140,7 +143,7 @@ export default function Home() {
 
       <section
         className="animate-in mb-5 flex flex-col gap-4"
-        style={{ "--index": 5 } as React.CSSProperties}
+        style={{ "--index": 8 } as React.CSSProperties}
         aria-labelledby="notes-heading"
       >
         <h2 id="notes-heading">

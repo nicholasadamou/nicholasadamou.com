@@ -9,7 +9,6 @@ import { useSearchAndPagination } from "@/hooks/useSearchAndPagination";
 import { ListHeader } from "@/components/common/ListHeader";
 import { ContentSection } from "@/components/common/ContentSection";
 import { OpenSourceSection } from "@/components/common/OpenSourceSection";
-import { DotBrainsSection } from "@/components/common/DotBrainsSection";
 import {
   pageVariants,
   containerVariants,
@@ -133,17 +132,6 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
               setSearchTerm={setRepoSearchTerm}
               type={type}
             />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.7,
-              duration: DURATION.slow,
-              ease: EASING.easeOut,
-            }}
-          >
-            <DotBrainsSection />
           </motion.div>
         </motion.div>
       )}

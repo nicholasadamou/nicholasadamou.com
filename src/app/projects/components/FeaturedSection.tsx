@@ -78,8 +78,8 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
     transition={{ duration: 0.5 }}
   >
     <div>
-      <h3 className="text-primary mb-6 text-3xl font-bold">{project.name}</h3>
-      <p className="text-secondary mb-6 text-xl">{project.description}</p>
+      <h3 className="text-primary mb-6 text-xl font-bold">{project.name}</h3>
+      <p className="text-secondary mb-6 text-lg">{project.description}</p>
       <div className="mb-6 grid place-content-center gap-8 md:grid-cols-2">
         {project.features.map((feature, index) => (
           <motion.div
@@ -104,7 +104,7 @@ const ProjectDetails: React.FC<{ project: FeaturedProject }> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
-        <h4 className="text-secondary text-2xl font-bold">Key Components</h4>
+        <h4 className="text-secondary text-lg font-bold">Key Components</h4>
         <ul className="text-md text-secondary list-none space-y-4">
           {project.components.map((component, index) => (
             <li key={index} className="flex items-start gap-3">
@@ -286,10 +286,10 @@ export function FeaturedSection(): React.JSX.Element {
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <h3 className="text-primary mb-2 text-2xl font-bold">
+      <h3 className="text-primary text-md mb-2 font-bold">
         Featured Projects from <em>DotBrains</em>.
       </h3>
-      <p className="text-secondary mb-6 text-lg">
+      <p className="text-secondary mb-6">
         Explore our flagship projects that revolutionize developer workflows and
         enhance security practices.
       </p>
