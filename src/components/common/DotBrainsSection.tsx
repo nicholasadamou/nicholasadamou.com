@@ -34,7 +34,7 @@ export const DotBrainsSection: React.FC = () => (
       id="dotbrains-heading"
       title="DotBrains"
       customContent={<DotBrainsLogo />}
-      description="A collective dedicated to the craft of software engineering, driven by a mission to enhance lives and solve complex problems through innovative technology."
+      description="A collective, I started that is dedicated to the craft of software engineering, driven by a mission to enhance lives and solve complex problems through innovative technology."
     />
     <FeaturedSection />
   </AnimatedSection>
