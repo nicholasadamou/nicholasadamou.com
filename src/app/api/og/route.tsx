@@ -43,8 +43,15 @@ export async function GET(req: NextRequest) {
     // Extract and validate parameters
     const ogParams = extractOGParams(searchParams);
 
+    // Construct base URL from request headers for local development
+    const host = req.headers.get("host");
+    const protocol = req.headers.get("x-forwarded-proto") || "http";
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : `${protocol}://${host}`;
+
     // Process parameters (load images, generate header text, etc.)
-    const processedParams = await processOGParams(ogParams);
+    const processedParams = await processOGParams(ogParams, baseUrl);
 
     // Log successful processing
     logGenerationSuccess({

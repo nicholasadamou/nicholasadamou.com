@@ -47,10 +47,12 @@ export const extractOGParams = (searchParams: URLSearchParams): OGParams => {
 /**
  * Processes OG parameters, including image loading and header text generation
  * @param params - Base OG parameters
+ * @param baseUrl - Base URL for constructing absolute URLs (optional, will be determined from environment)
  * @returns Processed parameters ready for rendering
  */
 export const processOGParams = async (
-  params: OGParams
+  params: OGParams,
+  baseUrl?: string
 ): Promise<ProcessedOGParams> => {
   // Auto-include avatar for homepage when no image is provided
   let imageToProcess = params.image;
@@ -65,6 +67,15 @@ export const processOGParams = async (
     hasImage: !!imageToProcess,
   });
 
+  // Determine the base URL for absolute URLs
+  const resolvedBaseUrl =
+    baseUrl ||
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
+
+  logProcessingStep("Using base URL", resolvedBaseUrl);
+
   // Process image if provided - convert to absolute URL for Satori compatibility
   let processedImage: string | undefined;
   if (imageToProcess && isValidImagePath(imageToProcess)) {
@@ -75,22 +86,17 @@ export const processOGParams = async (
       const resolvedImage = resolveUnsplashImage(imageToProcess);
       if (resolvedImage) {
         // Convert to absolute URL for Satori compatibility
-        const baseUrl = process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost:3000";
         processedImage = resolvedImage.startsWith("http")
           ? resolvedImage // Already an absolute URL
-          : `${baseUrl}${resolvedImage}`; // Convert local path to absolute URL
+          : `${resolvedBaseUrl}${resolvedImage}`; // Convert local path to absolute URL
         logImageLoadSuccess(imageToProcess);
       }
     } else {
       // Handle regular image URLs and local paths
-      const baseUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000";
       processedImage = imageToProcess.startsWith("http")
         ? imageToProcess // Already an absolute URL
-        : `${baseUrl}${imageToProcess}`; // Convert local path to absolute URL
+        : `${resolvedBaseUrl}${imageToProcess}`; // Convert local path to absolute URL
+      logProcessingStep("Final processed image URL", processedImage);
       logImageLoadSuccess(imageToProcess);
     }
   }

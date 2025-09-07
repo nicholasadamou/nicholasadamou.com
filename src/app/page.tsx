@@ -85,7 +85,7 @@ export default function Home() {
       >
         <h2 id="projects-heading">
           <Link
-            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight"
+            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight"
             href="/projects"
           >
             <PinIcon className="text-tertiary h-5 w-5" />
@@ -107,7 +107,7 @@ export default function Home() {
       >
         <h2 id="products-heading">
           <Link
-            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight no-underline"
+            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight no-underline"
             href="https://nicholasadamou.gumroad.com"
           >
             <ThemeAwareGumroadLogo />
@@ -125,7 +125,7 @@ export default function Home() {
       >
         <h2 id="gallery-heading">
           <Link
-            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight"
+            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight"
             href="/gallery"
           >
             Recent Photos
@@ -145,7 +145,7 @@ export default function Home() {
       >
         <h2 id="notes-heading">
           <Link
-            className="text-primary group flex items-center gap-2 text-xl font-semibold tracking-tight"
+            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight"
             href="/notes"
           >
             Recent Notes
