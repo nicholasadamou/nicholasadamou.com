@@ -1,19 +1,20 @@
 import { allNotes, allProjects } from "@/lib/contentlayer-data";
-import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import ThemeAwareGumroadLogo from "@/components/common/ThemeAwareGumroadLogo";
-
-import Link from "@/components/common/Link";
-import PostList from "./notes/components/PostList";
-import PinnedProjectList from "@/components/features/projects/PinnedProjectList";
 import React from "react";
-import SocialLinks, { socialLinks } from "@/components/common/SocialLinks";
-import { PinIcon } from "lucide-react";
-import ProductList from "@/components/common/ProductListClient";
-import SparkleText from "@/components/common/SparkleText";
+
+import { AnimatedSection } from "@/components/common/AnimatedSection";
+import { DotBrainsSection } from "@/components/common/DotBrainsSection";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 import { getOptimizedImageProps } from "@/lib/performance";
-import { DotBrainsSection } from "@/components/common/DotBrainsSection";
+import PinnedProjectList from "@/components/features/projects/PinnedProjectList";
+import PostList from "./notes/components/PostList";
+import ProductList from "@/components/common/ProductListClient";
+import { SectionHeader } from "@/components/common/SectionHeader";
+import SocialLinks, { socialLinks } from "@/components/common/SocialLinks";
+import SparkleText from "@/components/common/SparkleText";
+import ThemeAwareGumroadLogo from "@/components/common/ThemeAwareGumroadLogo";
+
+import { PinIcon } from "lucide-react";
 
 export default function Home() {
   const projects = allProjects.sort(
@@ -79,92 +80,53 @@ export default function Home() {
         </div>
       </header>
 
-      <section
-        className="animate-in flex flex-col gap-4"
-        style={{ "--index": 4 } as React.CSSProperties}
-        aria-labelledby="projects-heading"
-      >
-        <h2 id="projects-heading">
-          <Link
-            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight"
-            href="/projects"
-          >
-            <PinIcon className="text-tertiary h-5 w-5" />
-            Pinned Projects
-            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-          </Link>
-        </h2>
-        <p className="text-secondary mt-[-8px] max-w-3xl">
-          I love building projects, whether they are simple websites or more
-          complex web apps. Below are a few of my favorites.
-        </p>
+      <AnimatedSection index={4} ariaLabelledBy="projects-heading">
+        <SectionHeader
+          id="projects-heading"
+          title="Pinned Projects"
+          href="/projects"
+          icon={<PinIcon className="text-tertiary h-5 w-5" />}
+          description="I love building projects, whether they are simple websites or more complex web apps. Below are a few of my favorites."
+        />
         <PinnedProjectList projects={projects} />
-      </section>
+      </AnimatedSection>
 
       <DotBrainsSection />
 
-      <section
-        className="animate-in flex flex-col gap-4"
-        style={{ "--index": 6 } as React.CSSProperties}
-        aria-labelledby="products-heading"
-      >
-        <h2 id="products-heading">
-          <Link
-            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight no-underline"
-            href="https://nicholasadamou.gumroad.com"
-          >
-            <ThemeAwareGumroadLogo />
-            Products
-            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-          </Link>
-        </h2>
+      <AnimatedSection index={6} ariaLabelledBy="products-heading">
+        <SectionHeader
+          id="products-heading"
+          title="Products"
+          href="https://nicholasadamou.gumroad.com"
+          icon={<ThemeAwareGumroadLogo />}
+          linkClassName="no-underline"
+        />
         <ProductList />
-      </section>
+      </AnimatedSection>
 
-      <section
-        className="animate-in flex flex-col gap-4"
-        style={{ "--index": 7 } as React.CSSProperties}
-        aria-labelledby="gallery-heading"
-      >
-        <h2 id="gallery-heading">
-          <Link
-            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight"
-            href="/gallery"
-          >
-            Recent Photos
-            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-          </Link>
-        </h2>
-        <p className="text-secondary mt-[-8px] max-w-3xl">
-          A few recent shots from my VSCO. See more on the full gallery page.
-        </p>
+      <AnimatedSection index={7} ariaLabelledBy="gallery-heading">
+        <SectionHeader
+          id="gallery-heading"
+          title="Recent Photos"
+          href="/gallery"
+          description="A few recent shots from my VSCO. See more on the full gallery page."
+        />
         <FeaturedGallery />
-      </section>
+      </AnimatedSection>
 
-      <section
-        className="animate-in mb-5 flex flex-col gap-4"
-        style={{ "--index": 8 } as React.CSSProperties}
-        aria-labelledby="notes-heading"
+      <AnimatedSection
+        index={8}
+        ariaLabelledBy="notes-heading"
+        className="mb-5"
       >
-        <h2 id="notes-heading">
-          <Link
-            className="text-primary text-md group flex items-center gap-2 font-semibold tracking-tight"
-            href="/notes"
-          >
-            Recent Notes
-            <ArrowUpRightIcon className="text-tertiary group-hover:text-primary h-5 w-5 transition-all" />
-          </Link>
-        </h2>
-        <p className="text-secondary mt-[-8px] max-w-3xl">
-          I occasionally share valuable insights on programming, productivity,
-          and a variety of other engaging topics. My notes features a range of
-          articles that delve into the latest trends, tips, and best practices
-          in these areas. I invite you to explore my latest notes and discover
-          the ideas and strategies that can help you enhance your skills and
-          boost your productivity.
-        </p>
+        <SectionHeader
+          id="notes-heading"
+          title="Recent Notes"
+          href="/notes"
+          description="I occasionally share valuable insights on programming, productivity, and a variety of other engaging topics. My notes features a range of articles that delve into the latest trends, tips, and best practices in these areas. I invite you to explore my latest notes and discover the ideas and strategies that can help you enhance your skills and boost your productivity."
+        />
         <PostList initialPosts={allNotes} topNPosts={3} mostRecentFirst noPin />
-      </section>
+      </AnimatedSection>
     </div>
   );
 }

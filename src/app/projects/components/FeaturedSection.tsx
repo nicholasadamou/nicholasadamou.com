@@ -279,7 +279,7 @@ export function FeaturedSection(): React.JSX.Element {
   return (
     <motion.section
       {...({
-        className: "mb-3 mt-5 w-full",
+        className: "mb-3 w-full",
       } as any)}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
