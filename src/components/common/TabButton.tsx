@@ -2,7 +2,7 @@ import React from "react";
 import { type LucideIcon } from "lucide-react";
 
 interface TabButtonProps {
-  icon: LucideIcon;
+  icon: LucideIcon | React.ComponentType;
   isActive: boolean;
   onClick: () => void;
   label: string;

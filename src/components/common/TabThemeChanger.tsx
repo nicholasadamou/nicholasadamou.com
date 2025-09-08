@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Moon, Monitor, Sun } from "lucide-react";
 import { TabButton } from "./TabButton";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
+import { themeConfigs } from "./ThemeIcons";
 
-const tabs = [
-  { id: "dark", icon: Moon, label: "Dark mode" },
-  { id: "system", icon: Monitor, label: "System mode" },
-  { id: "light", icon: Sun, label: "Light mode" },
-];
+const tabs = themeConfigs.map((config) => ({
+  id: config.value,
+  icon: config.icon,
+  label: `${config.label} mode`,
+}));
 
 export default function TabThemeChanger() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -40,12 +40,7 @@ export default function TabThemeChanger() {
           >
             <TabButton
               icon={tab.icon}
-              isActive={
-                !!(
-                  theme === tab.id ||
-                  (tab.id === "system" && theme === "system" && resolvedTheme)
-                )
-              }
+              isActive={theme === tab.id}
               onClick={() => setTheme(tab.id)}
               label={tab.label}
             />

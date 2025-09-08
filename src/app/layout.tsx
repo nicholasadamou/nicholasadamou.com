@@ -130,10 +130,8 @@ export default function RootLayout({
             darkOGImage={ogVariants.dark}
           />
           <Navigation />
-          <main className="mx-auto w-full px-4 pb-24 pt-28">
-            {children}
-            <Footer />
-          </main>
+          <main className="mx-auto w-full flex-1 px-4 pt-28">{children}</main>
+          <Footer />
         </ThemeProvider>
         {/* Only render analytics in production or when deployment ID is available */}
         {process.env.NODE_ENV === "production" && (
