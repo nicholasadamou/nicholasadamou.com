@@ -16,10 +16,12 @@ export function Card({
   return (
     <div className={"bg-tertiary flex flex-col rounded-2xl p-4"}>
       <div className="mb-2 flex items-start gap-3">
-        <div className="text-secondary mr-2 h-3 w-3">{icon}</div>
-        <h3 className="text-primary text-lg font-bold">{title}</h3>
+        <div className="mr-2 h-3 w-3" style={{ color: "var(--icon-color)" }}>
+          {icon}
+        </div>
+        <h3 className="text-lg font-bold">{title}</h3>
       </div>
-      <p className="text-secondary">{description}</p>
+      <p className="text-tertiary">{description}</p>
     </div>
   );
 }

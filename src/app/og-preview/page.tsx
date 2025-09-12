@@ -100,6 +100,7 @@ function PreviewCard({ preview, currentBaseUrl }: PreviewCardProps) {
       </div>
 
       <div className="overflow-hidden rounded-lg shadow-lg">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={fullUrl}
           alt={preview.title}

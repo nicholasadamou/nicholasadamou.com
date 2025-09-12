@@ -4,6 +4,7 @@ import React from "react";
 
 import { AnimatedSection } from "@/components/common/AnimatedSection";
 import { DotBrainsSection } from "@/components/common/DotBrainsSection";
+import { YouBuildItSection } from "@/components/common/YouBuildItSection";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 import { getOptimizedImageProps } from "@/lib/performance";
 import PinnedProjectList from "@/components/features/projects/PinnedProjectList";
@@ -93,7 +94,9 @@ export default function Home() {
 
       <DotBrainsSection />
 
-      <AnimatedSection index={6} ariaLabelledBy="products-heading">
+      <YouBuildItSection />
+
+      <AnimatedSection index={7} ariaLabelledBy="products-heading">
         <SectionHeader
           id="products-heading"
           title="Products"
@@ -104,7 +107,7 @@ export default function Home() {
         <ProductList />
       </AnimatedSection>
 
-      <AnimatedSection index={7} ariaLabelledBy="gallery-heading">
+      <AnimatedSection index={8} ariaLabelledBy="gallery-heading">
         <SectionHeader
           id="gallery-heading"
           title="Recent Photos"
@@ -115,7 +118,7 @@ export default function Home() {
       </AnimatedSection>
 
       <AnimatedSection
-        index={8}
+        index={9}
         ariaLabelledBy="notes-heading"
         className="mb-5"
       >
