@@ -82,7 +82,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       <h4 className="text-md mb-4 font-bold">{title}</h4>
       <div className="max-w-2xl">
         <AnimatePresence mode="wait">
