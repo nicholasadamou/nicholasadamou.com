@@ -24,6 +24,70 @@ import {
 } from "@/components/common/FeaturedSection";
 import { TestimonialsSection } from "@/components/common/TestimonialsSection";
 
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  challenge: string;
+  rating: number;
+}
+
+// MANG+ testimonials for YouBuildIt section
+const testimonials: Testimonial[] = [
+  {
+    id: "1",
+    name: "Mark Zuckerberg",
+    role: "CEO",
+    company: "Meta",
+    quote:
+      "Building these challenges taught me that coding is like social networking—it's all about making connections, except instead of friends, you're connecting functions and data structures.",
+    challenge: "Build Your Own React",
+    rating: 5,
+  },
+  {
+    id: "2",
+    name: "Tim Cook",
+    role: "CEO",
+    company: "Apple",
+    quote:
+      "These coding challenges are beautifully designed—they have the same attention to detail we put into our products. Plus, no dongles required!",
+    challenge: "Build Your Own Docker",
+    rating: 5,
+  },
+  {
+    id: "3",
+    name: "Sundar Pichai",
+    role: "CEO",
+    company: "Google",
+    quote:
+      "I've indexed millions of web pages, but somehow debugging my own code still feels like searching for a needle in a haystack. These challenges help organize that chaos.",
+    challenge: "Build Your Own Database",
+    rating: 5,
+  },
+  {
+    id: "4",
+    name: "Sam Altman",
+    role: "CEO",
+    company: "OpenAI",
+    quote:
+      "As someone building AI, I can confirm that these coding challenges are more intelligent than some of my early neural networks. Also significantly less likely to achieve sentience.",
+    challenge: "Build Your Own grep",
+    rating: 5,
+  },
+  {
+    id: "5",
+    name: "Reed Hastings",
+    role: "CEO",
+    company: "Netflix",
+    quote:
+      "Binge-watching code reviews has never been this entertaining. These challenges have better plot development than most of our original series.",
+    challenge: "Build Your Own Shell",
+    rating: 4,
+  },
+];
+
 const YouBuildItLogo: React.FC = () => (
   <div className="flex items-center gap-2">
     <svg
@@ -59,70 +123,6 @@ const YouBuildItLogo: React.FC = () => (
     <ArrowUpRightIcon className="text-tertiary h-4 w-4" />
   </div>
 );
-
-interface Testimonial {
-  id: string;
-  name: string;
-  role: string;
-  company: string;
-  quote: string;
-  challenge: string;
-  rating: number;
-}
-
-// Testimonials data
-const testimonials: Testimonial[] = [
-  {
-    id: "1",
-    name: "Alex Chen",
-    role: "Software Engineer",
-    company: "TechCorp",
-    quote:
-      "Building my own cat tool taught me so much about Unix philosophy and file I/O. The hands-on approach made complex concepts click instantly.",
-    challenge: "Build Your Own cat",
-    rating: 5,
-  },
-  {
-    id: "2",
-    name: "Sarah Johnson",
-    role: "Full Stack Developer",
-    company: "StartupXYZ",
-    quote:
-      "The Docker challenge was mind-blowing! I finally understand how containerization works under the hood. Best learning experience I've had.",
-    challenge: "Build Your Own Docker",
-    rating: 5,
-  },
-  {
-    id: "3",
-    name: "Marcus Rodriguez",
-    role: "Backend Engineer",
-    company: "DataFlow Inc",
-    quote:
-      "Creating a database from scratch gave me insights that years of using existing ones never could. The B-tree implementation was particularly enlightening.",
-    challenge: "Build Your Own Database",
-    rating: 5,
-  },
-  {
-    id: "4",
-    name: "Emily Wu",
-    role: "DevOps Engineer",
-    company: "CloudNative",
-    quote:
-      "The grep challenge improved my regex skills tremendously. Now I can write complex pattern matching with confidence.",
-    challenge: "Build Your Own grep",
-    rating: 5,
-  },
-  {
-    id: "5",
-    name: "Jordan Kim",
-    role: "Systems Programmer",
-    company: "InfraCore",
-    quote:
-      "These challenges bridge the gap between theory and practice perfectly. I now understand how the tools I use daily actually work.",
-    challenge: "Build Your Own Shell",
-    rating: 5,
-  },
-];
 
 // Featured challenges data
 const featuredChallenges: FeaturedItem[] = [
