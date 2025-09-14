@@ -10,6 +10,7 @@ import SourceCodeAccess from "@/components/mdx/GitHub/SourceCodeAccess";
 import Latex from "@/components/mdx/Latex";
 import ComparisonTable from "@/components/mdx/ComparisonTable";
 import MetricsTable from "@/components/mdx/MetricsTable";
+import DeploymentComparisonTable from "@/components/mdx/DeploymentComparisonTable";
 
 // Import plugins
 import remarkMath from "remark-math";
@@ -33,6 +34,7 @@ const components = {
   latex: Latex,
   ComparisonTable: ComparisonTable,
   MetricsTable: MetricsTable,
+  DeploymentComparisonTable: DeploymentComparisonTable,
 };
 
 interface MDXRendererProps {

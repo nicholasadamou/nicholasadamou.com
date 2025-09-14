@@ -582,3 +582,16 @@ ArgoCD Selective Sync represents the evolution of GitOps from monolithic applica
 This project demonstrates how thoughtful architecture design can transform operational efficiency while maintaining the reliability and security that modern applications demand. Whether you're managing 5 applications or 500, per-app selective syncing provides the precision and efficiency that traditional GitOps approaches simply cannot match.
 
 The combination of ArgoCD's ApplicationSet capabilities with a well-structured directory layout creates a powerful foundation for scalable, maintainable GitOps that truly serves the needs of modern development teams.
+
+## From Architecture to Production: Wrapper Charts
+
+While this article focuses on the selective sync architecture patterns, the complexity of managing multiple Helm charts across environments in production led to the development of a comprehensive solution: **[Argo Helm Charts](/projects/argo-helm-charts)** - a collection of wrapper charts that standardize and automate these deployment patterns.
+
+The wrapper chart project takes the selective sync concepts demonstrated here and packages them into production-ready, reusable components with:
+
+- **Enterprise-grade Configurations**: Battle-tested defaults for ArgoCD and Argo Workflows
+- **Automated Maintenance**: CI/CD workflows that keep charts current with upstream releases
+- **Comprehensive Testing**: Validation pipelines ensuring reliability across deployments
+- **Living Documentation**: Auto-generated documentation that stays synchronized with configurations
+
+This progression from architectural exploration to production tooling demonstrates how research and experimentation can evolve into practical, maintainable solutions for complex GitOps challenges.
