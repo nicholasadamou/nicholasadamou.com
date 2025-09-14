@@ -1,7 +1,7 @@
 ---
 title: "The Power of Stacked Diffs: A Strategy for Better Code Reviews"
 summary: "Discover the benefits of using stacked diffs to make code reviews easier and faster. Learn how breaking up large PRs into smaller, logical units enhances readability, reduces reviewer fatigue, and improves overall code quality."
-date: 2024-11-11
+date: "2024-11-11"
 image_url: "https://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI"
 ---
 
@@ -27,7 +27,7 @@ Each diff builds on the previous one, but because they’re separate PRs, review
 
 In the first diff, you make changes only to the database schema. This diff is small and scoped to updating the database, making it easy for reviewers to focus only on database concerns, such as migrations and table structures.
 
-```diff
+```diff path=null start=null
 // migration.sql
 
 + ALTER TABLE users ADD COLUMN feature_flag BOOLEAN DEFAULT FALSE;
@@ -46,7 +46,7 @@ This diff is simple and self-contained, allowing reviewers to focus purely on da
 
 With the database updated, you can create the next diff to add the API endpoint that leverages this new column. Reviewers don’t need to worry about the database structure; they can assume that’s already reviewed and approved. Instead, they can concentrate on the API logic.
 
-```diff
+```diff path=null start=null
 // routes/users.js
 
 + router.get('/users/feature-flagged', async (req, res) => {
@@ -67,7 +67,7 @@ This diff is still relatively small and focused. Reviewers can evaluate the endp
 
 Finally, you create a diff to add a new UI component that displays users with the feature flag enabled. This diff only includes front-end code, making it straightforward for front-end-focused reviewers to evaluate.
 
-```diff
+```diff path=null start=null
 // components/FeatureFlaggedUsers.js
 
 + import React, { useEffect, useState } from 'react';

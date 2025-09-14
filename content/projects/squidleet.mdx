@@ -93,7 +93,7 @@ In order to provide universal access to the cache, I followed the singleton patt
 
 In Python this is achieved by creating a file called `CacheHandler.py` with the following content:
 
-```python
+```python path=null start=null
 from api.CachedLeetCodeAPI import CachedLeetCodeAPI
 
 cached_api = CachedLeetCodeAPI(cache_expiry=3600)
@@ -101,7 +101,7 @@ cached_api = CachedLeetCodeAPI(cache_expiry=3600)
 
 This file is then imported wherever the cache is needed, ensuring a single cache instance across the application.
 
-```python
+```python path=null start=null
 from handlers.CacheHandler import cached_api
 ```
 

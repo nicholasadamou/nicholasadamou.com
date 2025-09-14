@@ -1,7 +1,7 @@
 ---
-title: A Deeper Than Not Dive into Two Sum
+title: "A Deeper Than Not Dive into Two Sum"
 summary: "Explore the infamous LeetCode problem #1, Two Sum, with a deep dive into its naive and optimized solutions, including a discussion on Hash Maps, binary search, and memory management."
-date: 2025-01-10
+date: "2025-01-10"
 pinned: true
 image_url: "https://unsplash.com/photos/a-close-up-of-a-bunch-of-wheat-in-a-field-dODTJI4UYpw"
 ---
@@ -16,7 +16,7 @@ You may assume that each input would have **exactly one solution**, and you may 
 
 Example:
 
-```plaintext
+```plaintext path=null start=null
 Input: nums = [2, 7, 11, 15], target = 9
 Output: [0, 1]
 Explanation: Because nums[0] + nums[1] = 2 + 7 = 9, we return [0, 1].
@@ -28,7 +28,7 @@ The simplest way to solve this problem is by using a brute force approach: itera
 
 ### Implementation
 
-```python
+```python path=null start=null
 def two_sum_naive(nums, target):
     for i in range(len(nums)):
         for j in range(i + 1, len(nums)):
@@ -61,16 +61,16 @@ If the array is sorted, we can use binary search to optimize the search for the 
 
 ### Implementation
 
-```python
+```python path=null start=null
 def two_sum_binary_search(nums, target):
     nums_with_indices = [(num, i) for i, num in enumerate(nums)]
     nums_with_indices.sort()  # Sort by the values, retaining indices
-		n = len(nums_with_indices)
+    n = len(nums_with_indices)
 
     for i, (num, original_index) in enumerate(nums_with_indices):
         complement = target - num
         left = i + 1
-				right = n - 1
+        right = n - 1
 
         while left <= right:
             mid = (left + right) // 2
@@ -116,7 +116,7 @@ A Hash Map allows us to store elements for fast lookup. The idea is to store eac
 
 ### Implementation
 
-```python
+```python path=null start=null
 def two_sum_optimized(nums, target):
     num_map = {}
 

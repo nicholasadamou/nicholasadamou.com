@@ -1,8 +1,8 @@
 ---
-title: Building a Simple Load Balancer with Spring Boot
-summary: Learn how to build a basic load balancer using Spring Boot, featuring health checks and round-robin distribution.
-date: 2024-11-07
-url: https://github.com/nicholasadamou/spring-boot-load-balancer-demo
+title: "Building a Simple Load Balancer with Spring Boot"
+summary: "Learn how to build a basic load balancer using Spring Boot, featuring health checks and round-robin distribution."
+date: "2024-11-07"
+url: "https://github.com/nicholasadamou/spring-boot-load-balancer-demo"
 pinned: true
 image_url: "https://unsplash.com/photos/an-aerial-view-of-a-train-yard-with-several-trains-ud_kWC-3Bdg"
 ---
@@ -82,7 +82,7 @@ Let's dive into the code and logic behind each component.
 
 These shared data structures facilitate communication between services:
 
-```java
+```java path=null start=null
 // HeartbeatRequest.java
 public record HeartbeatRequest(
     String serviceId,
@@ -104,7 +104,7 @@ public record HeartbeatResponse(
 
 The `ServiceNode` record helps the load balancer keep track of each service instance:
 
-```java
+```java path=null start=null
 public record ServiceNode(
     String serviceId,
     String host,
@@ -118,7 +118,7 @@ public record ServiceNode(
 
 The main logic for load balancing is implemented in `LoadBalancerService`:
 
-```java
+```java path=null start=null
 @Service
 public class LoadBalancerService {
     private final ConcurrentHashMap<String, ServiceNode> serviceNodes = new ConcurrentHashMap<>();
@@ -149,7 +149,7 @@ public class LoadBalancerService {
 
 The `HealthCheckService` manages service health by checking heartbeats and removing inactive nodes:
 
-```java
+```java path=null start=null
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -183,7 +183,7 @@ public class HealthCheckService {
 
 The `ProxyController` forwards incoming requests to available services:
 
-```java
+```java path=null start=null
 @Slf4j
 @RestController
 public class ProxyController {
@@ -224,7 +224,7 @@ public class ProxyController {
 
 Each API service sends a heartbeat message every 5 seconds to register with the load balancer:
 
-```java
+```java path=null start=null
 @Slf4j
 @Component
 public class HeartbeatConfig {
@@ -257,7 +257,7 @@ public class HeartbeatConfig {
 
 For deployment, we use Docker Compose to spin up the load balancer and API services. Here’s an example `docker-compose.yml`:
 
-```yaml
+```yaml path=null start=null
 services:
   load-balancer:
     build: load-balancer

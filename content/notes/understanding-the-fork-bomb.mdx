@@ -1,7 +1,7 @@
 ---
 title: "Understanding the Fork Bomb 💣🍴"
 summary: "A deep dive into one of the simplest yet most destructive shell payloads — the fork bomb."
-date: 2025-05-08
+date: "2025-05-08"
 pinned: false
 image_url: "https://unsplash.com/photos/a-fork-on-a-white-background-Mv3yxyI_OY4"
 ---
@@ -10,23 +10,23 @@ A **fork bomb** is a denial-of-service (DoS) attack against a Unix-like system. 
 
 The classic form of a fork bomb looks like this:
 
-```bash
+```bash path=null start=null
 :(){ :|:& };:
 ```
 
 Let’s break it down step by step.
 
-## 🧬 Dissecting the Code
+## 🧬 Anatomy of the Fork Bomb
 
-### `:()`
+### Function Definition: `:()`
 
 This defines a function named `:` (yes, just a colon). While unconventional, this is valid in Bash.
 
-### `{ :|:& };`
+### Function Body: `{ :|:& };`
 
-The function body is:
+The function body contains:
 
-```bash
+```bash path=null start=null
 :|:&
 ```
 
@@ -102,7 +102,7 @@ This exponential growth rapidly overwhelms the process table, starving the syste
 
 1. **Limit user processes** with `ulimit`:
 
-```bash
+```bash path=null start=null
 ulimit -u 100
 ```
 

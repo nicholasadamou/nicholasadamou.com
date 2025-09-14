@@ -1,7 +1,7 @@
 ---
 title: "Worker Threads in Node.js: The Secret to High Performance Backends"
 summary: "Node.js is famously single-threaded—but when you hit CPU-heavy operations like encryption, data processing, or image resizing, your app can grind to a halt. That's where Worker Threads come in."
-date: 2025-04-12
+date: "2025-04-12"
 pinned: false
 image_url: "https://unsplash.com/photos/a-group-of-spools-of-thread-sitting-on-top-of-each-other-xZSuLxiqXUo"
 ---
@@ -74,7 +74,7 @@ When your application performs these kinds of operations, the main thread become
 
 Consider this example:
 
-```javascript
+```javascript path=null start=null
 // This CPU-intensive task will block the event loop
 function doHeavyCalculation() {
   let result = 0;
@@ -99,7 +99,7 @@ Before worker threads were introduced, developers used several approaches to han
 
 One approach was to break up CPU-intensive tasks into smaller chunks and use [`setImmediate()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate) to yield to the event loop between chunks:
 
-```javascript
+```javascript path=null start=null
 const arr = new Array(1000000).fill(1);
 let sum = 0;
 let index = 0;
@@ -132,7 +132,7 @@ This approach works, but makes the code more complex and increases the overall e
 
 Another approach was to use the [`child_process`](https://nodejs.org/api/child_process.html) module to spawn separate Node.js processes:
 
-```javascript
+```javascript path=null start=null
 const { fork } = require("child_process");
 
 function runHeavyTask(data) {
