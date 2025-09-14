@@ -20,7 +20,13 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
 }) => (
   <div className="animate-in" style={{ "--index": 3 } as React.CSSProperties}>
     {type === "notes" ? (
-      <PostList initialPosts={content as Note[]} />
+      <PostList
+        initialPosts={content as Note[]}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        onPageChange={onPageChange}
+        showPagination={true}
+      />
     ) : (
       <ProjectList
         projects={content as Project[]}

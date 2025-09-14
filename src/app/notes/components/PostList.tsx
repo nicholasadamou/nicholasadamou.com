@@ -2,13 +2,15 @@
 
 import type { Note as PostType } from "@/lib/contentlayer-data";
 import Post from "./Post";
-import PostSkeleton from "./PostSkeleton";
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Pagination from "@/components/common/Pagination";
 import {
   containerVariants,
   itemVariants,
-  skeletonVariants,
+  fadeVariants,
+  pageTransitionVariants,
+  pageTransitionItemVariants,
   getStaggerDelay,
   DURATION,
   EASING,
@@ -20,9 +22,11 @@ type PostListProps = {
   mostRecentFirst?: boolean;
   topNPosts?: number;
   noPin?: boolean;
+  currentPage?: number;
+  itemsPerPage?: number;
+  onPageChange?: (page: number) => void;
+  showPagination?: boolean;
 };
-
-const POSTS_PER_PAGE = 5;
 
 export default function PostList({
   initialPosts,
@@ -30,11 +34,12 @@ export default function PostList({
   mostRecentFirst = false,
   topNPosts,
   noPin,
+  currentPage = 1,
+  itemsPerPage = 6,
+  onPageChange,
+  showPagination = false,
 }: PostListProps) {
-  const [page, setPage] = useState(1);
   const listRef = useRef<HTMLUListElement>(null);
-  const loadMoreRef = useRef<HTMLLIElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
   // Sorting and filtering logic
   const sortedAndFilteredPosts = useMemo(() => {
@@ -73,116 +78,77 @@ export default function PostList({
     return [...filteredPinnedPosts, ...filteredNonPinnedPosts];
   }, [topNPosts, initialPosts, searchTerm, mostRecentFirst]);
 
-  const displayedPosts = useMemo(() => {
-    return sortedAndFilteredPosts.slice(0, page * POSTS_PER_PAGE);
-  }, [sortedAndFilteredPosts, page]);
-
-  const hasMore = displayedPosts.length < sortedAndFilteredPosts.length;
-
-  useEffect(() => {
-    setPage(1);
-  }, [searchTerm]);
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "20px",
-      threshold: 1.0,
-    };
-
-    observerRef.current = new IntersectionObserver((entries) => {
-      const [entry] = entries;
-      if (entry.isIntersecting && hasMore) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }, options);
-
-    if (loadMoreRef.current) {
-      observerRef.current.observe(loadMoreRef.current);
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [hasMore]);
+  // Calculate pagination
+  const totalPages = Math.ceil(sortedAndFilteredPosts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedPosts = showPagination
+    ? sortedAndFilteredPosts.slice(startIndex, endIndex)
+    : sortedAndFilteredPosts;
 
   return (
-    <motion.ul
-      ref={listRef}
-      className="animated-list flex flex-col"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <AnimatePresence mode="wait">
-        {displayedPosts.length === 0 && (
-          <motion.div
-            key="no-posts"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: DURATION.normal, ease: EASING.easeOut }}
-          >
-            <p className="text-secondary">No notes found.</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+      <motion.ul
+        ref={listRef}
+        className="animated-list flex flex-col"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <AnimatePresence mode="wait">
+          {displayedPosts.length === 0 && (
+            <motion.div
+              key="no-posts"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: DURATION.normal, ease: EASING.easeOut }}
+            >
+              <p className="text-secondary">No notes found.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      <AnimatePresence>
-        {displayedPosts.map((post, index) => (
+        <AnimatePresence mode="wait">
           <motion.div
-            key={post.slug}
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            transition={{
-              delay: getStaggerDelay(index, 0.05),
-              duration: DURATION.slow,
-              ease: EASING.easeOut,
-            }}
-            layout
+            key={`page-${currentPage}`}
+            variants={pageTransitionVariants}
+            initial="exit"
+            animate="enter"
+            exit="exit"
+            className="flex flex-col"
           >
-            <Post post={post} shouldShowPin={!noPin} />
+            {displayedPosts.map((post, index) => (
+              <motion.div
+                key={post.slug}
+                variants={pageTransitionItemVariants}
+                className="w-full"
+              >
+                <Post post={post} shouldShowPin={!noPin} />
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
-      </AnimatePresence>
+        </AnimatePresence>
+      </motion.ul>
 
-      {hasMore && (
-        <motion.li
-          ref={loadMoreRef}
-          {...({ className: "py-2" } as any)}
-          variants={skeletonVariants}
-          initial="initial"
-          animate="animate"
-          layout
+      {showPagination && totalPages > 1 && onPageChange && (
+        <motion.div
+          variants={fadeVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{
+            delay: 0.5,
+            duration: DURATION.normal,
+            ease: EASING.easeOut,
+          }}
         >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.1,
-              duration: DURATION.normal,
-              ease: EASING.easeOut,
-            }}
-          >
-            <PostSkeleton />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.2,
-              duration: DURATION.normal,
-              ease: EASING.easeOut,
-            }}
-          >
-            <PostSkeleton />
-          </motion.div>
-        </motion.li>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        </motion.div>
       )}
-    </motion.ul>
+    </motion.div>
   );
 }
