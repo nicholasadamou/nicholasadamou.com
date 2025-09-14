@@ -23,7 +23,13 @@ Most ArgoCD implementations follow a monolithic approach where a single applicat
 
 ### The Evolution of Solutions
 
-<ComparisonTable
+<Table
+  columns={[
+    { key: "approach", header: "Approach" },
+    { key: "syncBehavior", header: "Sync Behavior" },
+    { key: "resourceUsage", header: "Resource Usage" },
+    { key: "debuggingPrecision", header: "Debugging Precision" },
+  ]}
   data={[
     {
       approach: "Traditional",
@@ -365,7 +371,13 @@ rectangle "Per-App Selective (This Project)" {
 
 ### Cost and Resource Efficiency
 
-<MetricsTable
+<Table
+  columns={[
+    { key: "metric", header: "Metric" },
+    { key: "traditional", header: "Traditional" },
+    { key: "environmentLevel", header: "Environment-Level" },
+    { key: "perAppSelective", header: "Per-App Selective" },
+  ]}
   data={[
     {
       metric: "Compute Usage",

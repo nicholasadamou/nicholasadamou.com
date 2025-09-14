@@ -764,7 +764,12 @@ The advantages of wrapper charts become clear when comparing them directly with 
 
 **Traditional Approach vs. Wrapper Charts:**
 
-<DeploymentComparisonTable
+<Table
+  columns={[
+    { key: "aspect", header: "Aspect" },
+    { key: "traditional", header: "Traditional Approach" },
+    { key: "wrapperCharts", header: "Wrapper Charts" },
+  ]}
   data={[
     {
       aspect: "Configuration Management",

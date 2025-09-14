@@ -8,9 +8,7 @@ import CustomLink from "@/components/mdx/CustomLink";
 import YouTubeEmbed from "@/components/mdx/YouTube/YouTubeEmbed";
 import SourceCodeAccess from "@/components/mdx/GitHub/SourceCodeAccess";
 import Latex from "@/components/mdx/Latex";
-import ComparisonTable from "@/components/mdx/ComparisonTable";
-import MetricsTable from "@/components/mdx/MetricsTable";
-import DeploymentComparisonTable from "@/components/mdx/DeploymentComparisonTable";
+import Table from "@/components/mdx/Table";
 
 // Import plugins
 import remarkMath from "remark-math";
@@ -32,9 +30,7 @@ const components = {
   YouTubeEmbed: YouTubeEmbed,
   SourceCodeAccess: SourceCodeAccess,
   latex: Latex,
-  ComparisonTable: ComparisonTable,
-  MetricsTable: MetricsTable,
-  DeploymentComparisonTable: DeploymentComparisonTable,
+  Table: Table,
 };
 
 interface ServerMDXRendererProps {
