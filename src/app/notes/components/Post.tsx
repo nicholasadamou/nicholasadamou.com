@@ -5,6 +5,7 @@ import type { Note } from "@/lib/contentlayer-data";
 
 import Link from "@/components/common/Link";
 import Section from "@/components/common/Section";
+import ImagePreview from "@/components/common/ImagePreview";
 import { formatShortDate } from "@/lib/utils/formatShortDate";
 import { Badge } from "@/components/ui/badge";
 import readingTime from "reading-time";
@@ -22,86 +23,88 @@ export default function Post({ post, shouldShowPin }: PostProps) {
   const readingStats = readingTime(post.body.raw);
 
   return (
-    <motion.li
-      className="group py-3 transition-opacity first:pt-0 last:pb-0"
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover="hover"
-      whileTap="tap"
-      layout
-    >
-      <Link href={`/notes/${slug}`}>
-        <motion.div className="transition-opacity" layout>
-          <motion.div
-            className="mt-4 flex items-center justify-between gap-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.1,
-              duration: DURATION.normal,
-              ease: EASING.easeOut,
-            }}
-          >
-            <Section
-              heading={formatShortDate(date)}
-              isPinned={pinned}
-              showPin={shouldShowPin}
+    <ImagePreview src={image_url || image} alt={`${title} header image`}>
+      <motion.li
+        className="group py-3 transition-opacity first:pt-0 last:pb-0"
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        whileTap="tap"
+        layout
+      >
+        <Link href={`/notes/${slug}`}>
+          <motion.div className="transition-opacity" layout>
+            <motion.div
+              className="mt-4 flex items-center justify-between gap-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.1,
+                duration: DURATION.normal,
+                ease: EASING.easeOut,
+              }}
             >
-              <motion.div
-                className="flex flex-col gap-1"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: 0.2,
-                  duration: DURATION.normal,
-                  ease: EASING.easeOut,
-                }}
+              <Section
+                heading={formatShortDate(date)}
+                isPinned={pinned}
+                showPin={shouldShowPin}
               >
-                <motion.span
-                  className="text-pretty font-medium leading-tight"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: 0.3,
-                    duration: DURATION.normal,
-                    ease: EASING.easeOut,
-                  }}
-                >
-                  {title}
-                </motion.span>
-                <motion.span
-                  className="text-tertiary"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: 0.4,
-                    duration: DURATION.normal,
-                    ease: EASING.easeOut,
-                  }}
-                >
-                  {post.summary}
-                </motion.span>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col gap-1"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   transition={{
-                    delay: 0.5,
+                    delay: 0.2,
                     duration: DURATION.normal,
-                    ease: EASING.bouncy,
+                    ease: EASING.easeOut,
                   }}
                 >
-                  <Badge variant="secondary">
-                    <div className="flex items-center gap-1.5">
-                      <Clock size={10} /> {readingStats.text}
-                    </div>
-                  </Badge>
+                  <motion.span
+                    className="text-pretty font-medium leading-tight"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0.3,
+                      duration: DURATION.normal,
+                      ease: EASING.easeOut,
+                    }}
+                  >
+                    {title}
+                  </motion.span>
+                  <motion.span
+                    className="text-tertiary"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0.4,
+                      duration: DURATION.normal,
+                      ease: EASING.easeOut,
+                    }}
+                  >
+                    {post.summary}
+                  </motion.span>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      delay: 0.5,
+                      duration: DURATION.normal,
+                      ease: EASING.bouncy,
+                    }}
+                  >
+                    <Badge variant="secondary">
+                      <div className="flex items-center gap-1.5">
+                        <Clock size={10} /> {readingStats.text}
+                      </div>
+                    </Badge>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            </Section>
+              </Section>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </Link>
-    </motion.li>
+        </Link>
+      </motion.li>
+    </ImagePreview>
   );
 }
