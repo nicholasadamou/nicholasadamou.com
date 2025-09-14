@@ -2,19 +2,8 @@
 
 import type { Project as ProjectType } from "@/lib/contentlayer-data";
 import Project from "./Project";
-import React, { useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Pagination from "@/components/common/Pagination";
-import {
-  containerVariants,
-  itemVariants,
-  fadeVariants,
-  pageTransitionVariants,
-  pageTransitionItemVariants,
-  getStaggerDelay,
-  DURATION,
-  EASING,
-} from "@/lib/animations";
+import React from "react";
+import PaginatedList from "@/components/common/PaginatedList";
 
 type ProjectListProps = {
   projects: ProjectType[];
@@ -31,79 +20,16 @@ export default function ProjectList({
   onPageChange,
   showPagination = false,
 }: ProjectListProps) {
-  const listRef = useRef(null);
-
-  // Calculate pagination
-  const totalPages = Math.ceil(projects.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentProjects = showPagination
-    ? projects.slice(startIndex, endIndex)
-    : projects;
-
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible">
-      <motion.ul
-        ref={listRef}
-        className="animated-list flex flex-col"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <AnimatePresence mode="wait">
-          {currentProjects.length === 0 && (
-            <motion.div
-              key="no-projects"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: DURATION.normal, ease: EASING.easeOut }}
-            >
-              <p className="text-secondary">No projects found.</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`page-${currentPage}`}
-            variants={pageTransitionVariants}
-            initial="exit"
-            animate="enter"
-            exit="exit"
-            className="flex flex-col"
-          >
-            {currentProjects.map((project, index) => (
-              <motion.div
-                key={project.slug}
-                variants={pageTransitionItemVariants}
-                className="w-full"
-              >
-                <Project project={project} />
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </motion.ul>
-
-      {showPagination && totalPages > 1 && onPageChange && (
-        <motion.div
-          variants={fadeVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{
-            delay: 0.5,
-            duration: DURATION.normal,
-            ease: EASING.easeOut,
-          }}
-        >
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={onPageChange}
-          />
-        </motion.div>
-      )}
-    </motion.div>
+    <PaginatedList
+      items={projects}
+      currentPage={currentPage}
+      itemsPerPage={itemsPerPage}
+      onPageChange={onPageChange}
+      showPagination={showPagination}
+      emptyMessage="No projects found."
+      renderItem={(project) => <Project project={project} />}
+      getItemKey={(project) => project.slug}
+    />
   );
 }
