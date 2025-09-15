@@ -46,7 +46,6 @@ interface RelatedContentItem {
 interface ContentPageProps {
   content: UnifiedContent;
   type: "project" | "note";
-  allContent: UnifiedContent[];
   readingStats: { text: string };
   relatedItemsWithStats: RelatedContentItem[];
   renderedMDXContent: React.ReactElement;
@@ -55,14 +54,13 @@ interface ContentPageProps {
 export default function ContentPage({
   content,
   type,
-  allContent,
   readingStats,
   relatedItemsWithStats,
   renderedMDXContent,
 }: ContentPageProps): React.ReactElement | null {
   return (
     <motion.div
-      className="mx-auto flex max-w-4xl flex-col gap-12 px-4"
+      className="mx-auto flex max-w-4xl flex-col gap-12"
       variants={pageVariants}
       initial="initial"
       animate="enter"

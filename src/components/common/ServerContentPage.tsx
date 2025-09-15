@@ -50,7 +50,6 @@ export default async function ServerContentPage({
     <ContentPage
       content={content}
       type={type}
-      allContent={allContent}
       readingStats={readingStats}
       relatedItemsWithStats={relatedItemsWithStats}
       renderedMDXContent={mdxContent}

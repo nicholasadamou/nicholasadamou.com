@@ -91,7 +91,7 @@ export default function Contact() {
 
   return (
     <motion.div
-      className="mx-auto max-w-4xl px-4"
+      className="mx-auto max-w-4xl"
       initial="hidden"
       animate="visible"
       variants={{

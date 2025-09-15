@@ -38,7 +38,7 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
 
   return (
     <motion.div
-      className="mx-auto flex max-w-4xl flex-col gap-8 px-4"
+      className="mx-auto flex max-w-4xl flex-col gap-8"
       variants={pageVariants}
       initial="initial"
       animate="enter"

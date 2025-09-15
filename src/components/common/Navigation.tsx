@@ -165,7 +165,7 @@ export default function Navigation() {
             ))}
           </ul>
         </nav>
-        <div className="flex items-center gap-3 md:mr-[1em]">
+        <div className="flex items-center gap-3">
           <TabThemeChanger />
           <Popover className="relative mr-[-5px] md:hidden" ref={popoverRef}>
             <Popover.Button className="text-secondary flex h-8 w-8 items-center justify-center rounded-lg">
