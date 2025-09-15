@@ -19,6 +19,7 @@ export interface LocalImageManifest {
       local_path: string;
       original_url: string;
       author: string;
+      author_url?: string;
       downloaded_at: string;
       skipped?: boolean;
       reason?: string;
@@ -36,6 +37,7 @@ export interface ImageMetadata {
   photoId: string | null;
   localPath: string | null;
   author: string | null;
+  author_url: string | null;
   isLocal: boolean;
 }
 
@@ -207,6 +209,7 @@ export async function getImageMetadata(imageUrl: string): Promise<{
   photoId: string | null;
   localPath: string | null;
   author: string | null;
+  author_url: string | null;
   isLocal: boolean;
 } | null> {
   const photoId = extractUnsplashPhotoId(imageUrl);
@@ -221,6 +224,7 @@ export async function getImageMetadata(imageUrl: string): Promise<{
       photoId,
       localPath: null,
       author: null,
+      author_url: null,
       isLocal: false,
     };
   }
@@ -234,6 +238,7 @@ export async function getImageMetadata(imageUrl: string): Promise<{
         ? localImage.local_path
         : null,
     author: localImage?.author || null,
+    author_url: (localImage as any)?.author_url || null,
     isLocal: !!localImage?.local_path && localImage.local_path !== "",
   };
 }

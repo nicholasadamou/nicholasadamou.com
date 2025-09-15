@@ -366,6 +366,7 @@ describe("Image Fallback Utilities", () => {
         photoId: "ZV_64LdGoao",
         localPath: "/images/unsplash/ZV_64LdGoao.jpg",
         author: "John Doe",
+        author_url: null,
         isLocal: true,
       });
     });
@@ -385,6 +386,7 @@ describe("Image Fallback Utilities", () => {
         photoId: "BC123def456",
         localPath: null,
         author: null,
+        author_url: null,
         isLocal: false,
       });
     });
@@ -409,6 +411,7 @@ describe("Image Fallback Utilities", () => {
         photoId: "ZV_64LdGoao",
         localPath: null,
         author: null,
+        author_url: null,
         isLocal: false,
       });
     });
@@ -428,6 +431,7 @@ describe("Image Fallback Utilities", () => {
         photoId: "SkippedPhto",
         localPath: null, // Empty string treated as null for skipped images
         author: "Skip Author", // Author info is still available even for skipped images
+        author_url: null,
         isLocal: false,
       });
     });

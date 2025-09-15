@@ -15,6 +15,7 @@ type UnsplashAuthorData = {
   image_author_url: string;
   isLocal?: boolean;
 } | null;
+
 const HeaderImage: React.FC<ImageAttributionProps> = ({
   imageSrc,
   imageAlt,
@@ -41,7 +42,9 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
           console.log(`🏠 Using local author data for ${photoId}`);
           setUnsplashData({
             image_author: imageMetadata.author,
-            image_author_url: `https://unsplash.com/@${imageMetadata.author.toLowerCase().replace(/\s+/g, "")}?utm_source=nicholasadamou.com&utm_medium=referral`,
+            image_author_url:
+              `${imageMetadata.author_url}?utm_source=nicholasadamou.com&utm_medium=referral` ||
+              "",
             isLocal: true,
           });
           setLoading(false);

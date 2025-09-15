@@ -108,6 +108,7 @@ export function getImageMetadataSync(imageUrl: string): ImageMetadata | null {
       photoId,
       localPath: null,
       author: null,
+      author_url: null,
       isLocal: false,
     };
   }
@@ -117,6 +118,7 @@ export function getImageMetadataSync(imageUrl: string): ImageMetadata | null {
     photoId,
     localPath: localImage?.local_path || null,
     author: localImage?.author || null,
+    author_url: (localImage as any)?.author_url || null,
     isLocal: !!localImage?.local_path,
   };
 }
