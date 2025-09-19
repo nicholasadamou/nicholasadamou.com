@@ -167,6 +167,46 @@ const featuredProjects: FeaturedItem[] = [
     ],
     url: "https://github.com/dotbrains/ghw",
   },
+  {
+    name: "ConfigSync",
+    description:
+      "A command-line tool for managing macOS application settings and configurations with centralized storage and syncing across multiple Mac systems.",
+    features: [
+      {
+        icon: <Folder className="mr-5 h-7 w-7" />,
+        title: "Centralized Storage",
+        description:
+          "Store all app configurations in a central location with symlinks to sync settings across multiple Mac systems.",
+      },
+      {
+        icon: <Shield className="mr-5 h-7 w-7" />,
+        title: "Safe Deployment",
+        description:
+          "Create backups before making changes with checksum validation and rollback capability for safe configuration management.",
+      },
+    ],
+    components: [
+      {
+        icon: <Search className="h-6 w-6" />,
+        title: "Smart Auto-Discovery",
+        description:
+          "Automatically detect installed applications using multiple scanning methods including System Profiler and Spotlight.",
+      },
+      {
+        icon: <Package className="h-6 w-6" />,
+        title: "Export & Deploy",
+        description:
+          "Export configuration bundles for deployment to new systems with conflict detection and integrity checks.",
+      },
+      {
+        icon: <CheckCircle2 className="h-6 w-6" />,
+        title: "75%+ Test Coverage",
+        description:
+          "Comprehensive test suites with unit, integration, and benchmark tests ensuring reliability across Intel and Apple Silicon Macs.",
+      },
+    ],
+    url: "https://github.com/dotbrains/configsync",
+  },
 ];
 
 export const DotBrainsSection: React.FC = () => (

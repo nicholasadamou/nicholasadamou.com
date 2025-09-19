@@ -1,0 +1,966 @@
+---
+title: "⚙️ ConfigSync"
+date: "2025-09-19"
+summary: "A command-line tool for managing macOS application settings and configurations with centralized storage and syncing across multiple Mac systems."
+longSummary: "Discover how ConfigSync simplifies macOS configuration management with centralized storage, smart auto-discovery, and safe deployment across multiple systems."
+url: "https://github.com/dotbrains/configsync"
+demoUrl: "https://dotbrains.github.io/configsync"
+technologies:
+  - Go
+  - macOS
+  - CLI
+  - Symlinks
+  - YAML
+  - Testing
+  - Homebrew
+  - Git
+pinned: true
+image_url: "https://unsplash.com/photos/macbook-pro-on-brown-wooden-table-npxXWgQ33ZQ"
+---
+
+## Introduction
+
+Managing application configurations across multiple Mac systems has always been a tedious and error-prone process. Whether you're setting up a new development machine, maintaining consistency across team environments, or simply wanting to backup your carefully crafted settings, the traditional approach involves manual copying, configuration drift, and the constant fear of losing important customizations.
+
+**ConfigSync** eliminates these challenges by providing a comprehensive command-line tool that centralizes, manages, and synchronizes macOS application settings across multiple systems. With smart auto-discovery, safe deployment mechanisms, and robust backup systems, ConfigSync transforms configuration management from a chore into an automated, reliable process.
+
+## Why ConfigSync?
+
+ConfigSync addresses several critical pain points in macOS configuration management:
+
+### The Configuration Management Challenge
+
+Modern macOS development environments involve dozens of applications, each with their own configuration files scattered across various system directories. From Visual Studio Code settings and iTerm2 preferences to SSH configurations and Git settings, keeping these synchronized across multiple machines is a nightmare without proper tooling.
+
+### Consistency Across Systems
+
+ConfigSync ensures that your development environment remains consistent whether you're working on your primary machine, a fresh laptop, or helping a teammate set up their environment. By storing configurations in a centralized location and using symlinks, any changes made to application settings are immediately reflected across all managed systems.
+
+### Safe Configuration Management
+
+Unlike simple file copying or manual synchronization, ConfigSync provides comprehensive backup mechanisms, checksum validation, and rollback capabilities. Every operation is logged, and the system maintains integrity checks to ensure your configurations remain intact and recoverable.
+
+## Core Architecture
+
+ConfigSync's architecture is built around several key components that work together to provide a seamless configuration management experience:
+
+```plantuml
+@startuml ConfigSync System Overview
+!theme plain
+
+package "ConfigSync Core" as Core {
+  [Configuration Registry] as CR
+  [Central Storage] as CS
+  [Symlink Manager] as SM
+  [Backup System] as BS
+  [Deployment Engine] as DE
+  [App Detector] as AD
+}
+
+package "System Locations" as SysLoc {
+  [~/Library/Preferences/] as PREF
+  [~/Library/Application Support/] as APPSUP
+  [~/.config/] as CONFIG
+  [~/Library/Containers/] as CONTAINERS
+  [~/Library/Group Containers/] as GROUPS
+}
+
+package "Supported Applications" as Apps {
+  [Visual Studio Code] as VSC
+  [Google Chrome] as CHROME
+  [iTerm2] as ITERM
+  [1Password] as ONEPASS
+  [Git & SSH] as GIT
+  [20+ More Apps] as MORE
+}
+
+package "CLI Interface" as CLI {
+  [init] as INIT
+  [discover] as DISCOVER
+  [sync] as SYNC
+  [backup] as BACKUP
+  [export/deploy] as DEPLOY
+}
+
+CR --> CS : manages
+SM --> CS : creates symlinks
+SM --> PREF : links to
+SM --> APPSUP : links to
+SM --> CONFIG : links to
+SM --> CONTAINERS : links to
+SM --> GROUPS : links to
+
+BS --> CS : backs up from
+DE --> CS : deploys from
+AD --> Apps : discovers
+
+CLI --> CR : configures
+CLI --> SM : manages
+CLI --> BS : controls
+CLI --> DE : orchestrates
+CLI --> AD : triggers
+
+VSC --> PREF : stores preferences
+CHROME --> APPSUP : stores data
+ITERM --> APPSUP : stores config
+ONEPASS --> CONTAINERS : stores data
+GIT --> CONFIG : stores config
+MORE --> SysLoc : various locations
+
+@enduml
+```
+
+### Directory Structure
+
+ConfigSync organizes all managed configurations in a structured hierarchy that mirrors macOS's native configuration layout:
+
+```plantuml
+@startuml ConfigSync Directory Structure
+!theme plain
+
+folder "~/.configsync/" as ROOT {
+  file "config.yaml" as CONFIG
+  folder "store/" as STORE {
+    folder "Library/" as LIB {
+      folder "Preferences/" as PREFS {
+        file "com.microsoft.VSCode.plist"
+        file "com.google.Chrome.plist"
+        file "com.googlecode.iterm2.plist"
+      }
+      folder "Application Support/" as APPSUP {
+        folder "Code/"
+        folder "Google/Chrome/"
+        folder "Alfred/"
+      }
+    }
+    folder "Containers/" as CONT {
+      folder "com.1password.1password/"
+      folder "2BUA8C4S2C.com.agilebits.onepassword-osx-helper/"
+    }
+    folder ".config/" as XDG {
+      folder "git/"
+      folder "ssh/"
+    }
+  }
+  folder "backups/" as BACKUPS {
+    folder "2024-09-19-14-30-45/"
+    file "checksums.yaml"
+  }
+  folder "logs/" as LOGS {
+    file "configsync.log"
+    file "sync-2024-09-19.log"
+  }
+  folder "temp/" as TEMP {
+    folder "export-staging/"
+    folder "import-staging/"
+  }
+}
+
+note right of CONFIG
+  Main configuration registry
+  tracking managed applications
+end note
+
+note right of STORE
+  Central storage with
+  symlink targets mirroring
+  system directory structure
+end note
+
+note right of BACKUPS
+  Versioned snapshots with
+  checksum validation for
+  safe rollback capability
+end note
+
+@enduml
+```
+
+## Dynamic Application Discovery & Configuration Management
+
+ConfigSync's most innovative feature is its intelligent, multi-layered discovery system that automatically identifies installed applications and dynamically locates their configuration files across macOS's complex directory structure. Unlike static configuration tools that rely on hardcoded paths, ConfigSync adapts to each system's unique setup and application versions.
+
+### Multi-Method Discovery Engine
+
+ConfigSync employs a sophisticated discovery engine that combines multiple detection methods to ensure comprehensive application coverage:
+
+#### 1. System Profiler Integration
+
+ConfigSync leverages macOS's built-in `system_profiler` command to enumerate all installed applications with comprehensive metadata:
+
+```bash path=null start=null
+# ConfigSync internally executes commands like:
+system_profiler SPApplicationsDataType -json
+```
+
+This provides:
+
+- Application bundle identifiers (e.g., `com.microsoft.VSCode`)
+- Installation paths and versions
+- Application signatures and metadata
+- Launch services registration data
+
+#### 2. Spotlight Search Integration
+
+Using `mdfind` (Spotlight's command-line interface), ConfigSync performs intelligent searches across the entire filesystem:
+
+```bash path=null start=null
+# Search for application bundles
+mdfind "kMDItemContentType == 'com.apple.application-bundle'"
+
+# Find specific app configurations
+mdfind "kMDItemDisplayName == 'Visual Studio Code'"
+```
+
+#### 3. Intelligent Directory Scanning
+
+ConfigSync systematically scans known application installation directories with recursive pattern matching:
+
+- `/Applications` - Standard app installations
+- `~/Applications` - User-specific applications
+- `/System/Applications` - System applications
+- `/System/Library/CoreServices` - Core system utilities
+- `/usr/local/bin` - Command-line tools and utilities
+
+### Dynamic Configuration Pattern Detection
+
+Once applications are discovered, ConfigSync employs advanced pattern recognition to locate their configuration files across macOS's diverse storage locations:
+
+```plantuml
+@startuml Configuration Discovery Flow
+!theme plain
+
+start
+
+:Discovered Application\n(e.g., Visual Studio Code);
+
+partition "Bundle Analysis" {
+  :Extract Bundle ID\n(com.microsoft.VSCode);
+  :Read Info.plist metadata;
+  :Identify app version & signature;
+}
+
+partition "Configuration Search" {
+  :Search ~/Library/Preferences/\nfor bundle-specific .plist files;
+  :Scan ~/Library/Application Support/\nfor app data directories;
+  :Check ~/Library/Containers/\nfor sandboxed app data;
+  :Look in ~/Library/Group Containers/\nfor shared app configurations;
+  :Search ~/.config/ and ~/.* \nfor Unix-style dotfiles;
+}
+
+partition "Pattern Matching" {
+  if (Bundle ID patterns?) then (found)
+    :Match com.company.app.* patterns;
+  endif
+  if (App name patterns?) then (found)
+    :Match case-insensitive app names;
+  endif
+  if (Known config patterns?) then (found)
+    :Apply built-in app rules;
+  endif
+}
+
+:Validate Configuration Files;
+
+if (Files accessible?) then (yes)
+  :Create Configuration Profile;
+  :Store in Registry;
+else (no)
+  :Log Permission Issues;
+  :Mark as Partially Supported;
+endif
+
+stop
+
+@enduml
+```
+
+### Smart Configuration Storage Strategy
+
+ConfigSync doesn't just copy configuration files—it intelligently categorizes and stores them based on their type and importance:
+
+#### Configuration File Classification
+
+1. **Core Preferences (.plist files)**
+
+   ```bash path=null start=null
+   # Example: Visual Studio Code preferences
+   ~/Library/Preferences/com.microsoft.VSCode.plist → ~/.configsync/store/Library/Preferences/
+   ```
+
+2. **Application Support Data**
+
+   ```bash path=null start=null
+   # Example: VS Code extensions and settings
+   ~/Library/Application Support/Code/ → ~/.configsync/store/Library/Application Support/Code/
+   ```
+
+3. **Sandboxed App Containers**
+
+   ```bash path=null start=null
+   # Example: 1Password app data
+   ~/Library/Containers/com.1password.1password/ → ~/.configsync/store/Containers/com.1password.1password/
+   ```
+
+4. **XDG Configuration Directories**
+   ```bash path=null start=null
+   # Example: Git and SSH configurations
+   ~/.config/git/ → ~/.configsync/store/.config/git/
+   ~/.ssh/ → ~/.configsync/store/.config/ssh/
+   ```
+
+### Advanced Discovery Process
+
+```plantuml
+@startuml Enhanced Discovery Process Flow
+!theme plain
+
+start
+
+:User runs **configsync discover**;
+
+partition "Phase 1: System Enumeration" {
+  :System Profiler Scan\n(All installed apps);
+  :Spotlight Search\n(Deep filesystem scan);
+  :Directory Scanning\n(Known app locations);
+  :CLI Tool Detection\n(Command-line utilities);
+}
+
+:Merge and Deduplicate Results;
+
+partition "Phase 2: Configuration Mapping" {
+  while (For each discovered app) is (more apps)
+    :Extract app metadata\n(bundle ID, version, path);
+    :Apply configuration rules\n(built-in patterns);
+    :Search known config locations;
+    :Validate file accessibility;
+    :Detect permission requirements;
+  endwhile (complete)
+}
+
+partition "Phase 3: Storage Classification" {
+  :Categorize by config type\n(prefs, app support, containers);
+  :Calculate storage requirements;
+  :Identify symlink targets;
+  :Generate backup strategies;
+}
+
+partition "Phase 4: Registry Update" {
+  :Create app configuration profiles;
+  :Update ~/.configsync/config.yaml;
+  :Log discovery results;
+  :Generate recommendations;
+}
+
+if (--list flag?) then (yes)
+  :Display Comprehensive Table\nwith paths and status;
+  stop
+elseif (--auto-add flag?) then (yes)
+  :Automatically Add All Discovered;
+  :Create Symlink Structure;
+  :Initialize Backups;
+  stop
+elseif (--filter specified?) then (yes)
+  :Apply Advanced Filtering\n(name, type, status);
+  :Show Filtered Results;
+  stop
+else (default)
+  :Show Discovery Summary\nwith statistics;
+  stop
+endif
+
+@enduml
+```
+
+### Intelligent Storage & Symlink Management
+
+ConfigSync's storage system goes beyond simple file copying by implementing intelligent symlink management that maintains live connections between applications and their centralized configurations:
+
+#### Symlink Strategy by Configuration Type
+
+```plantuml
+@startuml Storage and Symlink Strategy
+!theme plain
+
+package "Original Locations" as ORIG {
+  [~/Library/Preferences/\ncom.app.plist] as PREF_ORIG
+  [~/Library/Application Support/\nAppName/] as APPS_ORIG
+  [~/Library/Containers/\ncom.app.bundle/] as CONT_ORIG
+  [~/.config/appname/] as XDG_ORIG
+}
+
+package "ConfigSync Central Store" as STORE {
+  [~/.configsync/store/Library/Preferences/\ncom.app.plist] as PREF_STORE
+  [~/.configsync/store/Library/Application Support/\nAppName/] as APPS_STORE
+  [~/.configsync/store/Containers/\ncom.app.bundle/] as CONT_STORE
+  [~/.configsync/store/.config/\nappname/] as XDG_STORE
+}
+
+package "Backup System" as BACKUP {
+  [~/.configsync/backups/\n2024-09-19-14-30-45/] as BACKUP_DIR
+  [checksums.yaml] as CHECKSUMS
+}
+
+PREF_ORIG -.-> PREF_STORE : symlink
+APPS_ORIG -.-> APPS_STORE : symlink
+CONT_ORIG -.-> CONT_STORE : symlink
+XDG_ORIG -.-> XDG_STORE : symlink
+
+PREF_STORE --> BACKUP_DIR : backup copy
+APPS_STORE --> BACKUP_DIR : backup copy
+CONT_STORE --> BACKUP_DIR : backup copy
+XDG_STORE --> BACKUP_DIR : backup copy
+
+BACKUP_DIR --> CHECKSUMS : validation
+
+note right of PREF_ORIG
+  Applications read/write
+  to original locations
+  transparently
+end note
+
+note left of STORE
+  Central store maintains
+  actual configuration files
+  with version control ready
+end note
+
+note bottom of BACKUP
+  Timestamped backups with
+  integrity verification
+  before any changes
+end note
+
+@enduml
+```
+
+#### Dynamic Configuration Rules Engine
+
+ConfigSync uses a sophisticated rules engine to determine how different types of applications should be handled:
+
+```yaml path=null start=null
+# Example from ConfigSync's internal rules
+applications:
+  "Visual Studio Code":
+    bundle_id: "com.microsoft.VSCode"
+    config_paths:
+      - path: "~/Library/Preferences/com.microsoft.VSCode.plist"
+        type: "preferences"
+        critical: true
+      - path: "~/Library/Application Support/Code/User/settings.json"
+        type: "user_settings"
+        critical: true
+      - path: "~/Library/Application Support/Code/User/keybindings.json"
+        type: "keybindings"
+        critical: false
+    backup_strategy: "full"
+    symlink_mode: "file_level"
+```
+
+#### Adaptive Configuration Detection
+
+ConfigSync adapts to different application architectures and storage patterns:
+
+1. **Legacy Applications** (Pre-sandboxing)
+   - Direct preference files in `~/Library/Preferences/`
+   - Application support in `~/Library/Application Support/`
+   - Simple bundle ID-based detection
+
+2. **Sandboxed Applications** (Modern macOS apps)
+   - Isolated containers in `~/Library/Containers/`
+   - Group containers for shared data
+   - Complex permission handling
+
+3. **Cross-Platform Applications**
+   - XDG-compliant configurations in `~/.config/`
+   - Dotfiles in home directory
+   - Multi-platform compatibility considerations
+
+4. **Command-Line Tools**
+   - Configuration files in `~/.config/toolname/`
+   - Dotfiles like `.gitconfig`, `.zshrc`
+   - Tool-specific discovery patterns
+
+### Supported Applications with Dynamic Discovery
+
+ConfigSync's built-in application database includes detailed configuration patterns for popular applications, but it can also dynamically adapt to unknown applications:
+
+**Development Tools:**
+
+- **Visual Studio Code** (settings.json, keybindings.json, extensions, snippets)
+- **Sublime Text** (user packages, settings, key bindings)
+- **iTerm2** (terminal preferences, profiles, color schemes)
+- **Git** (global configuration, SSH keys, Git hooks)
+- **Xcode** (preferences, templates, code snippets)
+
+**Browsers:**
+
+- **Google Chrome** (preferences, bookmarks, extensions data)
+- **Firefox** (profiles, preferences, user.js customizations)
+- **Safari** (preferences, reading list, extensions)
+
+**Productivity Apps:**
+
+- **1Password** (both v7 and v8, including browser integration)
+- **Alfred** (workflows, preferences, clipboard history)
+- **Rectangle/Magnet** (window management rules and shortcuts)
+- **Slack/Discord** (workspace settings, notification preferences)
+- **Notion** (workspace data and preferences)
+
+**System Utilities:**
+
+- **Finder** (view preferences, sidebar settings)
+- **Dock** (position, size, hidden apps)
+- **Bartender** (menu bar organization)
+- **CleanMyMac X** (scan preferences and settings)
+
+### Real-Time Configuration Tracking
+
+ConfigSync doesn't just manage static configurations—it provides real-time tracking and monitoring of configuration changes across all managed applications:
+
+#### Configuration Registry Deep Dive
+
+The `~/.configsync/config.yaml` file serves as the central registry, containing detailed metadata about each managed application:
+
+```yaml path=null start=null
+# ConfigSync Configuration Registry Example
+version: "1.0"
+last_updated: "2024-09-19T14:30:45Z"
+system_info:
+  hostname: "MacBook-Pro"
+  os_version: "14.6.1"
+  configsync_version: "1.2.0"
+
+applications:
+  vscode:
+    display_name: "Visual Studio Code"
+    bundle_id: "com.microsoft.VSCode"
+    version: "1.84.2"
+    install_path: "/Applications/Visual Studio Code.app"
+    status: "active"
+    last_synced: "2024-09-19T14:25:30Z"
+    configurations:
+      - path: "~/Library/Preferences/com.microsoft.VSCode.plist"
+        type: "preferences"
+        size_bytes: 2048
+        checksum_sha256: "a1b2c3d4e5f6..."
+        symlink_status: "active"
+        backup_count: 5
+      - path: "~/Library/Application Support/Code/User/settings.json"
+        type: "user_settings"
+        size_bytes: 15672
+        checksum_sha256: "f6e5d4c3b2a1..."
+        symlink_status: "active"
+        last_modified: "2024-09-19T12:45:15Z"
+
+  git:
+    display_name: "Git"
+    type: "cli_tool"
+    version: "2.42.0"
+    status: "active"
+    configurations:
+      - path: "~/.gitconfig"
+        type: "global_config"
+        symlink_status: "active"
+        contains_secrets: false
+      - path: "~/.ssh/config"
+        type: "ssh_config"
+        symlink_status: "active"
+        contains_secrets: true
+        backup_encryption: true
+```
+
+#### Intelligent Change Detection
+
+ConfigSync monitors configuration changes through multiple mechanisms:
+
+```plantuml
+@startuml Configuration Change Detection
+!theme plain
+
+start
+
+:Application modifies config file;
+
+partition "Detection Methods" {
+  if (File system events?) then (detected)
+    :macOS FSEvents notification;
+  elseif (Periodic checksum scan?) then (changed)
+    :SHA256 hash comparison;
+  elseif (Manual sync trigger?) then (requested)
+    :User runs configsync sync;
+  endif
+}
+
+:Calculate file differences;
+
+if (Significant changes?) then (yes)
+  partition "Backup Process" {
+    :Create timestamped backup;
+    :Generate checksums;
+    :Update backup registry;
+  }
+
+  partition "Sync Process" {
+    :Update central store;
+    :Refresh symlinks if needed;
+    :Update configuration registry;
+  }
+
+  :Log change details;
+  :Notify user if requested;
+else (no)
+  :Skip unnecessary operations;
+endif
+
+stop
+
+@enduml
+```
+
+## Configuration Sync Process
+
+The synchronization process is the heart of ConfigSync, ensuring that all managed applications maintain consistent configurations through safe symlink management:
+
+```plantuml
+@startuml Sync Process Flow
+!theme plain
+
+start
+
+:User runs **configsync sync**;
+
+if (Config file exists?) then (no)
+  :❌ Error: Run 'configsync init' first;
+  stop
+else (yes)
+  :📋 Load configuration registry;
+endif
+
+:🔍 Get enabled apps from config;
+
+while (More apps to process?) is (yes)
+  :📂 Check application paths;
+
+  if (Required path missing?) then (yes)
+    :⚠️ Warn: Required path missing;
+  else (no)
+    if (Backup enabled?) then (yes)
+      :📦 Create timestamped backup;
+      if (Backup successful?) then (no)
+        :❌ Log backup failure;
+      else (yes)
+        :🔒 Generate checksums;
+        :🔗 Create/update symlink;
+        if (Symlink successful?) then (yes)
+          :📝 Update config status;
+          :📊 Log success metrics;
+        else (no)
+          :❌ Log symlink failure;
+        endif
+      endif
+    else (no)
+      :🔗 Create/update symlink;
+      :📝 Update config status;
+    endif
+  endif
+endwhile (no)
+
+:📈 Generate sync summary;
+:🗂️ Update operation logs;
+
+stop
+
+@enduml
+```
+
+## Deployment Workflow
+
+ConfigSync's deployment system enables seamless configuration migration between Mac systems through secure bundle creation and validation:
+
+```plantuml
+@startuml Deployment Sequence
+!theme plain
+
+participant "Source Mac" as SRC
+participant "Config Bundle" as BUNDLE
+participant "Target Mac" as TGT
+participant "Applications" as APPS
+
+== Export Phase ==
+SRC -> SRC: **configsync export**
+activate SRC
+
+SRC -> SRC: 🔍 Validate configurations
+SRC -> SRC: 📊 Calculate checksums
+SRC -> SRC: 📦 Package store/ directory
+SRC -> SRC: 📝 Include metadata
+SRC -> SRC: 🗜️ Create export staging
+
+SRC -> BUNDLE: Create .tar.gz bundle
+deactivate SRC
+
+note over BUNDLE
+  Secure bundle with:
+  • Configuration files
+  • Checksum validation
+  • Metadata for integrity
+end note
+
+== Transfer ==
+BUNDLE --> TGT: 🔐 Secure file transfer
+
+== Import & Deploy Phase ==
+TGT -> TGT: **configsync init**
+activate TGT
+
+TGT -> TGT: 🏗️ Create directory structure
+TGT -> TGT: 📁 Initialize logs/ temp/ backups/
+
+TGT -> TGT: **configsync import bundle.tar.gz**
+TGT -> BUNDLE: 📥 Extract to staging area
+TGT -> TGT: ✅ Validate bundle integrity
+TGT -> TGT: 🔍 Check for conflicts
+
+alt Conflicts Detected
+  TGT -> TGT: ⚠️ Report conflicts
+  note right: User can resolve or use --force
+else No Conflicts
+  TGT -> TGT: 📂 Copy to central store
+  TGT -> TGT: 📋 Update config registry
+end
+
+TGT -> TGT: **configsync deploy**
+TGT -> TGT: 🔍 Verify app installations
+TGT -> TGT: 💾 Create safety backups
+TGT -> TGT: 🔐 Generate backup checksums
+TGT -> APPS: 🔗 Create validated symlinks
+TGT -> TGT: 📝 Update sync status
+TGT -> TGT: 🧹 Clean staging area
+
+deactivate TGT
+
+note over TGT
+  Safe deployment with:
+  • Automatic backups
+  • Symlink validation
+  • Rollback capability
+  • Complete logging
+end note
+
+@enduml
+```
+
+## Command Architecture
+
+ConfigSync provides a comprehensive CLI interface organized into logical command groups:
+
+```plantuml
+@startuml Command Structure
+!theme plain
+
+package "Core Commands" {
+  [init] --> [Initialize ConfigSync]
+  [add <app>] --> [Add application to management]
+  [remove <app>] --> [Remove from management]
+  [sync] --> [Sync all configurations]
+  [status] --> [Show detailed status]
+}
+
+package "Discovery Commands" {
+  [discover] --> [Auto-discover applications]
+  [discover --list] --> [Tabular app listing]
+  [discover --auto-add] --> [Bulk addition]
+  [discover --filter] --> [Selective discovery]
+}
+
+package "Backup & Restore" {
+  [backup] --> [Create configuration backups]
+  [backup --validate] --> [Verify backup integrity]
+  [backup --keep-days] --> [Cleanup old backups]
+  [restore <app>] --> [Restore from backup]
+  [restore --all] --> [Restore all applications]
+}
+
+package "Deployment Commands" {
+  [export] --> [Create deployment bundle]
+  [export --apps] --> [Selective app export]
+  [import <bundle>] --> [Import configuration bundle]
+  [deploy] --> [Deploy to current system]
+  [deploy --force] --> [Force override conflicts]
+}
+
+package "Utility Commands" {
+  [completion bash] --> [Bash shell completion]
+  [completion zsh] --> [Zsh shell completion]
+  [completion fish] --> [Fish shell completion]
+  [help] --> [Command documentation]
+}
+
+@enduml
+```
+
+## Quality Assurance & Testing
+
+ConfigSync maintains enterprise-grade reliability through comprehensive testing and quality assurance measures:
+
+### Test Coverage Metrics
+
+- **75%+ Overall Coverage**: Extensive test suites across all core modules
+- **Integration Tests**: Full workflow testing including CLI commands
+- **Unit Tests**: Individual component testing with mocked dependencies
+- **Benchmark Tests**: Performance testing for critical operations
+- **Cross-platform Testing**: Verified on Intel and Apple Silicon Macs
+
+### Quality Assurance Features
+
+```plantuml
+@startuml Quality Assurance Flow
+!theme plain
+
+package "Testing Framework" {
+  [Unit Tests] as UT
+  [Integration Tests] as IT
+  [Benchmark Tests] as BT
+  [Coverage Analysis] as CA
+}
+
+package "Core Modules" {
+  [Backup System\n75.3% coverage] as BS
+  [Config Manager\n74.7% coverage] as CM
+  [Symlink Manager\n78.1% coverage] as SM
+  [App Detector\n72.9% coverage] as AD
+}
+
+package "Quality Gates" {
+  [Checksum Validation] as CV
+  [Symlink Integrity] as SI
+  [Conflict Detection] as CD
+  [Operation Logging] as OL
+}
+
+UT --> BS
+UT --> CM
+UT --> SM
+UT --> AD
+
+IT --> CV
+IT --> SI
+IT --> CD
+IT --> OL
+
+BT --> SM
+BT --> BS
+
+CA --> UT
+CA --> IT
+CA --> BT
+
+note right of CA
+  Automated coverage reporting
+  maintains 75%+ threshold
+  across all core components
+end note
+
+@enduml
+```
+
+## Installation & Getting Started
+
+ConfigSync offers multiple installation methods to suit different preferences and workflows:
+
+### Homebrew Installation (Recommended)
+
+```bash path=null start=null
+# Add the DotBrains tap and install
+brew install dotbrains/tap/configsync
+
+# Verify installation
+configsync --version
+```
+
+### Quick Start Workflow
+
+```bash path=null start=null
+# Initialize ConfigSync
+configsync init
+
+# Auto-discover and add applications
+configsync discover --auto-add
+
+# Check what's being managed
+configsync status
+
+# Sync all configurations
+configsync sync
+
+# Create a backup
+configsync backup
+
+# Export for deployment to another Mac
+configsync export --output my-configs.tar.gz
+```
+
+## Advanced Features
+
+### Shell Completion
+
+ConfigSync provides intelligent shell completion for all major shells:
+
+```bash path=null start=null
+# Bash completion
+configsync completion bash > /usr/local/etc/bash_completion.d/configsync
+
+# Zsh completion (oh-my-zsh)
+mkdir -p ~/.oh-my-zsh/completions
+configsync completion zsh > ~/.oh-my-zsh/completions/_configsync
+
+# Fish completion
+configsync completion fish > ~/.config/fish/completions/configsync.fish
+```
+
+### Selective Operations
+
+ConfigSync supports fine-grained control over which applications and configurations are managed:
+
+```bash path=null start=null
+# Export only specific applications
+configsync export --apps "vscode,git,iterm2"
+
+# Backup with validation and cleanup
+configsync backup --validate --keep-days 30
+
+# Sync with dry-run preview
+configsync sync --dry-run
+
+# Force deployment overriding conflicts
+configsync deploy --force
+```
+
+## Use Cases
+
+ConfigSync excels in several key scenarios:
+
+### Development Team Standardization
+
+Ensure consistent development environments across team members by sharing configuration bundles that include standardized editor settings, Git configurations, and development tool preferences.
+
+### Machine Migration
+
+Seamlessly transfer your entire configuration setup when upgrading to a new Mac or setting up additional development machines.
+
+### Backup & Recovery
+
+Maintain versioned backups of all your application configurations with checksum validation, providing confidence that your settings are always recoverable.
+
+### Environment Experimentation
+
+Safely experiment with new application configurations knowing that you can always roll back to previous working states through the comprehensive backup and restore system.
+
+## Conclusion
+
+ConfigSync transforms macOS configuration management from a manual, error-prone process into an automated, reliable system. By combining intelligent discovery, safe symlink management, comprehensive backup systems, and seamless deployment workflows, it provides everything needed to maintain consistent development environments across multiple Mac systems.
+
+Whether you're managing configurations for yourself, your development team, or deploying to new systems, ConfigSync offers the reliability, safety, and automation needed to focus on what matters most: your work, not your configuration management.
+
+Ready to simplify your macOS configuration management? Get started with ConfigSync today by visiting the [GitHub repository](https://github.com/dotbrains/configsync) and following the installation guide.
