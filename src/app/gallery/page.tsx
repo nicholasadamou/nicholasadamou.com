@@ -14,7 +14,7 @@ export default function GalleryPage() {
   return (
     <motion.div
       {...({
-        className: "mx-auto flex max-w-4xl flex-col gap-2",
+        className: "mx-auto flex max-w-4xl flex-col gap-4",
       } as any)}
       initial="hidden"
       animate="visible"
