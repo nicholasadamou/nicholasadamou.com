@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateOGVariants } from "@/lib/utils/themeDetection";
+import { generateSingleOGUrl } from "@/lib/utils/themeDetection";
 
 const title = "Gallery";
 const description =
   "A curated collection of my photography work, showcasing moments and perspectives through the lens.";
 
-// Dynamic OG image variants with theme awareness
+// Single dark theme OG image to avoid duplicate display on social media
 const baseUrl = getBaseUrl();
-const ogVariants = generateOGVariants({
+const ogImageUrl = generateSingleOGUrl({
   title,
   description,
   type: "gallery",
-  image: "https://www.nicholasadamou.com/gallery/arizona-og.jpg",
+  image: "/gallery/arizona-og.jpg",
 });
 
 export const metadata: Metadata = {
@@ -25,16 +25,10 @@ export const metadata: Metadata = {
     url: `${baseUrl}/gallery`,
     images: [
       {
-        url: `${baseUrl}${ogVariants.dark}`,
+        url: `${baseUrl}${ogImageUrl}`,
         width: 1920,
         height: 1080,
-        alt: `${title} - Dark Theme`,
-      },
-      {
-        url: `${baseUrl}${ogVariants.light}`,
-        width: 1920,
-        height: 1080,
-        alt: `${title} - Light Theme`,
+        alt: title,
       },
     ],
   },
@@ -42,6 +36,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: [`${baseUrl}${ogVariants.dark}`, `${baseUrl}${ogVariants.light}`],
+    images: [`${baseUrl}${ogImageUrl}`],
   },
 };

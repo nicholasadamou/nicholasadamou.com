@@ -154,3 +154,16 @@ export function generateOGVariants(baseParams: {
     dark: generateThemeAwareOGUrl(baseParams, "dark"),
   };
 }
+
+/**
+ * Generates a single dark theme OG image URL (preferred for social media)
+ * This avoids the duplicate image issue on social media platforms
+ */
+export function generateSingleOGUrl(baseParams: {
+  title?: string;
+  description?: string;
+  type?: string;
+  image?: string;
+}): string {
+  return generateThemeAwareOGUrl(baseParams, "dark");
+}
