@@ -12,7 +12,7 @@ const ogVariants = generateOGVariants({
   title,
   description,
   type: "gallery",
-  image: "/gallery/arizona.jpg",
+  image: "/gallery/arizona-og.jpg",
 });
 
 export const metadata: Metadata = {
