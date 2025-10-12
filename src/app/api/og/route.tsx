@@ -46,9 +46,17 @@ export async function GET(req: NextRequest) {
     // Construct base URL from request headers for local development
     const host = req.headers.get("host");
     const protocol = req.headers.get("x-forwarded-proto") || "http";
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : `${protocol}://${host}`;
+
+    // Use canonical www domain for production to avoid redirect issues
+    let baseUrl;
+    if (process.env.VERCEL_URL) {
+      // In production, use the canonical www domain to avoid redirects
+      baseUrl = process.env.VERCEL_URL.includes("nicholasadamou.com")
+        ? "https://www.nicholasadamou.com"
+        : `https://${process.env.VERCEL_URL}`;
+    } else {
+      baseUrl = `${protocol}://${host}`;
+    }
 
     // Process parameters (load images, generate header text, etc.)
     const processedParams = await processOGParams(ogParams, baseUrl);
