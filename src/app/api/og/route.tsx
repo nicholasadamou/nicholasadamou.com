@@ -43,18 +43,17 @@ export async function GET(req: NextRequest) {
     // Extract and validate parameters
     const ogParams = extractOGParams(searchParams);
 
-    // Construct base URL from request headers for local development
+    // Construct base URL from request headers
     const host = req.headers.get("host");
     const protocol = req.headers.get("x-forwarded-proto") || "http";
 
-    // Use canonical www domain for production to avoid redirect issues
+    // Use canonical www domain for nicholasadamou.com to avoid redirect issues
     let baseUrl;
-    if (process.env.VERCEL_URL) {
-      // In production, use the canonical www domain to avoid redirects
-      baseUrl = process.env.VERCEL_URL.includes("nicholasadamou.com")
-        ? "https://www.nicholasadamou.com"
-        : `https://${process.env.VERCEL_URL}`;
+    if (host?.includes("nicholasadamou.com")) {
+      // Always use www subdomain for nicholasadamou.com to avoid redirects during image loading
+      baseUrl = "https://www.nicholasadamou.com";
     } else {
+      // For other domains (local dev, preview deployments, etc.)
       baseUrl = `${protocol}://${host}`;
     }
 
