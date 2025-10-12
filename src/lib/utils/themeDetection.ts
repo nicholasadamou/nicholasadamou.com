@@ -167,3 +167,25 @@ export function generateSingleOGUrl(baseParams: {
 }): string {
   return generateThemeAwareOGUrl(baseParams, "dark");
 }
+
+/**
+ * Generates a single dark theme project OG image URL
+ */
+export function generateSingleProjectOGUrl(
+  title: string,
+  description?: string,
+  image?: string
+): string {
+  return generateProjectOGUrl(title, description, image, "dark");
+}
+
+/**
+ * Generates a single dark theme note OG image URL
+ */
+export function generateSingleNoteOGUrl(
+  title: string,
+  description?: string,
+  image?: string
+): string {
+  return generateNoteOGUrl(title, description, image, "dark");
+}

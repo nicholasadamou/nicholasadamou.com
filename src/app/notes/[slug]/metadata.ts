@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getNoteBySlug } from "@/lib/contentlayer-data";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateNoteOGVariants } from "@/lib/utils/themeDetection";
+import { generateSingleNoteOGUrl } from "@/lib/utils/themeDetection";
 
 export async function generateMetadata({
   params,
@@ -25,7 +25,7 @@ export async function generateMetadata({
   } = note;
 
   const baseUrl = getBaseUrl();
-  const ogVariants = generateNoteOGVariants(
+  const ogImageUrl = generateSingleNoteOGUrl(
     title,
     description,
     image || undefined
@@ -41,10 +41,7 @@ export async function generateMetadata({
       type: "article",
       publishedTime,
       url: `${baseUrl}/notes/${slug}`,
-      images: [
-        { url: `${baseUrl}${ogVariants.dark}`, alt: `${title} - Dark Theme` },
-        { url: `${baseUrl}${ogVariants.light}`, alt: `${title} - Light Theme` },
-      ],
+      images: [{ url: `${baseUrl}${ogImageUrl}`, alt: title }],
     },
   };
 }

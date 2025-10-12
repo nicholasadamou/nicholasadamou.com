@@ -15,7 +15,7 @@ import { Footer } from "@/components/common/Footer/Footer";
 import { DynamicOGMetaTags } from "@/components/common/DynamicOGMetaTags";
 
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateHomepageOGVariants } from "@/lib/utils/themeDetection";
+import { generateSingleOGUrl } from "@/lib/utils/themeDetection";
 import {
   StructuredData,
   nicholasAdamouPersonData,
@@ -25,9 +25,10 @@ import {
 const baseUrl = getBaseUrl();
 const description =
   "Software Engineer passionate about making the world better through software.";
-const ogVariants = generateHomepageOGVariants(
-  "Working hard to make the world better through software."
-);
+const ogImageUrl = generateSingleOGUrl({
+  title: "Working hard to make the world better through software.",
+  type: "homepage",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -71,13 +72,7 @@ export const metadata: Metadata = {
     siteName: "Nicholas Adamou",
     images: [
       {
-        url: `${baseUrl}${ogVariants.dark}`,
-        width: 1200,
-        height: 630,
-        alt: "Nicholas Adamou - Full Stack Software Engineer",
-      },
-      {
-        url: `${baseUrl}${ogVariants.light}`,
+        url: `${baseUrl}${ogImageUrl}`,
         width: 1200,
         height: 630,
         alt: "Nicholas Adamou - Full Stack Software Engineer",
@@ -92,7 +87,7 @@ export const metadata: Metadata = {
     creator: "@nicholasadamou",
     images: [
       {
-        url: `${baseUrl}${ogVariants.dark}`,
+        url: `${baseUrl}${ogImageUrl}`,
         alt: "Nicholas Adamou - Full Stack Software Engineer",
       },
     ],
@@ -126,8 +121,8 @@ export default function RootLayout({
       <body className="width-full text-primary relative flex min-h-screen flex-col antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <DynamicOGMetaTags
-            lightOGImage={ogVariants.light}
-            darkOGImage={ogVariants.dark}
+            lightOGImage={`${baseUrl}${ogImageUrl}`}
+            darkOGImage={`${baseUrl}${ogImageUrl}`}
           />
           <Navigation />
           <main className="mx-auto w-full flex-1 px-4 pt-28">{children}</main>
