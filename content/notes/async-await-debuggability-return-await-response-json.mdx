@@ -1,0 +1,116 @@
+---
+title: "The Hidden Debugging Benefit of 'return await' in Async Functions"
+summary: "When working with async functions, using 'return await response.json()' instead of 'return response.json()' provides significantly better stack traces, making debugging much easier."
+date: "2025-10-26"
+image_url: "https://unsplash.com/photos/JsTmUnHdVYQ"
+---
+
+When writing async functions in JavaScript, you might have encountered the subtle choice between these two patterns:
+
+```javascript path=null start=null
+// Option 1: Return the promise directly
+async function fetchData() {
+  const response = await fetch("/api/data");
+  return response.json();
+}
+
+// Option 2: Await before returning
+async function fetchData() {
+  const response = await fetch("/api/data");
+  return await response.json();
+}
+```
+
+At first glance, these two approaches appear functionally equivalent—both return a promise that resolves to the parsed JSON. However, there's a critical difference that becomes apparent when errors occur: **debuggability**.
+
+## The Stack Trace Problem
+
+When you use `return response.json()` without `await`, the async function immediately returns the promise from `response.json()`. This means your function exits the call stack before the promise resolves or rejects.
+
+If an error occurs during JSON parsing (e.g., invalid JSON, network error), the stack trace will **not include your function**. You'll see an error that appears to originate from the promise itself, making it harder to trace back to where it was called in your code.
+
+### Example: Poor Stack Trace
+
+```javascript path=null start=null
+async function fetchUser() {
+  const response = await fetch("/api/user");
+  return response.json(); // Function exits the stack immediately
+}
+
+fetchUser().catch(console.error);
+```
+
+**Error output:**
+
+```text path=null start=null
+SyntaxError: Unexpected token < in JSON at position 0
+    at Response.json()
+    at <anonymous>
+```
+
+Notice how `fetchUser` is missing from the stack trace. This makes it difficult to determine which fetch call failed, especially in larger codebases with multiple API calls.
+
+## The Solution: Use `return await`
+
+By using `return await response.json()`, the async function stays in the call stack until the promise resolves or rejects. This provides a much clearer stack trace when errors occur.
+
+### Example: Better Stack Trace
+
+```javascript path=null start=null
+async function fetchUser() {
+  const response = await fetch("/api/user");
+  return await response.json(); // Function remains in stack
+}
+
+fetchUser().catch(console.error);
+```
+
+**Error output:**
+
+```text path=null start=null
+SyntaxError: Unexpected token < in JSON at position 0
+    at Response.json()
+    at fetchUser (app.js:3:28)
+    at <anonymous>
+```
+
+Now `fetchUser` appears in the stack trace, making it immediately clear where the error originated.
+
+## When Does This Matter Most?
+
+This pattern is especially valuable when:
+
+- **Multiple async operations** are chained together
+- **Error handling** needs to pinpoint the exact location of failures
+- **Production debugging** requires clear error logs
+- **Large codebases** have many similar async functions
+
+## The Performance Trade-off
+
+You might wonder: does `return await` have a performance cost?
+
+In modern JavaScript engines (V8, SpiderMonkey), the performance difference is negligible. The improved debuggability far outweighs any minimal overhead, especially considering that most async operations involve I/O which dwarfs any micro-optimizations.
+
+## Best Practices
+
+1. **Use `return await` in async functions** when you want better error traces
+2. **Enable ESLint rule `no-return-await`** only if your team prefers minimal stack traces (not recommended)
+3. **Consider `return await` mandatory** in try-catch blocks where you're handling errors locally
+
+```javascript path=null start=null
+async function fetchUserWithErrorHandling() {
+  try {
+    const response = await fetch("/api/user");
+    return await response.json(); // Critical for catching errors in this try block
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw error;
+  }
+}
+```
+
+## Conclusion
+
+While `return response.json()` and `return await response.json()` are functionally equivalent in happy-path scenarios, the latter provides significantly better debugging capabilities. The stack traces produced when using `await` make it far easier to identify where errors occur in your code, saving valuable time during development and production debugging.
+
+Next time you write an async function, remember: **await for debuggability**.
