@@ -13,6 +13,6 @@
       "ENABLE_GIT_SUBMODULES": "true"
     }
   },
-  "installCommand": "pnpm install --filter=!./tools/**",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm run build"
 }
