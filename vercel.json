@@ -13,5 +13,6 @@
       "ENABLE_GIT_SUBMODULES": "true"
     }
   },
+  "installCommand": "pnpm install --filter=!./tools/**",
   "buildCommand": "pnpm run build"
 }
