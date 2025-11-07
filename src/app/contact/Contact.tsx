@@ -131,7 +131,7 @@ export default function Contact() {
                 ease: EASING.easeOut,
               }}
             >
-              Let&apos;s talk about your project
+              {"Let's talk about your project"}
             </motion.h1>
             <motion.p
               className="text-secondary mt-5"
@@ -378,7 +378,7 @@ export default function Contact() {
                       : "initial"
                   }
                 >
-                  {loading ? "Sending..." : "Let&apos;s talk"}
+                  {loading ? "Sending..." : "Let's talk"}
                 </motion.button>
               </motion.div>
 
