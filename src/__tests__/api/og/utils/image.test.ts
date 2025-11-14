@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { isValidImagePath } from "@/app/api/og/utils/image";
+import { isValidImagePath, fetchImageAsBase64 } from "@/app/api/og/utils/image";
 import * as unsplashUtils from "@/app/api/og/utils/unsplash";
 import * as fs from "fs";
 
@@ -173,6 +173,81 @@ describe("Image Utility Functions", () => {
           "https://example.com/" + "path/".repeat(100) + "image.png";
         expect(isValidImagePath(longUrl)).toBe(true);
       });
+    });
+  });
+
+  describe("fetchImageAsBase64", () => {
+    beforeEach(() => {
+      // Mock global fetch
+      global.fetch = vi.fn();
+    });
+
+    it("should convert image to base64 data URL", async () => {
+      const mockImageData = new Uint8Array([137, 80, 78, 71]); // PNG header
+      const mockResponse = {
+        ok: true,
+        arrayBuffer: async () => mockImageData.buffer,
+        headers: new Map([["content-type", "image/png"]]),
+      };
+
+      vi.mocked(global.fetch).mockResolvedValue(mockResponse as any);
+
+      const result = await fetchImageAsBase64(
+        "https://example.com/image.png",
+        false
+      );
+
+      expect(result).toBeDefined();
+      expect(result).toMatch(/^data:image\/png;base64,/);
+    });
+
+    it("should handle fetch failures gracefully", async () => {
+      const mockResponse = {
+        ok: false,
+        status: 404,
+        statusText: "Not Found",
+      };
+
+      vi.mocked(global.fetch).mockResolvedValue(mockResponse as any);
+
+      const result = await fetchImageAsBase64(
+        "https://example.com/missing.jpg",
+        false
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it("should handle network errors", async () => {
+      vi.mocked(global.fetch).mockRejectedValue(new Error("Network error"));
+
+      const result = await fetchImageAsBase64(
+        "https://example.com/image.jpg",
+        false
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it("should infer content-type from URL if not in headers", async () => {
+      const mockImageData = new Uint8Array([255, 216, 255, 224]); // JPEG header
+      const mockResponse = {
+        ok: true,
+        arrayBuffer: async () => mockImageData.buffer,
+        headers: {
+          get: () => null, // No content-type header
+        },
+      };
+
+      vi.mocked(global.fetch).mockResolvedValue(mockResponse as any);
+
+      const result = await fetchImageAsBase64(
+        "https://example.com/image.jpg",
+        false
+      );
+
+      expect(result).toBeDefined();
+      expect(result).toMatch(/^data:image\/jpeg;base64,/);
     });
   });
 });

@@ -4,6 +4,7 @@
  */
 
 import { isUnsplashPhotoUrl, resolveUnsplashImage } from "./unsplash";
+import { logProcessingStep } from "./logger";
 
 /**
  * Validates if a string is a valid image path or URL
@@ -69,4 +70,57 @@ export const isValidImagePath = (imagePath?: string): boolean => {
   // Check for valid local path with image extension
   const validExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
   return validExtensions.some((ext) => imagePath.toLowerCase().endsWith(ext));
+};
+
+/**
+ * Fetches an image and converts it to a base64 data URL
+ * This prevents timeouts when Satori tries to fetch external images
+ * @param imageUrl - Image URL to fetch (absolute URL)
+ * @param isLocal - Whether the image is local (starts with /)
+ * @returns Base64 data URL or null if fetch fails
+ */
+export const fetchImageAsBase64 = async (
+  imageUrl: string,
+  isLocal: boolean = false
+): Promise<string | null> => {
+  try {
+    logProcessingStep("Fetching image for base64 conversion", {
+      imageUrl,
+      isLocal,
+    });
+
+    // For local images, we need to fetch from the same origin
+    const response = await fetch(imageUrl, {
+      // Add a reasonable timeout
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) {
+      console.error(
+        `Failed to fetch image: ${response.status} ${response.statusText}`
+      );
+      return null;
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Determine content type from response headers or URL
+    const contentType =
+      response.headers.get("content-type") ||
+      (imageUrl.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg");
+
+    const base64 = buffer.toString("base64");
+    const dataUrl = `data:${contentType};base64,${base64}`;
+
+    logProcessingStep("Image converted to base64", {
+      size: buffer.length,
+      contentType,
+    });
+
+    return dataUrl;
+  } catch (error) {
+    console.error("Error fetching image as base64:", error);
+    return null;
+  }
 };

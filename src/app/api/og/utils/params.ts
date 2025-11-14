@@ -1,6 +1,6 @@
 import { DEFAULTS, HEADER_TEXT } from "../constants";
 import { OGParams, OGType, OGTheme, ProcessedOGParams } from "../types";
-import { isValidImagePath } from "./image";
+import { isValidImagePath, fetchImageAsBase64 } from "./image";
 import { isUnsplashPhotoUrl, resolveUnsplashImage } from "./unsplash";
 import { logImageLoadSuccess, logProcessingStep } from "./logger";
 
@@ -76,7 +76,7 @@ export const processOGParams = async (
 
   logProcessingStep("Using base URL", resolvedBaseUrl);
 
-  // Process image if provided - convert to absolute URL for Satori compatibility
+  // Process image if provided - convert to base64 to prevent Satori timeouts
   let processedImage: string | undefined;
   if (imageToProcess && isValidImagePath(imageToProcess)) {
     logProcessingStep("Processing image", imageToProcess);
@@ -85,19 +85,46 @@ export const processOGParams = async (
     if (isUnsplashPhotoUrl(imageToProcess)) {
       const resolvedImage = resolveUnsplashImage(imageToProcess);
       if (resolvedImage) {
-        // Convert to absolute URL for Satori compatibility
-        processedImage = resolvedImage.startsWith("http")
-          ? resolvedImage // Already an absolute URL
-          : `${resolvedBaseUrl}${resolvedImage}`; // Convert local path to absolute URL
-        logImageLoadSuccess(imageToProcess);
+        // Convert to absolute URL
+        const absoluteUrl = resolvedImage.startsWith("http")
+          ? resolvedImage
+          : `${resolvedBaseUrl}${resolvedImage}`;
+
+        // Convert to base64 to prevent Satori fetch timeouts
+        const base64Image = await fetchImageAsBase64(
+          absoluteUrl,
+          !resolvedImage.startsWith("http")
+        );
+
+        if (base64Image) {
+          processedImage = base64Image;
+          logImageLoadSuccess(imageToProcess);
+        }
+        if (processedImage) {
+          logImageLoadSuccess(imageToProcess);
+        }
       }
     } else {
       // Handle regular image URLs and local paths
-      processedImage = imageToProcess.startsWith("http")
-        ? imageToProcess // Already an absolute URL
-        : `${resolvedBaseUrl}${imageToProcess}`; // Convert local path to absolute URL
-      logProcessingStep("Final processed image URL", processedImage);
-      logImageLoadSuccess(imageToProcess);
+      const absoluteUrl = imageToProcess.startsWith("http")
+        ? imageToProcess
+        : `${resolvedBaseUrl}${imageToProcess}`;
+
+      logProcessingStep("Final processed image URL", absoluteUrl);
+
+      // Convert to base64 to prevent Satori fetch timeouts
+      const base64Image = await fetchImageAsBase64(
+        absoluteUrl,
+        !imageToProcess.startsWith("http")
+      );
+
+      if (base64Image) {
+        processedImage = base64Image;
+        logImageLoadSuccess(imageToProcess);
+      }
+      if (processedImage) {
+        logImageLoadSuccess(imageToProcess);
+      }
     }
   }
 

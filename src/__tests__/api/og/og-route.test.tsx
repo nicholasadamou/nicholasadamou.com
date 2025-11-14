@@ -73,7 +73,13 @@ const MockedImageResponse = vi.mocked(ImageResponse);
 describe("OG Route - Image Rendering Tests", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    global.fetch = vi.fn();
+    // Mock fetch for base64 image conversion
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      arrayBuffer: async () =>
+        new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]).buffer,
+      headers: new Headers({ "content-type": "image/jpeg" }),
+    });
     process.cwd = vi.fn().mockReturnValue("/mock/project/root");
 
     // Create fresh console spies for each test
