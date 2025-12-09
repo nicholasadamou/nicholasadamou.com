@@ -76,7 +76,10 @@ export default function PrivacyPolicy() {
             <p className="mt-2">
               If you have any questions or suggestions about my privacy policy,
               do not hesitate to{" "}
-              <a className="text-react-link font-medium" href="/contact">
+              <a
+                className="text-react-link font-medium underline"
+                href="/contact"
+              >
                 contact me.
               </a>
             </p>
