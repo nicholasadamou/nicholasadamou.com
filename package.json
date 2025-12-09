@@ -72,7 +72,7 @@
     "katex": "^0.16.23",
     "linkify-it": "^5.0.0",
     "lucide-react": "^0.456.0",
-    "next": "^15.5.4",
+    "next": "^15.5.7",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.2.1",
     "react": "^19.2.0",
@@ -145,6 +145,7 @@
     "overrides": {
       "esbuild@<=0.24.2": ">=0.25.0",
       "estree-util-value-to-estree@<3.3.3": ">=3.3.3",
+      "glob@>=10.2.0 <10.5.0": ">=10.5.0",
       "happy-dom": ">=20.0.0",
       "prismjs": ">=1.30.0",
       "vite": ">=7.1.11"
