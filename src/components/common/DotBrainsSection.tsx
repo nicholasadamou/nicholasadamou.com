@@ -85,7 +85,7 @@ const featuredProjects: FeaturedItem[] = [
           "A framework for setting up diverse development environments.",
       },
     ],
-    url: "https://github.com/dotbrains/set-me-up-docs",
+    url: "https://dotbrains.github.io/set-me-up-docs",
   },
   {
     name: "Guardrails",
@@ -205,7 +205,7 @@ const featuredProjects: FeaturedItem[] = [
           "Comprehensive test suites with unit, integration, and benchmark tests ensuring reliability across Intel and Apple Silicon Macs.",
       },
     ],
-    url: "https://github.com/dotbrains/configsync",
+    url: "https://dotbrains.github.io/configsync",
   },
 ];
 
