@@ -145,7 +145,7 @@ function ScrollToTopButton() {
 export function Footer(): React.ReactElement {
   return (
     <motion.footer initial="hidden" animate="visible" variants={footerVariants}>
-      <div className="mx-auto max-w-4xl px-8 py-4 md:px-4">
+      <div className="mx-auto max-w-4xl px-4 py-4 md:px-0">
         {/* Main Footer Content */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:gap-6">
           {/* Left Section - Copyright */}
