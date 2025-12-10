@@ -143,7 +143,7 @@ export default function Navigation() {
     >
       <div className="mx-auto flex max-w-4xl justify-between pl-0">
         <nav className="flex gap-3 py-3">
-          <Link href="/" variant="ghost" className="text-primary shrink-0">
+          <Link href="/" variant="ghost" className="text-primary shrink-0 pl-0">
             <svg
               width="27"
               height="27"
