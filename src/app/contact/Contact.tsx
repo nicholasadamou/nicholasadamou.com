@@ -109,7 +109,7 @@ export default function Contact() {
     >
       <Toaster />
       <motion.div className="mx-auto">
-        <motion.div className="relative isolate mx-auto w-full overflow-hidden pb-16 pt-8">
+        <motion.div className="relative isolate mx-auto w-full pb-16">
           {/* Header Section */}
           <motion.div
             variants={slideUpVariants}
@@ -167,7 +167,7 @@ export default function Contact() {
               animate="visible"
             >
               <motion.div
-                className="grid grid-cols-1 gap-x-8 gap-y-6 px-2 sm:grid-cols-2"
+                className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
