@@ -154,7 +154,7 @@ export default function OGPreviewPage() {
   });
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="mx-auto mb-12 max-w-4xl">
       <div className="mb-8">
         <h1 className="text-primary mb-4 text-3xl font-bold">
           🎨 Open Graph Image Preview
