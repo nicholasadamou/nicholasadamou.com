@@ -182,6 +182,18 @@ export default function CommandPalette({
       },
       // Social Links
       {
+        id: "social-resume",
+        type: "social",
+        title: "Resume",
+        subtitle: "View my resume",
+        icon: <ExternalLink className="h-5 w-5" />,
+        action: () => {
+          window.open("https://nicholas-adamou-cv.vercel.app", "_blank");
+          onClose();
+        },
+        keywords: ["resume", "cv", "curriculum vitae", "experience"],
+      },
+      {
         id: "social-linkedin",
         type: "social",
         title: "LinkedIn",
