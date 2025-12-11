@@ -11,8 +11,9 @@ import TabThemeChanger from "@/components/common/TabThemeChanger";
 import { Link } from "@/components/ui/link";
 import { Sheet } from "@/components/ui/sheet";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { FileText } from "lucide-react";
+import { FileText, Search } from "lucide-react";
 import Image from "next/image";
+import CommandPalette from "@/components/common/CommandPalette";
 
 const links = [
   { label: "About", href: "/about" },
@@ -27,6 +28,7 @@ export default function Navigation() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   const socialLinks = [
     {
@@ -144,6 +146,19 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", handleScrollThrottled);
   }, []);
 
+  // Handle Cmd+K / Ctrl+K keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   if (!mounted) {
     return null;
   }
@@ -193,6 +208,19 @@ export default function Navigation() {
             </ul>
           </nav>
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsCommandPaletteOpen(true)}
+              className="text-secondary hover:text-primary group flex cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="h-4 w-4" />
+              <span className="text-tertiary hidden text-xs md:inline-block">
+                Search
+              </span>
+              <kbd className="bg-secondary text-tertiary ml-1 hidden rounded px-1.5 py-0.5 text-xs font-semibold md:inline-block">
+                ⌘K
+              </kbd>
+            </button>
             <div className="hidden md:flex">
               <TabThemeChanger />
             </div>
@@ -228,6 +256,24 @@ export default function Navigation() {
         }
       >
         <nav className="flex flex-col gap-6">
+          {/* Search Button */}
+          <button
+            onClick={() => {
+              setIsSheetOpen(false);
+              setIsCommandPaletteOpen(true);
+            }}
+            className="text-secondary hover:text-primary hover:bg-tertiary flex items-center gap-3 rounded-lg px-4 py-2 text-sm no-underline transition-colors"
+          >
+            <Search className="h-4 w-4" />
+            <span className="flex-1 text-left">Search</span>
+            <kbd className="bg-secondary text-tertiary rounded px-1.5 py-0.5 text-xs font-semibold">
+              ⌘K
+            </kbd>
+          </button>
+
+          {/* Divider */}
+          <div className="border-secondary border-t" />
+
           {/* Navigation links */}
           <div className="flex flex-col gap-2">
             {links.map((link) => (
@@ -337,6 +383,12 @@ export default function Navigation() {
           </div>
         </nav>
       </Sheet>
+
+      {/* Command Palette */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+      />
     </>
   );
 }
