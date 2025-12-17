@@ -3,7 +3,7 @@ import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import Link from "@/components/common/Link";
 
 interface SectionHeaderProps {
-  id: string;
+  id?: string;
   title: string | React.ReactNode;
   href?: string;
   icon?: React.ReactNode;

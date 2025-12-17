@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Calendar } from "lucide-react";
 import Avatar from "@/components/common/Avatar";
 import Link from "@/components/common/Link";
 import {
@@ -176,7 +177,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
           </motion.div>
 
           <motion.div
-            className="md:text-md text-secondary mt-1 flex flex-row flex-wrap justify-center gap-1 text-sm"
+            className="md:text-md text-secondary mt-1 flex flex-row flex-wrap items-center gap-2 text-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
@@ -185,8 +186,8 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
               ease: EASING.easeOut,
             }}
           >
-            <motion.time
-              dateTime={dateString}
+            <motion.div
+              className="flex items-center gap-1.5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{
@@ -195,8 +196,9 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
                 ease: EASING.easeOut,
               }}
             >
-              {dateString}
-            </motion.time>
+              <Calendar size={14} />
+              <time dateTime={dateString}>{dateString}</time>
+            </motion.div>
             {additionalInfo.extraInfo}
           </motion.div>
         </motion.div>

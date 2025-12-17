@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { Note, Project } from "@/lib/contentlayer-data";
+import { Calendar, Clock, Eye } from "lucide-react";
 
 import { ContentHeader } from "@/components/common/ContentHeader";
 import { RelatedContentList } from "@/components/common/RelatedContentList";
@@ -148,7 +149,7 @@ export default function ContentPage({
               ),
               extraInfo: (
                 <motion.div
-                  className="inline-flex items-center"
+                  className="inline-flex items-center gap-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{
@@ -157,13 +158,14 @@ export default function ContentPage({
                     ease: EASING.easeOut,
                   }}
                 >
-                  <span className="mx-0.5">·</span>
-                  <span>{readingStats.text}</span>
+                  <div className="flex items-center gap-1.5">
+                    <Clock size={14} />
+                    <span>{readingStats.text}</span>
+                  </div>
                   {type === "note" && (
-                    <>
-                      <span className="mx-0.5">·</span>
+                    <div className="flex items-center gap-1.5">
                       <Views slug={content.slug} />
-                    </>
+                    </div>
                   )}
                 </motion.div>
               ),
