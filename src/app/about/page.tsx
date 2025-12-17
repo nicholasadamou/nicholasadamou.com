@@ -76,7 +76,7 @@ export default function About() {
       </div>
 
       <div
-        className="animate-in flex flex-col gap-16 md:gap-24"
+        className="animate-in flex flex-col gap-12"
         style={{ "--index": 3 } as React.CSSProperties}
       >
         <Section heading="About" headingAlignment="left">
@@ -112,6 +112,61 @@ export default function About() {
               user-centered design and am passionate about creating
               well-designed products that are intuitive and easy to use.
             </p>
+
+            <div>
+              <h3 className="mb-4 text-lg font-semibold">
+                What Got Me Into Coding
+              </h3>
+              <p className="mb-4">
+                My journey into programming began at a young age when my dad
+                introduced me to the game{" "}
+                <Link
+                  className="underline"
+                  href="https://en.wikipedia.org/wiki/Asteroids_(video_game)"
+                >
+                  Asteroids
+                </Link>{" "}
+                on{" "}
+                <Link
+                  className="underline"
+                  href="https://en.wikipedia.org/wiki/Windows_98"
+                >
+                  Windows 98
+                </Link>
+                . The simple yet captivating mechanics of navigating a spaceship
+                and dodging asteroids sparked my curiosity about how computers
+                worked and how games were created. This early fascination laid
+                the groundwork for my interest in technology.
+              </p>
+              <p>
+                Fast forward to 2007, when my dad bought me{" "}
+                <Link
+                  className="underline"
+                  href="https://en.wikipedia.org/wiki/Halo_3"
+                >
+                  Halo 3
+                </Link>
+                , my intrigue deepened. The expansive Halo universe captivated
+                me, especially the elusive{" "}
+                <Link
+                  className="underline"
+                  href="https://halo.fandom.com/wiki/MJOLNIR_Powered_Assault_Armor/R_variant"
+                >
+                  Recon armor
+                </Link>
+                . Determined to unlock it, I scoured the web and discovered
+                YouTube tutorials that showed how to modify my service record
+                page on{" "}
+                <Link className="underline" href="https://www.bungie.net">
+                  Bungie.net
+                </Link>
+                . This required using developer tools to tweak some code, much
+                like navigating through the layers of a game. The experience of
+                seeing the code behind the scenes was reminiscent of my early
+                days with Asteroids, as both experiences fueled my desire to
+                understand and create within the digital world.
+              </p>
+            </div>
           </div>
         </Section>
 
