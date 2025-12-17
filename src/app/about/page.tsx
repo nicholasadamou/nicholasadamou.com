@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-16 overflow-hidden md:gap-24 md:overflow-visible">
+    <div className="mx-auto mb-16 flex max-w-4xl flex-col gap-16 overflow-hidden md:gap-24 md:overflow-visible">
       <div>
         <h1 className="animate-in text-primary text-3xl font-black tracking-tight">
           About

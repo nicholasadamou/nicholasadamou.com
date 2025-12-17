@@ -17,9 +17,13 @@ import {
 
 type ProjectProps = {
   project: Project;
+  shouldShowPin?: boolean;
 };
 
-export default function Project({ project }: ProjectProps) {
+export default function Project({
+  project,
+  shouldShowPin = true,
+}: ProjectProps) {
   const { date, slug, title, image, image_url, pinned } = project;
 
   return (
@@ -45,7 +49,11 @@ export default function Project({ project }: ProjectProps) {
                 ease: EASING.easeOut,
               }}
             >
-              <Section heading={formatShortDate(date)} isPinned={pinned}>
+              <Section
+                heading={formatShortDate(date)}
+                isPinned={pinned}
+                showPin={shouldShowPin}
+              >
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

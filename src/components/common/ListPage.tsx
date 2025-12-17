@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import type { Note, Project } from "@/lib/contentlayer-data";
 import SearchBar from "@/app/notes/components/SearchBar";
@@ -9,6 +9,10 @@ import { useSearchAndPagination } from "@/hooks/useSearchAndPagination";
 import { ListHeader } from "@/components/common/ListHeader";
 import { ContentSection } from "@/components/common/ContentSection";
 import { OpenSourceSection } from "@/components/common/OpenSourceSection";
+import PinnedProjectList from "@/components/features/projects/PinnedProjectList";
+import PinnedNotesList from "@/components/features/notes/PinnedNotesList";
+import { SectionHeader } from "@/components/common/SectionHeader";
+import { PinIcon } from "lucide-react";
 import {
   pageVariants,
   containerVariants,
@@ -36,9 +40,29 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
 
   const [repoSearchTerm, setRepoSearchTerm] = useState("");
 
+  // Check if there are any pinned items
+  const hasPinnedItems = useMemo(
+    () => content.some((item) => "pinned" in item && item.pinned),
+    [content]
+  );
+
+  // Check if user is actively searching or filtering
+  const isSearchingOrFiltering = useMemo(() => {
+    if (searchTerm) return true;
+    if (type === "projects") {
+      return (
+        filters.technologies.length > 0 ||
+        filters.pinnedStatus !== "all" ||
+        filters.dateRange !== "all" ||
+        filters.hasDemo !== "all"
+      );
+    }
+    return false;
+  }, [searchTerm, filters, type]);
+
   return (
     <motion.div
-      className="mx-auto flex max-w-4xl flex-col gap-8"
+      className="mx-auto mb-16 flex max-w-4xl flex-col gap-8"
       variants={pageVariants}
       initial="initial"
       animate="enter"
@@ -56,12 +80,36 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
         <ListHeader type={type} />
       </motion.div>
 
+      {hasPinnedItems && !isSearchingOrFiltering && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.15,
+            duration: DURATION.normal,
+            ease: EASING.easeOut,
+          }}
+        >
+          <div className="space-y-6">
+            <SectionHeader
+              title={`Pinned ${type === "projects" ? "Projects" : "Notes"}`}
+              icon={<PinIcon className="text-tertiary h-5 w-5" />}
+            />
+            {type === "projects" ? (
+              <PinnedProjectList projects={content as Project[]} />
+            ) : (
+              <PinnedNotesList notes={content as Note[]} />
+            )}
+          </div>
+        </motion.div>
+      )}
+
       {type === "projects" ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            delay: 0.2,
+            delay: hasPinnedItems && !isSearchingOrFiltering ? 0.25 : 0.2,
             duration: DURATION.normal,
             ease: EASING.easeOut,
           }}
@@ -80,7 +128,7 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            delay: 0.2,
+            delay: hasPinnedItems && !isSearchingOrFiltering ? 0.25 : 0.2,
             duration: DURATION.normal,
             ease: EASING.easeOut,
           }}
@@ -97,7 +145,7 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 0.3,
+          delay: hasPinnedItems && !isSearchingOrFiltering ? 0.35 : 0.3,
           duration: DURATION.slow,
           ease: EASING.easeOut,
         }}
@@ -108,6 +156,7 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           onPageChange={setCurrentPage}
+          noPin={true}
         />
       </motion.div>
 
@@ -116,13 +165,15 @@ const ListPage: React.FC<ListPageProps> = ({ content, type }) => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          transition={{ delay: 0.5 }}
+          transition={{
+            delay: hasPinnedItems && !isSearchingOrFiltering ? 0.55 : 0.5,
+          }}
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 0.6,
+              delay: hasPinnedItems && !isSearchingOrFiltering ? 0.65 : 0.6,
               duration: DURATION.slow,
               ease: EASING.easeOut,
             }}

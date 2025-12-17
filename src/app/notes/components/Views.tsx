@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Eye } from "lucide-react";
 import FlipNumber from "@/components/common/FlipNumber";
 import { useViews } from "../hooks/useViews";
 import { scaleVariants, DURATION, EASING } from "@/lib/animations";
@@ -14,6 +15,7 @@ export default function Views({ slug }: ViewsProps) {
 
   return (
     <motion.span
+      className="flex items-center gap-1.5"
       variants={scaleVariants}
       initial="hidden"
       animate="visible"
@@ -22,6 +24,7 @@ export default function Views({ slug }: ViewsProps) {
         ease: EASING.bouncy,
       }}
     >
+      <Eye size={14} />
       <motion.span
         key={viewCount}
         initial={{ opacity: 0, scale: 0.8 }}

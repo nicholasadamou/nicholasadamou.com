@@ -28,7 +28,7 @@ export default function Home() {
   );
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-12">
+    <div className="mx-auto mb-16 flex max-w-4xl flex-col gap-12">
       <header className="flex flex-col gap-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           <div className="order-2 space-y-6 lg:order-1 lg:col-span-2">

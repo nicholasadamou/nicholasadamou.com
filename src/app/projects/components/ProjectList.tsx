@@ -11,6 +11,7 @@ type ProjectListProps = {
   itemsPerPage?: number;
   onPageChange?: (page: number) => void;
   showPagination?: boolean;
+  noPin?: boolean;
 };
 
 export default function ProjectList({
@@ -19,6 +20,7 @@ export default function ProjectList({
   itemsPerPage = 6,
   onPageChange,
   showPagination = false,
+  noPin = false,
 }: ProjectListProps) {
   return (
     <PaginatedList
@@ -28,7 +30,9 @@ export default function ProjectList({
       onPageChange={onPageChange}
       showPagination={showPagination}
       emptyMessage="No projects found."
-      renderItem={(project) => <Project project={project} />}
+      renderItem={(project) => (
+        <Project project={project} shouldShowPin={!noPin} />
+      )}
       getItemKey={(project) => project.slug}
     />
   );

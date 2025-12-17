@@ -9,6 +9,7 @@ interface ContentSectionProps {
   currentPage?: number;
   itemsPerPage?: number;
   onPageChange?: (page: number) => void;
+  noPin?: boolean;
 }
 
 export const ContentSection: React.FC<ContentSectionProps> = ({
@@ -17,6 +18,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
   currentPage = 1,
   itemsPerPage = 6,
   onPageChange,
+  noPin = false,
 }) => (
   <div className="animate-in" style={{ "--index": 3 } as React.CSSProperties}>
     {type === "notes" ? (
@@ -26,6 +28,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
         itemsPerPage={itemsPerPage}
         onPageChange={onPageChange}
         showPagination={true}
+        noPin={noPin}
       />
     ) : (
       <ProjectList
@@ -34,6 +37,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
         itemsPerPage={itemsPerPage}
         onPageChange={onPageChange}
         showPagination={true}
+        noPin={noPin}
       />
     )}
   </div>

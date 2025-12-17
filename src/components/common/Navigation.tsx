@@ -184,7 +184,7 @@ export default function Navigation() {
             <Link
               href="/"
               variant="ghost"
-              className="text-primary shrink-0 pl-0"
+              className="text-primary shrink-0 pl-0 pr-2"
             >
               <svg
                 width="27"
@@ -199,7 +199,7 @@ export default function Navigation() {
                 />
               </svg>
             </Link>
-            <ul className="hidden items-center gap-4 md:flex">
+            <ul className="hidden items-center gap-2 md:flex">
               {links.map((link) => (
                 <li key={link.href}>
                   <NavLink href={link.href}>{link.label}</NavLink>

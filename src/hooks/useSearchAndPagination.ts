@@ -95,18 +95,9 @@ export function useSearchAndPagination({
     });
   }, [content, type, searchTerm, filters]);
 
-  // Sort content by pinned status first, then by date
+  // Sort content by date only (newest first)
   const sortedContent = useMemo(() => {
     return filteredContent.sort((a, b) => {
-      // First, sort by pinned status (pinned items first)
-      const aPinned = "pinned" in a ? (a.pinned ? 1 : 0) : 0;
-      const bPinned = "pinned" in b ? (b.pinned ? 1 : 0) : 0;
-
-      if (aPinned !== bPinned) {
-        return bPinned - aPinned; // Pinned items first
-      }
-
-      // If both have same pinned status, sort by date (newest first)
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
   }, [filteredContent]);
