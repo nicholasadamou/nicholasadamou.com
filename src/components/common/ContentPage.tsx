@@ -61,7 +61,7 @@ export default function ContentPage({
 }: ContentPageProps): React.ReactElement | null {
   return (
     <motion.div
-      className="mx-auto flex max-w-4xl flex-col gap-12"
+      className="mx-auto mb-12 flex max-w-4xl flex-col gap-12"
       variants={pageVariants}
       initial="initial"
       animate="enter"
