@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, BookDashed } from "lucide-react";
-import { LinkButton } from "@/components/mdx/LinkButton";
+import { LinkButton } from "@/components/mdx/interactive/LinkButton";
 import {
   containerVariants,
   buttonVariants,

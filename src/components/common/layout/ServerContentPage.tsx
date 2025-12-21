@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 import type { Note, Project } from "@/lib/contentlayer-data";
 import ContentPage from "./ContentPage";
-import ServerMDXRenderer from "@/components/mdx/ServerMDXRenderer";
+import ServerMDXRenderer from "@/components/mdx/renderers/ServerMDXRenderer";
 
 type UnifiedContent = (Project | Note) & {
   long_summary?: string;

@@ -7,9 +7,9 @@ import { Calendar, Clock, Eye } from "lucide-react";
 
 import { ContentHeader } from "@/components/common/layout/ContentHeader";
 import { RelatedContentList } from "@/components/common/sections/RelatedContentList";
-import { AnimatedMDXWrapper } from "@/components/mdx/AnimatedMDXWrapper";
+import { AnimatedMDXWrapper } from "@/components/mdx/renderers/AnimatedMDXWrapper";
 import Me from "../../../../public/avatar.jpeg";
-import HeaderImage from "@/components/mdx/HeaderImage";
+import HeaderImage from "@/components/mdx/content/HeaderImage";
 import GitHubLinkSection from "@/components/features/projects/GitHubLinkSection";
 import Views from "@/app/notes/components/Views";
 import { Badge } from "@/components/ui/badge";
