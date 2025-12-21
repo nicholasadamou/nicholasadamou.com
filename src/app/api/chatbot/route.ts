@@ -56,15 +56,19 @@ export async function POST(req: NextRequest) {
       content: message,
     });
 
+    console.log("Thread ID before stream:", threadId);
+
     // Create a streaming response
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          console.log("Thread ID inside stream:", threadId);
           // Start the assistant run with streaming
           const run = await openai.beta.threads.runs.create(threadId, {
             assistant_id: assistantId,
             stream: false, // We'll poll instead to handle timeouts better
           });
+          console.log("Run created:", run.id);
 
           // Poll for completion with shorter intervals
           let runStatus = await openai.beta.threads.runs.retrieve(
