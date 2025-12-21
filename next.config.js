@@ -15,13 +15,15 @@ const withMDX = createMDX({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    mdxRs: false,
-  },
   reactStrictMode: true,
   // swcMinify is enabled by default in Next.js 15
   images: {
     qualities: [20, 75, 85, 90], // Add the quality values used in performance.ts
+    localPatterns: [
+      {
+        pathname: "/images/**",
+      },
+    ],
     remotePatterns: [
       { protocol: "https", hostname: "tailwindui.com" },
       { protocol: "https", hostname: "unsplash.com" },
