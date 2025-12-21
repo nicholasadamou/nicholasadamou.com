@@ -1,22 +1,23 @@
-const withMDX = require("@next/mdx")({
+const createMDX = require("@next/mdx");
+
+const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [
-      require("@akebifiky/remark-simple-plantuml"),
-      require("remark-math"),
-    ],
+    remarkPlugins: [["@akebifiky/remark-simple-plantuml"], ["remark-math"]],
     rehypePlugins: [
-      require("rehype-slug"),
-      [require("rehype-autolink-headings"), { behavior: "wrap" }],
-      require("@mapbox/rehype-prism"),
-      require("rehype-katex"),
+      ["rehype-slug"],
+      ["rehype-autolink-headings", { behavior: "wrap" }],
+      ["@mapbox/rehype-prism"],
+      ["rehype-katex"],
     ],
   },
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {},
+  experimental: {
+    mdxRs: false,
+  },
   reactStrictMode: true,
   // swcMinify is enabled by default in Next.js 15
   images: {
