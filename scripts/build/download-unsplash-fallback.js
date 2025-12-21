@@ -32,7 +32,7 @@ function runPlaywrightUnsplashDownloader() {
   }
 
   const playwrightPath = "tools/playwright-unsplash-downloader";
-  const setupScriptPath = "scripts/setup-playwright-env.js";
+  const setupScriptPath = "scripts/setup/playwright-env.js";
   const mainManifestPath = "public/unsplash-manifest.json";
 
   try {

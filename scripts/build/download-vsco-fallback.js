@@ -33,7 +33,7 @@ function runPlaywrightVscoDownloader() {
   }
 
   const playwrightPath = "tools/playwright-vsco-downloader";
-  const setupScriptPath = "scripts/setup-playwright-env.js";
+  const setupScriptPath = "scripts/setup/playwright-env.js";
   const publicVscoDir = "public/images/vsco/nicholasadamou";
   const publicManifestPath = "public/vsco-manifest.json";
   const vscoUsername = "nicholasadamou";

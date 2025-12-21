@@ -9,9 +9,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pnpm format && node scripts/check-submodules.js && npm-run-all build:cache-images download:images:unsplash download:images:vsco",
+    "prebuild": "pnpm format && node scripts/setup/check-submodules.js && npm-run-all build:cache-images download:images:unsplash download:images:vsco",
     "build": "next build",
-    "build:cache-images": "node scripts/build-cache-images-fallback.js",
+    "build:cache-images": "node scripts/build/cache-images-fallback.js",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -39,11 +39,11 @@
     "test:integration": "node tools/unsplash-node-utilities/src/tests/integration.test.js",
     "verify:unsplash": "node tools/unsplash-node-utilities/src/cli/verify.js",
     "url-to-download": "node tools/unsplash-node-utilities/src/cli/url-to-download.js",
-    "download:images:unsplash": "node scripts/download-images-unsplash-fallback.js",
-    "download:images:vsco": "node scripts/download-images-vsco-fallback.js",
+    "download:images:unsplash": "node scripts/build/download-unsplash-fallback.js",
+    "download:images:vsco": "node scripts/build/download-vsco-fallback.js",
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
-    "prepare-chatbot-data": "node scripts/prepare-chatbot-content.js",
+    "prepare-chatbot-data": "node scripts/content/prepare-chatbot.js",
     "prepare": "husky || true"
   },
   "dependencies": {
