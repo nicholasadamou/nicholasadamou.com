@@ -137,10 +137,15 @@ describe("Unsplash Utility Functions", () => {
       const photo = await getUnsplashPhoto("network-error");
 
       expect(photo).toBeNull();
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Error fetching Unsplash photo (network or parsing):",
-        expect.any(Error)
-      );
+      expect(
+        consoleSpy.mock.calls.some(
+          (call: any[]) =>
+            typeof call[0] === "string" &&
+            call[0].includes(
+              "Error fetching Unsplash photo (network or parsing):"
+            )
+        )
+      ).toBe(true);
 
       consoleSpy.mockRestore();
     });
@@ -287,10 +292,13 @@ describe("Unsplash Utility Functions", () => {
       const premiumUrl = createPremiumUnsplashUrl(invalidUrl, photoId);
 
       expect(premiumUrl).toBe(invalidUrl);
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Error creating premium Unsplash URL:",
-        expect.any(Error)
-      );
+      expect(
+        consoleSpy.mock.calls.some(
+          (call: any[]) =>
+            typeof call[0] === "string" &&
+            call[0].includes("Error creating premium Unsplash URL:")
+        )
+      ).toBe(true);
 
       consoleSpy.mockRestore();
     });

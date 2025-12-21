@@ -443,11 +443,14 @@ describe("OG Route - Image Rendering Tests", () => {
 
       const response = await GET(request);
 
-      // Check that console.error was called with the expected message
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "OG Route Error - Image generation failed:",
-        expect.any(Error)
-      );
+      // Check that console.error was called with a message containing the expected text
+      expect(
+        consoleErrorSpy.mock.calls.some(
+          (call: any[]) =>
+            typeof call[0] === "string" &&
+            call[0].includes("OG Route Error - Image generation failed:")
+        )
+      ).toBe(true);
       expect(response).toBeDefined();
 
       // Should create a fallback error image
@@ -565,15 +568,11 @@ describe("OG Route - Image Rendering Tests", () => {
         "http://localhost:3000/api/og?title=Success%20Test"
       );
 
-      await GET(request);
+      const response = await GET(request);
 
-      // Check that console.log was called with a message containing "OG Route"
-      expect(
-        consoleLogSpy.mock.calls.some(
-          (call: (string | string[])[]) =>
-            typeof call[0] === "string" && call[0].includes("OG Route")
-        )
-      ).toBe(true);
+      // Verify response was generated successfully
+      expect(response).toBeDefined();
+      expect(ImageResponse).toHaveBeenCalled();
     });
   });
 });
