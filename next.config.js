@@ -21,7 +21,7 @@ const nextConfig = {
     qualities: [20, 75, 85, 90], // Add the quality values used in performance.ts
     localPatterns: [
       {
-        pathname: "/images/**",
+        pathname: "/**",
       },
     ],
     remotePatterns: [
