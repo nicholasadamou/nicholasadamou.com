@@ -117,24 +117,64 @@ export function ChatbotWidget() {
         }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to get response");
+      if (!response.ok || !response.body) {
+        throw new Error("Failed to get response");
       }
 
-      if (data.threadId) {
-        setThreadId(data.threadId);
+      // Read the streaming response
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let hasError = false;
+      let errorMessage = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+
+        // Try to parse complete JSON objects from the buffer
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || ""; // Keep the last incomplete line in buffer
+
+        for (const line of lines) {
+          if (line.trim()) {
+            try {
+              const data = JSON.parse(line);
+
+              if (data.error) {
+                hasError = true;
+                errorMessage = data.error;
+                break;
+              }
+
+              if (data.threadId) {
+                setThreadId(data.threadId);
+              }
+
+              if (data.response) {
+                const assistantMessage: Message = {
+                  id: (Date.now() + 1).toString(),
+                  role: "assistant",
+                  content: data.response,
+                  timestamp: new Date(),
+                };
+                setMessages((prev) => [...prev, assistantMessage]);
+              }
+            } catch (parseError) {
+              console.error("Failed to parse response line:", line, parseError);
+            }
+          }
+        }
+
+        if (hasError) break;
       }
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: data.response,
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
+      if (hasError) {
+        throw new Error(errorMessage);
+      }
     } catch (error) {
       console.error("Chat error:", error);
       const errorMessage: Message = {
