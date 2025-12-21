@@ -29,8 +29,8 @@ yarn-error.log*
 .env
 
 # chatbot training data
-chatbot-training-data.txt
-linkedin-training-data.txt
+training-data/chatbot-training-data.txt
+training-data/linkedin-training-data.txt
 
 # vercel
 .vercel

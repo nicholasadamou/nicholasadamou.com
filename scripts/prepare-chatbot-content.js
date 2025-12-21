@@ -7,7 +7,11 @@ const path = require("path");
  * and other relevant site information.
  */
 
-const OUTPUT_FILE = path.join(__dirname, "..", "chatbot-training-data.txt");
+const OUTPUT_FILE = path.join(
+  __dirname,
+  "..",
+  "/training-data/chatbot-training-data.txt"
+);
 const CONTENT_DIR = path.join(__dirname, "..", "content");
 
 // Helper function to recursively find all MDX files

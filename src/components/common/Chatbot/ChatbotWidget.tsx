@@ -28,6 +28,7 @@ export function ChatbotWidget() {
   const [threadId, setThreadId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatWindowRef = useRef<HTMLDivElement>(null);
 
   // Load chat history from session storage
   useEffect(() => {
@@ -89,6 +90,25 @@ export function ChatbotWidget() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  // Click outside to close
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        chatWindowRef.current &&
+        !chatWindowRef.current.contains(e.target as Node) &&
+        !(e.target as HTMLElement).closest('[aria-label="Close chat"]') &&
+        !(e.target as HTMLElement).closest('[aria-label="Open chat"]')
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
   const sendMessage = async (content: string) => {
@@ -254,6 +274,7 @@ export function ChatbotWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={chatWindowRef}
             className="fixed bottom-24 right-6 z-50 w-[600px] max-w-[calc(100vw-3rem)]"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
