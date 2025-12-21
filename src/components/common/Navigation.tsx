@@ -225,7 +225,7 @@ export default function Navigation() {
               onClick={() =>
                 window.dispatchEvent(new Event("open-keyboard-shortcuts"))
               }
-              className="text-secondary hover:text-primary flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
+              className="text-secondary hover:text-primary hidden cursor-pointer items-center justify-center rounded-lg p-2 transition-colors md:flex"
               aria-label="Keyboard shortcuts"
               title="Keyboard shortcuts (?)"
             >

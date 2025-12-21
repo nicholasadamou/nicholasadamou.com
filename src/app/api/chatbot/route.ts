@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const assistantId = process.env.OPENAI_ASSISTANT_ID;
-
 // Simple in-memory cache for thread IDs (in production, use Redis or database)
 const threadCache = new Map<string, string>();
+
+// Lazy-initialize OpenAI client to avoid build-time errors
+function getOpenAIClient() {
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,12 +24,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const assistantId = process.env.OPENAI_ASSISTANT_ID;
+
     if (!assistantId) {
       return NextResponse.json(
         { error: "Assistant not configured" },
         { status: 500 }
       );
     }
+
+    const openai = getOpenAIClient();
 
     // Get or create thread
     let threadId: string;
