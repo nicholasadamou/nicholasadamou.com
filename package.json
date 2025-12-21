@@ -72,7 +72,7 @@
     "katex": "^0.16.23",
     "linkify-it": "^5.0.0",
     "lucide-react": "^0.456.0",
-    "next": "^15.5.7",
+    "next": "^16.1.0",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.2.1",
     "react": "^19.2.0",
