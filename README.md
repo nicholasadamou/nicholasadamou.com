@@ -31,314 +31,62 @@ Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://gi
 - **🖼️ Premium Images**: Support for Unsplash+ premium images with API integration
 - **📸 Photography Gallery**: VSCO integration with infinite scroll and local image caching
 
-## 📋 Table of Contents
+## 📖 Documentation
+
+For comprehensive developer documentation, visit the **[MkDocs Documentation Site](https://nicholasadamou.github.io/nicholasadamou.com/)**.
+
+The documentation includes:
+
+- Complete installation and setup guides
+- Architecture overview and tech stack details
+- Feature documentation (image optimization, MDX, gallery, analytics, chatbot, SEO)
+- API reference for routes, components, and utilities
+- Scripts and build process documentation
+- Contributing guidelines and testing guides
+
+To build and serve the docs locally, see [`docs/README.md`](docs/README.md).
+
+## 📋 Quick Start
 
 - [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Development](#-development)
-- [Database Setup](#-database-setup)
 - [Environment Variables](#-environment-variables)
 - [Deployment](#-deployment)
-- [Content Management](#-content-management)
 - [License](#-license)
 
 ## 🛠️ Tech Stack
 
-### Core Framework
+- **Next.js 15** & **React 19** with App Router
+- **TypeScript** for type safety
+- **Tailwind CSS** & **Radix UI** for styling
+- **Contentlayer** & **MDX** for content management
+- **Vercel Postgres** for analytics
+- **Framer Motion** for animations
 
-- **Next.js 15** - React framework with App Router
-- **React 19** - UI library with concurrent features
-- **TypeScript** - Type-safe JavaScript
-
-### Styling & UI
-
-- **Tailwind CSS** - Utility-first CSS framework
-- **Radix UI** - Accessible component primitives
-- **Framer Motion** - Animation library
-- **Lucide React** - Beautiful icons
-- **next-themes** - Theme management
-
-### Content & Data
-
-- **Contentlayer** - Type-safe content SDK
-- **MDX** - Markdown with React components
-- **Vercel Postgres** - Database for view tracking
-- **Reading Time** - Estimated reading time calculation
-
-### Development & Deployment
-
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **Vercel** - Deployment platform
+For detailed tech stack information, see the [Architecture documentation](https://nicholasadamou.github.io/nicholasadamou.com/architecture/tech-stack/).
 
 ## 📁 Project Structure
 
-This project follows a clean, scalable architecture with organized separation of concerns:
+The project follows a clean, scalable architecture:
 
 ```
-nicholasadamou.com/
-├── 📂 src/                          # Source code root
-│   ├── 📂 app/                      # Next.js App Router
-│   │   ├── 📂 about/                # About page & components
-│   │   │   ├── 📂 components/       # Page-specific components
-│   │   │   ├── 📂 data/            # Static data exports
-│   │   │   └── 📂 types/           # Local type definitions
-│   │   ├── 📂 api/                 # API routes
-│   │   │   ├── 📂 cache/           # Cache management
-│   │   │   ├── 📂 commit/          # Git commit info
-│   │   │   ├── 📂 emails/          # Contact form handler
-│   │   │   ├── 📂 github/          # GitHub API proxy
-│   │   │   ├── 📂 gumroad/         # Gumroad API integration
-│   │   │   ├── 📂 notes/           # Blog post views tracking
-│   │   │   ├── 📂 og/              # Open Graph image generation
-│   │   │   ├── 📂 unsplash/        # Unsplash API integration
-│   │   │   ├── 📂 vsco/            # VSCO API integration
-│   │   │   └── 📂 youtube/         # YouTube API integration
-│   │   ├── 📂 contact/             # Contact page
-│   │   ├── 📂 gallery/             # Photography gallery
-│   │   │   ├── layout.tsx          # Gallery layout
-│   │   │   ├── metadata.ts         # Gallery SEO metadata
-│   │   │   └── page.tsx            # Main gallery page
-│   │   ├── 📂 notes/               # Blog posts
-│   │   │   ├── 📂 components/      # Blog-specific components
-│   │   │   ├── 📂 hooks/           # Blog-specific hooks
-│   │   │   └── 📂 [slug]/          # Dynamic blog post pages
-│   │   ├── 📂 privacy/             # Privacy policy page
-│   │   ├── 📂 projects/            # Projects showcase
-│   │   │   ├── 📂 components/      # Project-specific components
-│   │   │   └── 📂 [slug]/          # Dynamic project pages
-│   │   ├── favicon.ico             # Site favicon
-│   │   ├── layout.tsx              # Root layout
-│   │   ├── not-found.tsx           # 404 page
-│   │   └── page.tsx                # Homepage
-│   │
-│   ├── 📂 __tests__/               # Test files
-│   │   ├── 📂 components/          # Component tests
-│   │   │   ├── 📂 common/          # Common component tests
-│   │   │   └── 📂 ui/              # UI component tests
-│   │   ├── 📂 hooks/               # Hook tests
-│   │   ├── 📂 lib/                 # Library tests
-│   │   │   └── 📂 utils/           # Utility function tests
-│   │   ├── setup.ts                # Test setup configuration
-│   │   └── ...
-│   │
-│   ├── 📂 components/              # Reusable component library
-│   │   ├── 📂 ui/                  # Base UI components (shadcn-style)
-│   │   │   ├── badge.tsx
-│   │   │   ├── button.tsx
-│   │   │   ├── card.tsx
-│   │   │   ├── link.tsx
-│   │   │   ├── skeleton.tsx
-│   │   │   └── tooltip.tsx
-│   │   ├── 📂 common/              # Shared business components
-│   │   │   ├── Avatar.tsx
-│   │   │   ├── CalButton.tsx
-│   │   │   ├── CardItem.tsx
-│   │   │   ├── ContentHeader.tsx
-│   │   │   ├── ContentPage.tsx
-│   │   │   ├── FlipNumber.tsx
-│   │   │   ├── Footer/
-│   │   │   ├── Halo.tsx
-│   │   │   ├── Link.tsx
-│   │   │   ├── ListPage.tsx
-│   │   │   ├── Navigation.tsx
-│   │   │   ├── NavLink.tsx
-│   │   │   ├── Pagination.tsx
-│   │   │   ├── Parallax.tsx
-│   │   │   ├── ProductList.tsx
-│   │   │   ├── RelatedContentList.tsx
-│   │   │   ├── Section.tsx
-│   │   │   ├── SocialLinks.tsx
-│   │   │   ├── SparkleText.tsx
-│   │   │   ├── TabButton.tsx
-│   │   │   ├── TabThemeChanger.tsx
-│   │   │   ├── ThemeProvider.tsx
-│   │   │   ├── ThemeSwitcher.tsx
-│   │   │   └── UniversalImage.tsx
-│   │   ├── 📂 mdx/                 # MDX-specific components
-│   │   │   ├── Alert.tsx
-│   │   │   ├── CustomLink.tsx
-│   │   │   ├── GitHub/
-│   │   │   ├── HeaderImage.tsx
-│   │   │   ├── Image.tsx
-│   │   │   ├── ImageFromContent.tsx
-│   │   │   ├── Latex.tsx
-│   │   │   ├── LinkButton.tsx
-│   │   │   ├── LinkPreview.tsx
-│   │   │   ├── MdxWrapper.tsx
-│   │   │   ├── PlantUML.tsx
-│   │   │   ├── ProjectLink.tsx
-│   │   │   └── YouTube/
-│   │   └── 📂 features/            # Feature-specific components
-│   │       ├── 📂 about/           # About page components
-│   │       ├── 📂 gallery/         # Gallery-related components
-│   │       │   ├── FeaturedGallery.tsx      # Featured photos section
-│   │       │   ├── VscoGallery.tsx          # Main VSCO gallery
-│   │       │   └── VscoGallerySkeleton.tsx  # Loading skeleton
-│   │       ├── 📂 notes/           # Blog-related components
-│   │       └── 📂 projects/        # Project-related components
-│   │
-│   ├── 📂 hooks/                   # Custom React hooks
-│   │   ├── useGumroadProducts.ts   # Gumroad API integration
-│   │   ├── useInfiniteVscoGallery.ts # Infinite scroll VSCO gallery
-│   │   ├── useIntersectionObserver.ts # Intersection observer utility
-│   │   ├── useinterval.js          # Interval hook
-│   │   ├── useismount.js           # Mount detection hook
-│   │   ├── usemounted.ts           # Client-side mounting
-│   │   ├── usemouseposition.js     # Mouse position tracking
-│   │   └── useVscoGallery.ts       # Basic VSCO gallery hook
-│   │
-│   ├── 📂 lib/                     # Utility libraries & config
-│   │   ├── 📂 cache/               # Caching utilities
-│   │   │   └── unsplash-cache.ts   # Unsplash image caching
-│   │   ├── 📂 utils/               # Utility functions
-│   │   │   ├── fetcher.js
-│   │   │   ├── formatShortDate.tsx
-│   │   │   ├── getBaseUrl.ts
-│   │   │   ├── getRelativeCoordinates.ts
-│   │   │   ├── postFormatting.tsx
-│   │   │   ├── unsplash.ts
-│   │   │   ├── utils.ts
-│   │   │   └── vsco-local.ts
-│   │   ├── contentlayer-data.ts    # Contentlayer exports
-│   │   ├── image-fallback.ts       # Image fallback handling
-│   │   └── image-fallback-server.ts # Server-side image fallback
-│   │
-│   ├── 📂 styles/                  # Global styles
-│   │   ├── base.css                # Base styles
-│   │   ├── globals.css             # Main stylesheet
-│   │   ├── prose.css               # Typography styles
-│   │   ├── syntax.css              # Code highlighting
-│   │   └── utilities.css           # Utility classes
-│   │
-│   └── 📂 types/                   # TypeScript definitions
-│       ├── assets.d.ts             # Asset type definitions
-│       ├── canvas-confetti.d.ts    # Canvas confetti types
-│       ├── global.d.ts             # Global type definitions
-│       ├── remark-simple-plantuml.d.ts # PlantUML plugin types
-│       ├── unified.d.ts            # Unified processor types
-│       └── vsco.ts                 # VSCO type definitions
-│
-├── 📂 content/                     # MDX content files
-│   ├── 📂 notes/                   # Blog posts in MDX
-│   └── 📂 projects/                # Project case studies
-│
-├── 📂 public/                      # Static assets
-│   ├── 📂 gallery/                 # Photo gallery images
-│   ├── 📂 images/                  # General images
-│   │   ├── 📂 unsplash/            # Cached Unsplash images
-│   │   │   └── manifest.json       # Unsplash image manifest
-│   │   └── 📂 vsco/                # Cached VSCO images
-│   │       ├── manifest.json       # VSCO image manifest
-│   │       └── 📂 [username]/      # User-specific VSCO images
-│   ├── 📂 logos/                   # Brand logos
-│   ├── 📂 og/                      # Open Graph images
-│   ├── 📂 prism/                   # Prism.js themes
-│   ├── 📂 work/                    # Work experience logos
-│   ├── avatar.jpeg                 # Profile avatar
-│   ├── friendly-avatar.png         # Alternative avatar
-│   ├── nicholas-adamou.jpeg        # Author photo
-│   ├── photopaper.png              # Background texture
-│   ├── robots.txt                  # Search engine directives
-│   ├── rss.xml                     # RSS feed
-│   ├── sitemap.xml                 # Site map
-│   ├── ticketing.woff2             # Custom font
-│   └── unsplash-manifest.json      # Legacy Unsplash manifest
-│
-├── 📂 scripts/                     # Build & utility scripts
-│   ├── build-cache-images-fallback.js    # Image caching fallback
-│   ├── check-submodules.js               # Git submodule checker
-│   ├── download-images-unsplash-fallback.js # Unsplash image fallback
-│   ├── download-images-vsco-fallback.js   # VSCO image fallback
-│   ├── generate-rss.mjs                  # RSS feed generation
-│   ├── generate-sitemap.mjs              # Sitemap generation
-│   ├── README.md                         # Scripts documentation
-│   └── setup-playwright-env.js          # Playwright environment setup
-│
-├── 📂 tools/                       # Development tools
-│   ├── 📂 playwright-unsplash-downloader/ # Unsplash image downloader tool
-│   │   ├── 📂 src/                 # Tool source code
-│   │   │   ├── 📂 auth/            # Authentication modules
-│   │   │   ├── 📂 browser/         # Browser automation
-│   │   │   ├── 📂 cli/             # Command-line interface
-│   │   │   ├── 📂 config/          # Configuration management
-│   │   │   ├── 📂 download/        # Download functionality
-│   │   │   ├── 📂 fs/              # File system utilities
-│   │   │   ├── 📂 manifest/        # Manifest handling
-│   │   │   ├── 📂 stats/           # Statistics tracking
-│   │   │   └── 📂 types/           # Type definitions
-│   │   ├── package.json            # Tool dependencies
-│   │   ├── playwright.config.js    # Playwright configuration
-│   │   ├── README.md               # Tool documentation
-│   │   └── tsconfig.json           # TypeScript config
-│   ├── 📂 playwright-vsco-downloader/ # VSCO image downloader tool
-│   │   ├── 📂 src/                 # Tool source code
-│   │   ├── package.json            # Tool dependencies
-│   │   ├── playwright.config.js    # Playwright configuration
-│   │   ├── README.md               # Tool documentation
-│   │   └── tsconfig.json           # TypeScript config
-│   └── 📂 unsplash-node-utilities/  # Unsplash image utilities
-│       ├── build-cache-images.js    # Image caching for build
-│       ├── cache-unsplash-images.js # Cache Unsplash images
-│       ├── clean-images.js         # Image cleanup utility
-│       ├── download-images.js      # Image download utility
-│       ├── package.json            # Dependencies
-│       ├── README.md               # Utilities documentation
-│       ├── test-fallback.js        # Fallback testing
-│       ├── test-integration.js     # Integration testing
-│       ├── unsplash-lib.js         # Unsplash library functions
-│       ├── unsplash-url-to-download.js # URL conversion utility
-│       └── verify-unsplash-account.js # Account verification
-│
-├── 📂 docs/                        # Project documentation
-│   ├── ACT_SETUP.md                # Local GitHub Actions testing guide
-│   ├── PRE_COMMIT_SETUP.md         # Pre-commit hooks guide
-│   ├── TESTING.md                  # Testing guide
-│   ├── UNSPLASH.md                 # Unsplash integration guide
-│   └── VSCO.md                     # VSCO integration guide
-│
-├── 📂 coverage/                    # Test coverage reports
-│   ├── 📂 app/                     # App coverage
-│   ├── 📂 components/              # Component coverage
-│   ├── 📂 hooks/                   # Hook coverage
-│   ├── 📂 lib/                     # Library coverage
-│   ├── coverage-final.json         # Final coverage report
-│   └── index.html                  # Coverage HTML report
-│
-└── 📞 Configuration Files
-    ├── .actrc.sample               # ACT configuration sample
-    ├── .env.example                # Environment variables template
-    ├── .eslintrc.json              # ESLint configuration
-    ├── .gitignore                  # Git ignore patterns
-    ├── .prettierignore             # Prettier ignore patterns
-    ├── .prettierrc                 # Prettier configuration
-    ├── components.json             # shadcn/ui configuration
-    ├── contentlayer.config.ts      # Content processing
-    ├── CONTRIBUTING.md             # Contribution guidelines
-    ├── LICENSE                     # Project license
-    ├── next.config.js              # Next.js configuration
-    ├── package.json                # Project dependencies
-    ├── pnpm-lock.yaml              # Package lock file
-    ├── pnpm-workspace.yaml         # PNPM workspace configuration
-    ├── postcss.config.js           # PostCSS configuration
-    ├── prettier.config.js          # Prettier config file
-    ├── README.md                   # Project documentation
-    ├── tailwind.config.js          # Tailwind CSS config
-    ├── tsconfig.json               # TypeScript config
-    ├── vercel.json                 # Vercel configuration
-    ├── vitest-env.d.ts             # Vitest environment types
-    └── vitest.config.ts            # Vitest testing config
+src/
+├── app/              # Next.js App Router pages & API routes
+├── components/       # Reusable UI components (ui, common, mdx, features)
+├── hooks/            # Custom React hooks
+├── lib/              # Utilities and configurations
+├── styles/           # Global CSS styles
+└── types/            # TypeScript type definitions
+
+content/              # MDX content (notes & projects)
+public/               # Static assets
+scripts/              # Build and utility scripts
+tools/                # Development tools (Playwright downloaders)
+docs/                 # MkDocs documentation site
 ```
 
-### 🏗️ Architecture Principles
-
-- **📦 Component Organization**: Components are organized by usage pattern (ui → common → features)
-- **🎯 Separation of Concerns**: Clear boundaries between UI, business logic, and data
-- **🔄 Reusability**: Shared components and utilities to reduce duplication
-- **📱 Route Co-location**: Page-specific components live near their routes
-- **🎨 Design System**: Consistent UI components following design system principles
-- **🔧 Developer Experience**: Intuitive file organization and TypeScript support
+For a complete project structure breakdown, see the [Architecture documentation](https://nicholasadamou.github.io/nicholasadamou.com/architecture/structure/).
 
 ## 🚀 Getting Started
 
@@ -379,196 +127,54 @@ nicholasadamou.com/
 
 ## 💻 Development
 
-### Available Scripts
+### Common Commands
 
 ```bash
-# Development
 pnpm dev          # Start development server
 pnpm build        # Build for production
-pnpm start        # Start production server
-pnpm type-check   # TypeScript type checking
-
-# Code Quality
-pnpm lint         # Run ESLint
-pnpm lint:fix     # Fix ESLint issues automatically
-pnpm format       # Format all files with Prettier
-pnpm format:check # Check if files are formatted correctly
-
-# Testing
-pnpm test         # Run tests in watch mode
-pnpm test:run     # Run tests once
-pnpm test:ui      # Run tests with UI interface
-pnpm test:coverage # Run tests with coverage report
-pnpm test:watch   # Run tests in watch mode (explicit)
-
-# Specialized Testing
-pnpm test:unsplash         # Run Unsplash-specific tests
-pnpm test:unsplash:watch   # Run Unsplash tests in watch mode
-pnpm test:unsplash:coverage # Run Unsplash tests with coverage
-
-# Content Generation
-pnpm generate:rss      # Generate RSS feed
-pnpm generate:sitemap  # Generate sitemap
-
-# Image Management
-pnpm download:images        # Download images using utilities
-pnpm download:images:unsplash # Download Unsplash images using Playwright
-pnpm download:images:vsco   # Download VSCO images using Playwright
-pnpm clean:images           # Clean up image files
-pnpm cache:images           # Cache Unsplash images
-pnpm build:cache-images     # Build image cache for production
-
-# Unsplash Utilities
-pnpm verify:unsplash    # Verify Unsplash account
-pnpm test:fallback      # Test fallback functionality
-pnpm test:integration   # Run integration tests
-pnpm url-to-download    # Convert Unsplash URL to download format
-
-# Cache Management
-pnpm cache:stats        # Get cache statistics (requires running server)
-pnpm cache:clear        # Clear cache (requires running server)
-
-# Local GitHub Actions Testing
-pnpm act:list       # List all available workflows
-pnpm act:ci         # Run CI pipeline locally
-pnpm act:test       # Run test workflow locally
-pnpm act:coverage   # Run coverage workflow locally
-pnpm act:shellcheck # Run shellcheck workflow locally
-pnpm act:dryrun     # Preview what would be executed
+pnpm test         # Run tests
+pnpm lint         # Run linter
+pnpm format       # Format code
 ```
 
-### Adding New Content
+### Adding Content
 
-#### Blog Posts
+Create `.mdx` files in `content/notes/` for blog posts or `content/projects/` for projects. See the [MDX Content documentation](https://nicholasadamou.github.io/nicholasadamou.com/features/mdx-content/) for details.
 
-1. Create a new `.mdx` file in `content/notes/`
-2. Add frontmatter with required fields:
-   ```yaml
-   ---
-   title: "Your Post Title"
-   summary: "Brief description"
-   date: "2024-01-01"
-   image_url: "https://unsplash.com/photo/..."
-   ---
-   ```
+For a complete list of available scripts and development workflows, see the [Development guide](https://nicholasadamou.github.io/nicholasadamou.com/getting-started/development/) and [Scripts documentation](https://nicholasadamou.github.io/nicholasadamou.com/scripts/overview/).
 
-#### Projects
+## 🖄️ Database Setup
 
-1. Create a new `.mdx` file in `content/projects/`
-2. Add frontmatter with project details:
-   ```yaml
-   ---
-   title: "Project Name"
-   summary: "Brief description"
-   date: "2024-01-01"
-   url: "https://github.com/username/repo"
-   technologies: ["Next.js", "TypeScript"]
-   image_url: "https://unsplash.com/photo/..."
-   ---
-   ```
-
-## 🗄️ Database Setup
-
-This project uses Vercel Postgres for tracking blog post views. Follow the [Vercel Postgres quickstart guide](https://vercel.com/docs/storage/vercel-postgres/quickstart).
-
-### Required Tables
-
-```sql
--- Track total views per post
-CREATE TABLE IF NOT EXISTS notes_views (
-    slug VARCHAR(255) PRIMARY KEY,
-    count INT DEFAULT 0
-);
-
--- Track individual user views (for unique view counting)
-CREATE TABLE user_views (
-    user_id     VARCHAR(255) NOT NULL,
-    slug        VARCHAR(255) NOT NULL,
-    last_viewed TIMESTAMP    NOT NULL,
-    PRIMARY KEY (user_id, slug)
-);
-```
+This project uses Vercel Postgres for tracking blog post views. See the [Analytics documentation](https://nicholasadamou.github.io/nicholasadamou.com/features/analytics/) for database schema and setup instructions.
 
 ## 🔐 Environment Variables
 
-Copy `.env.example` to `.env.local` and configure:
+Copy `.env.example` to `.env.local` and configure the required variables:
 
-```bash
-# Database (Vercel Postgres)
-POSTGRES_URL="postgres://..."
+- `POSTGRES_URL` - Vercel Postgres database connection
+- `GITHUB_TOKEN` - GitHub API access
+- `GUMROAD_ACCESS_TOKEN` - Gumroad product integration
+- `UNSPLASH_ACCESS_KEY` - Unsplash image API
+- Additional optional variables for VSCO, YouTube, etc.
 
-# Analytics (optional)
-NEXT_PUBLIC_VERCEL_ANALYTICS_ID="..."
+See the [Environment Variables guide](https://nicholasadamou.github.io/nicholasadamou.com/getting-started/environment/) for complete configuration details.
 
-# Email (for contact form)
-FORMCARRY_URL=https://formcarry.com/s/...
-
-# External APIs
-GITHUB_TOKEN="..."
-GUMROAD_ACCESS_TOKEN="..."
-YOUTUBE_API_KEY="..."
-UNSPLASH_ACCESS_KEY="..."
-UNSPLASH_SECRET_KEY="..."
-UNSPLASH_EMAIL="..."
-UNSPLASH_PASSWORD="..."
-
-# VSCO Integration (optional)
-VSCO_EMAIL="..."
-VSCO_PASSWORD="..."
-```
-
-## 🚢 Deployment
-
-### Deploy to Vercel (Recommended)
+## 🚀 Deployment
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnicholasadamou%2Fnicholasadamou.com)
 
-1. Connect your GitHub repository to Vercel
-2. Add your environment variables in Vercel dashboard
-3. Deploy automatically on each push to main branch
+The easiest way to deploy is using Vercel. Connect your GitHub repository and configure environment variables in the dashboard.
 
-### Manual Deployment
+For detailed deployment instructions, see the [Getting Started guide](https://nicholasadamou.github.io/nicholasadamou.com/getting-started/development/).
 
-```bash
-# Build the application
-pnpm build
+## 📚 Contributing
 
-# Start production server
-pnpm start
-```
+Contributions are welcome! Please check out:
 
-## 📚 Content Management
-
-### Writing Blog Posts
-
-- Use MDX for rich content with React components
-- Add custom components in `src/components/mdx/`
-- Include code blocks with syntax highlighting
-- Embed images, videos, and interactive elements
-
-### Managing Projects
-
-- Showcase projects with detailed case studies
-- Include live demos and GitHub links
-- Add technology tags and descriptions
-- Feature images and project galleries
-
-### Testing GitHub Workflows Locally
-
-This project includes comprehensive GitHub Actions workflows for CI/CD. You can test these workflows locally using ACT before pushing changes:
-
-- **Setup Guide**: See [`docs/ACT_SETUP.md`](docs/ACT_SETUP.md) for complete installation and configuration instructions
-- **Quick Start**: Install ACT with `brew install act` and run `pnpm act:ci` to test the full CI pipeline
-- **Available Commands**: Use `pnpm act:list` to see all available workflows and jobs
-
-### Code Style
-
-- Use TypeScript for all new code
-- Follow the existing component patterns
-- **Pre-commit hooks** automatically format and lint code (see [`docs/PRE_COMMIT_SETUP.md`](docs/PRE_COMMIT_SETUP.md))
-- **Test workflows locally** with ACT before pushing (see [`docs/ACT_SETUP.md`](docs/ACT_SETUP.md))
-- Run `pnpm lint` and `pnpm format` manually when needed
-- Use semantic commit messages
+- [Contributing Guidelines](CONTRIBUTING.md) - Code of conduct and contribution process
+- [Testing Guide](https://nicholasadamou.github.io/nicholasadamou.com/contributing/testing/) - How to write and run tests
+- [Code Style Guide](https://nicholasadamou.github.io/nicholasadamou.com/contributing/code-style/) - Coding standards and best practices
+- [ACT Setup](https://nicholasadamou.github.io/nicholasadamou.com/getting-started/act-setup/) - Test GitHub Actions locally
 
 ## 📄 License
 
