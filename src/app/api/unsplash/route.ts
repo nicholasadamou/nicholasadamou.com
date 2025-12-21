@@ -5,6 +5,7 @@ import {
   createPremiumUnsplashUrl,
 } from "@/lib/utils/unsplash";
 import { unsplashCache } from "@/lib/cache/unsplash-cache";
+import { logger } from "@/lib/logger";
 
 // Rate limiting and backoff configuration
 const RATE_LIMIT_CONFIG = {
@@ -74,8 +75,8 @@ function updateRateLimitState(isRateLimited: boolean): void {
     );
     rateLimitState.backoffUntil = Date.now() + backoffDelay;
 
-    console.warn(
-      `🚨 Rate limit hit (consecutive: ${rateLimitState.consecutiveRateLimits}). ` +
+    logger.warn(
+      `Rate limit hit (consecutive: ${rateLimitState.consecutiveRateLimits}). ` +
         `Backing off for ${Math.round(backoffDelay / 1000)}s until ${new Date(rateLimitState.backoffUntil).toISOString()}`
     );
   } else {
@@ -98,15 +99,15 @@ async function getUnsplashPhotoWithBackoff(
   // Check if we're in a backoff period
   if (isInBackoffPeriod()) {
     const waitTime = rateLimitState.backoffUntil - Date.now();
-    console.log(
-      `⏳ In backoff period, waiting ${Math.round(waitTime / 1000)}s before retry for photo ${photoId}`
+    logger.debug(
+      `In backoff period, waiting ${Math.round(waitTime / 1000)}s before retry for photo ${photoId}`
     );
     await sleep(waitTime);
   }
 
   try {
-    console.log(
-      `🌐 Fetching photo from Unsplash API: ${photoId} ` +
+    logger.debug(
+      `Fetching photo from Unsplash API: ${photoId} ` +
         `(attempt ${retryCount + 1}/${RATE_LIMIT_CONFIG.maxRetries + 1})`
     );
 
@@ -132,16 +133,16 @@ async function getUnsplashPhotoWithBackoff(
       // Retry if we haven't exceeded max retries
       if (retryCount < RATE_LIMIT_CONFIG.maxRetries) {
         const retryDelay = calculateBackoffDelay(retryCount);
-        console.log(
-          `🔄 Rate limit detected, retrying in ${Math.round(retryDelay / 1000)}s ` +
+        logger.info(
+          `Rate limit detected, retrying in ${Math.round(retryDelay / 1000)}s ` +
             `(attempt ${retryCount + 2}/${RATE_LIMIT_CONFIG.maxRetries + 1})`
         );
 
         await sleep(retryDelay);
         return getUnsplashPhotoWithBackoff(photoId, retryCount + 1);
       } else {
-        console.error(
-          `❌ Max retries (${RATE_LIMIT_CONFIG.maxRetries}) exceeded for photo ${photoId} due to rate limiting`
+        logger.error(
+          `Max retries (${RATE_LIMIT_CONFIG.maxRetries}) exceeded for photo ${photoId} due to rate limiting`
         );
         throw new Error("Rate limit exceeded - max retries reached");
       }
@@ -194,8 +195,8 @@ async function triggerDownloadTrackingWithBackoff(
 
       if (retryCount < RATE_LIMIT_CONFIG.maxRetries) {
         const retryDelay = calculateBackoffDelay(retryCount);
-        console.log(
-          `🔄 Download tracking rate limited, retrying in ${Math.round(retryDelay / 1000)}s ` +
+        logger.info(
+          `Download tracking rate limited, retrying in ${Math.round(retryDelay / 1000)}s ` +
             `(attempt ${retryCount + 2}/${RATE_LIMIT_CONFIG.maxRetries + 1})`
         );
 
@@ -206,28 +207,28 @@ async function triggerDownloadTrackingWithBackoff(
           retryCount + 1
         );
       } else {
-        console.warn(
-          `⚠️ Download tracking failed after ${RATE_LIMIT_CONFIG.maxRetries} retries for photo: ${photoId}`
+        logger.warn(
+          `Download tracking failed after ${RATE_LIMIT_CONFIG.maxRetries} retries for photo: ${photoId}`
         );
         return; // Don't throw - download tracking failure shouldn't break the main request
       }
     }
 
     if (!response.ok) {
-      console.warn(
-        `⚠️ Download tracking failed with status ${response.status} for photo: ${photoId}`
+      logger.warn(
+        `Download tracking failed with status ${response.status} for photo: ${photoId}`
       );
       return;
     }
 
     // Success - reset rate limit state
     updateRateLimitState(false);
-    console.log(`✅ Download tracking successful for photo: ${photoId}`);
+    logger.debug(`Download tracking successful for photo: ${photoId}`);
   } catch (error) {
     if (error instanceof Error && error.name === "TimeoutError") {
-      console.warn(`⚠️ Download tracking timeout for photo: ${photoId}`);
+      logger.warn(`Download tracking timeout for photo: ${photoId}`);
     } else {
-      console.warn(`⚠️ Download tracking error for photo: ${photoId}`, error);
+      logger.warn(`Download tracking error for photo: ${photoId}`, error);
     }
     // Don't throw - download tracking failure shouldn't break the main request
   }
@@ -239,7 +240,7 @@ export async function GET(request: NextRequest) {
 
   // Check if an API key is configured
   if (!process.env.UNSPLASH_ACCESS_KEY) {
-    console.error("❌ UNSPLASH_ACCESS_KEY environment variable is not set");
+    logger.error("UNSPLASH_ACCESS_KEY environment variable is not set");
     return NextResponse.json(
       { error: "Unsplash API key not configured" },
       { status: 500 }
@@ -260,7 +261,7 @@ export async function GET(request: NextRequest) {
         // Check cache first
         const cachedPhoto = await unsplashCache.get(photoId);
         if (cachedPhoto) {
-          console.log(`🎯 Returning cached photo: ${photoId}`);
+          logger.debug(`Returning cached photo: ${photoId}`);
           return NextResponse.json(cachedPhoto);
         }
 
@@ -273,7 +274,7 @@ export async function GET(request: NextRequest) {
             error instanceof Error &&
             error.message.includes("Rate limit exceeded")
           ) {
-            console.error(`❌ Rate limit exceeded for photo ${photoId}`);
+            logger.warn(`Rate limit exceeded for photo ${photoId}`);
             return NextResponse.json(
               {
                 error: "Rate limit exceeded",
@@ -303,7 +304,7 @@ export async function GET(request: NextRequest) {
         }
 
         if (!photo) {
-          console.error(`❌ Photo not found or API error for ID: ${photoId}`);
+          logger.error(`Photo not found or API error for ID: ${photoId}`);
           return NextResponse.json(
             {
               error: "Photo not found or API error",
@@ -361,7 +362,7 @@ export async function GET(request: NextRequest) {
 
         // Cache the response
         await unsplashCache.set(photoId, responseData);
-        console.log(`💾 Cached photo: ${photoId}`);
+        logger.debug(`Cached photo: ${photoId}`);
 
         return NextResponse.json(responseData, { headers: responseHeaders });
       }
@@ -395,7 +396,7 @@ export async function GET(request: NextRequest) {
         );
     }
   } catch (error) {
-    console.error("Unsplash API error:", error);
+    logger.error("Unsplash API error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

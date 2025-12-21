@@ -1,4 +1,5 @@
 // Performance optimization utilities for Core Web Vitals
+import { logger } from "@/lib/logger";
 
 /**
  * Preload critical resources
@@ -51,11 +52,18 @@ export function lazyLoadImages() {
 export function reportWebVitals() {
   if (typeof window !== "undefined") {
     import("web-vitals").then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
-      onCLS(console.log);
-      onINP(console.log); // onFID is now onINP (Interaction to Next Paint)
-      onFCP(console.log);
-      onLCP(console.log);
-      onTTFB(console.log);
+      // Only log web vitals in development
+      const reportMetric = (metric: any) => {
+        logger.debug(`Web Vital: ${metric.name}`, {
+          value: metric.value,
+          rating: metric.rating,
+        });
+      };
+      onCLS(reportMetric);
+      onINP(reportMetric); // onFID is now onINP (Interaction to Next Paint)
+      onFCP(reportMetric);
+      onLCP(reportMetric);
+      onTTFB(reportMetric);
     });
   }
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { logger } from "@/lib/logger";
 
 type UseViewsProps = {
   slug: string;
@@ -21,10 +22,10 @@ export function useViews({ slug }: UseViewsProps) {
             const data = await response.json();
             setViewCount(data.count);
           } else {
-            console.error("Failed to fetch views");
+            logger.warn("Failed to fetch views");
           }
         } catch (error) {
-          console.error("Error fetching views:", error);
+          logger.warn("Error fetching views:", error);
         }
       };
 
@@ -40,10 +41,10 @@ export function useViews({ slug }: UseViewsProps) {
           if (response.ok) {
             setViewCount((prevCount) => prevCount + 1);
           } else {
-            console.error("Failed to increment views");
+            logger.warn("Failed to increment views");
           }
         } catch (error) {
-          console.error("Error incrementing views:", error);
+          logger.warn("Error incrementing views:", error);
         }
       };
 

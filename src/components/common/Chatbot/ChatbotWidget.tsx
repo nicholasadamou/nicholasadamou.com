@@ -184,7 +184,7 @@ export function ChatbotWidget() {
                 setMessages((prev) => [...prev, assistantMessage]);
               }
             } catch (parseError) {
-              console.error("Failed to parse response line:", line, parseError);
+              // Silently skip malformed lines - parsing errors are expected during streaming
             }
           }
         }
@@ -196,7 +196,7 @@ export function ChatbotWidget() {
         throw new Error(errorMessage);
       }
     } catch (error) {
-      console.error("Chat error:", error);
+      // Show user-friendly error message without logging
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",

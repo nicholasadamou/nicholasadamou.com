@@ -6,6 +6,7 @@ import {
   extractUnsplashPhotoId,
   getOptimizedImageSrc,
 } from "@/lib/image-fallback";
+import { logger } from "@/lib/logger";
 
 type UniversalImageProps = {
   src: string;
@@ -74,15 +75,11 @@ async function getUnsplashManifest(): Promise<UnsplashManifest | null> {
       const response = await fetch("/unsplash-manifest.json");
       if (response.ok) {
         manifestCache = await response.json();
-        console.log(
-          "📄 Loaded Unsplash manifest with",
-          Object.keys(manifestCache?.images || {}).length,
-          "cached images"
-        );
+        // Manifest loaded successfully (silent)
         return manifestCache;
       }
     } catch (error) {
-      console.warn("Could not load Unsplash manifest:", error);
+      logger.warn("Could not load Unsplash manifest:", error);
     }
     return null;
   })();
@@ -120,7 +117,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
       const photoId = extractUnsplashPhotoId(src);
       if (!photoId) {
         // If we can't extract ID, don't render the image
-        console.warn("Could not extract photo ID from Unsplash URL:", src);
+        logger.warn("Could not extract photo ID from Unsplash URL:", src);
         setActualImageSrc(null);
         return;
       }
@@ -135,9 +132,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
           const manifest = await getUnsplashManifest();
           if (manifest && manifest.images[photoId]) {
             const imageData = manifest.images[photoId];
-            console.log(
-              `🎯 Using Unsplash CDN from build manifest: ${photoId}`
-            );
+            // Using cached manifest image (silent)
 
             // Use the optimized URL from the manifest (Unsplash CDN)
             if (imageData.optimized_url) {
@@ -157,9 +152,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
             localImageSrc !== src &&
             localImageSrc.startsWith("/images/unsplash/")
           ) {
-            console.log(
-              `🏠 Using local downloaded image (dev only): ${photoId}`
-            );
+            // Using local image (silent)
             setActualImageSrc(localImageSrc);
             setLoading(false);
             return;
@@ -169,9 +162,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
           const manifest = await getUnsplashManifest();
           if (manifest && manifest.images[photoId]) {
             const imageData = manifest.images[photoId];
-            console.log(
-              `🎯 Using cached image from build manifest: ${photoId}`
-            );
+            // Using cached image (silent)
 
             // Use the optimized URL from the manifest
             if (imageData.optimized_url) {
@@ -185,9 +176,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
         }
 
         // STEP 3: Fall back to runtime API call (both prod and dev)
-        console.log(
-          `🌐 Image not found locally or in manifest, fetching from API: ${photoId}`
-        );
+        // Only log failures, not routine API fallbacks
 
         try {
           const response = await fetch(
@@ -200,9 +189,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
 
           if (response.ok) {
             const data = await response.json();
-            console.log(
-              `✅ Successfully fetched image via API fallback: ${photoId}`
-            );
+            // Successfully fetched (silent)
 
             // Use the optimized URL from the API response
             if (data.optimized_url) {
@@ -210,16 +197,16 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
             } else if (data.urls?.regular) {
               setActualImageSrc(data.urls.regular);
             } else {
-              console.warn(
-                `⚠️ No usable URLs in API response for ${photoId}:`,
+              logger.warn(
+                `No usable URLs in API response for ${photoId}:`,
                 data
               );
               setActualImageSrc(null);
             }
           } else if (response.status === 429) {
             // Handle rate limit specifically - don't retry, just show placeholder
-            console.warn(
-              `🚫 Rate limit encountered for photo ID: ${photoId}. Showing placeholder instead of retrying.`
+            logger.warn(
+              `Rate limit encountered for photo ID: ${photoId}. Showing placeholder instead of retrying.`
             );
             setIsRateLimited(true);
             setActualImageSrc(null);
@@ -228,11 +215,10 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
             const errorText = await response
               .text()
               .catch(() => "Unknown error");
-            console.warn(
-              `❌ API fallback failed for photo ID: ${photoId}`,
-              `Status: ${response.status}`,
-              `Error: ${errorText}`
-            );
+            logger.warn(`API fallback failed for photo ID: ${photoId}`, {
+              status: response.status,
+              error: errorText,
+            });
             setActualImageSrc(null);
           }
         } catch (fetchError) {
@@ -240,10 +226,10 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
             fetchError instanceof Error &&
             fetchError.name === "TimeoutError"
           ) {
-            console.warn(`⏰ API fallback timeout for photo ID: ${photoId}`);
+            logger.warn(`API fallback timeout for photo ID: ${photoId}`);
           } else {
-            console.warn(
-              `❌ API fallback network error for photo ID: ${photoId}:`,
+            logger.warn(
+              `API fallback network error for photo ID: ${photoId}:`,
               fetchError
             );
           }
@@ -251,7 +237,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
         }
       } catch (error) {
         // If error occurs, don't render the image
-        console.error("Error fetching image:", error);
+        logger.error("Error fetching image:", error);
         setActualImageSrc(null);
       } finally {
         setLoading(false);

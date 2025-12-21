@@ -305,7 +305,7 @@ export default function CommandPalette({
         setResults(data.results || []);
         setSelectedIndex(0);
       } catch (error) {
-        console.error("Search error:", error);
+        // Silently fail - search errors shouldn't be logged in production
         setResults([]);
       } finally {
         setIsLoading(false);

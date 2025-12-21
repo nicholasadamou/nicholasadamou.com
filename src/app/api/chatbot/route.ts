@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { logger } from "@/lib/logger";
 
 // Simple in-memory cache for thread IDs (in production, use Redis or database)
 const threadCache = new Map<string, string>();
@@ -56,19 +57,19 @@ export async function POST(req: NextRequest) {
       content: message,
     });
 
-    console.log("Thread ID before stream:", threadId);
+    logger.debug("Thread ID before stream:", { threadId });
 
     // Create a streaming response
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          console.log("Thread ID inside stream:", threadId);
+          logger.debug("Thread ID inside stream:", { threadId });
           // Start the assistant run with streaming
           const run = await openai.beta.threads.runs.create(threadId, {
             assistant_id: assistantId,
             stream: false, // We'll poll instead to handle timeouts better
           });
-          console.log("Run created:", run.id);
+          logger.debug("Run created:", { runId: run.id });
 
           // Poll for completion with shorter intervals
           let runStatus = await openai.beta.threads.runs.retrieve(run.id, {
@@ -169,7 +170,7 @@ export async function POST(req: NextRequest) {
           );
           controller.close();
         } catch (error) {
-          console.error("Stream error:", error);
+          logger.error("Stream error:", error);
           controller.enqueue(
             encoder.encode(
               JSON.stringify({ error: "Internal server error" }) + "\n"
@@ -187,7 +188,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Chatbot API error:", error);
+    logger.error("Chatbot API error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },

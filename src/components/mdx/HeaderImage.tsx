@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import UniversalImage from "@/components/common/UniversalImage";
 import Link from "@/components/common/Link";
 import { extractUnsplashPhotoId, getImageMetadata } from "@/lib/image-fallback";
+import { logger } from "@/lib/logger";
 
 type ImageAttributionProps = {
   imageSrc: string;
@@ -39,7 +40,7 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
         // STEP 1: Try to get author info from local manifest first
         const imageMetadata = await getImageMetadata(imageSrc);
         if (imageMetadata?.isLocal && imageMetadata.author) {
-          console.log(`🏠 Using local author data for ${photoId}`);
+          // Using local author data (silent)
           setUnsplashData({
             image_author: imageMetadata.author,
             image_author_url:
@@ -52,7 +53,7 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
         }
 
         // STEP 2: Fall back to API call for author data
-        console.log(`🌐 Fetching author data from API for ${photoId}`);
+        // Fetching author (silent)
         const response = await fetch(
           `/api/unsplash?action=get-photo&id=${photoId}`,
           {
@@ -72,17 +73,17 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
           }
         } else if (response.status === 429) {
           // Handle rate limit - just don't show attribution
-          console.warn(
-            `🚫 Rate limit encountered while fetching author data for ${photoId}. Skipping attribution.`
+          logger.warn(
+            `Rate limit encountered while fetching author data for ${photoId}. Skipping attribution.`
           );
         }
         // If the lookup fails, we'll just not show attribution
       } catch (error) {
         // Handle timeout and other errors - just don't show attribution
         if (error instanceof Error && error.name === "TimeoutError") {
-          console.warn(`⌚ Timeout fetching author data for ${photoId}`);
+          logger.warn(`Timeout fetching author data for ${photoId}`);
         } else {
-          console.warn("Failed to fetch image metadata:", error);
+          logger.warn("Failed to fetch image metadata:", error);
         }
       } finally {
         setLoading(false);

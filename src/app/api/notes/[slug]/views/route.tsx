@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import { logger } from "@/lib/logger";
 
 type Params = {
   slug: string;
@@ -26,7 +27,7 @@ export async function POST(
 
   // Check if the userIp is localhost and skip incrementing views
   if (userIp === "::1" || userIp === "127.0.0.1") {
-    console.log(
+    logger.debug(
       `Skipping view increment for '${slug}' as requests from localhost are not tracked.`
     );
     return NextResponse.json(
@@ -46,12 +47,12 @@ export async function POST(
   }
 
   if (!slug) {
-    console.log("Slug is required");
+    logger.warn("Slug is required");
     return NextResponse.json({ error: "Slug is required" }, { status: 400 });
   }
 
   if (!process.env.POSTGRES_URL) {
-    console.log(
+    logger.error(
       "Environment variable POSTGRES_URL is not set. Skipping view increment."
     );
     return NextResponse.json(
@@ -83,7 +84,7 @@ export async function POST(
         last_viewed &&
         new Date(currentTime.getTime() - 60000) < new Date(last_viewed)
       ) {
-        console.log("You can only increment the view count once per minute.");
+        logger.debug("You can only increment the view count once per minute.");
         return NextResponse.json(
           { message: "You can only increment the view count once per minute." },
           { status: 429 }
@@ -107,12 +108,12 @@ export async function POST(
       DO UPDATE SET count = notes_views.count + 1;
     `;
 
-    console.log(
+    logger.debug(
       `Successfully incremented ${slug} by 1 view for user ${userId} with IP ${userIp}`
     );
     return response;
   } catch (error) {
-    console.error("Error incrementing views:", error);
+    logger.error("Error incrementing views:", error);
     return NextResponse.json(
       { error: "Failed to increment view count" },
       { status: 500 }
@@ -125,12 +126,12 @@ export async function GET(_: Request, { params }: { params: Promise<Params> }) {
   const { slug } = resolvedParams;
 
   if (!slug) {
-    console.log("Slug is required");
+    logger.warn("Slug is required");
     return NextResponse.json({ error: "Slug is required" }, { status: 400 });
   }
 
   if (!process.env.POSTGRES_URL) {
-    console.log(
+    logger.error(
       "Environment variable POSTGRES_URL is not set. Skipping view count retrieval."
     );
     return NextResponse.json(
@@ -150,10 +151,10 @@ export async function GET(_: Request, { params }: { params: Promise<Params> }) {
 		`;
 
     const count = result.rows[0]?.count || 0;
-    console.log(`Retrieved view count for ${slug}: ${count}`);
+    logger.debug(`Retrieved view count for ${slug}: ${count}`);
     return NextResponse.json({ count });
   } catch (error) {
-    console.error("Error retrieving view count:", error);
+    logger.error("Error retrieving view count:", error);
     return NextResponse.json(
       { error: "Failed to retrieve view count" },
       { status: 500 }

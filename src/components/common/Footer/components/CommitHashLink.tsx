@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { GitCommit } from "lucide-react";
+import { logger } from "@/lib/logger";
 import {
   Tooltip,
   TooltipProvider,
@@ -21,10 +22,10 @@ function CommitHashLink(): React.JSX.Element | null {
           const data = await response.json();
           setCommitHash(data.commitHash);
         } else {
-          console.error("Failed to fetch commit hash");
+          // Silently fail - commit hash is non-critical
         }
       } catch (error) {
-        console.error("Error fetching commit hash:", error);
+        // Silently fail - commit hash is non-critical
       }
     };
 

@@ -7,6 +7,7 @@
  */
 
 import React from "react";
+import { logger } from "@/lib/logger";
 
 // Types for better TypeScript support
 export interface LocalImageManifest {
@@ -66,21 +67,15 @@ async function loadLocalManifest(): Promise<LocalImageManifest | null> {
       const response = await fetch("/images/unsplash/manifest.json");
       if (response.ok) {
         localManifestCache = await response.json();
-        console.log(
-          "🖼️ Loaded local image manifest with",
-          Object.keys(localManifestCache?.images || {}).length,
-          "local images"
-        );
+        // Manifest loaded (silent)
         return localManifestCache;
       } else {
-        console.log(
-          "📄 Local image manifest not available, using fallback system"
-        );
+        // No manifest, using fallback (silent)
         localManifestCache = null; // Signal that manifest failed to load
         return null;
       }
     } catch (error) {
-      console.log("📄 Local image manifest not found, using fallback system");
+      // No manifest found (silent)
       localManifestCache = null; // Signal that manifest failed to load
       return null;
     }

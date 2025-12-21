@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { logger } from "@/lib/logger";
 
 interface DynamicOGMetaTagsProps {
   lightOGImage: string;
@@ -66,7 +67,7 @@ export function DynamicOGMetaTags({
         document.head.appendChild(twitterImageTag);
       }
 
-      console.log(`Updated OG image for ${currentTheme} theme:`, ogImageUrl);
+      // OG image updated (silent)
     };
 
     // Update on mount

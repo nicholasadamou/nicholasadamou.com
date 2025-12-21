@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { VscoApiResponse } from "@/types/vsco";
 import { getLocalVscoImages, hasLocalVscoImages } from "@/lib/utils/vsco-local";
+import { logger } from "@/lib/logger";
 
 const CACHE_DURATION = 3600; // 1 hour in seconds
 
@@ -36,8 +37,8 @@ function getVscoImages(limit?: number, offset?: number): VscoApiResponse {
 
   // Get images from local manifest
   if (hasLocalVscoImages()) {
-    console.log(
-      `📁 Using local VSCO images from manifest (limit: ${limit}, offset: ${offset})`
+    logger.debug(
+      `Using local VSCO images from manifest (limit: ${limit}, offset: ${offset})`
     );
     const localData = getLocalVscoImages(limit, offset);
 
@@ -77,7 +78,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("VSCO API error:", error);
+    logger.error("VSCO API error:", error);
 
     return NextResponse.json(
       {

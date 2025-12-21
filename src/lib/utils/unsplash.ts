@@ -1,6 +1,8 @@
 // Note: We avoid using the unsplash-js client due to occasional parsing issues in some runtimes.
 // We'll use direct fetch calls to the Unsplash API for reliability.
 
+import { logger } from "@/lib/logger";
+
 export interface UnsplashImageData {
   id: string;
   urls: {
@@ -80,7 +82,7 @@ export function createPremiumUnsplashUrl(
 
     return url.toString();
   } catch (error) {
-    console.error("Error creating premium Unsplash URL:", error);
+    // Silently fallback - URL parsing errors shouldn't break image display
     return baseUrl; // Fallback to original URL
   }
 }
@@ -94,7 +96,7 @@ export async function getUnsplashPhoto(
 ): Promise<UnsplashImageData | null> {
   // Check if an API key is configured
   if (!process.env.UNSPLASH_ACCESS_KEY) {
-    console.error("❌ UNSPLASH_ACCESS_KEY environment variable is not set");
+    // Should be logged at startup, not per request
     return null;
   }
 
@@ -131,13 +133,13 @@ export async function getUnsplashPhoto(
         resp.status === 429 ||
         (resp.status === 403 && text.includes("Rate Limit Exceeded"))
       ) {
-        console.warn(
-          `⚠️ Unsplash rate limit exceeded for photo ${photoId} (status: ${resp.status})`
+        logger.warn(
+          `Unsplash rate limit exceeded for photo ${photoId} (status: ${resp.status})`
         );
         // Throw error for rate limits so backoff logic can handle it
         throw new Error(`Rate Limit Exceeded: ${resp.status} - ${text}`);
       } else {
-        console.error(
+        logger.error(
           `Unsplash API error: status=${resp.status} ${resp.statusText} body=${text?.slice(0, 500)}`
         );
       }
@@ -154,9 +156,9 @@ export async function getUnsplashPhoto(
     }
 
     if (error instanceof Error && error.name === "TimeoutError") {
-      console.error(`Timeout fetching Unsplash photo ${photoId}`);
+      logger.error(`Timeout fetching Unsplash photo ${photoId}`);
     } else {
-      console.error(
+      logger.error(
         "Error fetching Unsplash photo (network or parsing):",
         error
       );

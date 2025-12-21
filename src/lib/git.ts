@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { existsSync } from "fs";
 import path from "path";
+import { logger } from "@/lib/logger";
 
 /**
  * Get the last commit date for a specific file from Git
@@ -14,7 +15,7 @@ export function getFileLastModifiedDate(filePath: string): Date {
 
     // Check if file exists
     if (!existsSync(absolutePath)) {
-      console.warn(`File not found: ${absolutePath}`);
+      logger.warn(`File not found: ${absolutePath}`);
       return new Date();
     }
 
@@ -32,7 +33,7 @@ export function getFileLastModifiedDate(filePath: string): Date {
     // Fallback to current date if no git history
     return new Date();
   } catch (error) {
-    console.warn(
+    logger.warn(
       `Failed to get git commit date for ${filePath}:`,
       error instanceof Error ? error.message : error
     );

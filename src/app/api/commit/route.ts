@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
 
 export async function GET() {
   const GITHUB_USERNAME = "nicholasadamou";
@@ -43,7 +44,7 @@ export async function GET() {
     // Return the latest commit hash
     return NextResponse.json({ commitHash }, { status: 200 });
   } catch (error) {
-    console.error("Error fetching data from GitHub:", error);
+    logger.error("Error fetching data from GitHub:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
