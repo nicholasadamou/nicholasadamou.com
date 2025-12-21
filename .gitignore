@@ -30,6 +30,7 @@ yarn-error.log*
 
 # chatbot training data
 chatbot-training-data.txt
+linkedin-training-data.txt
 
 # vercel
 .vercel

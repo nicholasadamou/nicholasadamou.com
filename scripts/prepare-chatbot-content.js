@@ -66,8 +66,17 @@ async function compileContent() {
 
 ## About Nicholas Adamou
 Nicholas Adamou is a Full Stack Software Engineer passionate about making the world better through software.
-He specializes in React, Next.js, TypeScript, Node.js, Cloud Architecture, and DevOps.
+He specializes in React, Next.js, TypeScript, Node.js, Java, Spring Boot, Cloud Architecture, and DevOps.
 His portfolio website showcases his projects, blog posts, and professional experience.
+
+I am a seasoned Senior Software Engineer with a strong academic foundation, holding a Master of Science in Computer Science from Georgia Institute of Technology and a Bachelor of Arts in Computer Science from Cornell College. My career is marked by a commitment to leveraging software engineering to create meaningful impact. I have a proven track record of delivering high-quality software solutions that meet the needs of users and stakeholders. I am a strong advocate for user-centered design and am passionate about creating well-designed products that are intuitive and easy to use.
+
+What Got Me Into Coding
+My journey into programming began at a young age when my dad introduced me to the game Asteroids on Windows 98. The simple yet captivating mechanics of navigating a spaceship and dodging asteroids sparked my curiosity about how computers worked and how games were created. This early fascination laid the groundwork for my interest in technology.
+
+Fast forward to 2007, when my dad bought me Halo 3, my intrigue deepened. The expansive Halo universe captivated me, especially the elusive Recon armor. Determined to unlock it, I scoured the web and discovered YouTube tutorials that showed how to modify my service record page on Bungie.net. This required using developer tools to tweak some code, much like navigating through the layers of a game. The experience of seeing the code behind the scenes was reminiscent of my early days with Asteroids, as both experiences fueled my desire to understand and create within the digital world.
+
+Beyond software engineering, I have a passion for photography and visual storytelling. Through my lens, I capture moments that resonate with me - from landscapes to urban scenes, always seeking to find beauty in the everyday. You can explore my photographic work on VSCO, where I share my perspective on the world around us.
 
 ---
 
@@ -82,8 +91,12 @@ His portfolio website showcases his projects, blog posts, and professional exper
     output += `## BLOG POSTS (${noteFiles.length} posts)\n\n`;
 
     for (const file of noteFiles) {
-      const { title, body } = extractContent(file);
-      output += `### ${title}\n\n${body}\n\n---\n\n`;
+      const { title, frontmatter, body } = extractContent(file);
+      output += `### ${title}\n\n`;
+      if (frontmatter) {
+        output += `**Metadata:**\n${frontmatter}\n\n`;
+      }
+      output += `${body}\n\n---\n\n`;
       console.log(`  ✅ Processed: ${title}`);
     }
   }
@@ -97,8 +110,12 @@ His portfolio website showcases his projects, blog posts, and professional exper
     output += `## PROJECTS (${projectFiles.length} projects)\n\n`;
 
     for (const file of projectFiles) {
-      const { title, body } = extractContent(file);
-      output += `### ${title}\n\n${body}\n\n---\n\n`;
+      const { title, frontmatter, body } = extractContent(file);
+      output += `### ${title}\n\n`;
+      if (frontmatter) {
+        output += `**Metadata:**\n${frontmatter}\n\n`;
+      }
+      output += `${body}\n\n---\n\n`;
       console.log(`  ✅ Processed: ${title}`);
     }
   }

@@ -43,6 +43,7 @@
     "download:images:vsco": "node scripts/download-images-vsco-fallback.js",
     "cache:stats": "curl http://localhost:3000/api/cache?action=stats | jq .",
     "cache:clear": "curl http://localhost:3000/api/cache?action=clear",
+    "prepare-chatbot-data": "node scripts/prepare-chatbot-content.js",
     "prepare": "husky || true"
   },
   "dependencies": {

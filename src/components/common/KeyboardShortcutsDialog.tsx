@@ -26,8 +26,19 @@ export function KeyboardShortcutsDialog() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Just ? key (Shift+/)
-      if (e.shiftKey && e.key === "?" && !e.metaKey && !e.ctrlKey) {
+      // Check if the user is typing in an input or textarea
+      const target = e.target as HTMLElement;
+      const isTyping =
+        target.tagName === "INPUT" || target.tagName === "TEXTAREA";
+
+      // Just ? key (Shift+/) - don't trigger if user is typing
+      if (
+        e.shiftKey &&
+        e.key === "?" &&
+        !e.metaKey &&
+        !e.ctrlKey &&
+        !isTyping
+      ) {
         e.preventDefault();
         setIsOpen(true);
       }
