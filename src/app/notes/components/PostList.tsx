@@ -47,23 +47,26 @@ export default function PostList({
 
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
 
-    const pinnedPosts = posts.filter((post) => post.pinned);
-    const nonPinnedPosts = posts.filter((post) => !post.pinned);
-
-    const filteredPinnedPosts = pinnedPosts.filter(
+    // Filter posts by search term
+    const filteredPosts = posts.filter(
       (post) =>
         post.title.toLowerCase().includes(lowerCaseSearchTerm) ||
         post.body.raw.toLowerCase().includes(lowerCaseSearchTerm)
     );
 
-    const filteredNonPinnedPosts = nonPinnedPosts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(lowerCaseSearchTerm) ||
-        post.body.raw.toLowerCase().includes(lowerCaseSearchTerm)
-    );
+    // If noPin is true, sort all posts by date (including pinned ones)
+    if (noPin) {
+      return filteredPosts.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    }
 
-    return [...filteredPinnedPosts, ...filteredNonPinnedPosts];
-  }, [topNPosts, initialPosts, searchTerm, mostRecentFirst]);
+    // Otherwise, separate pinned and non-pinned posts
+    const pinnedPosts = filteredPosts.filter((post) => post.pinned);
+    const nonPinnedPosts = filteredPosts.filter((post) => !post.pinned);
+
+    return [...pinnedPosts, ...nonPinnedPosts];
+  }, [topNPosts, initialPosts, searchTerm, mostRecentFirst, noPin]);
 
   return (
     <PaginatedList

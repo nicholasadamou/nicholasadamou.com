@@ -1,0 +1,472 @@
+---
+title: "The 80% Problem: Modern JavaScript Dependency Bloat"
+summary: "Explore how 80% of JavaScript on modern websites solves problems that no longer exist, and learn how modern HTML and CSS can replace massive dependency chains with native browser features."
+date: "2025-12-21"
+image_url: "https://unsplash.com/photos/a-computer-screen-with-a-program-running-on-it-3Sx3hSQcQIA"
+---
+
+80% of the JavaScript on modern websites solves problems that don't exist anymore. We've reached a point where the browser has evolved to handle tasks natively that once required heavy libraries, yet we continue importing entire frameworks for trivial features.
+
+## The Browser Already Solved It
+
+Consider these common patterns and their modern, zero-JavaScript alternatives:
+
+### The Dependency Bloat Problem
+
+As web developers, it's easy to reach for third-party packages to solve UI and UX challenges, but many "problems" these libraries address are already natively solved by today's browsers. Every new dependency bloats your application, increases the maintenance burden, and expands the surface area for bugs and vulnerabilities. Let's look at how dependency bloat sneaks in, and why reconsidering our default to "npm install" is so important.
+
+```plantuml
+@startuml
+!theme plain
+
+rectangle "Simple Accordion" as A
+
+rectangle "Traditional Approach" as B #FFE6E6 {
+  rectangle "Import Library\n47KB" as D
+  rectangle "Dependencies\n120KB" as E
+  rectangle "Total: 167KB" as F #FF6B6B
+  rectangle "Parse & Execute" as G
+  rectangle "Battery Drain" as H
+}
+
+rectangle "Modern Approach" as C #E6F7E6 {
+  rectangle "<details> Element" as I
+  rectangle "0KB JavaScript" as J #51CF66
+  rectangle "Native Browser" as K
+  rectangle "Instant" as L
+}
+
+A --> B
+A --> C
+B --> D
+D --> E
+E --> F
+F --> G
+G --> H
+
+C --> I
+I --> J
+J --> K
+K --> L
+
+@enduml
+```
+
+### Accordions
+
+**Before:**
+
+```javascript path=null start=null
+// Import a 47 KB accordion library
+import Accordion from "accordion-library";
+
+const accordion = new Accordion({
+  selector: ".accordion",
+  multipleOpen: false,
+  animationSpeed: 300,
+});
+```
+
+**After:**
+
+```html path=null start=null
+<details>
+  <summary>Click to expand</summary>
+  <p>Content goes here. Zero JavaScript required.</p>
+</details>
+```
+
+The `<details>` and `<summary>` elements have been part of HTML since 2014. No JavaScript, no library, no build pipeline.
+
+### Modals
+
+**Before:**
+
+```javascript path=null start=null
+// Complex modal library with overlay management
+import Modal from "modal-library";
+
+const modal = new Modal({
+  backdrop: true,
+  keyboard: true,
+  focus: true,
+});
+```
+
+**After:**
+
+```html path=null start=null
+<dialog id="modal">
+  <p>Modal content</p>
+  <button onclick="this.closest('dialog').close()">Close</button>
+</dialog>
+
+<script>
+  document.querySelector("#modal").showModal();
+</script>
+```
+
+The native `<dialog>` element handles backdrop, focus trapping, and accessibility automatically.
+
+### Responsive Navigation
+
+**Before:**
+
+```javascript path=null start=null
+// jQuery for a simple toggle
+$(".menu-toggle").on("click", function () {
+  $(".nav-menu").toggleClass("open");
+});
+```
+
+**After:**
+
+```html path=null start=null
+<input type="checkbox" id="nav-toggle" hidden />
+<label for="nav-toggle">Menu</label>
+<nav>
+  <!-- menu items -->
+</nav>
+```
+
+```css path=null start=null
+nav {
+  display: none;
+}
+
+#nav-toggle:checked + label + nav {
+  display: block;
+}
+```
+
+Zero JavaScript. CSS `:has()` and checkbox state handle everything.
+
+## What the Browser Can Do Today
+
+Modern HTML and CSS provide native solutions for problems that once required JavaScript:
+
+```plantuml
+@startuml
+!theme plain
+
+package "2015: Library Era" #FFE6E6 {
+  rectangle "Accordion" as A1
+  rectangle "jQuery Plugin" as B1 #FF6B6B
+
+  rectangle "Modal" as A2
+  rectangle "Bootstrap.js" as B2 #FF6B6B
+
+  rectangle "Form Validation" as A3
+  rectangle "Validator.js" as B3 #FF6B6B
+
+  rectangle "Carousel" as A4
+  rectangle "Slick.js" as B4 #FF6B6B
+
+  rectangle "Lazy Loading" as A5
+  rectangle "LazyLoad.js" as B5 #FF6B6B
+
+  A1 --> B1
+  A2 --> B2
+  A3 --> B3
+  A4 --> B4
+  A5 --> B5
+}
+
+package "2025: Native Era" #E6F7E6 {
+  rectangle "Accordion" as C1
+  rectangle "<details>" as D1 #51CF66
+
+  rectangle "Modal" as C2
+  rectangle "<dialog>" as D2 #51CF66
+
+  rectangle "Form Validation" as C3
+  rectangle "HTML5 Attributes" as D3 #51CF66
+
+  rectangle "Carousel" as C4
+  rectangle "scroll-snap" as D4 #51CF66
+
+  rectangle "Lazy Loading" as C5
+  rectangle "loading=lazy" as D5 #51CF66
+
+  C1 --> D1
+  C2 --> D2
+  C3 --> D3
+  C4 --> D4
+  C5 --> D5
+}
+
+@enduml
+```
+
+### Layout & Responsive Design
+
+- **CSS Grid + Subgrid + Grid Areas**: Reorder elements visually without touching the DOM
+- **Container Queries**: Responsive components based on parent size, not viewport
+- **CSS `aspect-ratio`**: Maintain proportions without JavaScript calculations
+
+### Interactive Elements
+
+- **`<details>` / `<summary>`**: Native accordions and collapsible sections
+- **`<dialog>`**: Modals with built-in accessibility
+- **Form Validation**: Native HTML5 validation attributes (`required`, `pattern`, `min`, `max`)
+
+### Performance Optimizations
+
+- **`loading="lazy"`**: Native lazy loading for images and iframes
+- **`scroll-behavior: smooth`**: Smooth scrolling without libraries
+- **`scroll-snap`**: Carousels and sliders with CSS only
+
+### Dynamic Styling
+
+- **`:has()` selector**: Parent selection and conditional styling
+- **CSS Custom Properties**: Theme switching without JavaScript
+- **`toggleAttribute()`**: One-line state management for UI toggles
+
+## The Real Cost of Over-Engineering
+
+Instead of leveraging these native features, we import:
+
+→ React for a contact form
+→ jQuery for a carousel
+→ A 47 KB accordion library for 3 collapsible sections
+→ 90% of the library's code unused, but bundled anyway
+
+### The Price We Pay
+
+When we reach for third-party libraries to solve every UI or performance challenge, we often overlook the hidden impact—on both the user experience and the planet. Every unnecessary dependency inflates our bundles, slows interactions, drains batteries, and wastes precious device resources. Beyond the direct cost to your users, this bloat ripples outward, scaling inefficiency across millions of page loads. Let’s break down the tangible consequences of over-engineering with JavaScript compared to using the browser’s native capabilities.
+
+```plantuml
+@startuml
+!theme plain
+
+rectangle "JavaScript Bundle Path" #FFE6E6 {
+  rectangle "167KB JavaScript Bundle" as A
+  rectangle "Download 3G: 2.5s" as B
+  rectangle "Parse: 850ms" as C
+  rectangle "Compile: 1.2s" as D
+  rectangle "Execute: 900ms" as E
+  rectangle "Total: 5.45s" as F #FF6B6B
+
+  rectangle "Battery: -12%" as J
+  rectangle "CPU: High" as K
+  rectangle "Memory: 45MB" as L
+}
+
+rectangle "Native HTML/CSS Path" #E6F7E6 {
+  rectangle "0KB Native HTML/CSS" as H
+  rectangle "Instant" as I #51CF66
+
+  rectangle "Battery: -0%" as M
+  rectangle "CPU: Minimal" as N
+  rectangle "Memory: 2MB" as O
+}
+
+rectangle "User Can Interact" as G
+
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+
+H --> I
+I --> G
+
+F --> J
+F --> K
+F --> L
+
+I --> M
+I --> N
+I --> O
+
+@enduml
+```
+
+**Battery Drain**: Every kilobyte of JavaScript must be parsed, compiled, and executed—taxing mobile devices unnecessarily.
+
+**Slower Page Loads**: Large bundles delay Time to Interactive (TTI), frustrating users who just want to read content.
+
+**Dependency Chains**: Each package brings its own dependencies, creating chains you'll never audit for security or compatibility.
+
+**Build Complexity**: Webpack, Babel, and bundlers for problems HTML solved a decade ago.
+
+## The Irony of "Modern" Development
+
+Some developers call CSS state management "hacky" while writing `addEventListener` spaghetti to shuffle DOM nodes on every click. The irony is stark.
+
+**The browser is not a JavaScript runtime that happens to render HTML.** It's a rendering engine with JavaScript as an escape hatch.
+
+We've inverted the relationship. JavaScript should be the last resort, not the first instinct.
+
+## State Management Without Libraries
+
+**Before:**
+
+```javascript path=null start=null
+// Redux for a simple toggle
+const toggleReducer = (state = { open: false }, action) => {
+  switch (action.type) {
+    case "TOGGLE":
+      return { open: !state.open };
+    default:
+      return state;
+  }
+};
+```
+
+**After:**
+
+```javascript path=null start=null
+element.toggleAttribute("data-open");
+```
+
+CSS handles the rest:
+
+```css path=null start=null
+[data-open] {
+  /* open state styles */
+}
+```
+
+One line. No library. No boilerplate.
+
+## Layout Shifts and Grid
+
+Layout thrashing and content shifts are among the most common (and irritating) user experience issues attributed to JavaScript-driven layouts and dynamic DOM manipulation. However, many of these problems are now elegantly solved with native browser features like CSS Grid and Flexbox. By relying on these tools, we can achieve responsive, reorderable layouts without a single line of JavaScript—sidestepping performance pitfalls and complexity altogether.
+
+**Before:**
+
+```javascript path=null start=null
+// JavaScript to reorder elements on resize
+window.addEventListener("resize", () => {
+  const items = Array.from(container.children);
+  // Complex DOM manipulation
+  items.sort(compareFunction);
+  items.forEach((item) => container.appendChild(item));
+});
+```
+
+**After:**
+
+```css path=null start=null
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-areas:
+      "header"
+      "content"
+      "sidebar"
+      "footer";
+  }
+}
+```
+
+Visual reordering without touching the DOM. No JavaScript. No layout thrashing.
+
+## The Node.js Problem
+
+This mindset didn't stay in the browser. Node.js exported the npm dependency culture to servers. Your backend now inherits the same dependency debt—with production databases attached.
+
+Then there's the architecture: Node.js's single-threaded event loop forces you to spawn countless service instances just to handle concurrency. Each instance multiplies your error vectors exponentially. One uncaught exception crashes an entire process.
+
+```plantuml
+@startuml
+!theme plain
+
+package "Node.js: Single-Threaded" #FFE6E6 {
+  database "Database" as DB
+
+  rectangle "Instance 1\n1 Thread\n512MB" as N1
+  rectangle "Instance 2\n1 Thread\n512MB" as N2 #FF6B6B
+  rectangle "Instance 3\n1 Thread\n512MB" as N3
+  rectangle "Instance 4\n1 Thread\n512MB" as N4 #FF6B6B
+  rectangle "Instance N...\n1 Thread\n512MB" as N5
+
+  rectangle "Uncaught Error" as E1 #FFCCCC
+  rectangle "Uncaught Error" as E2 #FFCCCC
+
+  N1 --> DB
+  N2 --> DB
+  N3 --> DB
+  N4 --> DB
+  N5 --> DB
+
+  E1 .down.> N2 : crashes
+  E2 .down.> N4 : crashes
+}
+
+package "Go/Rust/Java: Multi-Threaded" #E6F7E6 {
+  database "Database" as DB2
+
+  rectangle "Single Instance\nN Threads\n512MB" as M #51CF66
+
+  rectangle "Thread 1" as T1
+  rectangle "Thread 2" as T2
+  rectangle "Thread 3" as T3
+  rectangle "Thread 4" as T4
+
+  rectangle "Thread Error" as E3 #CCE5CC
+  rectangle "Thread Error" as E4 #CCE5CC
+
+  T1 --> M
+  T2 --> M
+  T3 --> M
+  T4 --> M
+  M --> DB2
+
+  E3 .down.> T2 : isolated
+  E4 .down.> T3 : isolated
+}
+
+@enduml
+```
+
+Compare that to multi-threaded languages like Go, Rust, or Java, where threads share memory efficiently and a single crash doesn't take down the whole server.
+
+## Before You `npm install`
+
+Before reaching for a package, ask yourself:
+
+1. **Does the browser already solve this?** Check MDN or Can I Use.
+2. **Can I write 10 lines of code instead?** Often, the native solution is simpler than configuring a library.
+3. **What's the total cost?** Count the dependencies, the bundle size, and the maintenance burden.
+
+## The Greenest Code
+
+**The greenest code is the code you didn't ship.**
+
+Every line of JavaScript you don't write is:
+
+- Faster to load
+- Easier to maintain
+- Less likely to break
+- Better for the environment
+
+## Conclusion
+
+Modern web development has an over-reliance on JavaScript for problems the browser solved years ago. Before importing a library, check if HTML or CSS can do it natively. Your users, your bundle size, and your future self will thank you.
+
+The browser isn't a limitation—it's a superpower. Use it.
+
+## External Resources
+
+_Specifications & Documentation_
+
+- [HTML Living Standard](https://html.spec.whatwg.org/): The official specification for modern HTML
+- [MDN Web Docs](https://developer.mozilla.org/): Comprehensive documentation for web technologies
+- [Can I Use](https://caniuse.com/): Browser support tables for modern web features
+
+_Articles & Tools_
+
+- [The Cost of JavaScript](https://v8.dev/blog/cost-of-javascript-2019): V8 team's analysis of JavaScript performance costs
+- [Web Almanac](https://almanac.httparchive.org/): Annual state of the web report
+- [Bundlephobia](https://bundlephobia.com/): Find the cost of adding npm packages to your bundle
