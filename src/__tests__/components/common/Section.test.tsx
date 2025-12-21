@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Section from "@/components/common/Section";
+import Section from "@/components/common/layout/Section";
 
 describe("Section", () => {
   it("should render heading and children correctly", () => {

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
-import FlipNumber from "@/components/common/FlipNumber";
+import FlipNumber from "@/components/common/effects/FlipNumber";
 import { useViews } from "../hooks/useViews";
 import { scaleVariants, DURATION, EASING } from "@/lib/animations";
 

@@ -14,7 +14,7 @@ import { useInfiniteVscoGallery } from "@/hooks/useInfiniteVscoGallery";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { VscoImage } from "@/types/vsco";
 import { Button } from "@/components/ui/button";
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 
 interface LightboxProps {
   images: VscoImage[];

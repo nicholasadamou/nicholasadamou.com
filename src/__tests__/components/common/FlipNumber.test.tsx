@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, act } from "@testing-library/react";
-import FlipNumber from "@/components/common/FlipNumber";
+import FlipNumber from "@/components/common/effects/FlipNumber";
 
 // Note: Some React act warnings are expected for this component due to setTimeout
 // usage in useEffect. These are not test failures but testing environment artifacts.

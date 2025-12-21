@@ -1,9 +1,9 @@
 import type { Project } from "@/lib/contentlayer-data";
-import Link from "@/components/common/Link";
-import Halo from "@/components/common/Halo";
+import Link from "@/components/common/ui/Link";
+import Halo from "@/components/common/effects/Halo";
 import { Badge } from "@/components/ui/badge";
 import GitHubBadge from "@/components/features/projects/GitHubBadge";
-import UniversalImage from "@/components/common/UniversalImage";
+import UniversalImage from "@/components/common/media/UniversalImage";
 
 type ProjectListProps = {
   projects: Project[];

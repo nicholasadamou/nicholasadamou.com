@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import NavLink from "@/components/common/NavLink";
+import NavLink from "@/components/common/ui/NavLink";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
-import TabThemeChanger from "@/components/common/TabThemeChanger";
+import TabThemeChanger from "@/components/common/theme/TabThemeChanger";
 import { Link } from "@/components/ui/link";
 import { Sheet } from "@/components/ui/sheet";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FileText, Search, HelpCircle } from "lucide-react";
 import Image from "next/image";
-import CommandPalette from "@/components/common/CommandPalette";
+import CommandPalette from "@/components/common/dialogs/CommandPalette";
 
 const links = [
   { label: "About", href: "/about" },

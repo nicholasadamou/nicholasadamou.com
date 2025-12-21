@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { usePathname } from "next/navigation";
-import NavLink from "@/components/common/NavLink";
+import NavLink from "@/components/common/ui/NavLink";
 
 // Mock next/navigation
 vi.mock("next/navigation", () => ({

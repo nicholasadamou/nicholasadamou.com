@@ -3,8 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
-import Avatar from "@/components/common/Avatar";
-import Link from "@/components/common/Link";
+import Avatar from "@/components/common/ui/Avatar";
+import Link from "@/components/common/ui/Link";
 import {
   containerVariants,
   itemVariants,

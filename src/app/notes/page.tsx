@@ -1,7 +1,7 @@
 import React from "react";
 import { allNotes } from "@/lib/contentlayer-data";
 
-import ListPage from "@/components/common/ListPage";
+import ListPage from "@/components/common/layout/ListPage";
 
 import { metadata } from "./metadata";
 export { metadata };

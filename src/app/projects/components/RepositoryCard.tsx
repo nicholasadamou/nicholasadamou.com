@@ -2,8 +2,8 @@
 
 import React from "react";
 import { GitFork, Star } from "lucide-react";
-import { Parallax } from "@/components/common/Parallax";
-import { CardItem } from "@/components/common/CardItem";
+import { Parallax } from "@/components/common/effects/Parallax";
+import { CardItem } from "@/components/common/ui/CardItem";
 import { Button } from "@/components/ui/button";
 
 interface Repo {

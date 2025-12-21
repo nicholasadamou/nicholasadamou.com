@@ -2,18 +2,20 @@ import { allNotes, allProjects } from "@/lib/contentlayer-data";
 import Image from "next/image";
 import React from "react";
 
-import { AnimatedSection } from "@/components/common/AnimatedSection";
-import { DotBrainsSection } from "@/components/common/DotBrainsSection";
-import { YouBuildItSection } from "@/components/common/YouBuildItSection";
+import { AnimatedSection } from "@/components/common/effects/AnimatedSection";
+import { DotBrainsSection } from "@/components/common/sections/DotBrainsSection";
+import { YouBuildItSection } from "@/components/common/sections/YouBuildItSection";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 import { getOptimizedImageProps } from "@/lib/performance";
 import PinnedProjectList from "@/components/features/projects/PinnedProjectList";
 import PostList from "./notes/components/PostList";
-import ProductList from "@/components/common/ProductListClient";
-import { SectionHeader } from "@/components/common/SectionHeader";
-import SocialLinks, { socialLinks } from "@/components/common/SocialLinks";
-import SparkleText from "@/components/common/SparkleText";
-import ThemeAwareGumroadLogo from "@/components/common/ThemeAwareGumroadLogo";
+import ProductList from "@/components/common/sections/ProductListClient";
+import { SectionHeader } from "@/components/common/layout/SectionHeader";
+import SocialLinks, {
+  socialLinks,
+} from "@/components/common/sections/SocialLinks";
+import SparkleText from "@/components/common/effects/SparkleText";
+import ThemeAwareGumroadLogo from "@/components/common/media/ThemeAwareGumroadLogo";
 
 import { PinIcon } from "lucide-react";
 

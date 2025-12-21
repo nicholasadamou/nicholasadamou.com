@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 
 export const metadata: Metadata = {
   title: "404 | Nicholas Adamou",

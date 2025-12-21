@@ -1,5 +1,5 @@
 import React, { useMemo, ReactElement } from "react";
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 import { siGithub } from "simple-icons/icons";
 
 interface ProjectLinkProps {

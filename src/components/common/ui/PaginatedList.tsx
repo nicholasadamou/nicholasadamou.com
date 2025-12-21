@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/ui/Pagination";
 import {
   containerVariants,
   fadeVariants,

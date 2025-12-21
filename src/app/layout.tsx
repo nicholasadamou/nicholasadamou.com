@@ -9,12 +9,12 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
-import { ThemeProvider } from "@/components/common/ThemeProvider";
-import Navigation from "@/components/common/Navigation";
-import { Footer } from "@/components/common/Footer/Footer";
-import { DynamicOGMetaTags } from "@/components/common/DynamicOGMetaTags";
-import { ChatbotWidget } from "@/components/common/Chatbot/ChatbotWidget";
-import { KeyboardShortcutsDialog } from "@/components/common/KeyboardShortcutsDialog";
+import { ThemeProvider } from "@/components/common/theme/ThemeProvider";
+import Navigation from "@/components/common/layout/Navigation";
+import { Footer } from "@/components/common/layout/Footer/Footer";
+import { DynamicOGMetaTags } from "@/components/common/seo/DynamicOGMetaTags";
+import { ChatbotWidget } from "@/components/common/dialogs/Chatbot/ChatbotWidget";
+import { KeyboardShortcutsDialog } from "@/components/common/dialogs/KeyboardShortcutsDialog";
 
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 import { generateSingleOGUrl } from "@/lib/utils/themeDetection";

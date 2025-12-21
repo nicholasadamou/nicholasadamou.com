@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import UniversalImage from "@/components/common/UniversalImage";
-import Link from "@/components/common/Link";
-import Section from "@/components/common/Section";
-import ImagePreview from "@/components/common/ImagePreview";
+import UniversalImage from "@/components/common/media/UniversalImage";
+import Link from "@/components/common/ui/Link";
+import Section from "@/components/common/layout/Section";
+import ImagePreview from "@/components/common/ui/ImagePreview";
 import { formatShortDate } from "@/lib/utils/formatShortDate";
 import type { Project } from "@/lib/contentlayer-data";
 import { Badge } from "@/components/ui/badge";

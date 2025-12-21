@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Avatar from "@/components/common/Avatar";
+import Avatar from "@/components/common/ui/Avatar";
 
 describe("Avatar", () => {
   describe("Size variants", () => {

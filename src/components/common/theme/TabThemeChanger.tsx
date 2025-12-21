@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { TabButton } from "./TabButton";
+import { TabButton } from "../ui/TabButton";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
 import { themeConfigs } from "./ThemeIcons";

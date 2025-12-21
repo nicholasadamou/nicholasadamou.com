@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 
-import Link from "@/components/common/Link";
-import Section from "@/components/common/Section";
+import Link from "@/components/common/ui/Link";
+import Section from "@/components/common/layout/Section";
 import ListSection from "./components/ListSection";
 import Workplaces from "./components/Workplaces";
 import Gallery from "./components/Gallery";

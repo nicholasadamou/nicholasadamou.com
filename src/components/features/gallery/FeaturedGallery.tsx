@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Camera, ExternalLink } from "lucide-react";
 import { useVscoGallery } from "@/hooks/useVscoGallery";
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 import { Button } from "@/components/ui/button";
 
 export default function FeaturedGallery() {

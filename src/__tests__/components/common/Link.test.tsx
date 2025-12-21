@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 
 describe("Link", () => {
   it("should render children correctly", () => {

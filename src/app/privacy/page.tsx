@@ -11,7 +11,7 @@ import {
   Info,
   CalendarDays,
 } from "lucide-react";
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 import { getFileLastModifiedDate, formatLastUpdated } from "@/lib/git";
 
 export const metadata: Metadata = {

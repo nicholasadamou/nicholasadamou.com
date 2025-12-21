@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import UniversalImage from "./UniversalImage";
+import UniversalImage from "../media/UniversalImage";
 
 interface ImagePreviewProps {
   src: string | null | undefined;

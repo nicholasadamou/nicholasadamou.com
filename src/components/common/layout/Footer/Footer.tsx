@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Github, Linkedin, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { themeConfigs, type ThemeConfig } from "../ThemeIcons";
+import { themeConfigs, type ThemeConfig } from "../../theme/ThemeIcons";
 
 const footerVariants = {
   hidden: { opacity: 0, y: 20 },

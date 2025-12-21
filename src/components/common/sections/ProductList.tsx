@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "@/components/common/Link";
-import Halo from "@/components/common/Halo";
+import Link from "@/components/common/ui/Link";
+import Halo from "@/components/common/effects/Halo";
 import useGumroadProducts from "@/hooks/useGumroadProducts";
 import { Skeleton } from "@/components/ui/skeleton";
 

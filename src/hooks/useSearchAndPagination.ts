@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import type { Note, Project } from "@/lib/contentlayer-data";
-import type { FilterOptions } from "@/components/common/FilterBar";
+import type { FilterOptions } from "@/components/common/ui/FilterBar";
 
 interface UseSearchAndPaginationProps {
   content: Array<Note | Project>;

@@ -4,14 +4,14 @@ import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import type { Note, Project } from "@/lib/contentlayer-data";
 import SearchBar from "@/app/notes/components/SearchBar";
-import FilterBar from "@/components/common/FilterBar";
+import FilterBar from "@/components/common/ui/FilterBar";
 import { useSearchAndPagination } from "@/hooks/useSearchAndPagination";
-import { ListHeader } from "@/components/common/ListHeader";
-import { ContentSection } from "@/components/common/ContentSection";
-import { OpenSourceSection } from "@/components/common/OpenSourceSection";
+import { ListHeader } from "@/components/common/layout/ListHeader";
+import { ContentSection } from "@/components/common/layout/ContentSection";
+import { OpenSourceSection } from "@/components/common/sections/OpenSourceSection";
 import PinnedProjectList from "@/components/features/projects/PinnedProjectList";
 import PinnedNotesList from "@/components/features/notes/PinnedNotesList";
-import { SectionHeader } from "@/components/common/SectionHeader";
+import { SectionHeader } from "@/components/common/layout/SectionHeader";
 import { PinIcon } from "lucide-react";
 import {
   pageVariants,

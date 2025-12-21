@@ -3,7 +3,7 @@
 import type { Project as ProjectType } from "@/lib/contentlayer-data";
 import Project from "./Project";
 import React from "react";
-import PaginatedList from "@/components/common/PaginatedList";
+import PaginatedList from "@/components/common/ui/PaginatedList";
 
 type ProjectListProps = {
   projects: ProjectType[];

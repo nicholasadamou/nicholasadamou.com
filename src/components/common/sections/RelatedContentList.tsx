@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import UniversalImage from "@/components/common/UniversalImage";
+import UniversalImage from "@/components/common/media/UniversalImage";
 import {
   containerVariants,
   cardVariants,

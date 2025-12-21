@@ -2,8 +2,8 @@
 
 import { Suspense } from "react";
 import { ExternalLink } from "lucide-react";
-import Section from "@/components/common/Section";
-import Link from "@/components/common/Link";
+import Section from "@/components/common/layout/Section";
+import Link from "@/components/common/ui/Link";
 import FeaturedGallery from "@/components/features/gallery/FeaturedGallery";
 import { Button } from "@/components/ui/button";
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@/__tests__/utils";
-import ThemeSwitcher from "@/components/common/ThemeSwitcher";
+import ThemeSwitcher from "@/components/common/theme/ThemeSwitcher";
 
 // Mock next-themes more specifically for this component
 const mockSetTheme = vi.fn();

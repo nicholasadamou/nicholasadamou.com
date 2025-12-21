@@ -3,7 +3,7 @@
 import type { Note as PostType } from "@/lib/contentlayer-data";
 import Post from "./Post";
 import React, { useMemo } from "react";
-import PaginatedList from "@/components/common/PaginatedList";
+import PaginatedList from "@/components/common/ui/PaginatedList";
 
 type PostListProps = {
   initialPosts: PostType[];

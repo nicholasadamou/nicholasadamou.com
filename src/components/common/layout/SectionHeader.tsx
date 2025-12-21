@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
-import Link from "@/components/common/Link";
+import Link from "@/components/common/ui/Link";
 
 interface SectionHeaderProps {
   id?: string;

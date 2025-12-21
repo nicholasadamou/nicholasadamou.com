@@ -4,11 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 
-import { AnimatedSection } from "@/components/common/AnimatedSection";
+import { AnimatedSection } from "@/components/common/effects/AnimatedSection";
 import {
   FeaturedSection,
   FeaturedItem,
-} from "@/components/common/FeaturedSection";
+} from "@/components/common/sections/FeaturedSection";
 import {
   Clock,
   CheckCircle2,
@@ -25,7 +25,7 @@ import {
   GitBranch,
   ArrowUpCircle,
 } from "lucide-react";
-import { SectionHeader } from "@/components/common/SectionHeader";
+import { SectionHeader } from "@/components/common/layout/SectionHeader";
 
 const DotBrainsLogo: React.FC = () => (
   <div className="flex items-center gap-2">

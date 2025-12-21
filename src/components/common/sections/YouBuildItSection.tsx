@@ -16,13 +16,13 @@ import {
   GitBranch,
 } from "lucide-react";
 
-import { AnimatedSection } from "@/components/common/AnimatedSection";
-import { SectionHeader } from "@/components/common/SectionHeader";
+import { AnimatedSection } from "@/components/common/effects/AnimatedSection";
+import { SectionHeader } from "@/components/common/layout/SectionHeader";
 import {
   FeaturedSection,
   FeaturedItem,
-} from "@/components/common/FeaturedSection";
-import { TestimonialsSection } from "@/components/common/TestimonialsSection";
+} from "@/components/common/sections/FeaturedSection";
+import { TestimonialsSection } from "@/components/common/sections/TestimonialsSection";
 
 interface Testimonial {
   id: string;

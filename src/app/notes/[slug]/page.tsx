@@ -1,5 +1,5 @@
 import { getAllNotes, getNoteBySlug } from "@/lib/contentlayer-data";
-import ServerContentPage from "@/components/common/ServerContentPage";
+import ServerContentPage from "@/components/common/layout/ServerContentPage";
 
 import { generateMetadata } from "./metadata";
 export { generateMetadata };

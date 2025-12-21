@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import type { Note, Project } from "@/lib/contentlayer-data";
 import { Calendar, Clock, Eye } from "lucide-react";
 
-import { ContentHeader } from "@/components/common/ContentHeader";
-import { RelatedContentList } from "@/components/common/RelatedContentList";
+import { ContentHeader } from "@/components/common/layout/ContentHeader";
+import { RelatedContentList } from "@/components/common/sections/RelatedContentList";
 import { AnimatedMDXWrapper } from "@/components/mdx/AnimatedMDXWrapper";
-import Me from "../../../public/avatar.jpeg";
+import Me from "../../../../public/avatar.jpeg";
 import HeaderImage from "@/components/mdx/HeaderImage";
 import GitHubLinkSection from "@/components/features/projects/GitHubLinkSection";
 import Views from "@/app/notes/components/Views";

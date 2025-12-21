@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import UniversalImage from "@/components/common/UniversalImage";
+import UniversalImage from "@/components/common/media/UniversalImage";
 import type { Note } from "@/lib/contentlayer-data";
 
-import Link from "@/components/common/Link";
-import Section from "@/components/common/Section";
-import ImagePreview from "@/components/common/ImagePreview";
+import Link from "@/components/common/ui/Link";
+import Section from "@/components/common/layout/Section";
+import ImagePreview from "@/components/common/ui/ImagePreview";
 import { formatShortDate } from "@/lib/utils/formatShortDate";
 import { Badge } from "@/components/ui/badge";
 import readingTime from "reading-time";

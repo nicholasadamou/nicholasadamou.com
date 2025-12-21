@@ -11,7 +11,7 @@ import lakePlacid from "public/gallery/lake-placid.jpg";
 import roadIsland from "public/gallery/road-island.jpg";
 import cactus from "public/gallery/cactus.jpg";
 
-import Halo from "@/components/common/Halo";
+import Halo from "@/components/common/effects/Halo";
 
 const ticketingFont = localFont({
   src: "../../../../public/ticketing.woff2",
