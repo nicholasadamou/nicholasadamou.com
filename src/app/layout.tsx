@@ -13,6 +13,8 @@ import { ThemeProvider } from "@/components/common/ThemeProvider";
 import Navigation from "@/components/common/Navigation";
 import { Footer } from "@/components/common/Footer/Footer";
 import { DynamicOGMetaTags } from "@/components/common/DynamicOGMetaTags";
+import { ChatbotWidget } from "@/components/common/Chatbot/ChatbotWidget";
+import { KeyboardShortcutsDialog } from "@/components/common/KeyboardShortcutsDialog";
 
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 import { generateSingleOGUrl } from "@/lib/utils/themeDetection";
@@ -124,6 +126,8 @@ export default function RootLayout({
             lightOGImage={`${baseUrl}${ogImageUrl}`}
             darkOGImage={`${baseUrl}${ogImageUrl}`}
           />
+          <ChatbotWidget />
+          <KeyboardShortcutsDialog />
           <Navigation />
           <main className="mx-auto w-full flex-1 px-4 pt-28">{children}</main>
           <Footer />

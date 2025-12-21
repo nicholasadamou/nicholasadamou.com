@@ -11,7 +11,7 @@ import TabThemeChanger from "@/components/common/TabThemeChanger";
 import { Link } from "@/components/ui/link";
 import { Sheet } from "@/components/ui/sheet";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { FileText, Search } from "lucide-react";
+import { FileText, Search, HelpCircle } from "lucide-react";
 import Image from "next/image";
 import CommandPalette from "@/components/common/CommandPalette";
 
@@ -220,6 +220,16 @@ export default function Navigation() {
               <kbd className="bg-secondary text-tertiary ml-1 hidden rounded px-1.5 py-0.5 text-xs font-semibold md:inline-block">
                 ⌘K
               </kbd>
+            </button>
+            <button
+              onClick={() =>
+                window.dispatchEvent(new Event("open-keyboard-shortcuts"))
+              }
+              className="text-secondary hover:text-primary flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
+              aria-label="Keyboard shortcuts"
+              title="Keyboard shortcuts (?)"
+            >
+              <HelpCircle className="h-4 w-4" />
             </button>
             <div className="hidden md:flex">
               <TabThemeChanger />
