@@ -82,7 +82,8 @@ export function createPremiumUnsplashUrl(
 
     return url.toString();
   } catch (error) {
-    // Silently fallback - URL parsing errors shouldn't break image display
+    // Log error for debugging but don't break image display
+    logger.error("Error creating premium Unsplash URL:", error);
     return baseUrl; // Fallback to original URL
   }
 }

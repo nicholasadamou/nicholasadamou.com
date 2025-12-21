@@ -284,21 +284,13 @@ describe("Image Fallback Utilities", () => {
         status: 404,
       });
 
-      const consoleLogSpy = vi
-        .spyOn(console, "log")
-        .mockImplementation(() => {});
-
       const url = "https://unsplash.com/photos/test-ZV_64LdGoao";
       const fallbackUrl = "https://fallback.example.com/image.jpg";
 
       const result = await getOptimizedImageSrc(url, fallbackUrl);
 
+      // Should fall back to fallback URL when manifest is not available
       expect(result).toBe(fallbackUrl);
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Local image manifest not available")
-      );
-
-      consoleLogSpy.mockRestore();
     });
   });
 

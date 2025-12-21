@@ -122,9 +122,14 @@ describe("Unsplash Utility Functions", () => {
       const photo = await getUnsplashPhoto("server-error");
 
       expect(photo).toBeNull();
-      expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Unsplash API error: status=500")
-      );
+      // Check that error log contains the status code (accounting for timestamp prefix)
+      expect(
+        consoleSpy.mock.calls.some(
+          (call: any[]) =>
+            typeof call[0] === "string" &&
+            call[0].includes("Unsplash API error: status=500")
+        )
+      ).toBe(true);
 
       consoleSpy.mockRestore();
     });
