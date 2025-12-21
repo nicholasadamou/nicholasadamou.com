@@ -1,6 +1,10 @@
 # Contributing to nicholasadamou.com
 
-Thank you for your interest in contributing to this project! This guide will help you get started with contributing to the codebase.
+Thank you for your interest in contributing! 🎉
+
+**📚 For comprehensive contributing guidelines, please see our [full documentation](https://nicholasadamou.github.io/nicholasadamou.com/contributing/guidelines/).**
+
+This document provides a quick start guide.
 
 ## 🚀 Getting Started
 

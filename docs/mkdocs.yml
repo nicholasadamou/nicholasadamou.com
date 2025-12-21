@@ -1,0 +1,141 @@
+site_name: nicholasadamou.com Documentation
+site_description: Developer documentation for nicholasadamou.com
+site_author: Nicholas Adamou
+site_url: https://nicholasadamou.github.io/nicholasadamou.com
+
+repo_name: nicholasadamou/nicholasadamou.com
+repo_url: https://github.com/nicholasadamou/nicholasadamou.com
+edit_uri: edit/main/docs/src/
+
+docs_dir: src
+site_dir: build
+
+theme:
+  name: material
+  palette:
+    # Dark mode (default)
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: grey
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: grey
+      accent: black
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode (explicit toggle)
+    - scheme: slate
+      primary: black
+      accent: grey
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Development: getting-started/development.md
+      - Environment Variables: getting-started/environment.md
+      - ACT Setup: getting-started/act-setup.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Project Structure: architecture/structure.md
+      - Tech Stack: architecture/tech-stack.md
+  - Features:
+      - Image Optimization: features/image-optimization.md
+      - MDX Content: features/mdx-content.md
+      - Gallery Integration: features/gallery.md
+      - Analytics: features/analytics.md
+      - AI Chatbot: features/chatbot.md
+      - SEO: features/seo.md
+  - Scripts:
+      - Overview: scripts/overview.md
+      - Build Scripts: scripts/build.md
+      - Setup Scripts: scripts/setup.md
+      - Content Scripts: scripts/content.md
+  - API Reference:
+      - Routes: api/routes.md
+      - Components: api/components.md
+      - Utilities: api/utilities.md
+  - Contributing:
+      - Guidelines: contributing/guidelines.md
+      - Code Style: contributing/code-style.md
+      - Testing: contributing/testing.md
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: nicholasadamou
+      repo: nicholasadamou.com
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/nicholasadamou
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/nicholasadamou
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/nicholas-adamou
+
+copyright: Copyright &copy; 2025 Nicholas Adamou
