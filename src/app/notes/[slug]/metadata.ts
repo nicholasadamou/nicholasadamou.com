@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import { getNoteBySlug } from "@/lib/contentlayer-data";
+import { getNoteBySlug } from "@/lib/content/contentlayer-data";
 import { notFound } from "next/navigation";
-import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateSingleNoteOGUrl } from "@/lib/utils/themeDetection";
+import { getBaseUrl } from "@/lib/utils/api/get-base-url";
+import { generateSingleNoteOGUrl } from "@/lib/utils/theme/detection";
 
 export async function generateMetadata({
   params,

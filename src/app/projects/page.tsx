@@ -1,4 +1,4 @@
-import { allProjects } from "@/lib/contentlayer-data";
+import { allProjects } from "@/lib/content/contentlayer-data";
 
 import ListPage from "@/components/common/layout/ListPage";
 

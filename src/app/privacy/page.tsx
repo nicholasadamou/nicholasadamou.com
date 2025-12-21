@@ -12,7 +12,7 @@ import {
   CalendarDays,
 } from "lucide-react";
 import Link from "@/components/common/ui/Link";
-import { getFileLastModifiedDate, formatLastUpdated } from "@/lib/git";
+import { getFileLastModifiedDate, formatLastUpdated } from "@/lib/content/git";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Nicholas Adamou",

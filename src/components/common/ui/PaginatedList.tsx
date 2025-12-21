@@ -10,7 +10,7 @@ import {
   pageTransitionItemVariants,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 interface PaginatedListProps<T> {
   items: T[];

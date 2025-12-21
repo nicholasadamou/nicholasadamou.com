@@ -16,7 +16,7 @@ import {
   getStaggerDelay,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 // Define the form validation schema using zod
 const schema = z.object({

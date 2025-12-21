@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { VscoApiResponse } from "@/types/vsco";
-import { getLocalVscoImages, hasLocalVscoImages } from "@/lib/utils/vsco-local";
+import {
+  getLocalVscoImages,
+  hasLocalVscoImages,
+} from "@/lib/utils/api/vsco-local";
 import { logger } from "@/lib/logger";
 
 const CACHE_DURATION = 3600; // 1 hour in seconds

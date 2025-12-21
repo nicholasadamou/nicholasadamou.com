@@ -1,5 +1,5 @@
 import React from "react";
-import type { Note, Project } from "@/lib/contentlayer-data";
+import type { Note, Project } from "@/lib/content/contentlayer-data";
 import PostList from "@/app/notes/components/PostList";
 import ProjectList from "@/app/projects/components/ProjectList";
 

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import UniversalImage from "@/components/common/media/UniversalImage";
 import Link from "@/components/common/ui/Link";
-import { extractUnsplashPhotoId, getImageMetadata } from "@/lib/image-fallback";
+import { extractUnsplashPhotoId, getImageMetadata } from "@/lib/image/fallback";
 import { logger } from "@/lib/logger";
 
 type ImageAttributionProps = {

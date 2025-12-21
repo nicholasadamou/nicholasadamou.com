@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import useGumroadProducts from "@/hooks/useGumroadProducts";
+import useGumroadProducts from "@/hooks/data/use-gumroad-products";
 
 // Mock global fetch
 global.fetch = vi.fn();

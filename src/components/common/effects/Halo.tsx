@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import useMousePosition from "@/hooks/usemouseposition";
+import useMousePosition from "@/hooks/utilities/use-mouse-position";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 
@@ -20,7 +20,7 @@ export default function Halo({
   strength = 10,
   className,
 }: HaloProps) {
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLDivElement>(null);
   const { x, y } = useMousePosition(ref);
   const offset = size / 2;
 

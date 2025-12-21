@@ -1,16 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
 import UniversalImage from "@/components/common/media/UniversalImage";
-import type { Note } from "@/lib/contentlayer-data";
+import type { Note } from "@/lib/content/contentlayer-data";
 
 import Link from "@/components/common/ui/Link";
 import Section from "@/components/common/layout/Section";
 import ImagePreview from "@/components/common/ui/ImagePreview";
-import { formatShortDate } from "@/lib/utils/formatShortDate";
+import { formatShortDate } from "@/lib/utils/formatting/format-short-date";
 import { Badge } from "@/components/ui/badge";
 import readingTime from "reading-time";
 import { Clock } from "lucide-react";
-import { cardVariants, DURATION, EASING } from "@/lib/animations";
+import { cardVariants, DURATION, EASING } from "@/lib/animation/variants";
 
 type PostProps = {
   post: Note;

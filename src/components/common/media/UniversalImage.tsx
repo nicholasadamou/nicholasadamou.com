@@ -5,7 +5,7 @@ import Image from "next/image";
 import {
   extractUnsplashPhotoId,
   getOptimizedImageSrc,
-} from "@/lib/image-fallback";
+} from "@/lib/image/fallback";
 import { logger } from "@/lib/logger";
 
 type UniversalImageProps = {

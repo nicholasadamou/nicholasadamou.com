@@ -3,7 +3,7 @@ import {
   getUnsplashPhoto,
   extractUnsplashPhotoId,
   createPremiumUnsplashUrl,
-} from "@/lib/utils/unsplash";
+} from "@/lib/utils/api/unsplash";
 import { unsplashCache } from "@/lib/cache/unsplash-cache";
 import { logger } from "@/lib/logger";
 

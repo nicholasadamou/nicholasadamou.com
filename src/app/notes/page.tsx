@@ -1,5 +1,5 @@
 import React from "react";
-import { allNotes } from "@/lib/contentlayer-data";
+import { allNotes } from "@/lib/content/contentlayer-data";
 
 import ListPage from "@/components/common/layout/ListPage";
 

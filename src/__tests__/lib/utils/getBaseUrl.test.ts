@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { getBaseUrl } from "@/lib/utils/api/get-base-url";
 
 describe("getBaseUrl", () => {
   beforeEach(() => {

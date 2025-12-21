@@ -7,7 +7,7 @@ import FlipNumber from "@/components/common/effects/FlipNumber";
 
 // Mock the useIsMount hook
 const mockUseIsMount = vi.fn();
-vi.mock("@/hooks/useismount", () => ({
+vi.mock("@/hooks/utilities/use-is-mount", () => ({
   default: () => mockUseIsMount(),
 }));
 

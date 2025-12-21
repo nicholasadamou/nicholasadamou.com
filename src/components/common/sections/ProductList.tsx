@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "@/components/common/ui/Link";
 import Halo from "@/components/common/effects/Halo";
-import useGumroadProducts from "@/hooks/useGumroadProducts";
+import useGumroadProducts from "@/hooks/data/use-gumroad-products";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Product {

@@ -4,8 +4,8 @@ import UniversalImage from "@/components/common/media/UniversalImage";
 import Link from "@/components/common/ui/Link";
 import Section from "@/components/common/layout/Section";
 import ImagePreview from "@/components/common/ui/ImagePreview";
-import { formatShortDate } from "@/lib/utils/formatShortDate";
-import type { Project } from "@/lib/contentlayer-data";
+import { formatShortDate } from "@/lib/utils/formatting/format-short-date";
+import type { Project } from "@/lib/content/contentlayer-data";
 import { Badge } from "@/components/ui/badge";
 import {
   cardVariants,
@@ -13,7 +13,7 @@ import {
   DURATION,
   EASING,
   getStaggerDelay,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 type ProjectProps = {
   project: Project;

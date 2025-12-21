@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
-import type { Note, Project } from "@/lib/contentlayer-data";
+import type { Note, Project } from "@/lib/content/contentlayer-data";
 import ContentPage from "./ContentPage";
 import ServerMDXRenderer from "@/components/mdx/renderers/ServerMDXRenderer";
 

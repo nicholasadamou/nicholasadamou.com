@@ -78,7 +78,7 @@ beforeEach(() => {
 describe("Image Fallback Utilities", () => {
   describe("extractUnsplashPhotoId", () => {
     it("should extract ID from page URL with slug", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const testCases = [
         {
           url: "https://unsplash.com/photos/beautiful-sunset-ZV_64LdGoao",
@@ -100,7 +100,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should extract ID from simple page URL", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const testCases = [
         {
           url: "https://unsplash.com/photos/ZV_64LdGoao",
@@ -118,21 +118,21 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should extract ID from URL with query parameters", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const url =
         "https://unsplash.com/photos/sunset-ZV_64LdGoao?utm_source=test&utm_medium=referral";
       expect(extractUnsplashPhotoId(url)).toBe("ZV_64LdGoao");
     });
 
     it("should extract ID from URL with fragment", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const url =
         "https://unsplash.com/photos/sunset-ZV_64LdGoao#image-section";
       expect(extractUnsplashPhotoId(url)).toBe("ZV_64LdGoao");
     });
 
     it("should handle URLs with trailing punctuation", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const testCases = [
         'https://unsplash.com/photos/sunset-ZV_64LdGoao\"',
         "https://unsplash.com/photos/sunset-ZV_64LdGoao.",
@@ -146,7 +146,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return null for invalid URLs", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const invalidUrls = [
         "https://example.com/photo",
         "not-a-url",
@@ -165,7 +165,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return null for URLs without valid photo ID format", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const invalidPhotoIds = [
         "https://unsplash.com/photos/short", // Too short
         "https://unsplash.com/photos/toolongforphotoid12345", // Too long
@@ -180,7 +180,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should accept valid lowercase photo IDs with numbers", async () => {
-      const { extractUnsplashPhotoId } = await import("@/lib/image-fallback");
+      const { extractUnsplashPhotoId } = await import("@/lib/image/fallback");
       const validPhotoIds = [
         "https://unsplash.com/photos/hotoid12345", // Lowercase + numbers (11 chars)
         "https://unsplash.com/photos/a-woman-is-typing-on-a-computer-keyboard-9a1rahl70i4", // Real example
@@ -202,7 +202,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return local path when image is available locally", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -216,7 +216,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return fallback URL when image is not available locally", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -231,7 +231,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return original URL when no fallback is provided", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -245,7 +245,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return fallback when photo ID cannot be extracted", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       const invalidUrl = "https://example.com/invalid-url";
       const fallbackUrl = "https://fallback.example.com/image.jpg";
 
@@ -255,7 +255,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return original URL when photo ID cannot be extracted and no fallback", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       const invalidUrl = "https://example.com/invalid-url";
 
       const result = await getOptimizedImageSrc(invalidUrl);
@@ -264,7 +264,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should handle manifest fetch errors gracefully", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       // Mock fetch error
       global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
@@ -277,7 +277,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should handle 404 manifest responses", async () => {
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
       // Mock 404 response
       global.fetch = vi.fn().mockResolvedValue({
         ok: false,
@@ -296,7 +296,7 @@ describe("Image Fallback Utilities", () => {
 
   describe("getOptimizedImageSrcSync", () => {
     it("should return local path when image is available in static manifest", async () => {
-      const { getOptimizedImageSrcSync } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrcSync } = await import("@/lib/image/fallback");
       const url = "https://unsplash.com/photos/test-photo-ZV_64LdGoao";
       const result = getOptimizedImageSrcSync(
         url,
@@ -308,7 +308,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return fallback URL when image is not in static manifest", async () => {
-      const { getOptimizedImageSrcSync } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrcSync } = await import("@/lib/image/fallback");
       const url = "https://unsplash.com/photos/not-cached-ABC123def456";
       const fallbackUrl = "https://api.example.com/image/ABC123def456";
       const result = getOptimizedImageSrcSync(
@@ -321,7 +321,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return fallback when no static manifest is provided", async () => {
-      const { getOptimizedImageSrcSync } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrcSync } = await import("@/lib/image/fallback");
       const url = "https://unsplash.com/photos/test-ZV_64LdGoao";
       const fallbackUrl = "https://fallback.example.com/image.jpg";
       const result = getOptimizedImageSrcSync(url, fallbackUrl);
@@ -330,7 +330,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return original URL when no fallback and no manifest", async () => {
-      const { getOptimizedImageSrcSync } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrcSync } = await import("@/lib/image/fallback");
       const url = "https://unsplash.com/photos/test-ZV_64LdGoao";
       const result = getOptimizedImageSrcSync(url);
 
@@ -344,7 +344,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return metadata when image is available locally", async () => {
-      const { getImageMetadata } = await import("@/lib/image-fallback");
+      const { getImageMetadata } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -364,7 +364,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return metadata without local info when image is not cached", async () => {
-      const { getImageMetadata } = await import("@/lib/image-fallback");
+      const { getImageMetadata } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -384,7 +384,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return null when photo ID cannot be extracted", async () => {
-      const { getImageMetadata } = await import("@/lib/image-fallback");
+      const { getImageMetadata } = await import("@/lib/image/fallback");
       const invalidUrl = "https://example.com/invalid-url";
       const metadata = await getImageMetadata(invalidUrl);
 
@@ -392,7 +392,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should handle manifest fetch errors", async () => {
-      const { getImageMetadata } = await import("@/lib/image-fallback");
+      const { getImageMetadata } = await import("@/lib/image/fallback");
       // Mock fetch error
       global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
@@ -409,7 +409,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should handle skipped images correctly", async () => {
-      const { getImageMetadata } = await import("@/lib/image-fallback");
+      const { getImageMetadata } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -435,7 +435,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return true when image is available locally", async () => {
-      const { isImageLocal } = await import("@/lib/image-fallback");
+      const { isImageLocal } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -449,7 +449,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return false when image is not available locally", async () => {
-      const { isImageLocal } = await import("@/lib/image-fallback");
+      const { isImageLocal } = await import("@/lib/image/fallback");
       // Mock successful manifest fetch
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -463,7 +463,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return false for invalid URLs", async () => {
-      const { isImageLocal } = await import("@/lib/image-fallback");
+      const { isImageLocal } = await import("@/lib/image/fallback");
       const invalidUrl = "https://example.com/invalid-url";
       const isLocal = await isImageLocal(invalidUrl);
 
@@ -471,7 +471,7 @@ describe("Image Fallback Utilities", () => {
     });
 
     it("should return false when manifest cannot be loaded", async () => {
-      const { isImageLocal } = await import("@/lib/image-fallback");
+      const { isImageLocal } = await import("@/lib/image/fallback");
       // Mock fetch error
       global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
@@ -491,7 +491,7 @@ describe("Image Fallback Utilities", () => {
       // Reset modules to clear cache
       vi.resetModules();
       const { getOptimizedImageSrc, isImageLocal } = await import(
-        "@/lib/image-fallback"
+        "@/lib/image/fallback"
       );
 
       const mockFetch = vi.fn().mockResolvedValue({
@@ -516,7 +516,7 @@ describe("Image Fallback Utilities", () => {
     it("should handle concurrent manifest requests", async () => {
       // Reset modules to clear cache
       vi.resetModules();
-      const { getOptimizedImageSrc } = await import("@/lib/image-fallback");
+      const { getOptimizedImageSrc } = await import("@/lib/image/fallback");
 
       const mockFetch = vi.fn().mockResolvedValue({
         ok: true,

@@ -10,7 +10,7 @@ import {
   getStaggerDelay,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 interface RelatedContentItem {
   title: string;

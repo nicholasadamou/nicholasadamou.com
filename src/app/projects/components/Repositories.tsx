@@ -7,7 +7,7 @@ import Pagination from "@/components/common/ui/Pagination";
 import {
   pageTransitionVariants,
   pageTransitionItemVariants,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 import RepositoriesSkeleton from "./RepositoriesSkeleton";
 import RepositoryCard from "./RepositoryCard";

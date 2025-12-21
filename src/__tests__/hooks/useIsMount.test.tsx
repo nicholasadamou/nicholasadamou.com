@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act, waitFor } from "@testing-library/react";
-import useIsMount from "@/hooks/useismount";
+import useIsMount from "@/hooks/utilities/use-is-mount";
 
 describe("useIsMount", () => {
   beforeEach(() => {

@@ -16,8 +16,8 @@ import { DynamicOGMetaTags } from "@/components/common/seo/DynamicOGMetaTags";
 import { ChatbotWidget } from "@/components/common/dialogs/Chatbot/ChatbotWidget";
 import { KeyboardShortcutsDialog } from "@/components/common/dialogs/KeyboardShortcutsDialog";
 
-import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateSingleOGUrl } from "@/lib/utils/themeDetection";
+import { getBaseUrl } from "@/lib/utils/api/get-base-url";
+import { generateSingleOGUrl } from "@/lib/utils/theme/detection";
 import {
   StructuredData,
   nicholasAdamouPersonData,

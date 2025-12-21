@@ -1,4 +1,4 @@
-import { allNotes, allProjects } from "@/lib/contentlayer-data";
+import { allNotes, allProjects } from "@/lib/content/contentlayer-data";
 import Image from "next/image";
 import React from "react";
 

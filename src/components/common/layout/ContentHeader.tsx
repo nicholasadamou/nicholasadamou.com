@@ -13,7 +13,7 @@ import {
   getStaggerDelay,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 interface ContentHeaderProps {
   title: string;

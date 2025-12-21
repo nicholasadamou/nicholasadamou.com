@@ -10,8 +10,8 @@ import {
   ChevronRight,
   Loader2,
 } from "lucide-react";
-import { useInfiniteVscoGallery } from "@/hooks/useInfiniteVscoGallery";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useInfiniteVscoGallery } from "@/hooks/data/use-infinite-vsco-gallery";
+import { useIntersectionObserver } from "@/hooks/observers/use-intersection-observer";
 import { VscoImage } from "@/types/vsco";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/ui/Link";

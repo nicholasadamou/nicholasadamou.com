@@ -1,6 +1,6 @@
 "use client";
 
-import type { Project as ProjectType } from "@/lib/contentlayer-data";
+import type { Project as ProjectType } from "@/lib/content/contentlayer-data";
 import Project from "./Project";
 import React from "react";
 import PaginatedList from "@/components/common/ui/PaginatedList";

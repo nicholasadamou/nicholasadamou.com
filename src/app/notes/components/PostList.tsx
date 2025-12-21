@@ -1,6 +1,6 @@
 "use client";
 
-import type { Note as PostType } from "@/lib/contentlayer-data";
+import type { Note as PostType } from "@/lib/content/contentlayer-data";
 import Post from "./Post";
 import React, { useMemo } from "react";
 import PaginatedList from "@/components/common/ui/PaginatedList";

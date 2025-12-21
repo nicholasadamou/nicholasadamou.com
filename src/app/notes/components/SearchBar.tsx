@@ -5,7 +5,7 @@ import {
   buttonVariants,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 interface SearchBarProps extends React.InputHTMLAttributes<HTMLInputElement> {
   searchTerm: string;

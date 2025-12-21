@@ -16,7 +16,7 @@ import {
   DURATION,
   EASING,
   getStaggerDelay,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 export interface FilterOptions {
   technologies: string[];

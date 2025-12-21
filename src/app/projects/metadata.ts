@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-import { generateSingleOGUrl } from "@/lib/utils/themeDetection";
+import { getBaseUrl } from "@/lib/utils/api/get-base-url";
+import { generateSingleOGUrl } from "@/lib/utils/theme/detection";
 
 const baseUrl = getBaseUrl();
 

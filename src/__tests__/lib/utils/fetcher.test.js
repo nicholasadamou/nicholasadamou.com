@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import Fetcher from "@/lib/utils/fetcher.js";
+import Fetcher from "@/lib/utils/api/fetcher.js";
 
 // Mock the global fetch function
 global.fetch = vi.fn();

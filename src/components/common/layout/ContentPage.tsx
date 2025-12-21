@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import type { Note, Project } from "@/lib/contentlayer-data";
+import type { Note, Project } from "@/lib/content/contentlayer-data";
 import { Calendar, Clock, Eye } from "lucide-react";
 
 import { ContentHeader } from "@/components/common/layout/ContentHeader";
@@ -23,7 +23,7 @@ import {
   getStaggerDelay,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 type UnifiedContent = (Project | Note) & {
   long_summary?: string;

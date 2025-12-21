@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Camera, ExternalLink } from "lucide-react";
-import { useVscoGallery } from "@/hooks/useVscoGallery";
+import { useVscoGallery } from "@/hooks/data/use-vsco-gallery";
 import Link from "@/components/common/ui/Link";
 import { Button } from "@/components/ui/button";
 

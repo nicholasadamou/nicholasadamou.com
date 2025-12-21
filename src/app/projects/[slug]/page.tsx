@@ -1,4 +1,7 @@
-import { getAllProjects, getProjectBySlug } from "@/lib/contentlayer-data";
+import {
+  getAllProjects,
+  getProjectBySlug,
+} from "@/lib/content/contentlayer-data";
 import ServerContentPage from "@/components/common/layout/ServerContentPage";
 
 import { generateMetadata } from "./metadata";

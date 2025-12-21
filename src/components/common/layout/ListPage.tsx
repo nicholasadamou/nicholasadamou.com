@@ -2,10 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import type { Note, Project } from "@/lib/contentlayer-data";
+import type { Note, Project } from "@/lib/content/contentlayer-data";
 import SearchBar from "@/app/notes/components/SearchBar";
 import FilterBar from "@/components/common/ui/FilterBar";
-import { useSearchAndPagination } from "@/hooks/useSearchAndPagination";
+import { useSearchAndPagination } from "@/hooks/ui/use-search-and-pagination";
 import { ListHeader } from "@/components/common/layout/ListHeader";
 import { ContentSection } from "@/components/common/layout/ContentSection";
 import { OpenSourceSection } from "@/components/common/sections/OpenSourceSection";
@@ -18,7 +18,7 @@ import {
   containerVariants,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 interface ListPageProps {
   content: Array<Note | Project>;

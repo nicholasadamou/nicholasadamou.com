@@ -1,10 +1,10 @@
 "use client";
 
-import type { Note } from "@/lib/contentlayer-data";
+import type { Note } from "@/lib/content/contentlayer-data";
 import Link from "@/components/common/ui/Link";
 import Halo from "@/components/common/effects/Halo";
 import UniversalImage from "@/components/common/media/UniversalImage";
-import { formatShortDate } from "@/lib/utils/formatShortDate";
+import { formatShortDate } from "@/lib/utils/formatting/format-short-date";
 import Views from "@/app/notes/components/Views";
 import { Calendar } from "lucide-react";
 

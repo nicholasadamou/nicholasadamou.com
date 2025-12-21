@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { allNotes, allProjects } from "@/lib/contentlayer-data";
+import { allNotes, allProjects } from "@/lib/content/contentlayer-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nicholasadamou.com";

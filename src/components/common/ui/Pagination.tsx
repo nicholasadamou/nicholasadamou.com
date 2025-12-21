@@ -8,7 +8,7 @@ import {
   fadeVariants,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 interface PaginationProps {
   currentPage: number;

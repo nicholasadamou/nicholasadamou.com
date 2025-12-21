@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import {
   formatShortDate,
   formatLongDateWithSuffix,
-} from "@/lib/utils/formatShortDate";
+} from "@/lib/utils/formatting/format-short-date";
 
 describe("formatShortDate", () => {
   it("should format date to short format", () => {

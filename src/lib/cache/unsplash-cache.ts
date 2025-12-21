@@ -1,4 +1,5 @@
 import { Redis } from "ioredis";
+import { logger } from "@/lib/logger";
 
 // Types
 interface CachedUnsplashPhoto {
@@ -48,15 +49,14 @@ class UnsplashCache {
         this.redis = new Redis(
           process.env.REDIS_URL || process.env.UPSTASH_REDIS_REST_URL!
         );
-        console.log("✅ Redis cache initialized");
+        logger.info("Redis cache initialized");
       } else {
-        console.log("📝 Using memory cache (Redis not configured)");
+        logger.info("Using memory cache (Redis not configured)");
       }
     } catch (error) {
-      console.warn(
-        "⚠️ Redis initialization failed, falling back to memory cache:",
-        error
-      );
+      logger.warn("Redis initialization failed, falling back to memory cache", {
+        error,
+      });
       this.redis = null;
     }
   }
@@ -84,7 +84,7 @@ class UnsplashCache {
               // Check if cache is still valid (not older than 24 hours)
               if (Date.now() - parsed.cached_at < this.CACHE_DURATION * 1000) {
                 this.stats.hits++;
-                console.log(`🎯 Redis cache HIT for photo: ${photoId}`);
+                logger.debug(`Redis cache HIT for photo: ${photoId}`);
                 return parsed;
               } else {
                 // Cache expired, remove it
@@ -107,7 +107,7 @@ class UnsplashCache {
         // Check if cache is still valid
         if (Date.now() - memoryCached.cached_at < this.CACHE_DURATION * 1000) {
           this.stats.hits++;
-          console.log(`🎯 Memory cache HIT for photo: ${photoId}`);
+          logger.debug(`Memory cache HIT for photo: ${photoId}`);
           return memoryCached;
         } else {
           // Cache expired, remove it
@@ -116,7 +116,7 @@ class UnsplashCache {
       }
 
       this.stats.misses++;
-      console.log(`❌ Cache MISS for photo: ${photoId}`);
+      logger.debug(`Cache MISS for photo: ${photoId}`);
       return null;
     } catch (error) {
       console.error("Cache get error:", error);
@@ -142,7 +142,7 @@ class UnsplashCache {
           this.CACHE_DURATION,
           JSON.stringify(cachedData)
         );
-        console.log(`💾 Stored in Redis cache: ${photoId}`);
+        logger.debug(`Stored in Redis cache: ${photoId}`);
       }
 
       // Store in memory cache (with size limit)
@@ -154,7 +154,7 @@ class UnsplashCache {
         }
       }
       this.memoryCache.set(photoId, cachedData);
-      console.log(`💾 Stored in memory cache: ${photoId}`);
+      logger.debug(`Stored in memory cache: ${photoId}`);
     } catch (error) {
       console.error("Cache set error:", error);
     }
@@ -196,13 +196,13 @@ class UnsplashCache {
         const keys = await this.redis.keys("unsplash:*");
         if (keys.length > 0) {
           await this.redis.del(...keys);
-          console.log(`🗑️ Cleared ${keys.length} Redis cache entries`);
+          logger.info(`Cleared ${keys.length} Redis cache entries`);
         }
       }
 
       this.memoryCache.clear();
       this.stats = { hits: 0, misses: 0, total_requests: 0 };
-      console.log("🗑️ Cleared memory cache and stats");
+      logger.info("Cleared memory cache and stats");
     } catch (error) {
       console.error("Error clearing cache:", error);
     }

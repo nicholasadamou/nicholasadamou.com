@@ -1,4 +1,4 @@
-import type { Project } from "@/lib/contentlayer-data";
+import type { Project } from "@/lib/content/contentlayer-data";
 import Link from "@/components/common/ui/Link";
 import Halo from "@/components/common/effects/Halo";
 import { Badge } from "@/components/ui/badge";

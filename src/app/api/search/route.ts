@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllNotes, getAllProjects } from "@/lib/contentlayer-data";
-import type { Note, Project } from "@/lib/contentlayer-data";
+import { getAllNotes, getAllProjects } from "@/lib/content/contentlayer-data";
+import type { Note, Project } from "@/lib/content/contentlayer-data";
 
 interface SearchResult {
   type: "note" | "project";

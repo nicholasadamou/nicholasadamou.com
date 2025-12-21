@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import { useMounted } from "@/hooks/usemounted";
+import { useMounted } from "@/hooks/utilities/use-mounted";
 
 describe("useMounted", () => {
   it("should return true after mounting (useEffect runs in test env)", () => {

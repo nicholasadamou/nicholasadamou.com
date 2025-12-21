@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
 import FlipNumber from "@/components/common/effects/FlipNumber";
 import { useViews } from "../hooks/useViews";
-import { scaleVariants, DURATION, EASING } from "@/lib/animations";
+import { scaleVariants, DURATION, EASING } from "@/lib/animation/variants";
 
 type ViewsProps = {
   slug: string;

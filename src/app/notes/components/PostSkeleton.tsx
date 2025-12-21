@@ -7,7 +7,7 @@ import {
   itemVariants,
   DURATION,
   EASING,
-} from "@/lib/animations";
+} from "@/lib/animation/variants";
 
 export default function PostSkeleton() {
   return (

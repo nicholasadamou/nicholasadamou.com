@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import RSS from "rss";
-import { getAllNotes } from "@/lib/contentlayer-data";
+import { getAllNotes } from "@/lib/content/contentlayer-data";
 
 export async function GET() {
   const allNotes = getAllNotes();

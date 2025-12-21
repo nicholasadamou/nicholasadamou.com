@@ -13,7 +13,7 @@ import {
   getUnsplashPhoto,
   extractUnsplashPhotoId,
   createPremiumUnsplashUrl,
-} from "@/lib/utils/unsplash";
+} from "@/lib/utils/api/unsplash";
 
 // Mock environment variables
 const mockEnv = {

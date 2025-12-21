@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { DURATION, EASING } from "@/lib/animations";
+import { DURATION, EASING } from "@/lib/animation/variants";
 
 interface AnimatedMDXWrapperProps {
   children: React.ReactNode;
