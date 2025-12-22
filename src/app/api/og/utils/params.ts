@@ -3,6 +3,7 @@ import { OGParams, OGType, OGTheme, ProcessedOGParams } from "../types";
 import { isValidImagePath, fetchImageAsBase64 } from "./image";
 import { isUnsplashPhotoUrl, resolveUnsplashImage } from "./unsplash";
 import { logImageLoadSuccess, logProcessingStep } from "./logger";
+import { AVATAR_BASE64 } from "../avatar-data";
 
 /**
  * Cleans and normalizes URL search parameters
@@ -56,9 +57,13 @@ export const processOGParams = async (
 ): Promise<ProcessedOGParams> => {
   // Auto-include avatar for homepage when no image is provided
   let imageToProcess = params.image;
+  let useEmbeddedAvatar = false;
   if (!imageToProcess && params.type === "homepage") {
-    imageToProcess = "/avatar-og.jpeg"; // Use optimized smaller version
-    logProcessingStep("Using default avatar for homepage", imageToProcess);
+    useEmbeddedAvatar = true;
+    logProcessingStep(
+      "Using embedded base64 avatar for homepage",
+      "avatar-data"
+    );
   }
 
   logProcessingStep("Processing OG parameters", {
@@ -78,7 +83,12 @@ export const processOGParams = async (
 
   // Process image if provided - convert to base64 to prevent Satori timeouts
   let processedImage: string | undefined;
-  if (imageToProcess && isValidImagePath(imageToProcess)) {
+
+  // Use embedded avatar if homepage with no custom image
+  if (useEmbeddedAvatar) {
+    processedImage = AVATAR_BASE64;
+    logImageLoadSuccess("embedded avatar");
+  } else if (imageToProcess && isValidImagePath(imageToProcess)) {
     logProcessingStep("Processing image", imageToProcess);
 
     // Handle Unsplash URLs by resolving them through the manifest
