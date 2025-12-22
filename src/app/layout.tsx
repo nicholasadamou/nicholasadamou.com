@@ -12,7 +12,6 @@ import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/common/theme/ThemeProvider";
 import Navigation from "@/components/common/layout/Navigation";
 import { Footer } from "@/components/common/layout/Footer/Footer";
-import { DynamicOGMetaTags } from "@/components/common/seo/DynamicOGMetaTags";
 import { ChatbotWidget } from "@/components/common/dialogs/Chatbot/ChatbotWidget";
 import { KeyboardShortcutsDialog } from "@/components/common/dialogs/KeyboardShortcutsDialog";
 
@@ -122,10 +121,6 @@ export default function RootLayout({
       </head>
       <body className="width-full text-primary relative flex min-h-screen flex-col antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <DynamicOGMetaTags
-            lightOGImage={`${baseUrl}${ogImageUrl}`}
-            darkOGImage={`${baseUrl}${ogImageUrl}`}
-          />
           <ChatbotWidget />
           <KeyboardShortcutsDialog />
           <Navigation />
