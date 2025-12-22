@@ -14,16 +14,16 @@ describe("getBaseUrl", () => {
 
   it("should return production URL in production", () => {
     vi.stubEnv("NODE_ENV", "production");
-    expect(getBaseUrl()).toBe("https://nicholasadamou.com");
+    expect(getBaseUrl()).toBe("https://www.nicholasadamou.com");
   });
 
   it("should return production URL in test environment", () => {
     vi.stubEnv("NODE_ENV", "test");
-    expect(getBaseUrl()).toBe("https://nicholasadamou.com");
+    expect(getBaseUrl()).toBe("https://www.nicholasadamou.com");
   });
 
   it("should return production URL for undefined NODE_ENV", () => {
     vi.stubEnv("NODE_ENV", undefined);
-    expect(getBaseUrl()).toBe("https://nicholasadamou.com");
+    expect(getBaseUrl()).toBe("https://www.nicholasadamou.com");
   });
 });
