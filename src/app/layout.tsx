@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Nicholas Adamou - Full Stack Software Engineer",
+    title: "Nicholas Adamou - Making the world better through software",
     description,
     url: baseUrl,
     siteName: "Nicholas Adamou",
@@ -76,20 +76,20 @@ export const metadata: Metadata = {
         url: `${baseUrl}${ogImageUrl}`,
         width: 1200,
         height: 630,
-        alt: "Nicholas Adamou - Full Stack Software Engineer",
+        alt: "Nicholas Adamou - Making the world better through software",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nicholas Adamou - Full Stack Software Engineer",
+    title: "Nicholas Adamou - Making the world better through software",
     description,
     site: "@nicholasadamou",
     creator: "@nicholasadamou",
     images: [
       {
         url: `${baseUrl}${ogImageUrl}`,
-        alt: "Nicholas Adamou - Full Stack Software Engineer",
+        alt: "Nicholas Adamou - Making the world better through software",
       },
     ],
   },
