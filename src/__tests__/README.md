@@ -4,7 +4,9 @@ This directory contains comprehensive tests for the Unsplash integration system,
 
 ## Test Files
 
-### 1. `unsplash-api.test.ts`
+Tests are organized to mirror the source directory structure:
+
+### 1. `app/api/unsplash/route.test.ts`
 
 Tests the main API route at `/api/unsplash` with all its actions:
 
@@ -24,9 +26,9 @@ Tests the main API route at `/api/unsplash` with all its actions:
 - Missing API key scenarios
 - Premium photo URL generation
 
-### 2. `unsplash-utils.test.ts`
+### 2. `lib/utils/api/unsplash.test.ts`
 
-Tests the core utility functions in `/src/lib/utils/unsplash.ts`:
+Tests the core utility functions in `src/lib/utils/api/unsplash.ts`:
 
 **Coverage:**
 
@@ -40,9 +42,9 @@ Tests the core utility functions in `/src/lib/utils/unsplash.ts`:
 - Photo ID regex patterns need adjustment for different URL formats
 - Environment variable isolation between tests
 
-### 3. `unsplash-cache.test.ts`
+### 3. `lib/cache/unsplash-cache.test.ts`
 
-Tests the caching system in `/src/lib/cache/unsplash-cache.ts`:
+Tests the caching system in `src/lib/cache/unsplash-cache.ts`:
 
 **Coverage:**
 
@@ -58,9 +60,9 @@ Tests the caching system in `/src/lib/cache/unsplash-cache.ts`:
 - Console spy assertions need adjustment
 - Stats tracking between mocked and real cache inconsistent
 
-### 4. `image-fallback.test.ts`
+### 4. `lib/image/fallback.test.ts`
 
-Tests the image fallback utilities in `/src/lib/image-fallback.ts`:
+Tests the image fallback utilities in `src/lib/image/fallback.ts`:
 
 **Coverage:**
 
@@ -88,16 +90,16 @@ pnpm run test:unsplash
 
 ```bash
 # API route tests
-pnpm run test src/__tests__/unsplash-api.test.ts
+pnpm run test src/__tests__/app/api/unsplash/route.test.ts
 
 # Utility function tests
-pnpm run test src/__tests__/unsplash-utils.test.ts
+pnpm run test src/__tests__/lib/utils/api/unsplash.test.ts
 
 # Cache tests
-pnpm run test src/__tests__/unsplash-cache.test.ts
+pnpm run test src/__tests__/lib/cache/unsplash-cache.test.ts
 
 # Image fallback tests
-pnpm run test src/__tests__/image-fallback.test.ts
+pnpm run test src/__tests__/lib/image/fallback.test.ts
 ```
 
 ### With Coverage
