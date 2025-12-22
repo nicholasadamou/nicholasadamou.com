@@ -35,7 +35,7 @@ const ogImageUrl = generateSingleOGUrl({
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Nicholas Adamou - Full Stack Software Engineer",
+    default: "Nicholas Adamou - Making the world better through software",
     template: "%s | Nicholas Adamou",
   },
   description,
