@@ -10,6 +10,7 @@ import {
 import { logError, logGenerationSuccess, logOGRequest } from "./utils/logger";
 
 // Configure route segment - use Node.js runtime for Buffer support
+export const runtime = "nodejs";
 export const maxDuration = 10; // Maximum duration in seconds (Vercel free tier limit)
 
 /**

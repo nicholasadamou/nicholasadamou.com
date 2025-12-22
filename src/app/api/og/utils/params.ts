@@ -57,7 +57,7 @@ export const processOGParams = async (
   // Auto-include avatar for homepage when no image is provided
   let imageToProcess = params.image;
   if (!imageToProcess && params.type === "homepage") {
-    imageToProcess = "/avatar.jpeg";
+    imageToProcess = "/avatar-og.jpeg"; // Use optimized smaller version
     logProcessingStep("Using default avatar for homepage", imageToProcess);
   }
 
