@@ -3,6 +3,8 @@
  * Handles image path validation for Next.js ImageResponse
  */
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { isUnsplashPhotoUrl, resolveUnsplashImage } from "./unsplash";
 import { logProcessingStep } from "./logger";
 
@@ -89,26 +91,58 @@ export const fetchImageAsBase64 = async (
       isLocal,
     });
 
-    // For local images, we need to fetch from the same origin
-    const response = await fetch(imageUrl, {
-      // Add a reasonable timeout
-      signal: AbortSignal.timeout(5000),
-    });
+    let buffer: Buffer;
+    let contentType: string;
 
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch image: ${response.status} ${response.statusText}`
-      );
-      return null;
+    // For local images, read directly from filesystem to avoid fetch timeout
+    if (isLocal) {
+      try {
+        // Extract the path from the URL (e.g., /avatar.jpeg -> avatar.jpeg)
+        const urlPath = imageUrl.includes("://")
+          ? new URL(imageUrl).pathname
+          : imageUrl;
+        const cleanPath = urlPath.startsWith("/") ? urlPath.slice(1) : urlPath;
+
+        // Read from public directory
+        const publicPath = join(process.cwd(), "public", cleanPath);
+        logProcessingStep("Reading local image from filesystem", publicPath);
+
+        buffer = readFileSync(publicPath);
+
+        // Determine content type from file extension
+        contentType = cleanPath.toLowerCase().endsWith(".png")
+          ? "image/png"
+          : cleanPath.toLowerCase().endsWith(".gif")
+            ? "image/gif"
+            : cleanPath.toLowerCase().endsWith(".webp")
+              ? "image/webp"
+              : "image/jpeg";
+      } catch (fsError) {
+        console.error("Error reading local image from filesystem:", fsError);
+        return null;
+      }
+    } else {
+      // For external images, fetch over HTTP
+      const response = await fetch(imageUrl, {
+        // Add a reasonable timeout
+        signal: AbortSignal.timeout(5000),
+      });
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch image: ${response.status} ${response.statusText}`
+        );
+        return null;
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      buffer = Buffer.from(arrayBuffer);
+
+      // Determine content type from response headers or URL
+      contentType =
+        response.headers.get("content-type") ||
+        (imageUrl.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg");
     }
-
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    // Determine content type from response headers or URL
-    const contentType =
-      response.headers.get("content-type") ||
-      (imageUrl.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg");
 
     const base64 = buffer.toString("base64");
     const dataUrl = `data:${contentType};base64,${base64}`;
