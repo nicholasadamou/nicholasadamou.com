@@ -1,0 +1,465 @@
+---
+title: "🔄 Pyreload - Auto-Restart Python Apps"
+date: "2026-01-10"
+summary: "Automatically restart Python applications when file changes are detected, with polling support for Docker, Vagrant, and mounted filesystems."
+longSummary: "A modern, zero-config file watcher for Python that actually works in containers. Stop fighting with Docker volumes and start developing faster with intelligent file monitoring and instant hot-reloading."
+url: "https://github.com/dotbrains/pyreload-cli"
+demoUrl: "https://pyreload-cli.vercel.app"
+technologies:
+  - Python 3.8+
+  - Watchdog
+  - Docker
+  - Vagrant
+  - Polling
+  - pytest
+  - Black
+  - Ruff
+pinned: true
+image_url: "https://unsplash.com/photos/green-snake-on-brown-tree-branch-oJlt2XBWuWs"
+---
+
+Ever spent hours trying to get hot-reload working inside a Docker container, only to discover that file watching just... doesn't work with mounted volumes? Or maybe you've resorted to manually stopping and restarting your Python app every time you make a change? Yeah, we've all been there. It's frustrating, it breaks your flow, and frankly, it shouldn't be this hard in 2026.
+
+**Pyreload** is a modern Python development tool that solves exactly this problem. It automatically restarts your Python applications when files change, and—here's the kicker—it actually works with Docker volumes, Vagrant shared folders, and network filesystems through intelligent polling. No more cryptic `inotify` issues, no more workarounds, just smooth development workflow that works everywhere.
+
+## The Problem with Traditional File Watching
+
+Let's talk about why file watching in containers is such a pain. When you edit a file on your host machine and it syncs to a Docker container through a mounted volume, something interesting happens: nothing. At least, nothing from the container's perspective.
+
+Traditional file watchers rely on operating system events like Linux's `inotify` or macOS's FSEvents. When you modify a file directly on the filesystem, the OS broadcasts an event that watchers can listen to. Fast, efficient, perfect. But here's the catch: **these events don't propagate through mounted filesystems**.
+
+### The Container Conundrum
+
+Picture this common scenario:
+
+```python path=null start=null
+# app.py running inside Docker
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return "Hello World!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+```
+
+You've got your Docker Compose setup with a volume mount:
+
+```yaml path=null start=null
+services:
+  api:
+    build: .
+    volumes:
+      - .:/app # Mount current directory
+    command: python app.py
+```
+
+You change "Hello World!" to "Hello Docker!" in your editor on the host. The file changes. The bytes sync to the container through the mount. But the Python process inside the container? It has no clue. The kernel inside the container never received the file modification event because the change happened _outside_ its filesystem.
+
+This is where polling comes in—and why Pyreload was built.
+
+## How Pyreload Solves This
+
+Instead of waiting for OS events that never arrive, Pyreload can periodically check file modification timestamps directly. It's like the difference between someone telling you "Hey, that file changed!" versus you walking around every few seconds checking "Did this file change? How about this one?"
+
+Sounds inefficient? In practice, it's negligible. Checking mtimes on a few hundred files every second has basically zero overhead on modern systems, and it solves the mounted filesystem problem completely.
+
+### Zero Configuration by Default
+
+The beauty of Pyreload is that for simple cases, you don't need to configure anything:
+
+```bash path=null start=null
+pip install pyreload-cli
+pyreload app.py
+```
+
+That's it. Two commands. Pyreload will watch all Python files in your current directory and restart your app when they change. It's the development experience you expect, without the complexity you dread.
+
+### Enabling Polling Mode
+
+When you're working with containers or mounted filesystems, just add one flag:
+
+```bash path=null start=null
+pyreload app.py --polling
+```
+
+Now Pyreload uses polling instead of OS events. Your Docker development workflow just started working the way it should.
+
+## Real-World Use Cases
+
+Let's walk through some scenarios where Pyreload shines.
+
+### Containerized Flask API Development
+
+You're building a REST API with Flask, running it in Docker for consistency with production. Your development loop looks like this:
+
+```dockerfile path=null start=null
+FROM python:3.11-slim
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Install pyreload for development
+RUN pip install pyreload-cli
+
+COPY . .
+
+# Use pyreload with polling for hot-reload
+CMD ["pyreload", "app.py", "--polling"]
+```
+
+Now your `docker-compose.yml` mounts your source code:
+
+```yaml path=null start=null
+services:
+  api:
+    build: .
+    volumes:
+      - .:/app
+      - /app/.venv # Exclude virtual env from mount
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: development
+```
+
+You edit a route, save the file, and within a second your API restarts automatically. Test the new endpoint immediately. No manual restarts, no breaking out of your flow. This is how development should feel.
+
+### FastAPI with Config File Watching
+
+FastAPI apps often have configuration files that change during development—database URLs, feature flags, API keys. You want to restart when those change too:
+
+```bash path=null start=null
+pyreload main.py --polling \
+  -w "*.py" \
+  -w "config/*.yaml" \
+  -w "*.env" \
+  -i "*__pycache__*" \
+  -i "*.log"
+```
+
+Or better yet, create a `.pyreloadrc` in your project root that your whole team can use:
+
+```json path=null start=null
+{
+  "watch": ["*.py", "config/*.yaml", "*.env"],
+  "ignore": ["*__pycache__*", "*.log", ".git/*", "*.pyc"],
+  "polling": true,
+  "debug": false
+}
+```
+
+Now just run `pyreload main.py` and Pyreload picks up your config automatically. Consistent behavior across your team, no more "it works on my machine" debugging around file watching.
+
+### Data Science Jupyter Alternatives
+
+Maybe you're prototyping a data pipeline script that processes CSV files. You want quick iteration:
+
+```python path=null start=null
+# process_data.py
+import pandas as pd
+
+def process():
+    df = pd.read_csv('data/input.csv')
+    # Your transformations here
+    df.to_csv('data/output.csv', index=False)
+    print("Processing complete!")
+
+if __name__ == '__main__':
+    process()
+```
+
+Run it with Pyreload and watch both your script and data files:
+
+```bash path=null start=null
+pyreload process_data.py -w "*.py" -w "data/*.csv" --debug
+```
+
+Now every time you tweak your transformations or update the input data, the script reruns automatically. You get instant feedback on your changes without switching contexts.
+
+### Running Non-Python Commands
+
+Pyreload isn't limited to Python files. Maybe you have a complex startup script:
+
+```bash path=null start=null
+pyreload -x "npm run build:python && python dist/app.py" \
+  -w "src/**/*.py" \
+  --polling
+```
+
+The `-x` flag lets you run any shell command. Useful for build steps, script chains, or just running Python via a specific environment.
+
+## Interactive Control
+
+When Pyreload is running, you can interact with it:
+
+- Type `rs` and press Enter → Manually trigger a restart without making file changes
+- Type `stop` and press Enter → Gracefully exit
+- `Ctrl+C` → Immediate exit
+
+This manual restart feature is surprisingly handy. Sometimes you want to re-run your app to test initialization logic, or you've changed something that Pyreload isn't watching. Just type `rs`, no need to stop and restart the whole watcher.
+
+## Pattern Matching and Filtering
+
+Pyreload uses glob patterns for flexible file matching. Here's what you can do:
+
+```bash path=null start=null
+# Watch specific directories
+pyreload app.py -w "src/**/*.py" -w "lib/**/*.py"
+
+# Watch multiple file types
+pyreload app.py -w "*.py" -w "*.yaml" -w "*.json"
+
+# Ignore common nuisances
+pyreload app.py \
+  -i "*__pycache__*" \
+  -i "*.log" \
+  -i "*.pyc" \
+  -i ".git/*" \
+  -i "tests/*"
+
+# Combine watching and ignoring
+pyreload app.py \
+  -w "src/**/*.py" \
+  -w "config/*.yaml" \
+  -i "src/legacy/*" \
+  -i "*.bak"
+```
+
+The pattern system is powerful but intuitive. `**` matches any number of directories, `*` matches any characters within a single path component, and you can use multiple `-w` and `-i` flags to build up exactly the watch set you need.
+
+## Why Polling Mode Matters
+
+Let's dig deeper into the technical reason polling mode exists and when you need it.
+
+### The Mount Point Problem
+
+File system events work great when all processes share the same kernel. But in containerized development, you typically have:
+
+1. **Host OS** running your editor (VSCode, Vim, whatever)
+2. **Container OS** running your Python app
+3. **Mount point** that makes host files appear in the container
+
+When you save a file in your editor:
+
+- Host kernel sees the write and broadcasts an `inotify` event
+- File bytes sync to the container through the mount
+- Container kernel sees... nothing. The file just appeared to change by magic
+
+Network filesystems (NFS, CIFS) have the same issue. The local kernel doesn't know about remote changes.
+
+### Polling to the Rescue
+
+Polling sidesteps this completely. Instead of asking the kernel "tell me when files change," it periodically asks "what are the current modification times of these files?" Since modification times are part of the file metadata, they're always correct regardless of how the file changed.
+
+```python path=null start=null
+# Simplified pseudocode of what polling does
+while True:
+    current_mtimes = {file: os.path.getmtime(file) for file in watched_files}
+    if current_mtimes != previous_mtimes:
+        restart_app()
+    previous_mtimes = current_mtimes
+    time.sleep(1)  # Check every second
+```
+
+The performance impact is negligible for typical project sizes. Even checking 1000 files once per second is basically free on modern systems.
+
+## Configuration Flexibility
+
+Pyreload supports multiple configuration methods with a clear precedence:
+
+1. **Command-line arguments** (highest priority)
+2. **Config file** (`.pyreloadrc` or `pyreload.json`)
+3. **Built-in defaults** (lowest priority)
+
+This means you can set team-wide defaults in a config file that everyone commits, but individual developers can override specific options when needed.
+
+### Example Team Configuration
+
+```json path=null start=null
+{
+  "watch": ["*.py", "app/**/*.py", "config/*.yaml"],
+  "ignore": [
+    "*__pycache__*",
+    "*.log",
+    "*.pyc",
+    ".git/*",
+    "venv/*",
+    ".venv/*",
+    "dist/*",
+    "build/*"
+  ],
+  "polling": true,
+  "debug": false,
+  "clean": false
+}
+```
+
+Commit this as `.pyreloadrc` and everyone on your team gets the same behavior. If someone needs debug output, they can override: `pyreload app.py --debug`.
+
+## Production-Like Testing with Clean Mode
+
+Sometimes you want to test your app in a production-like environment—no logs, no interactive prompts, just quiet execution:
+
+```bash path=null start=null
+pyreload app.py --clean --polling
+```
+
+Clean mode suppresses Pyreload's own output, making it useful for CI/CD pipelines or when you're testing log formatting and don't want Pyreload's messages mixed in.
+
+## How It Compares
+
+You might be wondering how Pyreload stacks up against alternatives like `nodemon` (the Node.js equivalent) or `py-mon` (another Python file watcher).
+
+**Pyreload vs py-mon**: Both are Python-native and support config files. The key difference is polling mode—`py-mon` doesn't support it, making it unsuitable for Docker/Vagrant workflows. Pyreload was specifically built to solve that limitation.
+
+**Pyreload vs nodemon**: Nodemon is excellent but requires Node.js, which means installing an entire runtime just to watch Python files. If you're already using Node, nodemon is great and has been battle-tested for years. But if you're in a pure Python environment, Pyreload gives you the same auto-restart experience without the JavaScript dependency.
+
+**Pyreload vs framework reloaders**: Flask, Django, and FastAPI have built-in development servers with hot-reload. They're convenient but often don't work well in containers (same `inotify` issue), and they're framework-specific. Pyreload works with any Python script and handles the container case properly.
+
+## Development Experience
+
+Pyreload is built with modern Python practices—type hints, `pytest` for testing (99% coverage), `black` for formatting, `ruff` for linting. Contributing is straightforward:
+
+```bash path=null start=null
+git clone https://github.com/dotbrains/pyreload-cli.git
+cd pyreload-cli
+./setup-dev.sh  # Installs everything including pre-commit hooks
+pytest          # Run the full test suite
+```
+
+The codebase is small and focused—just three main modules:
+
+- `main.py` - CLI argument parsing and orchestration
+- `monitor.py` - File watching logic (both event-based and polling)
+- `logger.py` - Colored output formatting
+
+No unnecessary abstraction, no over-engineering, just clear code that does one thing well.
+
+## Docker Compose Complete Example
+
+Here's a complete example of using Pyreload in a real Docker Compose setup with multiple services:
+
+```yaml path=null start=null
+services:
+  # Python API with hot-reload
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./api:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/mydb
+    command: pyreload main.py --polling -w "*.py" -w "*.yaml"
+    depends_on:
+      - db
+
+  # Database
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  # Worker process with hot-reload
+  worker:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./api:/app
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/mydb
+    command: pyreload worker.py --polling --clean
+    depends_on:
+      - db
+
+volumes:
+  postgres-data:
+```
+
+Both your API and background worker restart automatically when you make changes. The worker uses `--clean` mode since you probably don't need to see its restart messages cluttering your logs.
+
+## The Technical Stack
+
+Under the hood, Pyreload uses:
+
+- **watchdog** - Cross-platform filesystem event monitoring with polling support
+- **colorama** - Cross-platform colored terminal output
+- **Python 3.8+** - Modern Python features with broad compatibility
+
+The dependency footprint is minimal—just two libraries, both well-maintained and widely used. No framework lock-in, no heavy dependencies, just lean tooling that does its job.
+
+## Real Benefits, Real Time Saved
+
+Let's be concrete about what Pyreload saves you:
+
+**Without Pyreload in Docker:**
+
+1. Edit file → Save
+2. Switch to terminal
+3. `Ctrl+C` to stop the app
+4. `docker-compose up` to restart
+5. Wait for container startup
+6. Switch back to browser/Postman
+7. Test change
+
+Average time: 10-15 seconds per change. Over a day of development with 100 changes, that's 15-25 minutes lost to restarts.
+
+**With Pyreload:**
+
+1. Edit file → Save
+2. Test change (app restarted automatically)
+
+Average time: 1 second. You saved 24 minutes per day. Over a week, that's two hours. Over a year, that's over a hundred hours just from eliminating manual restarts.
+
+## When Not to Use Pyreload
+
+To be fair, Pyreload isn't always the right tool:
+
+- **Production**: Never use auto-restart tools in production. Pyreload is strictly for development.
+- **Framework reloaders work fine**: If you're using Flask/Django/FastAPI _locally_ (not in Docker) and the built-in reloader works, you might not need Pyreload.
+- **Minimal changes during development**: If you're mostly reading code rather than writing, the auto-restart benefit is minimal.
+
+That said, if you do any containerized Python development, Pyreload is basically essential. The polling mode feature alone justifies its existence.
+
+## Getting Started in 30 Seconds
+
+Ready to try it? Here's the complete quickstart:
+
+```bash path=null start=null
+# Install
+pip install pyreload-cli
+
+# Run with default settings (watches *.py files)
+pyreload app.py
+
+# Run in Docker/Vagrant with polling
+pyreload app.py --polling
+
+# Advanced: watch specific patterns, debug mode
+pyreload app.py --polling \
+  -w "*.py" \
+  -w "config/*.yaml" \
+  -i "*__pycache__*" \
+  --debug
+```
+
+Check out the [documentation](https://dotbrains.github.io/pyreload-cli) for more examples, or browse the [GitHub repo](https://github.com/dotbrains/pyreload-cli) to see how it works under the hood.
+
+## The Bottom Line
+
+Pyreload exists because Python development in containers shouldn't be harder than local development. File watching should just work, regardless of whether your code lives on your laptop or in a Docker volume. Manual restarts are a relic of the past.
+
+If you've ever fought with `inotify` in Docker, searched "docker hot reload not working" on Stack Overflow, or just wanted your Python app to restart when you save a file (without needing Node.js), Pyreload was built for you.
+
+Fast, focused, and frustration-free Python development. That's the goal.
