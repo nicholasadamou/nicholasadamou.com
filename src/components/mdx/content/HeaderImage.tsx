@@ -108,6 +108,7 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
           fill
           className="rounded-lg object-cover"
           priority
+          fetchPriority="high"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
         />
       </div>

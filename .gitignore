@@ -50,6 +50,11 @@ generated
 .vscode/
 .idea/
 
+# Python virtual environment
+docs/venv/
+*.pyc
+__pycache__/
+
 # ACT (GitHub Actions locally)
 .actrc
 .secrets

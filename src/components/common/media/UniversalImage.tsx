@@ -15,6 +15,7 @@ type UniversalImageProps = {
   width?: number;
   height?: number;
   priority?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
   sizes?: string;
   className?: string;
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
@@ -94,6 +95,7 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
   width,
   height,
   priority,
+  fetchPriority,
   sizes,
   className,
   objectFit = "cover",
@@ -301,12 +303,16 @@ const UniversalImage: React.FC<UniversalImageProps> = ({
       width={width}
       height={height}
       priority={priority}
+      fetchPriority={fetchPriority}
       sizes={sizes}
       className={className}
       style={{
         objectFit,
         objectPosition,
       }}
+      placeholder="blur"
+      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlZWUiLz48L3N2Zz4="
+      loading={priority ? undefined : "lazy"}
     />
   );
 };

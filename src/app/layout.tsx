@@ -12,8 +12,7 @@ import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/common/theme/ThemeProvider";
 import Navigation from "@/components/common/layout/Navigation";
 import { Footer } from "@/components/common/layout/Footer/Footer";
-import { ChatbotWidget } from "@/components/common/dialogs/Chatbot/ChatbotWidget";
-import { KeyboardShortcutsDialog } from "@/components/common/dialogs/KeyboardShortcutsDialog";
+import { DynamicLayout } from "@/app/components/DynamicLayout";
 
 import { getBaseUrl } from "@/lib/utils/api/get-base-url";
 import { generateSingleOGUrl } from "@/lib/utils/theme/detection";
@@ -116,16 +115,24 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Resource hints for better performance */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <StructuredData type="person" data={nicholasAdamouPersonData} />
         <StructuredData type="website" data={websiteData} />
       </head>
       <body className="width-full text-primary relative flex min-h-screen flex-col antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ChatbotWidget />
-          <KeyboardShortcutsDialog />
-          <Navigation />
-          <main className="mx-auto w-full flex-1 px-4 pt-28">{children}</main>
-          <Footer />
+          <DynamicLayout>
+            <Navigation />
+            <main className="mx-auto w-full flex-1 px-4 pt-28">{children}</main>
+            <Footer />
+          </DynamicLayout>
         </ThemeProvider>
         {/* Only render analytics in production or when deployment ID is available */}
         {process.env.NODE_ENV === "production" && (

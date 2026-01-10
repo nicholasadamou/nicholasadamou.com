@@ -5,8 +5,14 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, Toaster } from "react-hot-toast";
-import Confetti from "react-confetti";
+import dynamic from "next/dynamic";
 import ReactDOM from "react-dom";
+
+// Lazy load confetti only when needed
+const Confetti = dynamic(() => import("react-confetti"), {
+  ssr: false,
+  loading: () => null,
+});
 import { motion } from "framer-motion";
 import {
   containerVariants,
