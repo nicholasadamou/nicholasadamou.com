@@ -85,7 +85,7 @@ importers:
         specifier: ^5.8.1
         version: 5.8.1
       js-yaml:
-        specifier: ^4.1.1
+        specifier: '>=4.1.1'
         version: 4.1.1
       katex:
         specifier: ^0.16.23
