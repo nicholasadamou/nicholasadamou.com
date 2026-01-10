@@ -17,23 +17,22 @@ pinned: false
 image_url: "https://unsplash.com/photos/the-zipper-is-partially-opened-on-blue-jeans-BYnPD7xBNLs"
 ---
 
-In the rapidly evolving landscape of web-based tools, **Squash** stands out as a modern, high-performance image compression tool that runs entirely in the browser. Built on a foundation of **WebAssembly** and a modular architecture, Squash offers fast, efficient compression for multiple image formats without compromising on quality. This article delves into the **low-level system design**, **architecture**, and **key design decisions** that make Squash a powerful and scalable solution.
+Here's the thing about web-based image compression tools—most of them are either slow, require uploading to someone's server (privacy nightmare), or both. **Squash** is different. It's a modern, high-performance image compression tool that runs entirely in your browser using **WebAssembly**. Fast compression for multiple image formats, no quality loss, and your images never leave your machine. Let me walk you through the architecture and design decisions that make this work.
 
-## Why Squash Was Created
+## Why I Built Squash
 
-The inspiration for **Squash** arose from the need for **an intuitive, privacy-first image compression solution** that could be used anywhere—without the overhead of server-side processing or third-party dependencies. I often found myself switching between multiple tools to optimize images for various purposes: web development, presentations, and personal projects. While some tools provided excellent compression results, they required **uploading images to external servers**, raising concerns about **privacy** and **data control**. Others were powerful but felt unnecessarily complex for everyday tasks.
+I kept running into the same problem: I needed to compress images for web dev, presentations, personal projects—you name it. Some tools had great compression but required uploading images to their servers (hard pass on that privacy nightmare). Others were powerful but way too complex for everyday use.
 
-The question became clear:
-**What if we could compress images directly in the browser, with near-native performance and complete user control?**
+So I asked myself: **What if we could compress images directly in the browser, with near-native performance and complete user control?**
 
-With advances in **WebAssembly (WASM)** and modern frontend frameworks like **React**, building such a tool was not only possible but could also deliver **blazing-fast performance** without compromising the user experience. Squash was born out of the desire to create a tool that meets the following core goals:
+Turns out, with **WebAssembly (WASM)** and modern frameworks like **React**, you absolutely can. Squash was born to solve these goals:
 
-- **Speed and Performance**: Utilize WebAssembly to achieve native-like image processing speed.
-- **Privacy and Security**: Ensure that all image processing happens on the client side, with no server involvement.
-- **Simplicity and Usability**: Provide a minimal, intuitive interface that doesn’t overwhelm users with technical jargon.
-- **Extendability**: Build a modular architecture that makes it easy to add new formats and compression techniques.
+- **Speed and Performance**: Use WebAssembly to get native-like image processing speed
+- **Privacy and Security**: All processing happens client-side—your images never touch a server
+- **Simplicity**: Clean, minimal interface that doesn't overwhelm you with technical jargon
+- **Extendability**: Modular architecture makes it easy to add new formats and compression techniques
 
-Squash bridges the gap between **powerful image compression algorithms** and a **user-friendly experience**, making it a go-to tool for developers, designers, and casual users alike. Whether you need to shrink large image assets for web deployment or just want to reduce the size of vacation photos before sharing them, Squash handles it all—quickly and securely.
+Squash bridges the gap between powerful compression algorithms and a user-friendly experience. Whether you're optimizing image assets for the web or just shrinking vacation photos before sharing, Squash handles it—quickly and securely.
 
 ## 📚 High-Level Architecture
 
@@ -48,20 +47,12 @@ Squash follows a **modular, component-based architecture** that makes it easy to
 3. **State Management and Queueing**
    Custom hooks (`useImageManager` and `useImageQueue`) manage image states and processing queues, ensuring smooth, parallelized processing without blocking the UI.
 
-```plantuml
-@startuml
-actor User
-participant "React UI" as React
-participant "Compression Options" as Options
-participant "WebAssembly Compression" as WASM
-participant "Codecs" as Codecs
-React -> Options: Select Format & Quality
-Options -> WASM: Start Compression
-WASM -> Codecs: Load and Compress Image
-Codecs --> WASM: Compressed Data
-WASM --> React: Return Compressed Image
-@enduml
-```
+Here's how it works:
+
+1. **User Interface (React)**: You select your format and quality settings
+2. **Compression Options**: Your choices get passed to the compression engine
+3. **WebAssembly**: The real magic happens here—codecs load and compress your image
+4. **Result**: Compressed image ready to download
 
 ## 🛠️ Low-Level System Design
 

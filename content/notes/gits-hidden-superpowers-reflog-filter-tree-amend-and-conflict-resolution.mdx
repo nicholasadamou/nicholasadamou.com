@@ -6,7 +6,7 @@ pinned: false
 image_url: "https://unsplash.com/photos/wX2L8L-fGeA"
 ---
 
-Over the years, I've learned that mastering Git is so much more than just running add, commit, and push. In this note, I want to share with you the advanced Git commands and techniques that have truly saved my skin and boosted my workflow. From recovering from spectacular mistakes (yes, I've undone some terrifying rebases!) to hunting down seemingly lost commits or carefully rewriting a project's history, these are the tools that have helped me keep projects on track and maintain a clean, understandable history. My hope is that by sharing my own experience with these commands, you'll feel much more confident taking on any Git challenge that comes your way.
+Mastering Git is way more than just `add`, `commit`, and `push`. Here are the advanced commands that have saved my skin countless times—recovering from spectacular mistakes (yes, I've undone some terrifying rebases!), hunting down lost commits, and rewriting history when needed. These tools keep projects on track and history clean.
 
 ## Git Reflog: Your Time Machine
 
@@ -20,33 +20,14 @@ Over the years, I've learned that mastering Git is so much more than just runnin
 
 ### Common Use Cases
 
-Git reflog shines brightest in moments of panic: when you've lost commits after a mistaken reset, need to recover work erased by an accidental rebase, or want to undo a problematic merge. Here are some of the most useful scenarios where reflog can help you recover quickly and safely:
+Reflog shines in moments of panic—lost commits after a reset, work erased by an accidental rebase, or a problematic merge. Here's how to recover:
 
-```plantuml
-@startuml
-title Git Reflog Recovery Flow
+**Recovery flow:**
 
-!define RECOVERY #90EE90
-!define ERROR #FFB6C6
-!define NORMAL #87CEEB
-
-rectangle "Working State" as ws NORMAL
-rectangle "Accidental Reset" as ar ERROR {
-  note right: Lost 3 commits!
-}
-rectangle "Check Reflog" as cr NORMAL
-rectangle "Find Previous HEAD" as fh NORMAL
-rectangle "Recovered State" as rs RECOVERY {
-  note right: All commits restored
-}
-
-ws --> ar : git reset --hard HEAD~3
-ar --> cr : git reflog
-cr --> fh : Locate HEAD@{1}
-fh --> rs : git reset --hard HEAD@{1}
-
-@enduml
-```
+1. Working State → Accidental Reset (`git reset --hard HEAD~3`) → Lost 3 commits!
+2. Check Reflog (`git reflog`)
+3. Find Previous HEAD (locate `HEAD@{1}`)
+4. Recovered State (`git reset --hard HEAD@{1}`) → All commits restored
 
 **Recover from accidental reset:**
 
@@ -91,43 +72,25 @@ git reset --hard HEAD@{n}  # Where n is before the merge
 
 ### Common Operations
 
-Before diving into specific commands, it's helpful to understand the types of large-scale changes `git filter-tree` enables. Below are some of the most common workflows, with sample commands to illustrate how you can surgically alter your repository's history—whether you're removing sensitive files, cleaning up bloat, or modifying author information across all commits.
+Here are the types of large-scale changes `git filter-tree` enables:
 
-```plantuml
-@startuml
-title Git Filter-Tree History Rewrite
+**Before Filter:**
 
-!define BEFORE #FFE4B5
-!define AFTER #90EE90
-!define WARNING #FFB6C6
-
-package "Before Filter" as before BEFORE {
-  [Commit A] --> [Commit B]
-  [Commit B] --> [Commit C]
-  [Commit C] --> [Commit D]
-  note right of [Commit B]: Contains secrets.txt
-  note right of [Commit D]: Contains secrets.txt
-}
-
-package "After Filter" as after AFTER {
-  [Commit A'] --> [Commit B']
-  [Commit B'] --> [Commit C']
-  [Commit C'] --> [Commit D']
-  note right of after: secrets.txt removed\nfrom all history
-}
-
-rectangle "git filter-repo" as filter WARNING
-
-before --> filter
-filter --> after
-
-note bottom of filter
-  ⚠️ All commit hashes change
-  ⚠️ Force push required
-end note
-
-@enduml
 ```
+Commit A → Commit B (contains secrets.txt)
+         → Commit C
+         → Commit D (contains secrets.txt)
+```
+
+**After Filter:**
+
+```
+Commit A' → Commit B' (secrets.txt removed)
+          → Commit C'
+          → Commit D' (secrets.txt removed from all history)
+```
+
+⚠️ **Warning**: All commit hashes change. Force push required.
 
 **Remove a file from all history:**
 

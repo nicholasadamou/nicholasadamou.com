@@ -5,7 +5,7 @@ date: "2025-12-15"
 image_url: "https://unsplash.com/photos/a-computer-screen-with-a-program-running-on-it-3Sx3hSQcQIA"
 ---
 
-80% of the JavaScript on modern websites solves problems that don't exist anymore. We've reached a point where the browser has evolved to handle tasks natively that once required heavy libraries, yet we continue importing entire frameworks for trivial features.
+Here's a harsh truth: 80% of the JavaScript on modern websites solves problems that don't exist anymore. The browser already handles most of these tasks natively, yet we keep importing entire frameworks for trivial features.
 
 ## The Browser Already Solved It
 
@@ -13,44 +13,24 @@ Consider these common patterns and their modern, zero-JavaScript alternatives:
 
 ### The Dependency Bloat Problem
 
-As web developers, it's easy to reach for third-party packages to solve UI and UX challenges, but many "problems" these libraries address are already natively solved by today's browsers. Every new dependency bloats your application, increases the maintenance burden, and expands the surface area for bugs and vulnerabilities. Let's look at how dependency bloat sneaks in, and why reconsidering our default to "npm install" is so important.
+It's too easy to reach for third-party packages, but many "problems" these libraries solve are already handled by browsers. Every dependency bloats your app, increases maintenance burden, and expands the attack surface for bugs and vulnerabilities.
 
-```plantuml
-@startuml
-!theme plain
+**Simple Accordion Example:**
 
-rectangle "Simple Accordion" as A
+**Traditional Approach:**
 
-rectangle "Traditional Approach" as B #FFE6E6 {
-  rectangle "Import Library\n47KB" as D
-  rectangle "Dependencies\n120KB" as E
-  rectangle "Total: 167KB" as F #FF6B6B
-  rectangle "Parse & Execute" as G
-  rectangle "Battery Drain" as H
-}
+- Import Library: 47KB
+- Dependencies: 120KB
+- Total: 167KB of JavaScript
+- Parse & Execute time
+- Battery drain
 
-rectangle "Modern Approach" as C #E6F7E6 {
-  rectangle "<details> Element" as I
-  rectangle "0KB JavaScript" as J #51CF66
-  rectangle "Native Browser" as K
-  rectangle "Instant" as L
-}
+**Modern Approach:**
 
-A --> B
-A --> C
-B --> D
-D --> E
-E --> F
-F --> G
-G --> H
-
-C --> I
-I --> J
-J --> K
-K --> L
-
-@enduml
-```
+- `<details>` element
+- 0KB JavaScript
+- Native browser support
+- Instant
 
 ### Accordions
 
@@ -145,58 +125,21 @@ Zero JavaScript. CSS `:has()` and checkbox state handle everything.
 
 Modern HTML and CSS provide native solutions for problems that once required JavaScript:
 
-```plantuml
-@startuml
-!theme plain
+**2015: Library Era**
 
-package "2015: Library Era" #FFE6E6 {
-  rectangle "Accordion" as A1
-  rectangle "jQuery Plugin" as B1 #FF6B6B
+- Accordion → jQuery Plugin
+- Modal → Bootstrap.js
+- Form Validation → Validator.js
+- Carousel → Slick.js
+- Lazy Loading → LazyLoad.js
 
-  rectangle "Modal" as A2
-  rectangle "Bootstrap.js" as B2 #FF6B6B
+**2025: Native Era**
 
-  rectangle "Form Validation" as A3
-  rectangle "Validator.js" as B3 #FF6B6B
-
-  rectangle "Carousel" as A4
-  rectangle "Slick.js" as B4 #FF6B6B
-
-  rectangle "Lazy Loading" as A5
-  rectangle "LazyLoad.js" as B5 #FF6B6B
-
-  A1 --> B1
-  A2 --> B2
-  A3 --> B3
-  A4 --> B4
-  A5 --> B5
-}
-
-package "2025: Native Era" #E6F7E6 {
-  rectangle "Accordion" as C1
-  rectangle "<details>" as D1 #51CF66
-
-  rectangle "Modal" as C2
-  rectangle "<dialog>" as D2 #51CF66
-
-  rectangle "Form Validation" as C3
-  rectangle "HTML5 Attributes" as D3 #51CF66
-
-  rectangle "Carousel" as C4
-  rectangle "scroll-snap" as D4 #51CF66
-
-  rectangle "Lazy Loading" as C5
-  rectangle "loading=lazy" as D5 #51CF66
-
-  C1 --> D1
-  C2 --> D2
-  C3 --> D3
-  C4 --> D4
-  C5 --> D5
-}
-
-@enduml
-```
+- Accordion → `<details>` element
+- Modal → `<dialog>` element
+- Form Validation → HTML5 attributes (`required`, `pattern`, etc.)
+- Carousel → CSS `scroll-snap`
+- Lazy Loading → `loading="lazy"` attribute
 
 ### Layout & Responsive Design
 

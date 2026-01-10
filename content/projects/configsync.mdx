@@ -20,161 +20,70 @@ image_url: "https://unsplash.com/photos/macbook-pro-on-brown-wooden-table-npxXWg
 
 ## Introduction
 
-Managing application configurations across multiple Mac systems has always been a tedious and error-prone process. Whether you're setting up a new development machine, maintaining consistency across team environments, or simply wanting to backup your carefully crafted settings, the traditional approach involves manual copying, configuration drift, and the constant fear of losing important customizations.
+Let's be real—managing application configurations across multiple Mac systems is a pain. Setting up a new development machine? Tedious. Keeping settings consistent across your team? Error-prone. Worried about losing your carefully tweaked configurations? You should be.
 
-**ConfigSync** eliminates these challenges by providing a comprehensive command-line tool that centralizes, manages, and synchronizes macOS application settings across multiple systems. With smart auto-discovery, safe deployment mechanisms, and robust backup systems, ConfigSync transforms configuration management from a chore into an automated, reliable process.
+**ConfigSync** fixes all of that. It's a command-line tool that centralizes, manages, and synchronizes your macOS application settings across multiple systems. Smart auto-discovery finds your configs automatically, safe deployment mechanisms ensure nothing breaks, and robust backup systems mean you can always roll back. Configuration management goes from being a chore to just... handled.
 
 ## Why ConfigSync?
 
-ConfigSync addresses several critical pain points in macOS configuration management:
+ConfigSync tackles the real pain points of macOS configuration management:
 
-### The Configuration Management Challenge
+### The Problem
 
-Modern macOS development environments involve dozens of applications, each with their own configuration files scattered across various system directories. From Visual Studio Code settings and iTerm2 preferences to SSH configurations and Git settings, keeping these synchronized across multiple machines is a nightmare without proper tooling.
+Your development environment is a mess of config files scattered everywhere. VS Code settings here, iTerm2 preferences there, SSH configs somewhere else, Git settings in another spot. Dozens of apps, dozens of locations. Keeping all of that synchronized across multiple machines without proper tooling? Absolute nightmare.
 
-### Consistency Across Systems
+### The Solution: Consistency
 
-ConfigSync ensures that your development environment remains consistent whether you're working on your primary machine, a fresh laptop, or helping a teammate set up their environment. By storing configurations in a centralized location and using symlinks, any changes made to application settings are immediately reflected across all managed systems.
+ConfigSync keeps your development environment consistent whether you're on your main machine, a fresh laptop, or helping a teammate get set up. It stores everything in one centralized location and uses symlinks, so any changes you make to application settings are immediately reflected everywhere.
 
-### Safe Configuration Management
+### The Safety Net
 
-Unlike simple file copying or manual synchronization, ConfigSync provides comprehensive backup mechanisms, checksum validation, and rollback capabilities. Every operation is logged, and the system maintains integrity checks to ensure your configurations remain intact and recoverable.
+This isn't just copying files around. ConfigSync provides comprehensive backup mechanisms, checksum validation, and rollback capabilities. Every operation gets logged, and the system runs integrity checks to make sure your configurations stay intact and recoverable.
 
 ## Core Architecture
 
-ConfigSync's architecture is built around several key components that work together to provide a seamless configuration management experience:
+ConfigSync's architecture is built around six key components:
 
-```plantuml
-@startuml ConfigSync System Overview
-!theme plain
+**ConfigSync Core:**
 
-package "ConfigSync Core" as Core {
-  [Configuration Registry] as CR
-  [Central Storage] as CS
-  [Symlink Manager] as SM
-  [Backup System] as BS
-  [Deployment Engine] as DE
-  [App Detector] as AD
-}
+- **Configuration Registry**: Tracks what's being managed
+- **Central Storage**: Where all your configs actually live
+- **Symlink Manager**: Creates and maintains symlinks to the central storage
+- **Backup System**: Handles versioned backups with checksums
+- **Deployment Engine**: Pushes configs to new systems
+- **App Detector**: Automatically discovers installed applications
 
-package "System Locations" as SysLoc {
-  [~/Library/Preferences/] as PREF
-  [~/Library/Application Support/] as APPSUP
-  [~/.config/] as CONFIG
-  [~/Library/Containers/] as CONTAINERS
-  [~/Library/Group Containers/] as GROUPS
-}
+**System Integration:**  
+The Symlink Manager connects to all the major macOS config locations:
 
-package "Supported Applications" as Apps {
-  [Visual Studio Code] as VSC
-  [Google Chrome] as CHROME
-  [iTerm2] as ITERM
-  [1Password] as ONEPASS
-  [Git & SSH] as GIT
-  [20+ More Apps] as MORE
-}
+- `~/Library/Preferences/` - App preferences (plist files)
+- `~/Library/Application Support/` - App data and settings
+- `~/.config/` - Unix-style configuration files
+- `~/Library/Containers/` - Sandboxed app data
+- `~/Library/Group Containers/` - Shared app configurations
 
-package "CLI Interface" as CLI {
-  [init] as INIT
-  [discover] as DISCOVER
-  [sync] as SYNC
-  [backup] as BACKUP
-  [export/deploy] as DEPLOY
-}
+**Supported Applications:**  
+Out of the box, ConfigSync knows how to handle Visual Studio Code, Google Chrome, iTerm2, 1Password, Git & SSH, and 20+ more applications.
 
-CR --> CS : manages
-SM --> CS : creates symlinks
-SM --> PREF : links to
-SM --> APPSUP : links to
-SM --> CONFIG : links to
-SM --> CONTAINERS : links to
-SM --> GROUPS : links to
-
-BS --> CS : backs up from
-DE --> CS : deploys from
-AD --> Apps : discovers
-
-CLI --> CR : configures
-CLI --> SM : manages
-CLI --> BS : controls
-CLI --> DE : orchestrates
-CLI --> AD : triggers
-
-VSC --> PREF : stores preferences
-CHROME --> APPSUP : stores data
-ITERM --> APPSUP : stores config
-ONEPASS --> CONTAINERS : stores data
-GIT --> CONFIG : stores config
-MORE --> SysLoc : various locations
-
-@enduml
-```
+**CLI Interface:**  
+Everything happens through simple commands: `init`, `discover`, `sync`, `backup`, `export`, and `deploy`.
 
 ### Directory Structure
 
-ConfigSync organizes all managed configurations in a structured hierarchy that mirrors macOS's native configuration layout:
+ConfigSync organizes everything in `~/.configsync/` with a clean, logical structure:
 
-```plantuml
-@startuml ConfigSync Directory Structure
-!theme plain
+**`config.yaml`** - The main configuration registry tracking all managed applications
 
-folder "~/.configsync/" as ROOT {
-  file "config.yaml" as CONFIG
-  folder "store/" as STORE {
-    folder "Library/" as LIB {
-      folder "Preferences/" as PREFS {
-        file "com.microsoft.VSCode.plist"
-        file "com.google.Chrome.plist"
-        file "com.googlecode.iterm2.plist"
-      }
-      folder "Application Support/" as APPSUP {
-        folder "Code/"
-        folder "Google/Chrome/"
-        folder "Alfred/"
-      }
-    }
-    folder "Containers/" as CONT {
-      folder "com.1password.1password/"
-      folder "2BUA8C4S2C.com.agilebits.onepassword-osx-helper/"
-    }
-    folder ".config/" as XDG {
-      folder "git/"
-      folder "ssh/"
-    }
-  }
-  folder "backups/" as BACKUPS {
-    folder "2024-09-19-14-30-45/"
-    file "checksums.yaml"
-  }
-  folder "logs/" as LOGS {
-    file "configsync.log"
-    file "sync-2024-09-19.log"
-  }
-  folder "temp/" as TEMP {
-    folder "export-staging/"
-    folder "import-staging/"
-  }
-}
+**`store/`** - Central storage mirroring your system directory structure:
 
-note right of CONFIG
-  Main configuration registry
-  tracking managed applications
-end note
+- `Library/Preferences/` - App preference files (VS Code, Chrome, iTerm2 plists)
+- `Library/Application Support/` - App data directories (Code/, Google/Chrome/, Alfred/)
+- `Containers/` - Sandboxed app data (1Password, etc.)
+- `.config/` - Unix-style configs (git/, ssh/)
 
-note right of STORE
-  Central storage with
-  symlink targets mirroring
-  system directory structure
-end note
-
-note right of BACKUPS
-  Versioned snapshots with
-  checksum validation for
-  safe rollback capability
-end note
-
-@enduml
-```
+**`backups/`** - Versioned snapshots with checksums for safe rollback  
+**`logs/`** - Operation logs for debugging and audit trails  
+**`temp/`** - Staging area for export/import operations
 
 ## Dynamic Application Discovery & Configuration Management
 

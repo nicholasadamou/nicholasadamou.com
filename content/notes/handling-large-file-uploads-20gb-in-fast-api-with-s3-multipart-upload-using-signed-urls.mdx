@@ -5,15 +5,14 @@ date: "2025-03-28"
 image_url: "https://unsplash.com/photos/a-close-up-of-a-computer-screen-with-a-menu-hXrPSgGFpqQ"
 ---
 
-If you’ve ever tried uploading massive files (20GB–30GB) through your backend server, you’ve probably realized quickly that it’s not scalable. Memory spikes, timeouts, and server crashes are just the beginning. That’s why using **Amazon S3 Multipart Upload with Signed URLs** is the industry-standard solution.
+Ever tried uploading massive files (20GB–30GB) through your backend server? Memory spikes, timeouts, server crashes—it's a mess. That's why you need **Amazon S3 Multipart Upload with Signed URLs**.
 
-In this detailed guide, I’ll walk you through how to implement a **direct-to-S3 large file uploader** using:
+Here's how to implement a **direct-to-S3 large file uploader** using:
 
-- **Python** for the backend.
-- **AWS SDK for Python** for S3 Mutlipart Upload API with Signed URLs.
-- **Fast API** for the server.
-- **React + Vite** for the frontend.
-- **MongoDB** for tracking uploads.
+- **Python** + **AWS SDK** for the backend
+- **Fast API** for the server
+- **React + Vite** for the frontend
+- **MongoDB** for tracking uploads
 
 ## 🧠 Why This Approach?
 
@@ -56,68 +55,29 @@ This makes the system:
    - Frontend tells backend to finalize upload.
    - Backend completes the multipart upload using S3 API.
 
-_Flow Diagram from the Backend Perspective_
+**The Flow (Backend Perspective):**
 
-```plantuml
-@startuml
-participant Client
-participant API as "FastAPI Server"
-participant S3 as "AWS S3"
-participant DB as "MongoDB"
+1. **Client → API**: POST `/api/start-upload`
+2. **API → S3**: Create multipart upload → Get `upload_id`
+3. **API → MongoDB**: Record upload session
+4. **API → Client**: Return `upload_id`, `key`
 
-Client ->> API: POST /api/start-upload
-API ->> S3: Create multipart upload
-S3 -->> API: Return upload_id
-API ->> DB: Record upload session
-API -->> Client: Return upload_id, key
+**For each file part:**
 
-loop For each file part
-    Client ->> API: GET /api/get-signed-url
-    API ->> S3: Generate presigned URL
-    API -->> Client: Return signed_url
-    Client ->> S3: PUT part directly to S3 using signed_url
-    S3 -->> Client: Return ETag
-    Client ->> API: POST /api/upload-part with ETag
-    API ->> DB: Record part information
-end
+- Client → API: GET `/api/get-signed-url`
+- API → S3: Generate presigned URL
+- API → Client: Return `signed_url`
+- Client → S3: PUT part directly using `signed_url` → Get `ETag`
+- Client → API: POST `/api/upload-part` with `ETag`
+- API → MongoDB: Record part info
 
-Client ->> API: POST /api/complete-upload
-API ->> DB: Get all parts
-API ->> S3: Complete multipart upload
-S3 -->> API: Return file location
-API ->> DB: Update status to completed
-API -->> Client: Return success and file location
-@enduml
-```
+**Complete upload:**
 
-_Flow Diagram from the Frontend Perspective_
-
-```plantuml
-@startuml
-participant Client as "React App"
-participant API as "Backend API"
-participant S3 as "AWS S3"
-
-Client ->> API: POST /api/start-upload
-API ->> S3: Create multipart upload
-S3 -->> API: Return upload_id
-API -->> Client: Return upload_id, key
-
-loop For each file chunk
-    Client ->> API: GET /api/get-signed-url
-    API ->> S3: Generate presigned URL
-    API -->> Client: Return signed_url
-    Client ->> S3: PUT chunk directly to S3 using signed_url
-    S3 -->> Client: Return ETag
-    Client ->> API: POST /api/upload-part with ETag
-end
-
-Client ->> API: POST /api/complete-upload
-API ->> S3: Complete multipart upload
-S3 -->> API: Return file location
-API -->> Client: Return success and file location
-@enduml
-```
+- Client → API: POST `/api/complete-upload`
+- API → MongoDB: Get all parts
+- API → S3: Complete multipart upload → Get file location
+- API → MongoDB: Update status to completed
+- API → Client: Return success + file location
 
 ## ✅ Final Thoughts
 

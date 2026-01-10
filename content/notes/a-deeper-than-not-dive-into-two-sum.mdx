@@ -6,7 +6,9 @@ pinned: true
 image_url: "https://unsplash.com/photos/a-close-up-of-a-bunch-of-wheat-in-a-field-dODTJI4UYpw"
 ---
 
-The "Two Sum" problem is a classic entry point for many aspiring software engineers tackling algorithmic challenges. At first glance, the problem appears simple, but it offers a wealth of learning opportunities when explored deeply. An interview might ask such a question from this topic to probe your understanding of Hash Maps, binary search, and even memory management. Let's unravel it step by step, starting with the naive approach and progressing toward a highly optimized solution.
+The "Two Sum" problem is LeetCode #1 for a reason—it looks simple but teaches you a ton about Hash Maps, binary search, and memory management. Interviewers love this question because it reveals how you think about optimization.
+
+Let's unravel it step by step, from naive to highly optimized.
 
 ## Problem Statement
 
@@ -48,7 +50,7 @@ def two_sum_naive(nums, target):
 
 - $O(1)$: No additional space is used beyond a few variables.
 
-While the naive solution is simple and easy to implement, it quickly becomes inefficient for large arrays.
+Simple? Yes. Efficient? Not even close. This becomes painfully slow for large arrays.
 
 ## Step 2: Optimizing with Binary Search
 
@@ -96,7 +98,7 @@ def two_sum_binary_search(nums, target):
 
 - $O(n)$: Additional space for storing the original indices.
 
-While this approach is faster than the naive solution, it introduces the overhead of sorting the array. Let’s explore a more efficient method.
+Faster than the naive solution? Yes. But sorting adds overhead. We can do better.
 
 ## Step 3: Trading Time for Space
 

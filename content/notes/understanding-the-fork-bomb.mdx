@@ -6,15 +6,15 @@ pinned: false
 image_url: "https://unsplash.com/photos/a-fork-on-a-white-background-Mv3yxyI_OY4"
 ---
 
-A **fork bomb** is a denial-of-service (DoS) attack against a Unix-like system. It works by rapidly creating new processes to exhaust system resources, eventually making the system unresponsive.
+A **fork bomb** is one of the simplest yet most destructive DoS attacks against Unix-like systems. It rapidly creates new processes until the system runs out of resources and freezes.
 
-The classic form of a fork bomb looks like this:
+The classic form looks like this:
 
 ```bash path=null start=null
 :(){ :|:& };:
 ```
 
-Let’s break it down step by step.
+Yeah, that's it. Let's break down what this cryptic line actually does.
 
 ## 🧬 Anatomy of the Fork Bomb
 
@@ -40,53 +40,31 @@ Finally, `;:` **calls the function once**, kicking off the chain reaction.
 
 ## 🌱 Process Tree Growth
 
-```plantuml
-@startuml
-title Fork Bomb Process Tree (Simplified)
-skinparam linetype ortho
+The process tree grows exponentially:
 
-node ":()" as root
-node "Child 1" as child1
-node "Child 2" as child2
-node "Grandchild 1" as gc1
-node "Grandchild 2" as gc2
-node "Grandchild 3" as gc3
-node "Grandchild 4" as gc4
-
-root --> child1
-root --> child2
-child1 --> gc1
-child1 --> gc2
-child2 --> gc3
-child2 --> gc4
-
-note right of child2
-This grows exponentially
-with each generation.
-end note
-@enduml
+```
+:()                    (1 process)
+├── Child 1            (2 processes)
+│   ├── Grandchild 1   (4 processes)
+│   └── Grandchild 2
+└── Child 2
+    ├── Grandchild 3
+    └── Grandchild 4
 ```
 
-The process tree grows exponentially with each generation. The number of processes doubles with each level. Ultimately, this leads to a rapid depletion of system resources.
+Each generation doubles the number of processes. This rapidly depletes system resources.
 
 ## ⚙️ Fork Bomb Execution Flow
 
-```plantuml
-@startuml
-title Fork Bomb Execution Flow
+**The cycle:**
 
-start
-:Define function :();
-:Call function :;
-repeat
-:Fork two background processes;
-:Each process repeats the function;
-repeat while (resources available?) is (yes)
-stop
-@enduml
-```
+1. Define function `:()`
+2. Call function `:`
+3. Fork two background processes
+4. Each process repeats the function
+5. Repeat until system runs out of resources
 
-The fork bomb repeatedly forks two background processes, each of which repeats the function. This continues as long as system resources are available.
+This continues until the system freezes.
 
 ## 🖥️ What Happens When You Run It?
 

@@ -7,7 +7,7 @@ pinned: true
 image_url: "https://unsplash.com/photos/an-aerial-view-of-a-train-yard-with-several-trains-ud_kWC-3Bdg"
 ---
 
-In today’s world of microservices, managing and balancing traffic across multiple instances of a service is essential for scalability and reliability. This post will guide you through building a basic load balancer using Spring Boot, featuring health checks and round-robin distribution.
+Managing traffic across multiple service instances? That's essential for scalability and reliability. Let's build a basic load balancer using Spring Boot with health checks and round-robin distribution.
 
 ## Project Overview
 
@@ -19,60 +19,31 @@ This load balancer project is built on Spring Boot 3.2.0 and Java 21, leveraging
 
 ### Architecture
 
-Here's a high-level view of the system flow:
+Here's how it works:
 
-```plantuml
-@startuml
-skinparam componentStyle rectangle
+**Client Layer:**
 
-package "Client Layer" {
-    [Web Client] as C1
-    [Mobile Client] as C2
-    [API Client] as C3
-}
+- Web, Mobile, and API clients send HTTP requests
 
-package "Load Balancer Layer" {
-    [Proxy Controller] as PC
-    [Load Balancer Service] as LBS
-    [Health Check Service] as HCS
+**Load Balancer Layer:**
 
-    PC --> LBS
-    LBS --> HCS
-}
+- Proxy Controller receives requests
+- Load Balancer Service distributes using round-robin
+- Health Check Service monitors service health
 
-package "API Service Cluster" {
-    [API Service :8081] as API1
-    [API Service :8082] as API2
-    [API Service :8083] as API3
-    [API Service :8084] as API4
-    [API Service :8085] as API5
-}
+**API Service Cluster:**
 
-C1 --> PC : HTTP Requests
-C2 --> PC : HTTP Requests
-C3 --> PC : HTTP Requests
+- Multiple API services (ports 8081-8085)
+- Each sends heartbeat every 5 seconds
+- Load balancer forwards requests in round-robin fashion
 
-PC --> API1 : Round Robin
-PC --> API2 : Round Robin
-PC --> API3 : Round Robin
-PC --> API4 : Round Robin
-PC --> API5 : Round Robin
+**The flow:**
 
-API1 --> HCS : Heartbeat 5s
-API2 --> HCS : Heartbeat 5s
-API3 --> HCS : Heartbeat 5s
-API4 --> HCS : Heartbeat 5s
-API5 --> HCS : Heartbeat 5s
-@enduml
-```
-
-From the UML diagram above, we can gather that:
-
-- **Clients** send requests to the load balancer (port 8080).
-- The load balancer maintains a list of healthy services and uses round-robin to distribute requests.
-- **API services** register themselves with heartbeat messages every 5 seconds.
-- A **Health Check Service** continuously monitors service status, removing unresponsive instances.
-- Each API service operates on a unique port (8081–8085) and handles requests forwarded by the load balancer.
+- Clients → Load Balancer (port 8080)
+- Load Balancer maintains list of healthy services
+- API services register via heartbeat messages (every 5s)
+- Health Check Service removes unresponsive instances
+- Each API service on unique port handles forwarded requests
 
 ## Implementation Details
 

@@ -5,7 +5,7 @@ date: "2025-12-21"
 image_url: "https://unsplash.com/photos/diagram-TXzdrCTdggE"
 ---
 
-Building a chat assistant that's knowledgeable about you and your work can significantly enhance visitor engagement on your portfolio site. This guide walks through how I implemented an AI-powered chat assistant using OpenAI's Assistants API, complete with streaming support to handle serverless function timeouts.
+Want a chat assistant that's knowledgeable about you and your work? It significantly enhances visitor engagement. Here's how I built one using OpenAI's Assistants API with streaming support to handle serverless function timeouts.
 
 ## Why I Added a Chat Assistant
 
@@ -46,97 +46,45 @@ Instead of waiting for the entire response, I implemented a streaming solution t
 
 ### Architecture Overview
 
-```plantuml
-@startuml
-!theme plain
+**The flow:**
 
-box "Client (Browser)" #LightBlue
-  participant "Chat Widget" as Client
-end box
+1. **Client → API**: POST `/api/chatbot` with `{message, threadId}`
+2. **API → OpenAI**: Create/Get Thread → Get `thread_id`
+3. **API → OpenAI**: Add message to thread
+4. **API → OpenAI**: Create run → Get `run_id`
+5. **API → Client**: Start streaming response
+6. **Polling loop** (every 1s, max 50 attempts):
+   - API → OpenAI: Get run status
+   - OpenAI → API: `status: in_progress`
+7. **OpenAI → API**: `status: completed`
+8. **API → OpenAI**: List messages
+9. **OpenAI → API**: Assistant response
+10. **API → Client**: Stream JSON response `{response, threadId}`
+11. **Client**: Parse & display assistant message
 
-box "Vercel Serverless" #LightGreen
-  participant "API Route\n/api/chatbot" as API
-end box
-
-box "OpenAI" #LightYellow
-  participant "Assistants API" as OpenAI
-end box
-
-Client -> API: POST /api/chatbot\n{message, threadId}
-activate API
-
-API -> OpenAI: Create/Get Thread
-OpenAI --> API: thread_id
-
-API -> OpenAI: Add Message to Thread
-OpenAI --> API: OK
-
-API -> OpenAI: Create Run
-OpenAI --> API: run_id
-
-API -> Client: Start Streaming Response
-activate Client
-
-loop Poll every 1s (max 50 attempts)
-  API -> OpenAI: Get Run Status
-  OpenAI --> API: status: in_progress
-end
-
-OpenAI --> API: status: completed
-
-API -> OpenAI: List Messages
-OpenAI --> API: Assistant Response
-
-API -> Client: Stream JSON Response\n{response, threadId}
-deactivate API
-
-Client -> Client: Parse & Display\nAssistant Message
-deactivate Client
-
-@enduml
-```
-
-The streaming approach allows the connection to stay open while polling OpenAI, preventing serverless timeouts.
+The streaming approach keeps the connection open while polling OpenAI, preventing serverless timeouts.
 
 ## System Architecture
 
-Before diving into implementation, here's how the components work together:
+Here's how the components work together:
 
-```plantuml
-@startuml
-!theme plain
+**Frontend:**
 
-package "Frontend" {
-  [Chat Widget] as Widget
-  [Markdown Renderer] as Markdown
-  [Session Storage] as Session
-}
+- Chat Widget → HTTP POST (message, threadId)
+- Markdown Renderer → Displays formatted response
+- Session Storage → Caches threadId
 
-package "Backend (Vercel)" {
-  [API Route] as Route
-  [OpenAI Client] as Client
-  [Streaming Handler] as Stream
-}
+**Backend (Vercel):**
 
-package "OpenAI Platform" {
-  [Assistants API] as API
-  [Knowledge Base] as KB
-  database "Thread Storage" as Threads
-}
+- API Route → Initializes OpenAI Client
+- OpenAI Client → Creates ReadableStream
+- Streaming Handler → Polls for completion
 
-Widget --> Route : HTTP POST\n(message, threadId)
-Route --> Client : Initialize
-Client --> Stream : Create ReadableStream
-Stream --> API : Poll for completion
-API --> KB : Search documents
-API --> Threads : Store conversation
-API --> Stream : Return response
-Stream --> Widget : JSON stream
-Widget --> Markdown : Render response
-Widget --> Session : Cache threadId
+**OpenAI Platform:**
 
-@enduml
-```
+- Assistants API → Searches Knowledge Base
+- Thread Storage → Stores conversation
+- Returns response via JSON stream
 
 ## Step 1: Create an OpenAI Assistant
 
