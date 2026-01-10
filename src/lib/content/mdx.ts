@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 
 // Types matching your existing Contentlayer schema
 export interface BaseContent {
@@ -60,7 +61,11 @@ function parseMDXFile(
   contentType: "notes" | "projects"
 ): BaseContent {
   const fileContent = fs.readFileSync(filePath, "utf-8");
-  const { data: frontmatter, content } = matter(fileContent);
+  const { data: frontmatter, content } = matter(fileContent, {
+    engines: {
+      yaml: (s: string) => yaml.load(s) as object,
+    },
+  });
 
   const slug = getSlug(filePath);
   const relativePath = path.relative(contentDirectory, filePath);
