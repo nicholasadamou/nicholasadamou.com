@@ -19,17 +19,17 @@ pinned: true
 image_url: "https://unsplash.com/photos/a-forest-filled-with-lots-of-green-trees-hUXDf6q5yqI"
 ---
 
-Managing logging infrastructure in high-throughput Java applications presents unique challenges: runtime reflection overhead, lock contention in async logging, garbage collection pressure from string allocation, and the eternal boilerplate of logger field declarations. Traditional logging frameworks often require explicit logger instantiation, XML configuration files, and complex dependency chains that slow development velocity.
+Ever found yourself writing `private static final Logger log = LoggerFactory.getLogger(MyClass.class);` for the hundredth time and thinking, "There has to be a better way"? Or maybe you've watched your high-throughput Java app grind to a halt because logging became a bottleneck? Yeah, we've been there too.
 
-**Hermes** eliminates these pain points by providing a modern, high-performance logging library built for Java 17+ that combines compile-time code generation, zero-allocation message formatting, and lock-free async processing. Named after the Greek messenger god, Hermes delivers log messages swiftly and reliably while maintaining excellent developer experience through zero-boilerplate annotations and sensible defaults.
+**Hermes** is a modern logging library for Java 17+ that ditches the old baggage. No more boilerplate logger declarations. No more XML config files. No more lock contention killing your throughput. Instead, you get compile-time code generation, zero-allocation message formatting, and lock-free async processing via LMAX Disruptor. Named after the Greek messenger god who delivered messages at lightning speed, Hermes does exactly that for your logs.
 
 ## Why Hermes?
 
-Modern Java applications demand logging solutions that scale to millions of events per second without becoming performance bottlenecks. Traditional logging frameworks were designed in the Java 6 era and carry architectural decisions that don't leverage modern JVM capabilities or contemporary concurrency primitives.
+Look, most logging frameworks were built back in the Java 6 days. They work, sure, but they weren't designed for today's cloud-native, high-throughput world. If you're running microservices that handle thousands of requests per second, or processing millions of Kafka messages per hour, traditional logging can become your bottleneck.
 
-### The Logging Performance Challenge
+### The Logging Performance Problem
 
-High-throughput applications—microservices handling thousands of requests per second, data processing pipelines, real-time analytics systems—generate massive volumes of log data. Every microsecond spent formatting messages, acquiring locks, or allocating strings directly impacts application latency and throughput. Traditional logging approaches suffer from:
+Think about what happens every time you log something: format a message, acquire a lock, allocate strings, write to disk. Multiply that by a million events per second. Suddenly, those microseconds add up. Here's what goes wrong with traditional approaches:
 
 - **Reflection overhead** for logger field injection
 - **Lock contention** in multi-threaded async appenders
@@ -37,11 +37,11 @@ High-throughput applications—microservices handling thousands of requests per 
 - **Thread blocking** when writing to I/O streams synchronously
 - **Configuration complexity** with XML or properties files
 
-### Zero-Boilerplate Development Experience
+### Zero-Boilerplate Development
 
-Beyond performance, developer experience matters. Writing `private static final Logger log = LoggerFactory.getLogger(MyClass.class);` in every class is tedious, error-prone (easy to copy-paste the wrong class), and adds visual noise to source code.
+Okay, let's talk about the elephant in the room: that logger declaration you copy-paste into every single class. You know the one. And you know how easy it is to forget to change the class name, right? We've all been there.
 
-Hermes solves this with compile-time annotation processing:
+Hermes fixes this with one simple annotation:
 
 ```java path=null start=null
 @InjectLogger
@@ -52,24 +52,24 @@ public class UserService extends UserServiceHermesLogger {
 }
 ```
 
-The `@InjectLogger` annotation triggers compile-time code generation that creates a base class with a `protected Logger log` field. This approach:
+That's it. The `@InjectLogger` annotation triggers compile-time code generation that creates a base class with a `protected Logger log` field ready to use. What's cool about this?
 
-- **Eliminates boilerplate** without runtime reflection
-- **Provides type safety** through compile-time checks
-- **Works with GraalVM Native Image** (no reflection configuration needed)
-- **Enables IDE autocomplete** for the generated logger field
+- **No boilerplate** — Zero. Nada. And no runtime reflection overhead either.
+- **Type-safe** — Catches errors at compile time, not at 3 AM in production.
+- **GraalVM-friendly** — Works with native images out of the box.
+- **IDE-friendly** — Your IDE's autocomplete just works.
 
-### Enterprise-Grade Features for Production
+### Production-Ready Features
 
-Hermes isn't just fast—it's production-ready with features that enterprise applications demand:
+Speed is great, but you also need this thing to actually work in production, right? Hermes has you covered:
 
-- **Structured JSON logging** for log aggregation systems (ELK, Splunk, Datadog)
-- **Mapped Diagnostic Context (MDC)** for request tracing and correlation
-- **Multiple appenders** (Console, File, RollingFile, Async, Logstash)
-- **Pattern layouts** with customizable formatting
-- **Spring Boot auto-configuration** with YAML-based configuration
-- **Kotlin DSL** for idiomatic Kotlin integration
-- **GraalVM Native Image support** with included metadata
+- **Structured JSON logging** — Works seamlessly with ELK, Splunk, Datadog, and friends.
+- **MDC support** — Track requests across your distributed system.
+- **Multiple appenders** — Console, File, RollingFile, Async, Logstash—take your pick.
+- **Flexible formatting** — Customize patterns however you like.
+- **Spring Boot integration** — Auto-configuration via YAML. No XML nightmares.
+- **Kotlin DSL** — Because Kotlin developers deserve nice things too.
+- **GraalVM support** — Native images? Yeah, that works.
 
 ## Core Architecture
 
@@ -298,7 +298,9 @@ Working examples demonstrating various Hermes features and integration patterns.
 
 ## High-Performance Async Logging with LMAX Disruptor
 
-Traditional async logging implementations use lock-based queues (`ArrayBlockingQueue`, `LinkedBlockingQueue`) which suffer from thread contention and context switching overhead. Hermes integrates the LMAX Disruptor—a high-performance inter-thread messaging library used in financial trading systems—to achieve lock-free, wait-free async logging.
+Here's the thing: most async logging uses lock-based queues. They work okay for moderate loads, but when you're pushing millions of logs per second, those locks become a serious bottleneck. Thread contention, context switching—it all adds up.
+
+Hermes uses the [LMAX Disruptor](https://lmax-exchange.github.io/disruptor/) instead. If you haven't heard of it, it's the same tech that powers financial trading systems where nanoseconds matter. It's lock-free, wait-free, and absurdly fast.
 
 ### Async Logging Flow
 
@@ -339,7 +341,9 @@ The ring buffer is pre-allocated with a fixed size (power of 2, typically 1024-8
 
 ## Zero-Allocation Message Formatting
 
-Traditional logging frameworks create new String objects for every log message, contributing to garbage collection pressure. Hermes eliminates this allocation using ThreadLocal StringBuilder reuse.
+Every time traditional logging formats a message, it creates new String objects. One log message? No big deal. A million per second? Now you've got a garbage collection nightmare.
+
+Hermes fixes this by reusing ThreadLocal StringBuilder instances. After the initial allocation, it's zero-copy formatting all the way down.
 
 ### Performance Impact
 
@@ -398,9 +402,9 @@ public class MessageFormatter {
 }
 ```
 
-## Spring Boot Integration and Configuration
+## Spring Boot Integration
 
-Hermes provides first-class Spring Boot integration through the `hermes-spring-boot-starter` module, enabling auto-configuration and YAML-based setup.
+If you're using Spring Boot (and let's be honest, you probably are), Hermes plays nice right out of the box. No complex setup, no XML files to wrestle with—just add the starter and configure via YAML.
 
 ### Configuration Example
 
@@ -436,9 +440,11 @@ hermes:
 - **`%mdc{key}`** - MDC value (e.g., `req-12345`)
 - **`%exception`** - Exception stack trace (full stack trace)
 
-## Structured JSON Logging for Observability
+## Structured JSON Logging
 
-Modern observability platforms (ELK Stack, Splunk, Datadog, New Relic) expect structured JSON logs for efficient parsing and querying. Hermes provides built-in JSON layout with customizable formatting.
+If you're shipping logs to ELK, Splunk, Datadog, or any modern observability platform, you need JSON. Not because it's trendy, but because it's the only way to make your logs actually queryable and useful.
+
+Hermes has built-in JSON formatting that's optimized for these platforms:
 
 ### JSON Output Example
 
@@ -496,9 +502,9 @@ output {
 }
 ```
 
-## Kotlin DSL for Idiomatic Integration
+## Kotlin DSL
 
-Hermes provides a Kotlin-specific module (`hermes-kotlin`) with extension functions and DSL builders for idiomatic Kotlin usage.
+Writing Kotlin? You shouldn't have to suffer through a Java logging API. Hermes includes a dedicated Kotlin module with extension functions and DSL builders that feel natural in Kotlin code.
 
 ### Kotlin Extensions Overview
 
@@ -729,63 +735,71 @@ Hermes excels in various production scenarios where logging performance and deve
 - GraalVM Native Image metadata
 - Logstash direct streaming
 
-## Comparison with Established Frameworks
+## How Does Hermes Stack Up?
 
-### Logger Injection
+You're probably wondering: "How does this compare to what I'm already using?" Fair question. Here's the honest breakdown:
 
-- **SLF4J + Logback**: Manual or Lombok
-- **Log4j2**: Manual
-- **Hermes**: `@InjectLogger` annotation
-
-### Configuration
-
-- **SLF4J + Logback**: XML/Groovy
-- **Log4j2**: XML/JSON/YAML
-- **Hermes**: YAML with sensible defaults
-
-### Async Logging
-
-- **SLF4J + Logback**: Via appenders (lock-based)
-- **Log4j2**: Lock-free (Disruptor)
-- **Hermes**: Built-in LMAX Disruptor
-
-### Message Formatting
-
-- **SLF4J + Logback**: String concatenation
-- **Log4j2**: ThreadLocal reuse
-- **Hermes**: ThreadLocal zero-allocation
-
-### Spring Boot Integration
-
-- **SLF4J + Logback**: External starters
-- **Log4j2**: External starters
-- **Hermes**: Native auto-configuration
-
-### Kotlin Support
-
-- **SLF4J + Logback**: Java API only
-- **Log4j2**: Java API only
-- **Hermes**: Dedicated Kotlin DSL
-
-### GraalVM Native Image
-
-- **SLF4J + Logback**: Manual configuration
-- **Log4j2**: Manual configuration
-- **Hermes**: Included metadata
-
-### Java Version
-
-- **SLF4J + Logback**: 8+
-- **Log4j2**: 8+
-- **Hermes**: 17+ (modern features)
-
-### JSON Logging
-
-- **SLF4J + Logback**: Via Jackson/Gson
-- **Log4j2**: Built-in
-- **Hermes**: Built-in optimized layout
+<ComparisonTable
+  features={[
+    "Logger Injection",
+    "Configuration",
+    "Async Logging",
+    "Message Formatting",
+    "Spring Boot Integration",
+    "Kotlin Support",
+    "GraalVM Native Image",
+    "Java Version",
+    "JSON Logging",
+  ]}
+  frameworks={[
+    {
+      name: "SLF4J + Logback",
+      values: [
+        "Manual or Lombok",
+        "XML/Groovy",
+        "Via appenders (lock-based)",
+        "String concatenation",
+        "External starters",
+        "Java API only",
+        "Manual configuration",
+        "8+",
+        "Via Jackson/Gson",
+      ],
+    },
+    {
+      name: "Log4j2",
+      values: [
+        "Manual",
+        "XML/JSON/YAML",
+        "Lock-free (Disruptor)",
+        "ThreadLocal reuse",
+        "External starters",
+        "Java API only",
+        "Manual configuration",
+        "8+",
+        "Built-in",
+      ],
+    },
+    {
+      name: "Hermes",
+      values: [
+        "@InjectLogger annotation",
+        "YAML with defaults",
+        "Built-in LMAX Disruptor",
+        "Zero-allocation",
+        "Native auto-config",
+        "Dedicated Kotlin DSL",
+        "Included metadata",
+        "17+ (modern features)",
+        "Optimized built-in",
+      ],
+    },
+  ]}
+/>
 
 ## Getting Started
+
+Ready to give it a spin? Here's how to get Hermes into your project.
 
 ### Maven Setup
 
@@ -894,10 +908,10 @@ public class UserService extends UserServiceHermesLogger {
 - GitHub Actions (CI/CD)
 - Maven Central (Artifact distribution)
 
-## Conclusion
+## The Bottom Line
 
-Hermes represents a modern approach to Java logging that leverages contemporary JVM features, advanced concurrency primitives, and developer-friendly abstractions. By combining compile-time code generation, zero-allocation message formatting, and lock-free async processing, Hermes delivers exceptional performance without sacrificing usability.
+Hermes brings Java logging into the modern era. By leveraging Java 17 features, LMAX Disruptor, and compile-time code generation, it delivers the performance you need without the boilerplate you hate.
 
-Whether you're building high-throughput microservices, data processing pipelines, or enterprise Spring Boot applications, Hermes provides the performance, flexibility, and developer experience needed for production-grade logging infrastructure. Named after the swift messenger god, Hermes truly delivers log messages with speed and reliability.
+Whether you're building microservices that need to log millions of events per second, data pipelines processing Kafka streams, or enterprise Spring Boot apps, Hermes has your back. Fast, flexible, and actually enjoyable to use—that's the goal.
 
-For detailed architecture documentation, API reference, and integration guides, visit the [official documentation](https://dotbrains.github.io/hermes) or explore the [GitHub repository](https://github.com/dotbrains/hermes).
+Want to learn more? Check out the [official docs](https://dotbrains.github.io/hermes) or dive into the [GitHub repo](https://github.com/dotbrains/hermes). And yes, contributions are welcome!

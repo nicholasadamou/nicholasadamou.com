@@ -9,6 +9,7 @@ import YouTubeEmbed from "@/components/mdx/embeds/YouTube/YouTubeEmbed";
 import SourceCodeAccess from "@/components/mdx/embeds/GitHub/SourceCodeAccess";
 import Latex from "@/components/mdx/embeds/Latex";
 import Table from "@/components/mdx/content/Table";
+import ComparisonTable from "@/components/mdx/content/ComparisonTable";
 
 // Import plugins
 import remarkMath from "remark-math";
@@ -31,6 +32,7 @@ const components = {
   SourceCodeAccess: SourceCodeAccess,
   latex: Latex,
   Table: Table,
+  ComparisonTable: ComparisonTable,
 };
 
 interface MDXRendererProps {
