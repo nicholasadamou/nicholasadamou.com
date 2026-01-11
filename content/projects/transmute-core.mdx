@@ -68,10 +68,10 @@ package "Application Code" {
 }
 
 package "TransmuteCore Rendering" {
-  [Context\\n(Pixel Buffer)]
-  [BufferedImage\\n(DataBufferInt)]
-  [VolatileImage\\n(Hardware Accel)]
-  [BufferStrategy\\n(Double/Triple Buffer)]
+  [Context\n(Pixel Buffer)]
+  [BufferedImage\n(DataBufferInt)]
+  [VolatileImage\n(Hardware Accel)]
+  [BufferStrategy\n(Double/Triple Buffer)]
 }
 
 package "Display" {
@@ -80,20 +80,20 @@ package "Display" {
 }
 
 [Game Logic] --> [Render Method]
-[Render Method] --> [Context\\n(Pixel Buffer)]
-[Context\\n(Pixel Buffer)] --> [BufferedImage\\n(DataBufferInt)]
-[BufferedImage\\n(DataBufferInt)] --> [VolatileImage\\n(Hardware Accel)]
-[VolatileImage\\n(Hardware Accel)] --> [BufferStrategy\\n(Double/Triple Buffer)]
-[BufferStrategy\\n(Double/Triple Buffer)] --> [Canvas]
+[Render Method] --> [Context\n(Pixel Buffer)]
+[Context\n(Pixel Buffer)] --> [BufferedImage\n(DataBufferInt)]
+[BufferedImage\n(DataBufferInt)] --> [VolatileImage\n(Hardware Accel)]
+[VolatileImage\n(Hardware Accel)] --> [BufferStrategy\n(Double/Triple Buffer)]
+[BufferStrategy\n(Double/Triple Buffer)] --> [Canvas]
 [Canvas] --> [Game Window]
 
-note right of [Context\\n(Pixel Buffer)]
+note right of [Context\n(Pixel Buffer)]
   Direct pixel manipulation
   ARGB 32-bit format
   Zero abstraction overhead
 end note
 
-note right of [VolatileImage\\n(Hardware Accel)]
+note right of [VolatileImage\n(Hardware Accel)]
   GPU-accelerated rendering
   Automatic content recovery
   Platform-optimized
@@ -148,23 +148,23 @@ package "User Game Code" {
 
 package "TransmuteCore Engine" {
   package "Core" {
-    [TransmuteCore\\n(Game Loop)]
-    [Manager\\n(Central Coordinator)]
-    [GameConfig\\n(Configuration)]
-    [GameWindow\\n(Display)]
+    [TransmuteCore\n(Game Loop)]
+    [Manager\n(Central Coordinator)]
+    [GameConfig\n(Configuration)]
+    [GameWindow\n(Display)]
   }
 
   package "Subsystems" {
-    [StateManager\\n(State Stack)]
-    [AssetManager\\n(Resource Cache)]
-    [ObjectManager\\n(Entity Management)]
-    [SpriteManager\\n(Sprite Handling)]
-    [Input\\n(Keyboard & Mouse)]
+    [StateManager\n(State Stack)]
+    [AssetManager\n(Resource Cache)]
+    [ObjectManager\n(Entity Management)]
+    [SpriteManager\n(Sprite Handling)]
+    [Input\n(Keyboard & Mouse)]
   }
 
   package "Rendering" {
-    [Context\\n(Pixel Buffer)]
-    [IRenderer\\n(Interface)]
+    [Context\n(Pixel Buffer)]
+    [IRenderer\n(Interface)]
   }
 
   package "Assets" {
@@ -175,8 +175,8 @@ package "TransmuteCore Engine" {
   }
 
   package "Level" {
-    [Level\\n(Base)]
-    [TiledLevel\\n(Tile-based)]
+    [Level\n(Base)]
+    [TiledLevel\n(Tile-based)]
   }
 
   package "Utilities" {
@@ -186,31 +186,31 @@ package "TransmuteCore Engine" {
   }
 }
 
-[MyGame extends TransmuteCore] --> [TransmuteCore\\n(Game Loop)]
-[MyGame extends TransmuteCore] --> [Manager\\n(Central Coordinator)]
-[Game States] --> [StateManager\\n(State Stack)]
-[Game Objects] --> [ObjectManager\\n(Entity Management)]
+[MyGame extends TransmuteCore] --> [TransmuteCore\n(Game Loop)]
+[MyGame extends TransmuteCore] --> [Manager\n(Central Coordinator)]
+[Game States] --> [StateManager\n(State Stack)]
+[Game Objects] --> [ObjectManager\n(Entity Management)]
 
-[TransmuteCore\\n(Game Loop)] --> [Manager\\n(Central Coordinator)]
-[Manager\\n(Central Coordinator)] --> [StateManager\\n(State Stack)]
-[Manager\\n(Central Coordinator)] --> [AssetManager\\n(Resource Cache)]
-[Manager\\n(Central Coordinator)] --> [ObjectManager\\n(Entity Management)]
-[Manager\\n(Central Coordinator)] --> [SpriteManager\\n(Sprite Handling)]
-[Manager\\n(Central Coordinator)] --> [Input\\n(Keyboard & Mouse)]
-[Manager\\n(Central Coordinator)] --> [GameWindow\\n(Display)]
+[TransmuteCore\n(Game Loop)] --> [Manager\n(Central Coordinator)]
+[Manager\n(Central Coordinator)] --> [StateManager\n(State Stack)]
+[Manager\n(Central Coordinator)] --> [AssetManager\n(Resource Cache)]
+[Manager\n(Central Coordinator)] --> [ObjectManager\n(Entity Management)]
+[Manager\n(Central Coordinator)] --> [SpriteManager\n(Sprite Handling)]
+[Manager\n(Central Coordinator)] --> [Input\n(Keyboard & Mouse)]
+[Manager\n(Central Coordinator)] --> [GameWindow\n(Display)]
 
-[TransmuteCore\\n(Game Loop)] --> [IRenderer\\n(Interface)]
-[IRenderer\\n(Interface)] <|.. [Context\\n(Pixel Buffer)]
+[TransmuteCore\n(Game Loop)] --> [IRenderer\n(Interface)]
+[IRenderer\n(Interface)] <|.. [Context\n(Pixel Buffer)]
 
-[AssetManager\\n(Resource Cache)] --> [Image]
-[AssetManager\\n(Resource Cache)] --> [Audio]
-[AssetManager\\n(Resource Cache)] --> [Font]
-[SpriteManager\\n(Sprite Handling)] --> [Spritesheet]
+[AssetManager\n(Resource Cache)] --> [Image]
+[AssetManager\n(Resource Cache)] --> [Audio]
+[AssetManager\n(Resource Cache)] --> [Font]
+[SpriteManager\n(Sprite Handling)] --> [Spritesheet]
 
-[StateManager\\n(State Stack)] --> [Level\\n(Base)]
-[Level\\n(Base)] <|-- [TiledLevel\\n(Tile-based)]
+[StateManager\n(State Stack)] --> [Level\n(Base)]
+[Level\n(Base)] <|-- [TiledLevel\n(Tile-based)]
 
-note right of [Manager\\n(Central Coordinator)]
+note right of [Manager\n(Central Coordinator)]
   Global access via
   TransmuteCore.getManager()
 
@@ -218,7 +218,7 @@ note right of [Manager\\n(Central Coordinator)]
   subsystem coordination
 end note
 
-note right of [Context\\n(Pixel Buffer)]
+note right of [Context\n(Pixel Buffer)]
   Direct pixel manipulation
   Hardware-accelerated
   BufferedImage + VolatileImage
@@ -237,7 +237,7 @@ Every TransmuteCore game implements three core methods:
 
 start
 
-:**init()**\nOne-time initialization;
+:**init()**\n\nOne-time initialization;
 note right
   • Load assets
   • Set up managers
@@ -246,7 +246,7 @@ end note
 
 partition "Game Loop (60 FPS)" {
   repeat
-    :**update(Manager, delta)**\nGame logic with delta time;
+:**update(Manager, delta)**\n\nGame logic with delta time;
     note right
       • Process input
       • Update physics
@@ -254,7 +254,7 @@ partition "Game Loop (60 FPS)" {
       • Run AI logic
     end note
 
-    :**render(Manager, IRenderer)**\nDraw to pixel buffer;
+:**render(Manager, IRenderer)**\n\nDraw to pixel buffer;
     note right
       • Clear screen
       • Draw sprites
