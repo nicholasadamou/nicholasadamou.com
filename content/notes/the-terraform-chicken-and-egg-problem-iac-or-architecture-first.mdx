@@ -1,0 +1,161 @@
+---
+title: "The Terraform Chicken and Egg Problem: IaC or Architecture First?"
+summary: "I was once asked in an interview: which came first, Terraform IaC or architecture? It seemed like a trick question at first, but it turned out to be one of the most insightful questions I've encountered—revealing how infrastructure design really works in practice."
+date: "2026-01-16"
+image_url: "https://unsplash.com/photos/yellow-blue-and-pink-egg-on-tray-bS1LS5piX8M"
+---
+
+I was once asked this question during an interview: "Which came first, Terraform IaC or the architecture?"
+
+At first, I thought it was a trick question—one of those brain teasers meant to throw you off. But the more I thought about it, the more I realized it's actually one of the most insightful questions you can ask an infrastructure engineer.
+
+The answer isn't simply "one or the other." It's both, and they evolve together.
+
+Let me explain why this question stuck with me and what it reveals about how we actually build and manage infrastructure.
+
+## Why This Question is Brilliant
+
+When someone asks "Which came first: Terraform IaC or architecture?", they're not looking for a simple answer. They're testing whether you understand:
+
+- How infrastructure design actually works in practice
+- The difference between greenfield and brownfield projects
+- That IaC isn't a one-and-done thing—it's iterative
+- Whether you've actually lived through the messy reality of infrastructure evolution
+
+The question is paradoxical on purpose, because real infrastructure development is never linear. It's messy, iterative, and full of surprises.
+
+## The Practical Answer: It Depends
+
+Here's the thing: **it depends on whether you're starting from scratch or inheriting someone else's mess** (I mean... existing infrastructure).
+
+### Scenario 1: Starting Fresh (Greenfield Projects)
+
+When you're building something new from the ground up, the flow is pretty straightforward:
+
+**Architecture → Terraform IaC**
+
+You start by figuring out what you actually need:
+
+- What services are we using? (compute, storage, networking, etc.)
+- How much traffic are we expecting?
+- What's our budget? What compliance requirements do we have?
+- How do we handle disaster recovery?
+
+Once you've got answers, you document the architecture—network diagrams, service dependencies, IAM roles, the whole deal. Then you translate that into Terraform code.
+
+In this scenario, **architecture definitely comes first**. You can't write IaC if you don't know what you're building.
+
+### Scenario 2: Inheriting Existing Infrastructure (Brownfield Projects)
+
+Now, what if you're joining a team that's been clicking around the AWS console for years, and there's zero Terraform in sight? Welcome to brownfield territory.
+
+**Existing Architecture → Terraform IaC (via reverse-engineering)**
+
+The flow here is completely different:
+
+1. **Figure out what's actually running**: You start by auditing everything through cloud consoles, pulling configs, mapping out dependencies. It's detective work.
+
+2. **Import everything into Terraform**: Using `terraform import` or tools like `terraformer`, you pull existing resources into Terraform state and generate configuration files. The generated code is usually ugly and needs refactoring.
+
+3. **Clean it up gradually**: Once it's in Terraform, you can start refactoring—introduce modules, fix naming conventions, migrate to better services, clean up technical debt.
+
+In this case, **architecture technically came first**—it's been running for who knows how long. But the IaC is created by reverse-engineering what already exists.
+
+## The Real Answer: It's a Feedback Loop
+
+Here's where it gets really interesting, and where that interview question becomes brilliant.
+
+In practice, **architecture and IaC evolve together**. It's not a one-time decision—it's an ongoing conversation between what you designed and what actually works.
+
+### The Cycle Looks Like This
+
+```
+Design Architecture
+        ↓
+Write Terraform Code
+        ↓
+Deploy and Test
+        ↓
+Discover Problems/Constraints
+        ↓
+Refine Architecture
+        ↓
+Update Terraform
+        ↓
+(repeat forever)
+```
+
+### Why This Happens
+
+**Constraints you didn't see coming:**
+
+You deploy your beautiful architecture and—surprise!—there's a service quota you hit, or a region doesn't support the instance type you need, or costs are way higher than expected. Back to the drawing board.
+
+**IaC shows you better ways:**
+
+As you write Terraform, you notice repeated patterns that should be modules. Or your state file gets unwieldy, suggesting you need better architectural boundaries. The code itself teaches you how to improve the design.
+
+**Business needs change:**
+
+A new feature requires new services. Traffic spikes force you to rethink scaling. The CFO wants to cut cloud costs. Your architecture evolves, and so does your Terraform.
+
+## What the Question is Really Testing
+
+Looking back, I realize the interviewer was checking if I understood some fundamental truths about infrastructure:
+
+### Infrastructure is Never "Done"
+
+You don't design an architecture, write the Terraform, and call it a day. Infrastructure is living, breathing, and constantly changing. The relationship between your design and your code is ongoing.
+
+### Theory vs. Reality
+
+In textbooks, you design architecture first. In reality, you design, implement, discover problems, redesign, and repeat. Anyone who's actually done this knows that.
+
+### Terraform Isn't Just a Build Tool
+
+It's not just for creating new infrastructure. It's for maintaining, evolving, and refactoring what you've already got. It's your source of truth.
+
+### You've Actually Done This Before
+
+People with real experience know:
+
+- Your first architecture is never perfect
+- Importing existing infrastructure into Terraform is incredibly common
+- Documentation is always out of date (let's be honest)
+- Refactoring infrastructure is part of the job, not a one-time project
+
+## How I'd Answer It Now
+
+If someone asked me this question today, here's what I'd say:
+
+> It depends. For greenfield projects, architecture usually comes first—you need to know what you're building before you write the code. For brownfield projects, the architecture already exists, and you're reverse-engineering it into Terraform.
+>
+> But honestly? In practice, they evolve together. You design something, implement it in Terraform, hit constraints you didn't expect, refine the architecture, update the code, and repeat. It's a feedback loop, not a linear process.
+>
+> The key insight is that Terraform isn't a one-and-done tool. It's your source of truth that lets you safely evolve your infrastructure over time.
+
+## Why This Matters in Practice
+
+Understanding this relationship changes how you work:
+
+### Design with iteration in mind
+
+Don't try to nail the perfect architecture upfront. You won't. Leave room for changes, keep things modular, and accept that you'll learn as you go.
+
+### Write maintainable Terraform
+
+Use modules for repeated patterns. Structure your code to match your architectural boundaries. Think about how your team will collaborate on state management.
+
+### Manage change safely
+
+Version your Terraform alongside your architecture docs. Use feature flags. Test in non-production first. Treat infrastructure changes like code changes—because they are.
+
+## Final Thoughts
+
+Looking back, that interview question wasn't looking for a "correct" answer. It was a conversation starter—a way to see if I understood how infrastructure actually works versus how it's taught in tutorials.
+
+The truth is: **architecture and IaC aren't separate things**. They're partners in an ongoing dance. Sometimes the architecture leads, sometimes the Terraform code reveals better patterns, but they're always evolving together.
+
+If someone asks you this question, don't just pick one. Talk about the feedback loop. Talk about greenfield vs. brownfield. Talk about iteration. That's what shows you've actually built and maintained real infrastructure, not just followed along with a YouTube tutorial.
+
+And honestly? That's what makes infrastructure engineering interesting. It's not about getting it perfect the first time—it's about building systems that can evolve safely over time.
