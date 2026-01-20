@@ -14,7 +14,7 @@ technologies:
   - Testing
   - Homebrew
   - Git
-pinned: true
+pinned: false
 image_url: "https://unsplash.com/photos/macbook-pro-on-brown-wooden-table-npxXWgQ33ZQ"
 ---
 
@@ -53,7 +53,7 @@ ConfigSync's architecture is built around six key components:
 - **Deployment Engine**: Pushes configs to new systems
 - **App Detector**: Automatically discovers installed applications
 
-**System Integration:**  
+**System Integration:**
 The Symlink Manager connects to all the major macOS config locations:
 
 - `~/Library/Preferences/` - App preferences (plist files)
@@ -62,10 +62,10 @@ The Symlink Manager connects to all the major macOS config locations:
 - `~/Library/Containers/` - Sandboxed app data
 - `~/Library/Group Containers/` - Shared app configurations
 
-**Supported Applications:**  
+**Supported Applications:**
 Out of the box, ConfigSync knows how to handle Visual Studio Code, Google Chrome, iTerm2, 1Password, Git & SSH, and 20+ more applications.
 
-**CLI Interface:**  
+**CLI Interface:**
 Everything happens through simple commands: `init`, `discover`, `sync`, `backup`, `export`, and `deploy`.
 
 ### Directory Structure
@@ -81,8 +81,8 @@ ConfigSync organizes everything in `~/.configsync/` with a clean, logical struct
 - `Containers/` - Sandboxed app data (1Password, etc.)
 - `.config/` - Unix-style configs (git/, ssh/)
 
-**`backups/`** - Versioned snapshots with checksums for safe rollback  
-**`logs/`** - Operation logs for debugging and audit trails  
+**`backups/`** - Versioned snapshots with checksums for safe rollback
+**`logs/`** - Operation logs for debugging and audit trails
 **`temp/`** - Staging area for export/import operations
 
 ## Dynamic Application Discovery & Configuration Management
