@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDownIcon,
@@ -47,209 +46,11 @@ export default function FilterBar({
   const [showStatusDropdown, setShowStatusDropdown] = React.useState(false);
   const [showDateDropdown, setShowDateDropdown] = React.useState(false);
   const [showDemoDropdown, setShowDemoDropdown] = React.useState(false);
-  const [dropdownPositions, setDropdownPositions] = React.useState({
-    tech: { top: 0, left: 0, width: 0 },
-    status: { top: 0, left: 0, width: 0 },
-    date: { top: 0, left: 0, width: 0 },
-    demo: { top: 0, left: 0, width: 0 },
-  });
-  const dropdownRefs = {
-    tech: React.useRef<HTMLDivElement>(null),
-    status: React.useRef<HTMLDivElement>(null),
-    date: React.useRef<HTMLDivElement>(null),
-    demo: React.useRef<HTMLDivElement>(null),
-  };
-  const buttonRefs = {
-    tech: React.useRef<HTMLButtonElement>(null),
-    status: React.useRef<HTMLButtonElement>(null),
-    date: React.useRef<HTMLButtonElement>(null),
-    demo: React.useRef<HTMLButtonElement>(null),
-  };
 
-  // Create memoized callbacks to avoid dependencies
-  const handleClickOutside = React.useCallback((event: MouseEvent) => {
-    const target = event.target as Node;
-
-    // Check tech dropdown
-    if (
-      dropdownRefs.tech.current &&
-      !dropdownRefs.tech.current.contains(target) &&
-      buttonRefs.tech.current &&
-      !buttonRefs.tech.current.contains(target)
-    ) {
-      setShowTechDropdown(false);
-    }
-
-    // Check status dropdown
-    if (
-      dropdownRefs.status.current &&
-      !dropdownRefs.status.current.contains(target) &&
-      buttonRefs.status.current &&
-      !buttonRefs.status.current.contains(target)
-    ) {
-      setShowStatusDropdown(false);
-    }
-
-    // Check date dropdown
-    if (
-      dropdownRefs.date.current &&
-      !dropdownRefs.date.current.contains(target) &&
-      buttonRefs.date.current &&
-      !buttonRefs.date.current.contains(target)
-    ) {
-      setShowDateDropdown(false);
-    }
-
-    // Check demo dropdown
-    if (
-      dropdownRefs.demo.current &&
-      !dropdownRefs.demo.current.contains(target) &&
-      buttonRefs.demo.current &&
-      !buttonRefs.demo.current.contains(target)
-    ) {
-      setShowDemoDropdown(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const updatePositions = React.useCallback(() => {
-    setDropdownPositions((prevPositions) => {
-      const newPositions = { ...prevPositions };
-
-      if (buttonRefs.tech.current && showTechDropdown) {
-        const rect = buttonRefs.tech.current.getBoundingClientRect();
-        newPositions.tech = {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        };
-      }
-
-      if (buttonRefs.status.current && showStatusDropdown) {
-        const rect = buttonRefs.status.current.getBoundingClientRect();
-        newPositions.status = {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        };
-      }
-
-      if (buttonRefs.date.current && showDateDropdown) {
-        const rect = buttonRefs.date.current.getBoundingClientRect();
-        newPositions.date = {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        };
-      }
-
-      if (buttonRefs.demo.current && showDemoDropdown) {
-        const rect = buttonRefs.demo.current.getBoundingClientRect();
-        newPositions.demo = {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        };
-      }
-
-      return newPositions;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    showTechDropdown,
-    showStatusDropdown,
-    showDateDropdown,
-    showDemoDropdown,
-  ]);
-
-  // Calculate dropdown positions and close on outside click
-  React.useEffect(() => {
-    const anyDropdownOpen =
-      showTechDropdown ||
-      showStatusDropdown ||
-      showDateDropdown ||
-      showDemoDropdown;
-
-    if (anyDropdownOpen) {
-      updatePositions();
-      document.addEventListener("mousedown", handleClickOutside);
-      window.addEventListener("scroll", updatePositions);
-      window.addEventListener("resize", updatePositions);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", updatePositions);
-      window.removeEventListener("resize", updatePositions);
-    };
-  }, [
-    showTechDropdown,
-    showStatusDropdown,
-    showDateDropdown,
-    showDemoDropdown,
-    handleClickOutside,
-    updatePositions,
-  ]);
-
-  const toggleTechDropdown = () => {
-    if (!showTechDropdown && buttonRefs.tech.current) {
-      const rect = buttonRefs.tech.current.getBoundingClientRect();
-      setDropdownPositions((prev) => ({
-        ...prev,
-        tech: {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        },
-      }));
-    }
-    setShowTechDropdown(!showTechDropdown);
-  };
-
-  const toggleStatusDropdown = () => {
-    if (!showStatusDropdown && buttonRefs.status.current) {
-      const rect = buttonRefs.status.current.getBoundingClientRect();
-      setDropdownPositions((prev) => ({
-        ...prev,
-        status: {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        },
-      }));
-    }
-    setShowStatusDropdown(!showStatusDropdown);
-  };
-
-  const toggleDateDropdown = () => {
-    if (!showDateDropdown && buttonRefs.date.current) {
-      const rect = buttonRefs.date.current.getBoundingClientRect();
-      setDropdownPositions((prev) => ({
-        ...prev,
-        date: {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        },
-      }));
-    }
-    setShowDateDropdown(!showDateDropdown);
-  };
-
-  const toggleDemoDropdown = () => {
-    if (!showDemoDropdown && buttonRefs.demo.current) {
-      const rect = buttonRefs.demo.current.getBoundingClientRect();
-      setDropdownPositions((prev) => ({
-        ...prev,
-        demo: {
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
-          width: rect.width,
-        },
-      }));
-    }
-    setShowDemoDropdown(!showDemoDropdown);
-  };
+  const toggleTechDropdown = () => setShowTechDropdown(!showTechDropdown);
+  const toggleStatusDropdown = () => setShowStatusDropdown(!showStatusDropdown);
+  const toggleDateDropdown = () => setShowDateDropdown(!showDateDropdown);
+  const toggleDemoDropdown = () => setShowDemoDropdown(!showDemoDropdown);
 
   const addTechnology = (tech: string) => {
     if (!filters.technologies.includes(tech)) {
@@ -282,181 +83,6 @@ export default function FilterBar({
     filters.pinnedStatus !== "all" ||
     filters.dateRange !== "all" ||
     filters.hasDemo !== "all";
-
-  // Portal dropdown components
-  const TechDropdown = () => {
-    if (typeof window === "undefined" || !showTechDropdown) return null;
-
-    return createPortal(
-      <div
-        ref={dropdownRefs.tech}
-        className="bg-primary border-secondary fixed z-50 max-h-60 overflow-auto rounded-md border shadow-lg backdrop-blur-sm"
-        style={{
-          top: dropdownPositions.tech.top,
-          left: dropdownPositions.tech.left,
-          width: dropdownPositions.tech.width,
-        }}
-      >
-        <div className="bg-primary p-1">
-          {availableTechnologies.map((tech) => (
-            <button
-              key={tech}
-              onClick={() => addTechnology(tech)}
-              className="hover:bg-secondary text-primary w-full cursor-pointer rounded px-3 py-2 text-left text-sm"
-              disabled={filters.technologies.includes(tech)}
-            >
-              <span
-                className={
-                  filters.technologies.includes(tech) ? "text-tertiary" : ""
-                }
-              >
-                {tech}
-                {filters.technologies.includes(tech) && " ✓"}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>,
-      document.body
-    );
-  };
-
-  const StatusDropdown = () => {
-    if (typeof window === "undefined" || !showStatusDropdown) return null;
-
-    const statusOptions = [
-      { value: "all", label: "All projects" },
-      { value: "pinned", label: "📌 Pinned only" },
-      { value: "unpinned", label: "Unpinned only" },
-    ];
-
-    return createPortal(
-      <div
-        ref={dropdownRefs.status}
-        className="bg-primary border-secondary fixed z-50 rounded-md border shadow-lg backdrop-blur-sm"
-        style={{
-          top: dropdownPositions.status.top,
-          left: dropdownPositions.status.left,
-          width: dropdownPositions.status.width,
-        }}
-      >
-        <div className="bg-primary p-1">
-          {statusOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => {
-                setFilters({
-                  ...filters,
-                  pinnedStatus: option.value as FilterOptions["pinnedStatus"],
-                });
-                setShowStatusDropdown(false);
-              }}
-              className={`hover:bg-secondary w-full cursor-pointer rounded px-3 py-2 text-left text-sm ${
-                filters.pinnedStatus === option.value
-                  ? "text-link"
-                  : "text-primary"
-              }`}
-            >
-              {option.label}
-              {filters.pinnedStatus === option.value && " ✓"}
-            </button>
-          ))}
-        </div>
-      </div>,
-      document.body
-    );
-  };
-
-  const DateDropdown = () => {
-    if (typeof window === "undefined" || !showDateDropdown) return null;
-
-    const dateOptions = [
-      { value: "all", label: "Any time" },
-      { value: "thisYear", label: "This year" },
-      { value: "lastYear", label: "Last year" },
-      { value: "older", label: "Older" },
-    ];
-
-    return createPortal(
-      <div
-        ref={dropdownRefs.date}
-        className="bg-primary border-secondary fixed z-50 rounded-md border shadow-lg backdrop-blur-sm"
-        style={{
-          top: dropdownPositions.date.top,
-          left: dropdownPositions.date.left,
-          width: dropdownPositions.date.width,
-        }}
-      >
-        <div className="bg-primary p-1">
-          {dateOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => {
-                setFilters({
-                  ...filters,
-                  dateRange: option.value as FilterOptions["dateRange"],
-                });
-                setShowDateDropdown(false);
-              }}
-              className={`hover:bg-secondary w-full cursor-pointer rounded px-3 py-2 text-left text-sm ${
-                filters.dateRange === option.value
-                  ? "text-link"
-                  : "text-primary"
-              }`}
-            >
-              {option.label}
-              {filters.dateRange === option.value && " ✓"}
-            </button>
-          ))}
-        </div>
-      </div>,
-      document.body
-    );
-  };
-
-  const DemoDropdown = () => {
-    if (typeof window === "undefined" || !showDemoDropdown) return null;
-
-    const demoOptions = [
-      { value: "all", label: "Any" },
-      { value: "withDemo", label: "🔗 With demo" },
-      { value: "withoutDemo", label: "Without demo" },
-    ];
-
-    return createPortal(
-      <div
-        ref={dropdownRefs.demo}
-        className="bg-primary border-secondary fixed z-50 rounded-md border shadow-lg backdrop-blur-sm"
-        style={{
-          top: dropdownPositions.demo.top,
-          left: dropdownPositions.demo.left,
-          width: dropdownPositions.demo.width,
-        }}
-      >
-        <div className="bg-primary p-1">
-          {demoOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => {
-                setFilters({
-                  ...filters,
-                  hasDemo: option.value as FilterOptions["hasDemo"],
-                });
-                setShowDemoDropdown(false);
-              }}
-              className={`hover:bg-secondary w-full cursor-pointer rounded px-3 py-2 text-left text-sm ${
-                filters.hasDemo === option.value ? "text-link" : "text-primary"
-              }`}
-            >
-              {option.label}
-              {filters.hasDemo === option.value && " ✓"}
-            </button>
-          ))}
-        </div>
-      </div>,
-      document.body
-    );
-  };
 
   return (
     <div className="w-full space-y-4">
@@ -537,7 +163,6 @@ export default function FilterBar({
                 </label>
                 <div className="relative">
                   <motion.button
-                    ref={buttonRefs.tech}
                     onClick={toggleTechDropdown}
                     className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
                     variants={buttonVariants}
@@ -560,6 +185,33 @@ export default function FilterBar({
                       <ChevronDownIcon className="h-4 w-4" />
                     </motion.div>
                   </motion.button>
+
+                  {/* Dropdown */}
+                  {showTechDropdown && (
+                    <div className="bg-primary border-secondary absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg">
+                      <div className="bg-primary p-1">
+                        {availableTechnologies.map((tech) => (
+                          <button
+                            key={tech}
+                            onClick={() => addTechnology(tech)}
+                            className="hover:bg-secondary text-primary w-full cursor-pointer rounded px-3 py-2 text-left text-sm"
+                            disabled={filters.technologies.includes(tech)}
+                          >
+                            <span
+                              className={
+                                filters.technologies.includes(tech)
+                                  ? "text-tertiary"
+                                  : ""
+                              }
+                            >
+                              {tech}
+                              {filters.technologies.includes(tech) && " ✓"}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Selected Technologies Tags */}
@@ -608,6 +260,7 @@ export default function FilterBar({
 
               {/* Pinned Status Filter */}
               <motion.div
+                className="relative"
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
@@ -616,34 +269,69 @@ export default function FilterBar({
                 <label className="text-secondary mb-2 block text-sm font-medium">
                   Status
                 </label>
-                <motion.button
-                  ref={buttonRefs.status}
-                  onClick={toggleStatusDropdown}
-                  className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
-                  variants={buttonVariants}
-                  initial="initial"
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  <span>
-                    {filters.pinnedStatus === "all" && "All projects"}
-                    {filters.pinnedStatus === "pinned" && "📌 Pinned only"}
-                    {filters.pinnedStatus === "unpinned" && "Unpinned only"}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: showStatusDropdown ? 180 : 0 }}
-                    transition={{
-                      duration: DURATION.fast,
-                      ease: EASING.easeOut,
-                    }}
+                <div className="relative">
+                  <motion.button
+                    onClick={toggleStatusDropdown}
+                    className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
+                    variants={buttonVariants}
+                    initial="initial"
+                    whileHover="hover"
+                    whileTap="tap"
                   >
-                    <ChevronDownIcon className="h-4 w-4" />
-                  </motion.div>
-                </motion.button>
+                    <span>
+                      {filters.pinnedStatus === "all" && "All projects"}
+                      {filters.pinnedStatus === "pinned" && "📌 Pinned only"}
+                      {filters.pinnedStatus === "unpinned" && "Unpinned only"}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: showStatusDropdown ? 180 : 0 }}
+                      transition={{
+                        duration: DURATION.fast,
+                        ease: EASING.easeOut,
+                      }}
+                    >
+                      <ChevronDownIcon className="h-4 w-4" />
+                    </motion.div>
+                  </motion.button>
+
+                  {/* Dropdown */}
+                  {showStatusDropdown && (
+                    <div className="bg-primary border-secondary absolute left-0 right-0 top-full z-50 mt-1 rounded-md border shadow-lg">
+                      <div className="bg-primary p-1">
+                        {[
+                          { value: "all", label: "All projects" },
+                          { value: "pinned", label: "📌 Pinned only" },
+                          { value: "unpinned", label: "Unpinned only" },
+                        ].map((option) => (
+                          <button
+                            key={option.value}
+                            onClick={() => {
+                              setFilters({
+                                ...filters,
+                                pinnedStatus:
+                                  option.value as FilterOptions["pinnedStatus"],
+                              });
+                              setShowStatusDropdown(false);
+                            }}
+                            className={`hover:bg-secondary w-full cursor-pointer rounded px-3 py-2 text-left text-sm ${
+                              filters.pinnedStatus === option.value
+                                ? "text-link"
+                                : "text-primary"
+                            }`}
+                          >
+                            {option.label}
+                            {filters.pinnedStatus === option.value && " ✓"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </motion.div>
 
               {/* Date Range Filter */}
               <motion.div
+                className="relative"
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
@@ -652,35 +340,71 @@ export default function FilterBar({
                 <label className="text-secondary mb-2 block text-sm font-medium">
                   Date
                 </label>
-                <motion.button
-                  ref={buttonRefs.date}
-                  onClick={toggleDateDropdown}
-                  className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
-                  variants={buttonVariants}
-                  initial="initial"
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  <span>
-                    {filters.dateRange === "all" && "Any time"}
-                    {filters.dateRange === "thisYear" && "This year"}
-                    {filters.dateRange === "lastYear" && "Last year"}
-                    {filters.dateRange === "older" && "Older"}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: showDateDropdown ? 180 : 0 }}
-                    transition={{
-                      duration: DURATION.fast,
-                      ease: EASING.easeOut,
-                    }}
+                <div className="relative">
+                  <motion.button
+                    onClick={toggleDateDropdown}
+                    className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
+                    variants={buttonVariants}
+                    initial="initial"
+                    whileHover="hover"
+                    whileTap="tap"
                   >
-                    <ChevronDownIcon className="h-4 w-4" />
-                  </motion.div>
-                </motion.button>
+                    <span>
+                      {filters.dateRange === "all" && "Any time"}
+                      {filters.dateRange === "thisYear" && "This year"}
+                      {filters.dateRange === "lastYear" && "Last year"}
+                      {filters.dateRange === "older" && "Older"}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: showDateDropdown ? 180 : 0 }}
+                      transition={{
+                        duration: DURATION.fast,
+                        ease: EASING.easeOut,
+                      }}
+                    >
+                      <ChevronDownIcon className="h-4 w-4" />
+                    </motion.div>
+                  </motion.button>
+
+                  {/* Dropdown */}
+                  {showDateDropdown && (
+                    <div className="bg-primary border-secondary absolute left-0 right-0 top-full z-50 mt-1 rounded-md border shadow-lg">
+                      <div className="bg-primary p-1">
+                        {[
+                          { value: "all", label: "Any time" },
+                          { value: "thisYear", label: "This year" },
+                          { value: "lastYear", label: "Last year" },
+                          { value: "older", label: "Older" },
+                        ].map((option) => (
+                          <button
+                            key={option.value}
+                            onClick={() => {
+                              setFilters({
+                                ...filters,
+                                dateRange:
+                                  option.value as FilterOptions["dateRange"],
+                              });
+                              setShowDateDropdown(false);
+                            }}
+                            className={`hover:bg-secondary w-full cursor-pointer rounded px-3 py-2 text-left text-sm ${
+                              filters.dateRange === option.value
+                                ? "text-link"
+                                : "text-primary"
+                            }`}
+                          >
+                            {option.label}
+                            {filters.dateRange === option.value && " ✓"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </motion.div>
 
               {/* Demo Availability Filter */}
               <motion.div
+                className="relative"
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
@@ -689,30 +413,64 @@ export default function FilterBar({
                 <label className="text-secondary mb-2 block text-sm font-medium">
                   Demo
                 </label>
-                <motion.button
-                  ref={buttonRefs.demo}
-                  onClick={toggleDemoDropdown}
-                  className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
-                  variants={buttonVariants}
-                  initial="initial"
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  <span>
-                    {filters.hasDemo === "all" && "Any"}
-                    {filters.hasDemo === "withDemo" && "🔗 With demo"}
-                    {filters.hasDemo === "withoutDemo" && "Without demo"}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: showDemoDropdown ? 180 : 0 }}
-                    transition={{
-                      duration: DURATION.fast,
-                      ease: EASING.easeOut,
-                    }}
+                <div className="relative">
+                  <motion.button
+                    onClick={toggleDemoDropdown}
+                    className="border-secondary bg-primary text-primary hover:bg-secondary flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-left text-sm"
+                    variants={buttonVariants}
+                    initial="initial"
+                    whileHover="hover"
+                    whileTap="tap"
                   >
-                    <ChevronDownIcon className="h-4 w-4" />
-                  </motion.div>
-                </motion.button>
+                    <span>
+                      {filters.hasDemo === "all" && "Any"}
+                      {filters.hasDemo === "withDemo" && "🔗 With demo"}
+                      {filters.hasDemo === "withoutDemo" && "Without demo"}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: showDemoDropdown ? 180 : 0 }}
+                      transition={{
+                        duration: DURATION.fast,
+                        ease: EASING.easeOut,
+                      }}
+                    >
+                      <ChevronDownIcon className="h-4 w-4" />
+                    </motion.div>
+                  </motion.button>
+
+                  {/* Dropdown */}
+                  {showDemoDropdown && (
+                    <div className="bg-primary border-secondary absolute left-0 right-0 top-full z-50 mt-1 rounded-md border shadow-lg">
+                      <div className="bg-primary p-1">
+                        {[
+                          { value: "all", label: "Any" },
+                          { value: "withDemo", label: "🔗 With demo" },
+                          { value: "withoutDemo", label: "Without demo" },
+                        ].map((option) => (
+                          <button
+                            key={option.value}
+                            onClick={() => {
+                              setFilters({
+                                ...filters,
+                                hasDemo:
+                                  option.value as FilterOptions["hasDemo"],
+                              });
+                              setShowDemoDropdown(false);
+                            }}
+                            className={`hover:bg-secondary w-full cursor-pointer rounded px-3 py-2 text-left text-sm ${
+                              filters.hasDemo === option.value
+                                ? "text-link"
+                                : "text-primary"
+                            }`}
+                          >
+                            {option.label}
+                            {filters.hasDemo === option.value && " ✓"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             </motion.div>
             {/* Active Filters Summary */}
@@ -769,10 +527,6 @@ export default function FilterBar({
           </motion.div>
         )}
       </AnimatePresence>
-      <TechDropdown />
-      <StatusDropdown />
-      <DateDropdown />
-      <DemoDropdown />
     </div>
   );
 }
