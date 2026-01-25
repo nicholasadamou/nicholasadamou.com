@@ -1,0 +1,237 @@
+---
+title: "What Happens When You Type 'google.com' and Press Enter?"
+summary: "My experience being asked this classic interview question — a complete walkthrough of the networking journey from browser to server and why it matters for DevOps."
+date: "2026-01-25"
+pinned: false
+image_url: "https://unsplash.com/photos/person-holding-black-android-smartphone-UWVJaDvXW_c"
+---
+
+I'll never forget being asked this question during a DevOps interview. At first, I thought it was just another trivia question, but the interviewer stopped me halfway through and said, "Now tell me why this matters for the role you're applying for."
+
+That's when it clicked. This wasn't about reciting a memorized answer — it was about demonstrating that I understood every layer of the network stack and, more importantly, where I could intervene as a DevOps engineer.
+
+## 🎯 Why I Was Asked This Question
+
+The interviewer explained that as a DevOps engineer, I'd regularly need to:
+
+- **Manipulate `/etc/hosts`** to redirect traffic for local testing
+- **Configure firewall rules** to route traffic to specific containers
+- **Debug DNS resolution issues** in Kubernetes clusters
+- **Set up service meshes** and ingress controllers
+- **Implement traffic routing** for blue/green deployments or canary releases
+
+Understanding the complete flow meant I'd know exactly which layer to target when troubleshooting or implementing solutions.
+
+## 🚀 The Complete Journey (My Answer)
+
+### 1. Browser Checks Its Cache
+
+I started by explaining that before doing anything, the browser checks if it already knows the IP address for `google.com`:
+
+- **Browser cache**: Has this domain been resolved recently?
+- **Operating system cache**: Does the OS have it cached?
+
+If found, skip ahead to step 5.
+
+### 2. Operating System Checks `/etc/hosts`
+
+**This is where I paused to emphasize the DevOps angle.**
+
+Before making any DNS requests, the OS checks `/etc/hosts` for static hostname mappings:
+
+```bash path=null start=null
+# /etc/hosts
+127.0.0.1       localhost
+192.168.1.100   google.com  # Override DNS for testing
+```
+
+**DevOps use case:**
+
+- Redirecting production domains to local development servers
+- Testing container networking by mapping service names to IPs
+- Simulating production environments locally
+
+If there's a match, the OS uses that IP and skips DNS entirely.
+
+### 3. DNS Resolution
+
+If not found in `/etc/hosts`, the OS performs a DNS lookup:
+
+1. **Queries the configured DNS resolver** (usually from `/etc/resolv.conf` or DHCP)
+2. **Recursive DNS query**:
+   - Local DNS resolver → Root DNS servers
+   - Root servers → `.com` TLD servers
+   - TLD servers → Google's authoritative nameservers
+   - Returns the IP address (e.g., `142.250.185.46`)
+
+**DevOps considerations:**
+
+- DNS caching layers (systemd-resolved, dnsmasq)
+- Corporate DNS servers or internal DNS for service discovery
+- Kubernetes DNS (CoreDNS) for pod-to-pod communication
+
+### 4. Firewall Rules & Network Stack
+
+Before the packet leaves your machine, it passes through:
+
+1. **Application layer** (browser)
+2. **Operating system network stack**
+3. **Firewall rules** (`iptables`, `nftables`, `pf`)
+
+**DevOps use case:**
+
+```bash path=null start=null
+# Redirect traffic to a local container
+iptables -t nat -A OUTPUT -p tcp --dport 80 -d 142.250.185.46 -j DNAT --to-destination 127.0.0.1:8080
+```
+
+This is essential for:
+
+- Docker/Kubernetes networking (redirecting to containers)
+- Service mesh sidecar proxies (Envoy, Linkerd)
+- Load balancer testing
+
+### 5. Routing Table & Gateway
+
+The OS checks the routing table to determine where to send the packet:
+
+```bash path=null start=null
+route -n
+# or
+ip route show
+```
+
+**Typical flow:**
+
+- If destination is on the local network → send directly
+- If external → send to **default gateway** (your router)
+
+**DevOps consideration:** In containerized environments (Docker, Kubernetes), virtual network interfaces and custom routing tables are configured to route traffic between containers and the host.
+
+### 6. Your Router (Home/Office Network)
+
+Your router:
+
+1. **Performs NAT (Network Address Translation)**
+   - Translates your private IP (e.g., `192.168.1.10`) to a public IP
+2. **Forwards the packet** to your ISP
+
+**DevOps parallel:** This is similar to how Kubernetes Services use `kube-proxy` to NAT pod IPs to service IPs.
+
+### 7. ISP and Internet Backbone
+
+The packet travels through:
+
+1. **ISP's network**
+2. **Internet backbone routers** (BGP routing)
+3. **Google's edge network** (anycast routing)
+
+Each hop uses routing protocols (BGP, OSPF) to determine the best path.
+
+### 8. Google's Load Balancer
+
+The packet hits Google's infrastructure:
+
+1. **Anycast routing** brings you to the nearest Google datacenter
+2. **Global Load Balancer** (Layer 4/7) distributes traffic
+3. **Edge servers** handle TLS termination
+
+**DevOps equivalent:**
+
+- AWS ALB/NLB, GCP Load Balancer
+- NGINX, HAProxy, Envoy
+- Kubernetes Ingress Controllers
+
+### 9. TLS Handshake
+
+Before sending any HTTP data:
+
+1. **TCP 3-way handshake** (SYN, SYN-ACK, ACK)
+2. **TLS handshake**:
+   - Client sends supported cipher suites
+   - Server responds with certificate
+   - Client verifies certificate against CA
+   - Encrypted session established
+
+**DevOps tasks:**
+
+- Managing TLS certificates (Let's Encrypt, cert-manager)
+- Configuring TLS termination at load balancers
+- Implementing mTLS for service-to-service auth
+
+### 10. HTTP Request
+
+Finally, your browser sends:
+
+```http path=null start=null
+GET / HTTP/1.1
+Host: google.com
+User-Agent: Mozilla/5.0...
+Accept: text/html...
+```
+
+Google's backend:
+
+- Routes to appropriate microservice
+- Generates the response
+- Returns HTML, CSS, JavaScript
+
+### 11. Response & Rendering
+
+1. **Response travels back** through all the same layers (in reverse)
+2. **Browser receives HTML** and starts rendering
+3. **Additional requests** for CSS, JS, images, etc.
+4. **Page is displayed**
+
+## 🛠️ Practical DevOps Applications
+
+### Testing with `/etc/hosts`
+
+```bash path=null start=null
+# Redirect production domain to staging
+echo "10.0.1.50 api.production.com" | sudo tee -a /etc/hosts
+```
+
+### Docker Networking Example
+
+```bash path=null start=null
+# Create a container and test connectivity
+docker run -d --name web -p 8080:80 nginx
+
+# Override DNS to route to container
+echo "127.0.0.1 myapp.local" | sudo tee -a /etc/hosts
+
+# Now visiting http://myapp.local:8080 routes to the container
+```
+
+### Kubernetes Service Routing
+
+```yaml path=null start=null
+apiVersion: v1
+kind: Service
+metadata:
+  name: google-proxy
+spec:
+  type: ExternalName
+  externalName: google.com
+```
+
+This creates a DNS entry in the cluster that routes `google-proxy.default.svc.cluster.local` → `google.com`.
+
+### iptables Traffic Redirection
+
+```bash path=null start=null
+# Redirect all HTTP traffic to a local proxy
+iptables -t nat -A OUTPUT -p tcp --dport 80 -j REDIRECT --to-port 8888
+```
+
+## 🧠 What I Learned
+
+After that interview, I realized this question wasn't about showing off theoretical knowledge. It was about proving I could:
+
+1. **Debug connectivity issues** at the right layer (DNS? Routing? Firewall?)
+2. **Implement traffic manipulation** for testing and deployment strategies
+3. **Architect reliable systems** with proper load balancing and failover
+4. **Secure networks** with appropriate firewall rules and TLS configuration
+
+Now, whenever I'm debugging why a service can't connect or setting up a local development environment that mirrors production, I know exactly which layer to manipulate.
