@@ -12,6 +12,7 @@ import PhotographySection from "./components/PhotographySection";
 import ibmLogo from "public/work/ibm-logo.svg";
 import appleLogo from "public/work/apple-logo.svg";
 import lockheedMartinLogo from "public/work/lockheed-martin-logo.svg";
+import onebriefLogo from "public/work/onebrief-logo.svg";
 
 import arizona from "public/gallery/arizona.jpg";
 import lakePlacid from "public/gallery/lake-placid.jpg";
@@ -198,8 +199,15 @@ export default function About() {
 const workplaces = [
   {
     title: "Senior Software Engineer",
+    company: "Onebrief",
+    date: "Feb 2026 -",
+    imageSrc: onebriefLogo,
+    link: "https://onebrief.com",
+  },
+  {
+    title: "Senior Software Engineer",
     company: "Lockheed Martin, Space",
-    date: "Dec 2024 -",
+    date: "Dec 2024 - Feb 2026",
     imageSrc: lockheedMartinLogo,
     link: "https://www.lockheedmartin.com/en-us/capabilities/space.html",
   },
