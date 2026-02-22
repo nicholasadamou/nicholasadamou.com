@@ -46,6 +46,7 @@ export default function MDXRenderer({ source }: MDXRendererProps) {
       components={components}
       options={{
         parseFrontmatter: false,
+        blockJS: false,
         mdxOptions: {
           remarkPlugins: [remarkMath, remarkPlantuml],
           rehypePlugins: [

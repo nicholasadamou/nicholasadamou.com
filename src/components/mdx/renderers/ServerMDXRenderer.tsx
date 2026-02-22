@@ -48,6 +48,7 @@ export default async function ServerMDXRenderer({
       components={components}
       options={{
         parseFrontmatter: false,
+        blockJS: false,
         mdxOptions: {
           remarkPlugins: [remarkMath, remarkPlantuml],
           rehypePlugins: [
