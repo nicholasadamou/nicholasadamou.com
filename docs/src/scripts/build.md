@@ -40,9 +40,9 @@ pnpm run download:images:vsco
 - Optimized image storage
 - Fallback URL tracking
 
-## Running During Build
+## Running Manually
 
-Build scripts run automatically during `pnpm run build` via the `prebuild` hook.
+Build scripts are **not** run automatically during `pnpm run build`. Run them manually when needed:
 
 ## Troubleshooting
 

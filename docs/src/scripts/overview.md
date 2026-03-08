@@ -25,7 +25,7 @@ Run during build time to optimize assets and generate manifests.
 - **download-unsplash.js** - Downloads Unsplash images via API
 - **download-vsco-fallback.js** - Downloads VSCO gallery images
 
-**When they run**: Automatically during `pnpm run build` via prebuild hook.
+**When they run**: Manually, when you need to refresh local images.
 
 ### Setup Scripts
 
@@ -77,9 +77,7 @@ pnpm run build
 This automatically runs:
 
 1. Setup scripts (submodule check)
-2. Build scripts (image caching & downloading)
-3. Next.js build
-4. Post-build scripts (RSS, sitemap)
+2. Next.js build
 
 ### Content Updates
 
