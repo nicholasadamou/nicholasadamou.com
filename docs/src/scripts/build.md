@@ -21,7 +21,7 @@ pnpm run download:images:unsplash
 - Skips already-downloaded files
 - Requires `UNSPLASH_ACCESS_KEY` in `.env.local`
 
-## download-vsco-fallback.js
+## download-vsco.js
 
 Downloads VSCO gallery images locally for development.
 

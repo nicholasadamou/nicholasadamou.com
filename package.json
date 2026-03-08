@@ -9,7 +9,6 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pnpm format && node scripts/setup/check-submodules.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -29,7 +28,7 @@
     "act:shellcheck": "act -W .github/workflows/shellcheck.yml",
     "act:dryrun": "act --dryrun",
     "download:images:unsplash": "node scripts/build/download-unsplash.js",
-    "download:images:vsco": "node scripts/build/download-vsco-fallback.js",
+    "download:images:vsco": "node scripts/build/download-vsco.js",
     "prepare-chatbot-data": "node scripts/content/prepare-chatbot.js",
     "prepare": "husky || true"
   },

@@ -8,7 +8,7 @@ Comprehensive automation scripts organized by purpose to streamline development 
 scripts/
 ├── build/          # Build-time automation
 │   ├── download-unsplash.js
-│   └── download-vsco-fallback.js
+│   └── download-vsco.js
 ├── setup/          # Environment configuration
 │   ├── check-submodules.js
 │   └── playwright-env.js
@@ -23,7 +23,7 @@ scripts/
 Run during build time to optimize assets and generate manifests.
 
 - **download-unsplash.js** - Downloads Unsplash images via API
-- **download-vsco-fallback.js** - Downloads VSCO gallery images
+- **download-vsco.js** - Downloads VSCO gallery images
 
 **When they run**: Manually, when you need to refresh local images.
 

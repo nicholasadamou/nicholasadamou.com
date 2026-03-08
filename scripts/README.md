@@ -22,7 +22,7 @@ Downloads Unsplash images via the Unsplash API (skipped in CI).
 pnpm run download:images:unsplash
 ```
 
-### download-vsco-fallback.js
+### download-vsco.js
 
 Downloads VSCO gallery images (skipped in CI).
 
