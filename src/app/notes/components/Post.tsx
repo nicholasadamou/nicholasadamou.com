@@ -18,12 +18,12 @@ type PostProps = {
 };
 
 export default function Post({ post, shouldShowPin }: PostProps) {
-  const { date, slug, title, image, image_url, pinned } = post;
+  const { date, slug, title, image, pinned } = post;
 
   const readingStats = readingTime(post.body.raw);
 
   return (
-    <ImagePreview src={image_url || image} alt={`${title} header image`}>
+    <ImagePreview src={image} alt={`${title} header image`}>
       <motion.li
         className="group py-3 transition-opacity first:pt-0 last:pb-0"
         variants={cardVariants}

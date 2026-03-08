@@ -21,7 +21,7 @@ export default function PinnedProjectList({ projects }: ProjectListProps) {
               <div className="bg-secondary aspect-video overflow-hidden rounded-xl">
                 <Halo strength={10}>
                   <UniversalImage
-                    src={project.image_url || project.image || ""}
+                    src={project.image || ""}
                     alt={project.title}
                     fill
                     priority={true}

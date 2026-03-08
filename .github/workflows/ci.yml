@@ -61,11 +61,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install playwright-unsplash-downloader dependencies
-        run: |
-          cd tools/playwright-unsplash-downloader
-          pnpm install --frozen-lockfile
-
       - name: Run TypeScript check
         run: pnpm run type-check
 
@@ -143,7 +138,6 @@ jobs:
         env:
           NODE_ENV: production
           UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
-          UNSPLASH_SECRET_KEY: ${{ secrets.UNSPLASH_SECRET_KEY }}
 
       - name: Check for build artifacts
         run: |

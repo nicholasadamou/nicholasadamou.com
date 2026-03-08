@@ -12,10 +12,9 @@ None - the site runs without any environment variables.
 
 ```env
 UNSPLASH_ACCESS_KEY=your_access_key
-UNSPLASH_SECRET_KEY=your_secret_key
 ```
 
-For Unsplash+ watermark-free images and API access.
+For downloading Unsplash images and API access.
 
 ### VSCO Integration
 
@@ -34,15 +33,6 @@ POSTGRES_URL=your_postgres_url
 
 For view counts and analytics (optional).
 
-### Caching
-
-```env
-REDIS_URL=your_redis_url
-UPSTASH_REDIS_REST_URL=your_upstash_url
-```
-
-For API response caching (optional).
-
 ### OpenAI
 
 ```env
@@ -59,7 +49,6 @@ Create `.env.local`:
 ```env
 # Copy from .env.example
 UNSPLASH_ACCESS_KEY=
-UNSPLASH_SECRET_KEY=
 ```
 
 ## Production

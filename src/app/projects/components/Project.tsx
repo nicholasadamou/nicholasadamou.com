@@ -24,10 +24,10 @@ export default function Project({
   project,
   shouldShowPin = true,
 }: ProjectProps) {
-  const { date, slug, title, image, image_url, pinned } = project;
+  const { date, slug, title, image, pinned } = project;
 
   return (
-    <ImagePreview src={image_url || image} alt={`${title} header image`}>
+    <ImagePreview src={image} alt={`${title} header image`}>
       <motion.li
         className="group py-3 transition-opacity first:pt-0 last:pb-0"
         variants={cardVariants}

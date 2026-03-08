@@ -59,4 +59,3 @@ __pycache__/
 .actrc
 .secrets
 .env.act
-tools/playwright-unsplash-downloader/.env

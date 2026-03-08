@@ -71,9 +71,8 @@ Utilities and helper functions.
 ```
 lib/
 ├── animation/     # Animation config
-├── cache/         # Caching utilities
 ├── content/       # Content processing
-├── image/         # Image optimization
+├── image/         # Image utilities
 ├── utils/         # General utilities
 │   ├── api/      # API utilities
 │   ├── formatting/ # Formatters
@@ -105,10 +104,9 @@ scripts/
 ```
 public/
 ├── images/        # Image assets
-│   ├── unsplash/ # Cached Unsplash images
-│   └── vsco/     # Cached VSCO images
-├── fonts/        # Font files
-└── *.json        # Manifests
+│   ├── unsplash/ # Downloaded Unsplash images
+│   └── vsco/     # Downloaded VSCO images
+└── fonts/        # Font files
 ```
 
 ## Configuration Files

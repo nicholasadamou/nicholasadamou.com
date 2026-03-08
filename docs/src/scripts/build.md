@@ -1,37 +1,10 @@
 # Build Scripts
 
-Automated scripts that run during the build process to optimize images and generate fallback manifests.
+Automated scripts that run during the build process to download images.
 
-## cache-images-fallback.js
+## download-unsplash.js
 
-Generates a static manifest of all images used in the project during build time.
-
-**Purpose**: Creates `/public/unsplash-manifest.json` with pre-fetched image metadata to reduce runtime API calls.
-
-**Usage**:
-
-```bash
-pnpm run build:cache-images
-```
-
-**What it does**:
-
-- Scans all MDX files in `content/` directory
-- Extracts Unsplash and VSCO URLs from frontmatter
-- Fetches metadata for each image
-- Generates optimized URLs
-- Creates manifest JSON file
-
-**Benefits**:
-
-- Faster page loads (no API calls needed)
-- Works offline after build
-- CI/CD friendly
-- Reduces API rate limit usage
-
-## download-unsplash-fallback.js
-
-Downloads Unsplash images locally for development and faster loading.
+Downloads Unsplash images via the Unsplash API for development and faster loading.
 
 **Purpose**: Downloads all Unsplash images referenced in content to `public/images/unsplash/`.
 
@@ -43,21 +16,10 @@ pnpm run download:images:unsplash
 
 **Features**:
 
-- Concurrent downloads (configurable)
-- Progress tracking with progress bars
-- Automatic retry with exponential backoff
+- Scans MDX content for Unsplash URLs (no manifest needed)
+- Fetches images directly via the Unsplash API
 - Skips already-downloaded files
-- Creates local manifest tracking downloads
-
-**Configuration**:
-
-```javascript
-const CONFIG = {
-  concurrency: 3, // Simultaneous downloads
-  retries: 2, // Retry attempts
-  timeout: 30000, // 30 second timeout
-};
-```
+- Requires `UNSPLASH_ACCESS_KEY` in `.env.local`
 
 ## download-vsco-fallback.js
 
@@ -80,39 +42,14 @@ pnpm run download:images:vsco
 
 ## Running During Build
 
-All build scripts run automatically during `pnpm run build`:
-
-```json
-{
-  "scripts": {
-    "prebuild": "npm-run-all build:cache-images download:images",
-    "build": "next build"
-  }
-}
-```
+Build scripts run automatically during `pnpm run build` via the `prebuild` hook.
 
 ## Troubleshooting
 
-### Script Fails with "Manifest Not Found"
+### Missing API Key
 
-Run the cache script first:
-
-```bash
-pnpm run build:cache-images
-```
-
-### Slow Downloads
-
-Increase concurrency (edit script CONFIG):
-
-```javascript
-const CONFIG = { concurrency: 5 };
-```
+Ensure `UNSPLASH_ACCESS_KEY` is set in `.env.local`.
 
 ### API Rate Limits
 
-The scripts respect rate limits and include retry logic. If you hit limits:
-
-- Wait before retrying
-- Use cached manifests from previous builds
-- Contact Unsplash for rate limit increases
+The Unsplash API allows 50 requests/hour for free tier. If you hit limits, wait before retrying.

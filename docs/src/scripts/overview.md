@@ -7,8 +7,7 @@ Comprehensive automation scripts organized by purpose to streamline development 
 ```
 scripts/
 ├── build/          # Build-time automation
-│   ├── cache-images-fallback.js
-│   ├── download-unsplash-fallback.js
+│   ├── download-unsplash.js
 │   └── download-vsco-fallback.js
 ├── setup/          # Environment configuration
 │   ├── check-submodules.js
@@ -23,8 +22,7 @@ scripts/
 
 Run during build time to optimize assets and generate manifests.
 
-- **cache-images-fallback.js** - Creates static image manifest from content
-- **download-unsplash-fallback.js** - Downloads Unsplash images locally
+- **download-unsplash.js** - Downloads Unsplash images via API
 - **download-vsco-fallback.js** - Downloads VSCO gallery images
 
 **When they run**: Automatically during `pnpm run build` via prebuild hook.
@@ -34,7 +32,7 @@ Run during build time to optimize assets and generate manifests.
 Validate environment and prepare dependencies before builds.
 
 - **check-submodules.js** - Verifies git submodules are initialized
-- **playwright-env.js** - Configures Playwright browser automation
+- **playwright-env.js** - Configures Playwright VSCO downloader environment
 
 **When they run**: During `postinstall` and `prebuild` hooks.
 
@@ -61,9 +59,6 @@ git submodule update --init --recursive
 ### Development
 
 ```bash
-# Generate image manifests
-pnpm run build:cache-images
-
 # Download images locally
 pnpm run download:images:unsplash
 pnpm run download:images:vsco
@@ -102,7 +97,6 @@ Many scripts support configuration via environment variables:
 ```bash
 # Unsplash API
 UNSPLASH_ACCESS_KEY=your-key
-UNSPLASH_SECRET_KEY=your-secret
 
 # VSCO credentials (if needed)
 VSCO_EMAIL=your-email
@@ -122,25 +116,19 @@ OPENAI_ASSISTANT_ID=asst-id
    pnpm install
    ```
 
-2. **Regenerate manifests after content changes**
+2. **Download images after content changes**
 
    ```bash
-   pnpm run build:cache-images
+   pnpm run download:images:unsplash
    ```
 
-3. **Use local images in development**
-
-   ```bash
-   pnpm run download:images
-   ```
-
-4. **Update chatbot after publishing new content**
+3. **Update chatbot after publishing new content**
 
    ```bash
    node scripts/content/prepare-chatbot.js
    ```
 
-5. **Test builds locally before deploying**
+4. **Test builds locally before deploying**
    ```bash
    pnpm run build
    pnpm start

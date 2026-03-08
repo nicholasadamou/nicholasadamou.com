@@ -1,104 +1,21 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import UniversalImage from "@/components/common/media/UniversalImage";
 import Link from "@/components/common/ui/Link";
-import { extractUnsplashPhotoId, getImageMetadata } from "@/lib/image/fallback";
-import { logger } from "@/lib/logger";
 
-type ImageAttributionProps = {
+type HeaderImageProps = {
   imageSrc: string;
   imageAlt: string;
+  imageAttribution?: {
+    author: string;
+    authorUrl: string;
+  } | null;
 };
 
-type UnsplashAuthorData = {
-  image_author: string;
-  image_author_url: string;
-  isLocal?: boolean;
-} | null;
-
-const HeaderImage: React.FC<ImageAttributionProps> = ({
+const HeaderImage: React.FC<HeaderImageProps> = ({
   imageSrc,
   imageAlt,
+  imageAttribution,
 }) => {
-  const [unsplashData, setUnsplashData] = useState<UnsplashAuthorData>(null);
-  const [loading, setLoading] = useState(false);
-
-  // Check if this is an Unsplash image and fetch author data
-  const isUnsplashImage = imageSrc.includes("unsplash.com");
-
-  useEffect(() => {
-    if (!isUnsplashImage) return;
-
-    const fetchUnsplashData = async () => {
-      const photoId = extractUnsplashPhotoId(imageSrc);
-      if (!photoId) return; // Only works with proper Unsplash page URLs
-
-      setLoading(true);
-
-      try {
-        // STEP 1: Try to get author info from local manifest first
-        const imageMetadata = await getImageMetadata(imageSrc);
-        if (imageMetadata?.isLocal && imageMetadata.author) {
-          // Using local author data (silent)
-          setUnsplashData({
-            image_author: imageMetadata.author,
-            image_author_url:
-              `${imageMetadata.author_url}?utm_source=nicholasadamou.com&utm_medium=referral` ||
-              "",
-            isLocal: true,
-          });
-          setLoading(false);
-          return;
-        }
-
-        // STEP 2: Fall back to API call for author data
-        // Fetching author (silent)
-        const response = await fetch(
-          `/api/unsplash?action=get-photo&id=${photoId}`,
-          {
-            // Add timeout to prevent hanging
-            signal: AbortSignal.timeout(5000), // 5 second timeout for attribution
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.image_author && data.image_author_url) {
-            setUnsplashData({
-              image_author: data.image_author,
-              image_author_url: data.image_author_url,
-              isLocal: false,
-            });
-          }
-        } else if (response.status === 429) {
-          // Handle rate limit - just don't show attribution
-          logger.warn(
-            `Rate limit encountered while fetching author data for ${photoId}. Skipping attribution.`
-          );
-        }
-        // If the lookup fails, we'll just not show attribution
-      } catch (error) {
-        // Handle timeout and other errors - just don't show attribution
-        if (error instanceof Error && error.name === "TimeoutError") {
-          logger.warn(`Timeout fetching author data for ${photoId}`);
-        } else {
-          logger.warn("Failed to fetch image metadata:", error);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUnsplashData();
-  }, [imageSrc, isUnsplashImage]);
-
-  // Use dynamically fetched author data
-  const finalAuthor = unsplashData?.image_author;
-  const finalAuthorUrl = unsplashData?.image_author_url;
-
-  const hasAttribution = finalAuthor && finalAuthorUrl && isUnsplashImage;
-
   return (
     <div className="flex flex-col gap-2">
       <div className="relative aspect-video w-full overflow-hidden">
@@ -112,15 +29,19 @@ const HeaderImage: React.FC<ImageAttributionProps> = ({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
         />
       </div>
-      {hasAttribution && (
+      {imageAttribution && (
         <small className="text-tertiary italic">
-          Photo by <Link href={finalAuthorUrl}>{finalAuthor}</Link> on{" "}
+          Photo by{" "}
+          <Link href={imageAttribution.authorUrl}>
+            {imageAttribution.author}
+          </Link>{" "}
+          on{" "}
           <Link
             href={`https://unsplash.com/?utm_source=nicholasadamou.com&utm_medium=referral`}
           >
             Unsplash
           </Link>
-          .{loading && <span className="ml-1 opacity-50">...</span>}
+          .
         </small>
       )}
     </div>

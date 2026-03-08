@@ -28,7 +28,7 @@ export default function PinnedNotesList({ notes }: NoteListProps) {
               <div className="bg-secondary aspect-video overflow-hidden rounded-xl">
                 <Halo strength={10}>
                   <UniversalImage
-                    src={note.image_url || note.image || ""}
+                    src={note.image || ""}
                     alt={note.title}
                     fill
                     priority={true}

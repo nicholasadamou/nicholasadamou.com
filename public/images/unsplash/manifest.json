@@ -1,371 +1,160 @@
 {
-  "generated_at": "2025-12-21T21:49:16.324Z",
-  "version": "2.0.0",
-  "source_manifest": "2025-12-21T21:49:00.817Z",
-  "download_method": "playwright",
+  "generated_at": "2026-03-08T18:32:13.290Z",
   "images": {
-    "ZV_64LdGoao": {
-      "local_path": "/../../public/images/unsplash/ZV_64LdGoao.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
-      "author": "Pankaj Patel",
-      "author_url": "https://unsplash.com/@pankajpatel",
-      "size_bytes": 2670860,
-      "width": 5599,
-      "height": 3733,
-      "description": "Gitlab application screengrab",
-      "skipped": true,
-      "download_method": "playwright"
-    },
     "dODTJI4UYpw": {
-      "local_path": "/../../public/images/unsplash/dODTJI4UYpw.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/dODTJI4UYpw.jpg",
       "author": "sohaib jafar",
-      "author_url": "https://unsplash.com/@sohaib3",
-      "size_bytes": 1665664,
-      "width": 2448,
-      "height": 3264,
-      "description": "Golden wheat field",
-      "skipped": true,
-      "download_method": "playwright"
-    },
-    "Am6pBe2FpJw": {
-      "local_path": "/../../public/images/unsplash/Am6pBe2FpJw.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
-      "author": "Growtika",
-      "author_url": "https://unsplash.com/@growtika",
-      "size_bytes": 426013,
-      "width": 3840,
-      "height": 2160,
-      "description": "diagram",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@sohaib3"
     },
     "JsTmUnHdVYQ": {
-      "local_path": "/../../public/images/unsplash/JsTmUnHdVYQ.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/JsTmUnHdVYQ.jpg",
       "author": "Thomas Bormans",
-      "author_url": "https://unsplash.com/@thomasbormans",
-      "image_url": "https://images.unsplash.com/photo-1504197832061-98356e3dcdcf?ixid=M3w3OTY0MTZ8MHwxfGFsbHx8fHx8fHx8fDE3NjYzNTAxNTJ8&ixlib=rb-4.1.0",
-      "size_bytes": 1496732,
-      "width": 5861,
-      "height": 3908,
-      "description": "round black and brown analog clock",
-      "location": "Cologne, Germany",
-      "camera": "NIKON CORPORATION NIKON D5300",
-      "likes": 738,
-      "skipped": false,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@thomasbormans"
     },
     "ud_kWC-3Bdg": {
-      "local_path": "/../../public/images/unsplash/ud_kWC-3Bdg.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/ud_kWC-3Bdg.jpg",
       "author": "Marcin Jozwiak",
-      "author_url": "https://unsplash.com/@marcinjozwiak",
-      "size_bytes": 6808740,
-      "width": 5464,
-      "height": 3640,
-      "description": "an aerial view of a train yard with several trains",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@marcinjozwiak"
     },
     "TXzdrCTdggE": {
-      "local_path": "/../../public/images/unsplash/TXzdrCTdggE.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/TXzdrCTdggE.jpg",
       "author": "Ant Rozetsky",
-      "author_url": "https://unsplash.com/@rozetsky",
-      "image_url": "https://images.unsplash.com/photo-1659018966834-99be9746b49e?ixid=M3w3OTY0MTZ8MHwxfGFsbHx8fHx8fHx8fDE3NjYzNTAxNTJ8&ixlib=rb-4.1.0",
-      "size_bytes": 360757,
-      "width": 3840,
-      "height": 2482,
-      "description": "diagram",
-      "likes": 61,
-      "skipped": false,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@rozetsky"
     },
     "wX2L8L-fGeA": {
-      "local_path": "/../../public/images/unsplash/wX2L8L-fGeA.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/wX2L8L-fGeA.jpg",
       "author": "Roman Synkevych",
-      "author_url": "https://unsplash.com/@synkevych",
-      "image_url": "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?ixid=M3w3OTY0MTZ8MHwxfGFsbHx8fHx8fHx8fDE3NjYzNTAxNTJ8&ixlib=rb-4.1.0",
-      "size_bytes": 1804209,
-      "width": 5327,
-      "height": 3480,
-      "description": "A figurine of an oktokat in the center, in the background a laptop with the main page of the GitHub open.",
-      "camera": "Canon Canon EOS 6D",
-      "likes": 41,
-      "skipped": false,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@synkevych"
     },
     "hXrPSgGFpqQ": {
-      "local_path": "/../../public/images/unsplash/hXrPSgGFpqQ.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/hXrPSgGFpqQ.jpg",
       "author": "Ilya Pavlov",
-      "author_url": "https://unsplash.com/@ilyapavlov",
-      "size_bytes": 1963145,
-      "width": 3543,
-      "height": 2365,
-      "description": "a close up of a computer screen with a menu",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@ilyapavlov"
     },
     "x2Tmfd1-SgA": {
-      "local_path": "/../../public/images/unsplash/x2Tmfd1-SgA.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/x2Tmfd1-SgA.jpg",
       "author": "Sarah Dorweiler",
-      "author_url": "https://unsplash.com/@sarahdorweiler",
-      "size_bytes": 379750,
-      "width": 4700,
-      "height": 3200,
-      "description": "Still",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@sarahdorweiler"
     },
     "3Sx3hSQcQIA": {
-      "local_path": "/../../public/images/unsplash/3Sx3hSQcQIA.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/3Sx3hSQcQIA.jpg",
       "author": "Mohammad Rahmani",
-      "author_url": "https://unsplash.com/@afgprogrammer",
-      "image_url": "https://images.unsplash.com/photo-1733412505442-36cfa59a4240?ixid=M3w3OTY0MTZ8MHwxfGFsbHx8fHx8fHx8fDE3NjYzNTAxNTN8&ixlib=rb-4.1.0",
-      "size_bytes": 5055906,
-      "width": 9504,
-      "height": 6336,
-      "description": "Sometimes, you don't realize how priceless a moment is, until it becomes a memory. #1680",
-      "camera": "SONY ILCE-7RM4",
-      "likes": 1,
-      "skipped": false,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@afgprogrammer"
     },
     "842ofHC6MaI": {
-      "local_path": "/../../public/images/unsplash/842ofHC6MaI.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/842ofHC6MaI.jpg",
       "author": "Yancy Min",
-      "author_url": "https://unsplash.com/@yancymin",
-      "size_bytes": 2730065,
-      "width": 5000,
-      "height": 3313,
-      "description": "a close up of a text description on a computer screen",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@yancymin"
+    },
+    "bS1LS5piX8M": {
+      "local_path": "/images/unsplash/bS1LS5piX8M.jpg",
+      "author": "Christopher Paul High",
+      "author_url": "https://unsplash.com/@christopherphigh"
     },
     "eiflkYzuvNk": {
-      "local_path": "/../../public/images/unsplash/eiflkYzuvNk.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
-      "author": "Aleksei Sabulevskii",
-      "author_url": "https://unsplash.com/@a_sabulevskiy",
-      "size_bytes": 1614507,
-      "width": 4000,
-      "height": 6000,
-      "description": "USSR astronaut's spacesuit (only helmet)",
-      "skipped": true,
-      "download_method": "playwright"
+      "local_path": "/images/unsplash/eiflkYzuvNk.jpg",
+      "author": "Alexey Sabulevskiy",
+      "author_url": "https://unsplash.com/@a_sabulevskiy"
     },
     "Mv3yxyI_OY4": {
-      "local_path": "/../../public/images/unsplash/Mv3yxyI_OY4.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/Mv3yxyI_OY4.jpg",
       "author": "Clair",
-      "author_url": "https://unsplash.com/@clair_",
-      "size_bytes": 1530861,
-      "width": 5095,
-      "height": 3456,
-      "description": "a fork on a white background",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@clair_"
+    },
+    "UWVJaDvXW_c": {
+      "local_path": "/images/unsplash/UWVJaDvXW_c.jpg",
+      "author": "Solen Feyissa",
+      "author_url": "https://unsplash.com/@solenfeyissa"
     },
     "xZSuLxiqXUo": {
-      "local_path": "/../../public/images/unsplash/xZSuLxiqXUo.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/xZSuLxiqXUo.jpg",
       "author": "Victor Volkov",
-      "author_url": "https://unsplash.com/@lensyfoxography",
-      "size_bytes": 3050285,
-      "width": 4160,
-      "height": 5547,
-      "description": "a group of spools of thread sitting on top of each other",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@lensyfoxography"
     },
     "ECroJP4VqxQ": {
-      "local_path": "/../../public/images/unsplash/ECroJP4VqxQ.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/ECroJP4VqxQ.jpg",
       "author": "Tamas Katona",
-      "author_url": "https://unsplash.com/@katonatomi",
-      "size_bytes": 536747,
-      "width": 2848,
-      "height": 2848,
-      "description": "white smartwatch beside Starbucks cup near laptop",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@katonatomi"
     },
     "MSN8TFhJ0is": {
-      "local_path": "/../../public/images/unsplash/MSN8TFhJ0is.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/MSN8TFhJ0is.jpg",
       "author": "Safar Safarov",
-      "author_url": "https://unsplash.com/@safarslife",
-      "size_bytes": 2521505,
-      "width": 5184,
-      "height": 3456,
-      "description": "turned-on gray laptop computer",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@safarslife"
     },
     "UcUvFgDcFDw": {
-      "local_path": "/../../public/images/unsplash/UcUvFgDcFDw.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/UcUvFgDcFDw.jpg",
       "author": "Wayne Hollman",
-      "author_url": "https://unsplash.com/@whollman",
-      "size_bytes": 2432033,
-      "width": 6000,
-      "height": 4000,
-      "description": "a close up of a black and white keyboard",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@whollman"
     },
     "M5tzZtFCOfs": {
-      "local_path": "/../../public/images/unsplash/M5tzZtFCOfs.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/M5tzZtFCOfs.jpg",
       "author": "Taylor Vick",
-      "author_url": "https://unsplash.com/@tvick",
-      "size_bytes": 1536693,
-      "width": 3956,
-      "height": 2220,
-      "description": "cable network",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@tvick"
     },
     "npxXWgQ33ZQ": {
-      "local_path": "/../../public/images/unsplash/npxXWgQ33ZQ.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/npxXWgQ33ZQ.jpg",
       "author": "Glenn Carstens-Peters",
-      "author_url": "https://unsplash.com/@glenncarstenspeters",
-      "image_url": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=M3w3OTY0MTZ8MHwxfGFsbHx8fHx8fHx8fDE3NjYzNTAxNTN8&ixlib=rb-4.1.0",
-      "size_bytes": 814836,
-      "width": 4076,
-      "height": 2712,
-      "description": "If you feel the desire to write a book, what would it be about?",
-      "camera": "NIKON CORPORATION NIKON D700",
-      "likes": 7125,
-      "skipped": false,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@glenncarstenspeters"
     },
     "4nabmlliGdU": {
-      "local_path": "/../../public/images/unsplash/4nabmlliGdU.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/4nabmlliGdU.jpg",
       "author": "Paul Hanaoka",
-      "author_url": "https://unsplash.com/@plhnk",
-      "size_bytes": 2840839,
-      "width": 3247,
-      "height": 4616,
-      "description": "assorted-color textiles",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@plhnk"
     },
     "86T4OpohLTI": {
-      "local_path": "/../../public/images/unsplash/86T4OpohLTI.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/86T4OpohLTI.jpg",
       "author": "Joe Gardner",
-      "author_url": "https://unsplash.com/@josephgardnerphotography",
-      "size_bytes": 4083852,
-      "width": 5472,
-      "height": 3648,
-      "description": "If you like and use my photos, I would love a small donation (even just $2 would help) to my GoFundMe account to buy back my stolen gear (yes, I lost everything!) Thanks! \r\n\r\nhttps://www.gofundme.com/buy-back-stolen-gear",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@josephgardnerphotography"
+    },
+    "hUXDf6q5yqI": {
+      "local_path": "/images/unsplash/hUXDf6q5yqI.jpg",
+      "author": "Stefan Kostić",
+      "author_url": "https://unsplash.com/@thestefankostic"
     },
     "BINLgyrG_fI": {
-      "local_path": "/../../public/images/unsplash/BINLgyrG_fI.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/BINLgyrG_fI.jpg",
       "author": "Hannah Gibbs",
-      "author_url": "https://unsplash.com/@hannahmgibbs",
-      "image_url": "https://images.unsplash.com/photo-1537557209696-c595cc42018d?ixid=M3w3OTY0MTZ8MHwxfGFsbHx8fHx8fHx8fDE3NjYzNTAxNTN8&ixlib=rb-4.1.0",
-      "size_bytes": 2583607,
-      "width": 6000,
-      "height": 4000,
-      "description": "Blacksmith",
-      "location": "Urbandale, United States",
-      "camera": "NIKON CORPORATION NIKON D3400",
-      "likes": 110,
-      "skipped": false,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@hannahmgibbs"
     },
     "KPAQpJYzH0Y": {
-      "local_path": "/../../public/images/unsplash/KPAQpJYzH0Y.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/KPAQpJYzH0Y.jpg",
       "author": "Praveen Thirumurugan",
-      "author_url": "https://unsplash.com/@praveentcom",
-      "size_bytes": 2970270,
-      "width": 6000,
-      "height": 4000,
-      "description": "Groot and Octocat reading a newspaper",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@praveentcom"
     },
     "8FwiZcXiX_g": {
-      "local_path": "/../../public/images/unsplash/8FwiZcXiX_g.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/8FwiZcXiX_g.jpg",
       "author": "Levi Price",
-      "author_url": "https://unsplash.com/@levijacobprice",
-      "size_bytes": 931014,
-      "width": 1920,
-      "height": 1280,
-      "description": "Milky Way Dark Blue",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@levijacobprice"
     },
-    "_yBEyYR8wps": {
-      "local_path": "/../../public/images/unsplash/_yBEyYR8wps.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
-      "author": "Goran Ivos",
-      "author_url": "https://unsplash.com/@goran_ivos",
-      "size_bytes": 1777209,
-      "width": 4592,
-      "height": 3448,
-      "description": "Laptop coding cake interior",
-      "skipped": true,
-      "download_method": "playwright"
+    "oJlt2XBWuWs": {
+      "local_path": "/images/unsplash/oJlt2XBWuWs.jpg",
+      "author": "David Clode",
+      "author_url": "https://unsplash.com/@davidclode"
+    },
+    "YzKdrThXLIk": {
+      "local_path": "/images/unsplash/YzKdrThXLIk.jpg",
+      "author": "Godfrey Nyangechi",
+      "author_url": "https://unsplash.com/@atimagodie"
     },
     "BYnPD7xBNLs": {
-      "local_path": "/../../public/images/unsplash/BYnPD7xBNLs.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/BYnPD7xBNLs.jpg",
       "author": "Pesce Huang",
-      "author_url": "https://unsplash.com/@pesce",
-      "size_bytes": 931657,
-      "width": 1920,
-      "height": 2880,
-      "description": "The zipper is partially opened on blue jeans.",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@pesce"
     },
     "PoL7eR-p4Z0": {
-      "local_path": "/../../public/images/unsplash/PoL7eR-p4Z0.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/PoL7eR-p4Z0.jpg",
       "author": "Marissa Lewis",
-      "author_url": "https://unsplash.com/@doscocoslocos",
-      "size_bytes": 3954958,
-      "width": 4160,
-      "height": 6240,
-      "description": "a desktop computer sitting on top of a wooden desk",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@doscocoslocos"
+    },
+    "bS46IAXWAO4": {
+      "local_path": "/images/unsplash/bS46IAXWAO4.jpg",
+      "author": "Sei",
+      "author_url": "https://unsplash.com/@itssecondkaki"
     },
     "4Mw7nkQDByk": {
-      "local_path": "/../../public/images/unsplash/4Mw7nkQDByk.jpg",
-      "downloaded_at": "2025-12-21T21:49:16.325Z",
+      "local_path": "/images/unsplash/4Mw7nkQDByk.jpg",
       "author": "Gabriel Heinzer",
-      "author_url": "https://unsplash.com/@6heinz3r",
-      "size_bytes": 1084121,
-      "width": 5184,
-      "height": 3888,
-      "description": "\n\"sudo\" stands for \"superuser do\". With sudo, commands are executed with superuser privileges.\n\nLinux (Ubuntu) bash terminal in Windows subsystem for Linux (WSL).",
-      "skipped": true,
-      "download_method": "playwright"
+      "author_url": "https://unsplash.com/@6heinz3r"
     }
-  },
-  "stats": {
-    "total_images": 28,
-    "downloaded": 6,
-    "failed": 0,
-    "skipped": 22,
-    "success_rate": 100,
-    "duration_seconds": 8.716
   }
 }

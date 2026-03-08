@@ -14,17 +14,9 @@ scripts/
 
 ## Build Scripts
 
-### cache-images-fallback.js
+### download-unsplash.js
 
-Fallback for Unsplash image caching. Creates manifest or runs submodule script.
-
-```bash
-pnpm run build:cache-images
-```
-
-### download-unsplash-fallback.js
-
-Downloads Unsplash images via Playwright (skipped in CI).
+Downloads Unsplash images via the Unsplash API (skipped in CI).
 
 ```bash
 pnpm run download:images:unsplash
@@ -67,7 +59,6 @@ pnpm run prepare-chatbot-data
 ```bash
 pnpm format                        # Format code
 node scripts/setup/check-submodules.js  # Check submodules
-pnpm run build:cache-images        # Build manifests
 pnpm run download:images:unsplash  # Download images (optional)
 pnpm run download:images:vsco      # Download images (optional)
 pnpm run build                     # Build site

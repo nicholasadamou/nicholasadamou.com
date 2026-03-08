@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import yaml from "js-yaml";
+import { resolveImageUrl } from "@/lib/image/unsplash";
 
 // Types matching your existing Contentlayer schema
 export interface BaseContent {
@@ -48,9 +49,11 @@ const getSlug = (filePath: string): string => {
 
 // Utility function to resolve image path from frontmatter
 const resolveImageFromUrl = (frontmatter: any): string | null => {
-  // Use external image URL if provided in frontmatter
   if (frontmatter.image_url) {
-    return frontmatter.image_url;
+    // Resolve Unsplash URLs to local paths at parse time
+    // Returns null if the image isn't available locally — the raw
+    // unsplash.com/photos/… page URL is not a valid image source.
+    return resolveImageUrl(frontmatter.image_url);
   }
   return null;
 };

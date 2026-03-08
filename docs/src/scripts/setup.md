@@ -25,7 +25,6 @@ node scripts/setup/check-submodules.js
 
 **Submodules used**:
 
-- `tools/playwright-image-downloader` - Unsplash image downloader
 - `tools/playwright-vsco-downloader` - VSCO gallery downloader
 
 **If check fails**:
@@ -40,28 +39,24 @@ git clone --recursive <repo-url>
 
 ## playwright-env.js
 
-Sets up Playwright browser automation environment for image downloading.
+Sets up environment variables for the VSCO Playwright downloader.
 
-**Purpose**: Configures Playwright browsers and environment variables for automated downloads.
+**Purpose**: Copies VSCO credentials from `.env.local` to the downloader submodule.
 
 **Usage**:
 
 ```bash
-node scripts/setup/playwright-env.js
+node scripts/setup/playwright-env.js playwright-vsco-downloader
 ```
 
 **What it does**:
 
-- Installs Playwright browsers (Chromium)
-- Sets up browser cache directory
-- Configures environment variables
-- Validates Playwright installation
+- Reads VSCO credentials from `.env.local`
+- Creates `.env` file in the downloader submodule
 
 **Required for**:
 
-- Automated image downloading
 - VSCO gallery scraping
-- Premium Unsplash+ content access
 
 **Browser setup**:
 

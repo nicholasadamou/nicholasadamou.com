@@ -1,5 +1,6 @@
 import { allNotes, allProjects } from "@/lib/content/contentlayer-data";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { AnimatedSection } from "@/components/common/effects/AnimatedSection";
@@ -14,8 +15,8 @@ import { SectionHeader } from "@/components/common/layout/SectionHeader";
 import SocialLinks, {
   socialLinks,
 } from "@/components/common/sections/SocialLinks";
-import SparkleText from "@/components/common/effects/SparkleText";
 import ThemeAwareGumroadLogo from "@/components/common/media/ThemeAwareGumroadLogo";
+import OnebriefLogo from "@/components/common/media/OnebriefLogo";
 
 import { PinIcon } from "lucide-react";
 
@@ -36,20 +37,94 @@ export default function Home() {
           <div className="order-2 space-y-6 lg:order-1 lg:col-span-2">
             <div className="space-y-4">
               <h1 className="animate-in text-primary text-4xl font-bold leading-tight tracking-tight lg:text-5xl">
-                Hey, I&apos;m{" "}
-                <SparkleText className="font-bold">Nick Adamou</SparkleText>
+                Hey, I&apos;m Nick Adamou
               </h1>
               <p
-                className="animate-in text-secondary text-lg leading-relaxed"
+                className="animate-in text-secondary text-md leading-relaxed"
                 style={{ "--index": 1 } as React.CSSProperties}
               >
-                I am a full-stack software engineer with a passion for
-                leveraging technology to create positive change in the world. My
-                mission is to harness the power of code to develop innovative
-                solutions that address real-world challenges and improve
-                people&apos;s lives. I believe in building software that not
-                only functions beautifully but also makes a meaningful impact on
-                communities and individuals.
+                I&apos;m a senior software engineer at{" "}
+                <Link
+                  href="https://www.onebrief.com"
+                  target="_blank"
+                  className="inline border-b pb-0.5"
+                >
+                  <OnebriefLogo className="inline-block align-baseline" />
+                </Link>
+                . I&apos;ve previously worked at companies including{" "}
+                <Link
+                  href="https://www.ibm.com"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  IBM
+                </Link>
+                ,{" "}
+                <Link
+                  href="https://www.lockheedmartin.com"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Lockheed Martin, Space
+                </Link>
+                ,{" "}
+                <Link
+                  href="https://www.apple.com"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Apple
+                </Link>
+                , and{" "}
+                <Link
+                  href="https://www.surfair.com"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Fly Blackbird (acquired by SurfAir)
+                </Link>
+                . I hold a{" "}
+                <Link
+                  href="https://www.parchment.com/u/award/6a9ef8b5cd81ba6e9befa8fd094e5a8e"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Master of Science in Computer Science
+                </Link>{" "}
+                from{" "}
+                <Link
+                  href="https://www.gatech.edu"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Georgia Institute of Technology
+                </Link>{" "}
+                and a{" "}
+                <Link
+                  href="https://drive.google.com/file/d/1ayD1gYOiD6pEq_mVtC64IUQYU1EB5yK2/view?usp=sharing"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Bachelor of Arts in Computer Science
+                </Link>{" "}
+                from{" "}
+                <Link
+                  href="https://www.cornellcollege.edu"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  Cornell College
+                </Link>
+                . I&apos;m passionate about making the world better through
+                software and{" "}
+                <Link
+                  href="https://jayminwest.com/agentic-engineering-book"
+                  target="_blank"
+                  className={`border-b pb-0.5`}
+                >
+                  agentic engineering
+                </Link>
+                .
               </p>
             </div>
             <div
@@ -61,7 +136,7 @@ export default function Home() {
           </div>
           <div className="justify-left order-1 flex lg:order-2 lg:col-span-1 lg:justify-end">
             <div className="group relative">
-              <div className="animate-slow-pulse absolute -inset-2 rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 opacity-50 blur-md transition-all duration-1000"></div>
+              <div className="rounded-3xl"></div>
               <Image
                 {...getOptimizedImageProps(
                   "/nicholas-adamou.jpeg",
@@ -76,7 +151,7 @@ export default function Home() {
                 )}
                 alt="Nicholas Adamou - Full Stack Software Engineer and technology enthusiast"
                 style={{ "--index": 3 } as React.CSSProperties}
-                className="animate-in relative h-80 w-64 rounded-3xl object-cover shadow-2xl grayscale-[0.5] transition-all duration-300 lg:h-80 lg:w-64"
+                className="animate-in relative h-80 w-64 rounded-3xl object-cover grayscale-[0.5] transition-all duration-300 lg:h-80 lg:w-64"
               />
             </div>
           </div>

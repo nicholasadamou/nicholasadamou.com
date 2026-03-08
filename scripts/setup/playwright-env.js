@@ -11,17 +11,6 @@ const path = require("path");
 
 // Environment variables for different services
 const ENV_VAR_CONFIGS = {
-  "playwright-unsplash-downloader": {
-    name: "Unsplash",
-    vars: [
-      "UNSPLASH_ACCESS_KEY",
-      "UNSPLASH_SECRET_KEY",
-      "REDIS_URL",
-      "UPSTASH_REDIS_REST_URL",
-      "UNSPLASH_EMAIL",
-      "UNSPLASH_PASSWORD",
-    ],
-  },
   "playwright-vsco-downloader": {
     name: "VSCO",
     vars: ["VSCO_EMAIL", "VSCO_PASSWORD"],

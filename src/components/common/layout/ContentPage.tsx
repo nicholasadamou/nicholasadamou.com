@@ -50,6 +50,7 @@ interface ContentPageProps {
   readingStats: { text: string };
   relatedItemsWithStats: RelatedContentItem[];
   renderedMDXContent: React.ReactElement;
+  imageAttribution?: { author: string; authorUrl: string } | null;
 }
 
 export default function ContentPage({
@@ -58,6 +59,7 @@ export default function ContentPage({
   readingStats,
   relatedItemsWithStats,
   renderedMDXContent,
+  imageAttribution,
 }: ContentPageProps): React.ReactElement | null {
   return (
     <motion.div
@@ -173,7 +175,7 @@ export default function ContentPage({
           />
         </motion.div>
 
-        {content.image_url && (
+        {content.image && (
           <motion.div
             variants={slideUpVariants}
             initial="hidden"
@@ -196,8 +198,9 @@ export default function ContentPage({
               whileHover={{ scale: 1.02 }}
             >
               <HeaderImage
-                imageSrc={content.image_url}
+                imageSrc={content.image}
                 imageAlt={`${content.title} project image`}
+                imageAttribution={imageAttribution}
               />
             </motion.div>
             <div className="h-8" />
@@ -208,7 +211,7 @@ export default function ContentPage({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
-            delay: getStaggerDelay(content.image_url ? 2 : 1),
+            delay: getStaggerDelay(content.image ? 2 : 1),
             duration: DURATION.normal,
             ease: EASING.easeOut,
           }}

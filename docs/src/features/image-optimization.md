@@ -1,22 +1,23 @@
 # Image Optimization
 
-Multi-layered image optimization with Unsplash+, VSCO, and local caching.
+Image optimization with Unsplash, VSCO, and Next.js.
 
 ## System Overview
 
-- External APIs (Unsplash+, VSCO)
-- Redis caching for performance
-- Local manifests for offline/CI builds
+- Unsplash images downloaded locally via API at build time
+- VSCO images downloaded via Playwright automation
+- Unsplash URLs resolved to local paths at MDX parse time
 - Next.js Image automatic optimization
 
-## Unsplash+ Integration
+## Unsplash Integration
 
-Watermark-free images with API caching and local fallback.
+Images are resolved server-side in `src/lib/image/unsplash.ts`:
 
 ```typescript
-import { getOptimizedImageSrc } from "@/lib/image/fallback";
+import { resolveImageUrl, getAttribution } from "@/lib/image/unsplash";
 
-const url = await getOptimizedImageSrc(imageUrl, fallbackUrl);
+const localPath = resolveImageUrl(unsplashPageUrl);
+const attribution = getAttribution(unsplashPageUrl);
 ```
 
 ## VSCO Integration
@@ -30,9 +31,6 @@ pnpm run download:images:vsco
 ## Build Process
 
 ```bash
-# Build manifest
-pnpm run build:cache-images
-
 # Download images locally
 pnpm run download:images:unsplash
 pnpm run download:images:vsco

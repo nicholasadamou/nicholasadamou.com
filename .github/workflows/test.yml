@@ -32,11 +32,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install playwright-unsplash-downloader dependencies
-        run: |
-          cd tools/playwright-unsplash-downloader
-          pnpm install --frozen-lockfile
-
       - name: Run linting
         run: pnpm run lint
 

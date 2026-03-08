@@ -60,8 +60,7 @@ src/
 
 - Server Components fetch data directly
 - API routes for client-side fetching
-- Redis caching for external APIs
-- Fallback to local manifests
+- Unsplash images resolved to local paths at build time
 
 ## Next Steps
 

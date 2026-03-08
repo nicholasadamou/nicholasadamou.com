@@ -4,6 +4,7 @@ import readingTime from "reading-time";
 import type { Note, Project } from "@/lib/content/contentlayer-data";
 import ContentPage from "./ContentPage";
 import ServerMDXRenderer from "@/components/mdx/renderers/ServerMDXRenderer";
+import { getAttribution } from "@/lib/image/unsplash";
 
 type UnifiedContent = (Project | Note) & {
   long_summary?: string;
@@ -36,13 +37,17 @@ export default async function ServerContentPage({
     .slice(0, 2);
   const relatedItemsWithStats = relatedItems.map((item) => ({
     title: item.title,
-    image: item.image || undefined, // Convert null to undefined for compatibility
-    image_url: item.image_url,
+    image: item.image || undefined,
     summary: item.summary,
     slug: item.slug,
     date: item.date,
     readingTime: readingTime(item.body.raw).text,
   }));
+
+  // Resolve image attribution server-side from the raw Unsplash URL in frontmatter
+  const imageAttribution = content.image_url
+    ? getAttribution(content.image_url)
+    : null;
 
   const mdxContent = await ServerMDXRenderer({ source: content.body.code });
 
@@ -53,6 +58,7 @@ export default async function ServerContentPage({
       readingStats={readingStats}
       relatedItemsWithStats={relatedItemsWithStats}
       renderedMDXContent={mdxContent}
+      imageAttribution={imageAttribution}
     />
   );
 }

@@ -49,7 +49,6 @@ pnpm test:coverage    # Generate coverage report
 #### Build Scripts
 
 ```bash
-pnpm build:cache-images       # Build image manifest
 pnpm download:images:unsplash # Download Unsplash images
 pnpm download:images:vsco     # Download VSCO images
 ```
