@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pnpm format && node scripts/setup/check-submodules.js && npm-run-all download:images:unsplash download:images:vsco",
+    "prebuild": "pnpm format && node scripts/setup/check-submodules.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
