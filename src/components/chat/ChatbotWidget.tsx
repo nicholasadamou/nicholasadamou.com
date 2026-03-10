@@ -244,7 +244,7 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
       {isOpen && (
         <motion.div
           ref={chatWindowRef}
-          className="fixed bottom-[4.5rem] right-6 z-50 w-[600px] max-w-[calc(100vw-3rem)] sm:bottom-20 sm:left-6 sm:right-auto"
+          className="fixed bottom-[4.5rem] left-1/2 z-50 w-[600px] max-w-[calc(100vw-3rem)] -translate-x-1/2 sm:bottom-20"
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
