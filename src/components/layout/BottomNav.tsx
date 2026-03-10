@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, useEffect, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useSyncExternalStore,
+  lazy,
+  Suspense,
+} from "react";
 import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -20,6 +26,19 @@ const KeyboardShortcutsDialog = dynamic(
   { ssr: false }
 );
 import Tooltip from "@/components/ui/Tooltip";
+
+const desktopQuery = "(min-width: 640px)";
+function subscribeDesktop(callback: () => void) {
+  const mq = window.matchMedia(desktopQuery);
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+function getDesktopSnapshot() {
+  return window.matchMedia(desktopQuery).matches;
+}
+function getDesktopServerSnapshot() {
+  return false;
+}
 
 function HomeIcon() {
   return (
@@ -191,6 +210,11 @@ export default function BottomNav() {
   const [showSearch, setShowSearch] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const isDesktop = useSyncExternalStore(
+    subscribeDesktop,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot
+  );
   const { layout } = useHomeLayout();
   const isSingleCol = layout === "single";
   const {
@@ -219,17 +243,17 @@ export default function BottomNav() {
 
   // Cmd+K / Cmd+J shortcuts (Cmd+K desktop only)
   useEffect(() => {
-    const isDesktop = () => window.matchMedia("(min-width: 640px)").matches;
+    const checkDesktop = () => window.matchMedia("(min-width: 640px)").matches;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k" && isDesktop()) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k" && checkDesktop()) {
         e.preventDefault();
         setShowSearch((prev) => !prev);
       }
-      if ((e.metaKey || e.ctrlKey) && e.key === "j" && isDesktop()) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "j" && checkDesktop()) {
         e.preventDefault();
         setShowChat((prev) => !prev);
       }
-      if ((e.metaKey || e.ctrlKey) && e.key === "e" && isDesktop()) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "e" && checkDesktop()) {
         e.preventDefault();
         setShowPicker((prev) => !prev);
       }
@@ -272,7 +296,7 @@ export default function BottomNav() {
   return (
     <>
       <div
-        className={`animate-fadeInNav fixed inset-x-6 bottom-5 mx-auto flex max-w-xs items-center justify-between gap-4 rounded-full px-5 py-2.5 text-sm sm:bottom-6 sm:max-w-fit sm:gap-6 ${
+        className={`animate-fadeInNav fixed inset-x-6 bottom-5 mx-auto flex max-w-fit items-center justify-between gap-4 rounded-full px-5 py-2.5 text-sm sm:bottom-6 sm:gap-6 ${
           isSingleCol ? "" : "sm:left-6 sm:right-auto sm:mx-0"
         } ${navBg}`}
       >
@@ -318,30 +342,36 @@ export default function BottomNav() {
             <PaletteIcon />
           </button>
         </Tooltip>
-        <Tooltip label="Search ⌘K">
-          <button
-            className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
-            onClick={() => setShowSearch(true)}
-          >
-            <SearchIcon />
-          </button>
-        </Tooltip>
-        <Tooltip label="Chat ⌘J">
-          <button
-            className={`chat-trigger hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
-            onClick={() => setShowChat((prev) => !prev)}
-          >
-            <ChatIcon />
-          </button>
-        </Tooltip>
-        <Tooltip label="Shortcuts ?">
-          <button
-            className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
-            onClick={() => setShowShortcuts(true)}
-          >
-            <HelpIcon />
-          </button>
-        </Tooltip>
+        {isDesktop && (
+          <Tooltip label="Search ⌘K">
+            <button
+              className={`cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+              onClick={() => setShowSearch(true)}
+            >
+              <SearchIcon />
+            </button>
+          </Tooltip>
+        )}
+        {isDesktop && (
+          <Tooltip label="Chat ⌘J">
+            <button
+              className={`chat-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+              onClick={() => setShowChat((prev) => !prev)}
+            >
+              <ChatIcon />
+            </button>
+          </Tooltip>
+        )}
+        {isDesktop && (
+          <Tooltip label="Shortcuts ?">
+            <button
+              className={`cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+              onClick={() => setShowShortcuts(true)}
+            >
+              <HelpIcon />
+            </button>
+          </Tooltip>
+        )}
       </div>
 
       <CommandPalette
