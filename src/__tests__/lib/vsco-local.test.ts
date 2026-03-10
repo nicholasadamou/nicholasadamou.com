@@ -25,6 +25,7 @@ const EXPORT_DATA = [
     height: 2048,
     width: 1536,
     file_name: "photo1.jpg",
+    responsive_url: "im.vsco.co/aws-us-west-2/abc/123/photo1.jpg",
     is_video: false,
     perma_subdomain: "nicholasadamou",
     share_link: "http://vsco.co/nicholasadamou/media/abc123",
@@ -35,6 +36,7 @@ const EXPORT_DATA = [
     height: 1800,
     width: 1200,
     file_name: "photo2.jpg",
+    responsive_url: "im.vsco.co/aws-us-west-2/abc/456/photo2.jpg",
     is_video: false,
     perma_subdomain: "nicholasadamou",
     share_link: "http://vsco.co/nicholasadamou/media/def456",
@@ -45,6 +47,7 @@ const EXPORT_DATA = [
     height: 2048,
     width: 1536,
     file_name: "photo1.jpg",
+    responsive_url: "im.vsco.co/aws-us-west-2/abc/789/photo1_dup.jpg",
     is_video: false,
     perma_subdomain: "nicholasadamou",
     share_link: "http://vsco.co/nicholasadamou/media/dup789",
@@ -55,6 +58,7 @@ const EXPORT_DATA = [
     height: 1920,
     width: 1080,
     file_name: "video.mp4",
+    responsive_url: "",
     is_video: true,
     perma_subdomain: "nicholasadamou",
     share_link: "http://vsco.co/nicholasadamou/media/vid001",
@@ -119,8 +123,12 @@ describe("getLocalVscoImages", () => {
     const { getLocalVscoImages } = await import("@/lib/vsco-local");
     const result = getLocalVscoImages();
 
-    expect(result.images[0]?.url).toBe("/images/vsco/photo1.jpg");
-    expect(result.images[1]?.url).toBe("/images/vsco/photo2.jpg");
+    expect(result.images[0]?.url).toBe(
+      "https://im.vsco.co/aws-us-west-2/abc/123/photo1.jpg"
+    );
+    expect(result.images[1]?.url).toBe(
+      "https://im.vsco.co/aws-us-west-2/abc/456/photo2.jpg"
+    );
   });
 
   it("deduplicates entries with the same file_name", async () => {
@@ -132,7 +140,7 @@ describe("getLocalVscoImages", () => {
 
     // photo1.jpg appears twice in EXPORT_DATA but should only show once
     const photo1s = result.images.filter(
-      (i) => i.url === "/images/vsco/photo1.jpg"
+      (i) => i.url === "https://im.vsco.co/aws-us-west-2/abc/123/photo1.jpg"
     );
     expect(photo1s).toHaveLength(1);
     expect(photo1s[0]?.id).toBe("abc123"); // keeps first occurrence

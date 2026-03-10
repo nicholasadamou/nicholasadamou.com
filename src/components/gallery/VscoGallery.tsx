@@ -223,6 +223,7 @@ export default function VscoGallery() {
                 src={image.url}
                 alt={image.alt || `Photo ${index + 1}`}
                 fill
+                unoptimized
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 loading={index < 12 ? "eager" : "lazy"}

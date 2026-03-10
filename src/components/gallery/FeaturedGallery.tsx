@@ -59,6 +59,7 @@ export default function FeaturedGallery() {
             src={image.url}
             alt={image.alt || `Photo ${index + 1}`}
             fill
+            unoptimized
             className="object-cover transition-transform duration-300 group-hover:scale-110"
             sizes="(max-width: 640px) 45vw, 120px"
           />

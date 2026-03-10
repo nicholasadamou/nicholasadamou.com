@@ -8,6 +8,7 @@ interface VscoExportEntry {
   height: number;
   width: number;
   file_name: string;
+  responsive_url: string;
   is_video: boolean;
   perma_subdomain: string;
   share_link: string;
@@ -41,18 +42,18 @@ export function getLocalVscoImages(
     };
   }
 
-  // Deduplicate by file_name (export can have multiple entries for the same file)
+  // Deduplicate by id (file_name can repeat across distinct images)
   const seen = new Set<string>();
   const images: VscoImage[] = [];
 
   for (const entry of entries) {
     if (entry.is_video) continue;
-    if (seen.has(entry.file_name)) continue;
-    seen.add(entry.file_name);
+    if (seen.has(entry.id)) continue;
+    seen.add(entry.id);
 
     images.push({
       id: entry.id,
-      url: `/images/vsco/${entry.file_name}`,
+      url: `https://${entry.responsive_url}`,
       alt: `Photography by ${entry.perma_subdomain}`,
       width: entry.width,
       height: entry.height,
