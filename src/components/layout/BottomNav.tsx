@@ -218,6 +218,10 @@ export default function BottomNav() {
         e.preventDefault();
         setShowChat((prev) => !prev);
       }
+      if ((e.metaKey || e.ctrlKey) && e.key === "e" && isDesktop()) {
+        e.preventDefault();
+        setShowPicker((prev) => !prev);
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -295,7 +299,7 @@ export default function BottomNav() {
             <MailIcon />
           </Link>
         </Tooltip>
-        <Tooltip label="Theme">
+        <Tooltip label="Theme ⌘E">
           <button
             className={`color-picker-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
             onClick={() => setShowPicker(!showPicker)}
@@ -341,7 +345,9 @@ export default function BottomNav() {
 
       {showPicker && (
         <div
-          className={`fixed inset-x-6 bottom-[4.5rem] mx-auto max-w-xs p-4 sm:inset-x-auto sm:bottom-20 sm:left-6 sm:mx-0 sm:w-60 sm:max-w-none sm:p-3 ${pickerBg} color-picker-container z-50 rounded-xl backdrop-blur-md`}
+          className={`fixed inset-x-6 bottom-[4.5rem] mx-auto max-w-xs p-4 sm:bottom-20 sm:w-60 sm:max-w-none sm:p-3 ${
+            isSingleCol ? "" : "sm:inset-x-auto sm:left-6 sm:mx-0"
+          } ${pickerBg} color-picker-container z-50 rounded-xl backdrop-blur-md`}
         >
           <HexColorPicker
             color={themeState.color}

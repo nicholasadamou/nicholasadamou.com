@@ -13,6 +13,7 @@ interface Shortcut {
 const shortcuts: Shortcut[] = [
   { keys: ["⌘", "K"], description: "Open search" },
   { keys: ["⌘", "J"], description: "Open chat assistant" },
+  { keys: ["⌘", "E"], description: "Toggle theme picker" },
   { keys: ["?"], description: "Show keyboard shortcuts" },
 ];
 
