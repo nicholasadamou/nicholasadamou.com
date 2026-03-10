@@ -33,6 +33,7 @@ import {
   Columns2,
   Rows3,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout, useIsDesktop } from "@/hooks/use-home-layout";
 
@@ -225,6 +226,12 @@ export default function CommandPalette({
                 ),
               action: () => {
                 toggleLayout();
+                toast(
+                  layout === "single"
+                    ? "Switched to two-column layout"
+                    : "Switched to single-column layout",
+                  { icon: layout === "single" ? "▥" : "▤" }
+                );
                 onClose();
               },
               keywords: [

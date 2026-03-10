@@ -202,10 +202,11 @@ export default function BottomNav() {
     }
   }, [showPicker]);
 
-  // Cmd+K / Cmd+J shortcuts
+  // Cmd+K / Cmd+J shortcuts (Cmd+K desktop only)
   useEffect(() => {
+    const isDesktop = () => window.matchMedia("(min-width: 640px)").matches;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k" && isDesktop()) {
         e.preventDefault();
         setShowSearch((prev) => !prev);
       }
@@ -287,7 +288,7 @@ export default function BottomNav() {
           <PaletteIcon />
         </button>
         <button
-          className={`cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
           onClick={() => setShowSearch(true)}
         >
           <SearchIcon />

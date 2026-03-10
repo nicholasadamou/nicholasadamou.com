@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast, Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useTheme } from "@/components/ThemeProvider";
 
 const Confetti = dynamic(() => import("react-confetti"), {
@@ -90,7 +90,6 @@ export default function ContactPageClient() {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <Toaster />
       <div className="mx-auto max-w-2xl px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
         <div className="animate-fadeInHome1 space-y-12">
           {/* Header */}
