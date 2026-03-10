@@ -73,8 +73,8 @@ Complete list of technologies and their purposes.
 ### VSCO
 
 - Personal photography gallery
-- Local data export (no API/scraping needed)
-- Images served from `public/images/vsco/`
+- Local data export for metadata (no API/scraping needed)
+- Images served directly from VSCO's CDN
 
 ## Development Tools
 

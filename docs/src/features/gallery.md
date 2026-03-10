@@ -15,7 +15,7 @@ VSCO gallery features with infinite scroll.
 ### Architecture
 
 1. **Data Source**: `data/vsco-export.json` — raw VSCO data export
-2. **Images**: `public/images/vsco/` — image files from the export
+2. **Images**: Served directly from VSCO's CDN (`im.vsco.co`)
 3. **Data Reader**: `src/lib/vsco-local.ts` reads the export JSON directly
 4. **API Route**: `/api/vsco` serves paginated images
 5. **Gallery Components**: `VscoGallery` and `FeaturedGallery`
@@ -51,28 +51,25 @@ vsco-username-12345/
 ```
 
 !!! note
-The export may contain more entries in `images.json` than files in `images/` — this is normal. Multiple metadata entries can share the same filename. The gallery automatically deduplicates by filename.
+The export may contain more entries in `images.json` than files in `images/` — this is normal. Multiple metadata entries can share the same filename but have unique IDs. The gallery deduplicates by `id`.
 
 #### Step 3: Copy into the Project
 
 ```bash
-# Copy images
-cp ~/Downloads/vsco-username-12345/images/* public/images/vsco/
-
-# Copy metadata
+# Copy metadata (images are served from VSCO's CDN, no local copy needed)
 cp ~/Downloads/vsco-username-12345/images.json data/vsco-export.json
 ```
 
-That’s it — no build step or tooling needed. Run `pnpm dev` and the gallery will pick up the new images.
+That's it — no build step or tooling needed. Run `pnpm dev` and the gallery will pick up the new images.
 
 ### How It Works Internally
 
 `src/lib/vsco-local.ts` reads `data/vsco-export.json` at runtime and:
 
 1. Filters out video entries (`is_video: true`)
-2. Deduplicates by `file_name` (keeps the first occurrence)
-3. Constructs image URLs as `/images/vsco/{file_name}`
-4. Sorts by `capture_date` (most recent first)
+2. Deduplicates by `id` (keeps the first occurrence)
+3. Constructs image URLs from `responsive_url` (served via VSCO's CDN)
+4. Sorts by `upload_date` (most recently posted first)
 5. Returns paginated results to the `/api/vsco` route
 
 ### `images.json` Format
@@ -93,4 +90,4 @@ Each entry in the VSCO export looks like:
 }
 ```
 
-Only `id`, `capture_date`, `width`, `height`, `file_name`, `is_video`, and `perma_subdomain` are used by the gallery.
+Only `id`, `upload_date`, `width`, `height`, `responsive_url`, `is_video`, and `perma_subdomain` are used by the gallery.

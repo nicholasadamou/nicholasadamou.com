@@ -28,8 +28,8 @@ Key functions:
 
 ## VSCO Integration
 
-VSCO images are served from a local data export — no API or automation needed.
-Images live in `public/images/vsco/` and metadata is in `data/vsco-export.json`.
+VSCO images are served directly from VSCO's CDN — no local image files needed.
+Metadata is in `data/vsco-export.json` (from VSCO's data export). Images use `unoptimized` to bypass Next.js image proxy, since VSCO's CDN blocks server-side requests.
 
 ## Build Process
 
