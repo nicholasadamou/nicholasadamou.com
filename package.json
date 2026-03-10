@@ -78,6 +78,12 @@
     "typescript": "^5",
     "vitest": "^4.0.18"
   },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
