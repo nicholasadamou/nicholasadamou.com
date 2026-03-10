@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { DynamicChatbot } from "@/components/chat/DynamicChatbot";
 import BackNav from "@/components/layout/BackNav";
 import BottomNav from "@/components/layout/BottomNav";
 import { Analytics } from "@vercel/analytics/react";
@@ -78,7 +77,6 @@ export default function RootLayout({
           <BackNav />
           {children}
           <BottomNav />
-          <DynamicChatbot />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

@@ -6,6 +6,7 @@ import { HexColorPicker } from "react-colorful";
 import { useTheme } from "@/components/ThemeProvider";
 import CommandPalette from "@/components/layout/CommandPalette";
 import KeyboardShortcutsDialog from "@/components/layout/KeyboardShortcutsDialog";
+import { DynamicChatbot } from "@/components/chat/DynamicChatbot";
 
 function HomeIcon() {
   return (
@@ -132,6 +133,25 @@ function SearchIcon() {
   );
 }
 
+function ChatIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-6 w-6 sm:h-5 sm:w-5"
+    >
+      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+    </svg>
+  );
+}
+
 function HelpIcon() {
   return (
     <svg
@@ -157,6 +177,7 @@ export default function BottomNav() {
   const [showPicker, setShowPicker] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const {
     themeState,
     updateTheme,
@@ -181,12 +202,16 @@ export default function BottomNav() {
     }
   }, [showPicker]);
 
-  // Cmd+K shortcut
+  // Cmd+K / Cmd+J shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setShowSearch((prev) => !prev);
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === "j") {
+        e.preventDefault();
+        setShowChat((prev) => !prev);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -268,7 +293,13 @@ export default function BottomNav() {
           <SearchIcon />
         </button>
         <button
-          className={`cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          className={`chat-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          onClick={() => setShowChat((prev) => !prev)}
+        >
+          <ChatIcon />
+        </button>
+        <button
+          className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
           onClick={() => setShowShortcuts(true)}
         >
           <HelpIcon />
@@ -283,6 +314,7 @@ export default function BottomNav() {
         isOpen={showShortcuts}
         onClose={() => setShowShortcuts(false)}
       />
+      <DynamicChatbot isOpen={showChat} onClose={() => setShowChat(false)} />
 
       {showPicker && (
         <div

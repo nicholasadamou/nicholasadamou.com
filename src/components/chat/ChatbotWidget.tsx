@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { MessageCircle, Send, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useTheme } from "@/components/ThemeProvider";
@@ -20,9 +20,13 @@ const SUGGESTED_QUESTIONS = [
   "How can I contact you?",
 ];
 
-export function ChatbotWidget() {
+interface ChatbotWidgetProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
   const { shouldUseDarkText, isHydrated } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -76,22 +80,18 @@ export function ChatbotWidget() {
     }
   }, [isOpen]);
 
-  // Keyboard shortcuts
+  // Escape to close
   useEffect(() => {
+    if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "j") {
+      if (e.key === "Escape") {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
-      }
-      if (e.key === "Escape" && isOpen) {
-        e.preventDefault();
-        setIsOpen(false);
+        onClose();
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Click outside to close
   useEffect(() => {
@@ -101,10 +101,9 @@ export function ChatbotWidget() {
       if (
         chatWindowRef.current &&
         !chatWindowRef.current.contains(e.target as Node) &&
-        !(e.target as HTMLElement).closest('[aria-label="Close chat"]') &&
-        !(e.target as HTMLElement).closest('[aria-label="Open chat"]')
+        !(e.target as HTMLElement).closest(".chat-trigger")
       ) {
-        setIsOpen(false);
+        onClose();
       }
     };
 
@@ -216,10 +215,6 @@ export function ChatbotWidget() {
   if (!isHydrated) return null;
 
   // Theme-aware styles
-  const btnBg = light
-    ? "bg-stone-100 border-stone-200 hover:bg-stone-200"
-    : "bg-white/10 border-white/10 hover:bg-white/15";
-  const iconColor = light ? "text-stone-700" : "text-white";
   const windowBg = light ? "bg-white" : "bg-stone-900";
   const windowBorder = light ? "border-stone-200" : "border-white/10";
   const headerBg = light ? "bg-stone-50" : "bg-stone-800";
@@ -245,187 +240,142 @@ export function ChatbotWidget() {
   const footerBg = light ? "bg-stone-50" : "bg-stone-800";
 
   return (
-    <>
-      {/* Floating Button */}
-      <motion.div
-        className="fixed bottom-5 right-6 z-50 sm:bottom-6"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      >
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border shadow-lg backdrop-blur-xl transition-all hover:scale-110 sm:h-10 sm:w-10 ${btnBg}`}
-          aria-label={isOpen ? "Close chat" : "Open chat"}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          ref={chatWindowRef}
+          className="fixed bottom-[4.5rem] right-6 z-50 w-[600px] max-w-[calc(100vw-3rem)] sm:bottom-20 sm:left-6 sm:right-auto"
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          <AnimatePresence mode="wait">
-            {isOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <X className={`h-5 w-5 sm:h-4 sm:w-4 ${iconColor}`} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="open"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <MessageCircle
-                  className={`h-5 w-5 sm:h-4 sm:w-4 ${iconColor}`}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
-      </motion.div>
-
-      {/* Chat Window */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            ref={chatWindowRef}
-            className="fixed bottom-20 right-6 z-50 w-[600px] max-w-[calc(100vw-3rem)] sm:bottom-[4.5rem]"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          <div
+            className={`flex h-[600px] max-h-[80vh] flex-col overflow-hidden rounded-2xl border shadow-2xl ${windowBg} ${windowBorder}`}
           >
+            {/* Header */}
             <div
-              className={`flex h-[600px] max-h-[80vh] flex-col overflow-hidden rounded-2xl border shadow-2xl ${windowBg} ${windowBorder}`}
+              className={`flex items-center justify-between border-b p-4 ${headerBg} ${windowBorder}`}
             >
-              {/* Header */}
-              <div
-                className={`flex items-center justify-between border-b p-4 ${headerBg} ${windowBorder}`}
-              >
-                <div>
-                  <h3 className={`font-semibold ${titleColor}`}>
-                    Chat Assistant
-                  </h3>
-                  <p className={`text-xs ${subtitleColor}`}>Ask me anything!</p>
-                </div>
-                {messages.length > 0 && (
-                  <button
-                    onClick={clearChat}
-                    className={`h-8 cursor-pointer rounded-md px-3 text-xs transition-colors ${clearBtnStyle}`}
-                  >
-                    Clear
-                  </button>
-                )}
+              <div>
+                <h3 className={`font-semibold ${titleColor}`}>
+                  Chat Assistant
+                </h3>
+                <p className={`text-xs ${subtitleColor}`}>Ask me anything!</p>
               </div>
-
-              {/* Messages */}
-              <div
-                className={`flex-1 space-y-4 overflow-y-auto p-4 ${windowBg}`}
-              >
-                {messages.length === 0 && (
-                  <div className="flex h-full flex-col items-center justify-center space-y-4 px-4 text-center">
-                    <div
-                      className={`flex h-16 w-16 items-center justify-center rounded-full ${emptyIcon}`}
-                    >
-                      <MessageCircle className={`h-8 w-8 ${subtitleColor}`} />
-                    </div>
-                    <div>
-                      <p className={`text-sm font-medium ${titleColor}`}>
-                        Hi! I&apos;m here to help you learn more about Nick!
-                      </p>
-                      <p className={`mt-2 text-xs ${subtitleColor}`}>
-                        Try asking:
-                      </p>
-                    </div>
-                    <div className="flex w-full flex-col gap-2">
-                      {SUGGESTED_QUESTIONS.map((question) => (
-                        <button
-                          key={question}
-                          onClick={() => sendMessage(question)}
-                          className={`w-full cursor-pointer rounded-lg border px-4 py-2.5 text-xs transition-colors ${suggestedBtnStyle}`}
-                        >
-                          {question}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {messages.map((message) => (
-                  <motion.div
-                    key={message.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${
-                        message.role === "user" ? userBubble : assistantBubble
-                      }`}
-                    >
-                      {message.role === "assistant" ? (
-                        <div className="prose prose-sm dark:prose-invert max-w-none">
-                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                            {message.content}
-                          </ReactMarkdown>
-                        </div>
-                      ) : (
-                        <p className="whitespace-pre-wrap break-words leading-relaxed">
-                          {message.content}
-                        </p>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-
-                {isLoading && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex justify-start"
-                  >
-                    <div
-                      className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-sm ${loadingBubble}`}
-                    >
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>Thinking...</span>
-                    </div>
-                  </motion.div>
-                )}
-
-                <div ref={messagesEndRef} />
-              </div>
-
-              {/* Input */}
-              <form
-                onSubmit={handleSubmit}
-                className={`border-t p-4 ${footerBg} ${windowBorder}`}
-              >
-                <div className="flex gap-2">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Type your message..."
-                    disabled={isLoading}
-                    className={`flex-1 rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors disabled:opacity-50 ${inputBg}`}
-                  />
-                  <button
-                    type="submit"
-                    disabled={isLoading || !inputValue.trim()}
-                    className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-blue-600 text-white transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <Send className="h-4 w-4" />
-                  </button>
-                </div>
-              </form>
+              {messages.length > 0 && (
+                <button
+                  onClick={clearChat}
+                  className={`h-8 cursor-pointer rounded-md px-3 text-xs transition-colors ${clearBtnStyle}`}
+                >
+                  Clear
+                </button>
+              )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+
+            {/* Messages */}
+            <div className={`flex-1 space-y-4 overflow-y-auto p-4 ${windowBg}`}>
+              {messages.length === 0 && (
+                <div className="flex h-full flex-col items-center justify-center space-y-4 px-4 text-center">
+                  <div
+                    className={`flex h-16 w-16 items-center justify-center rounded-full ${emptyIcon}`}
+                  >
+                    <MessageCircle className={`h-8 w-8 ${subtitleColor}`} />
+                  </div>
+                  <div>
+                    <p className={`text-sm font-medium ${titleColor}`}>
+                      Hi! I&apos;m here to help you learn more about Nick!
+                    </p>
+                    <p className={`mt-2 text-xs ${subtitleColor}`}>
+                      Try asking:
+                    </p>
+                  </div>
+                  <div className="flex w-full flex-col gap-2">
+                    {SUGGESTED_QUESTIONS.map((question) => (
+                      <button
+                        key={question}
+                        onClick={() => sendMessage(question)}
+                        className={`w-full cursor-pointer rounded-lg border px-4 py-2.5 text-xs transition-colors ${suggestedBtnStyle}`}
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {messages.map((message) => (
+                <motion.div
+                  key={message.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${
+                      message.role === "user" ? userBubble : assistantBubble
+                    }`}
+                  >
+                    {message.role === "assistant" ? (
+                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {message.content}
+                        </ReactMarkdown>
+                      </div>
+                    ) : (
+                      <p className="whitespace-pre-wrap break-words leading-relaxed">
+                        {message.content}
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+
+              {isLoading && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex justify-start"
+                >
+                  <div
+                    className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-sm ${loadingBubble}`}
+                  >
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Thinking...</span>
+                  </div>
+                </motion.div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input */}
+            <form
+              onSubmit={handleSubmit}
+              className={`border-t p-4 ${footerBg} ${windowBorder}`}
+            >
+              <div className="flex gap-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder="Type your message..."
+                  disabled={isLoading}
+                  className={`flex-1 rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors disabled:opacity-50 ${inputBg}`}
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading || !inputValue.trim()}
+                  className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-blue-600 text-white transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
+            </form>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
