@@ -111,7 +111,7 @@ export default function AboutPageClient() {
 
   return (
     <main
-      className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
+      className={`min-h-screen overflow-x-hidden font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
       <div className="mx-auto max-w-2xl px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
         <div className="animate-fadeInHome1 space-y-12">
@@ -126,17 +126,17 @@ export default function AboutPageClient() {
             <Image
               src={arizona}
               alt="arizona"
-              width={324}
-              height={139}
+              width={220}
+              height={260}
               className="pointer-events-none relative inset-0 h-60 -rotate-6 rounded-xl bg-gray-400 object-cover shadow-md"
               priority
             />
             <Image
               src={lakePlacid}
               alt="lake-placid"
-              width={220}
+              width={150}
               height={260}
-              className="pointer-events-none absolute inset-0 left-[55%] w-48 rotate-6 rounded-xl bg-gray-400 object-cover shadow-md md:left-[60%] md:w-56"
+              className="pointer-events-none absolute inset-0 left-[55%] h-60 rotate-6 rounded-xl bg-gray-400 object-cover shadow-md"
               priority
             />
           </div>
