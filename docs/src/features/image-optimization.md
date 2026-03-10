@@ -4,8 +4,8 @@ Image optimization with Unsplash, VSCO, and Next.js.
 
 ## System Overview
 
-- Unsplash images downloaded locally via API at build time
-- VSCO images downloaded via Playwright automation
+- Unsplash images downloaded locally via API
+- VSCO images served from local data export
 - Unsplash URLs resolved to local paths at MDX parse time
 - Next.js Image automatic optimization
 
@@ -20,26 +20,28 @@ const localPath = resolveImageUrl(unsplashPageUrl);
 const attribution = getAttribution(unsplashPageUrl);
 ```
 
+Key functions:
+
+- `extractPhotoId()` - Extract 11-char ID from various URL formats
+- `resolveImageUrl()` - Resolve to local `/images/unsplash/{id}.jpg` path
+- `getAttribution()` - Get author name and UTM-tagged URL
+
 ## VSCO Integration
 
-Personal gallery sync with Playwright automation.
-
-```bash
-pnpm run download:images:vsco
-```
+VSCO images are served from a local data export — no API or automation needed.
+Images live in `public/images/vsco/` and metadata is in `data/vsco-export.json`.
 
 ## Build Process
 
 ```bash
-# Download images locally
+# Download Unsplash images locally
 pnpm run download:images:unsplash
-pnpm run download:images:vsco
 ```
 
 ## Best Practices
 
-Always use Next.js Image component with dimensions:
+Always use the `UniversalImage` component or Next.js `Image`:
 
 ```typescript
-<Image src={src} alt={alt} width={1200} height={800} priority={isHero} />
+<UniversalImage src={src} alt={alt} width={1200} height={800} priority={isHero} />
 ```

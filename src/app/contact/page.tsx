@@ -1,8 +1,12 @@
-import { metadata } from "./metadata";
-import Contact from "./Contact";
+import type { Metadata } from "next";
+import ContactPageClient from "./ContactPageClient";
 
-export { metadata };
+export const metadata: Metadata = {
+  title: "Contact | Nicholas Adamou",
+  description:
+    "I help companies and individuals build out their digital presence. Let's talk about your project.",
+};
 
-export default function Page() {
-  return <Contact />;
+export default function ContactPage() {
+  return <ContactPageClient />;
 }

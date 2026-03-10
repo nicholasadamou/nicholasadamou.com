@@ -1,216 +1,100 @@
 # Testing Guide
 
-This project uses **Vitest** as the testing framework with **React Testing Library** for component testing. The testing setup is comprehensive and includes unit tests, integration tests, and component tests.
+This project uses **Vitest** with **React Testing Library** for comprehensive unit testing.
 
 ## Testing Stack
 
 - **[Vitest](https://vitest.dev/)** - Fast unit testing framework
-- **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)** - Component testing utilities
+- **[React Testing Library](https://testing-library.com/)** - Component testing
 - **[jsdom](https://github.com/jsdom/jsdom)** - DOM implementation for Node.js
-- **[MSW](https://mswjs.io/)** - Mock Service Worker for API mocking
-- **[Vitest UI](https://vitest.dev/guide/ui.html)** - Visual test runner interface
+- **[@vitest/coverage-v8](https://vitest.dev/guide/coverage)** - Code coverage
 
 ## Running Tests
 
-### Available Commands
-
 ```bash
-# Run tests in watch mode (default)
-pnpm test
-
-# Run tests once and exit
-pnpm test:run
-
-# Run tests with UI interface
-pnpm test:ui
-
-# Run tests with coverage report
-pnpm test:coverage
-
-# Run tests in watch mode
-pnpm test:watch
+pnpm test             # Watch mode
+pnpm test:run         # Run once
+pnpm test:watch       # Watch mode
+pnpm test:coverage    # Coverage report
 ```
-
-### Pre-commit Testing
-
-Tests are automatically run on staged files during pre-commit hooks via `lint-staged`.
 
 ## Test Configuration
 
 ### Vitest Config (`vitest.config.ts`)
 
-- **Environment**: jsdom for DOM testing
-- **Setup Files**: Global mocks and utilities
-- **Coverage**: v8 provider with HTML/JSON reporting
-- **Path Aliases**: Same as production for imports
+- **Environment**: jsdom
+- **Setup Files**: Global mocks and utilities in `src/__tests__/setup.ts`
+- **Coverage**: v8 provider
+- **Path Aliases**: Same as production (`@/` → `src/`)
 
 ### Global Setup (`src/__tests__/setup.ts`)
 
-Automatically mocks commonly used Next.js and external dependencies:
+Automatically mocks:
 
 - **Next.js Router** - Navigation hooks
-- **Next.js Image** - Image component
-- **Framer Motion** - Animation components
-- **next-themes** - Theme management
+- **Next.js Image** - Renders as `<img>`
+- **Framer Motion** - Renders as plain elements
 - **Browser APIs** - IntersectionObserver, ResizeObserver, matchMedia
+- **fetch** - Global mock
+- **localStorage** - In-memory mock
 
-## Testing Patterns
+### Custom Render (`src/__tests__/utils.tsx`)
 
-### Component Testing
-
-```typescript
-import { render, screen } from '@/__tests__/utils';
-import { Button } from '@/components/ui/button';
-
-describe('Button', () => {
-  it('should render with correct text', () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByRole('button', { name: 'Click me' }))
-      .toBeInTheDocument();
-  });
-
-  it('should handle click events', () => {
-    const handleClick = vi.fn();
-    render(<Button onClick={handleClick}>Click me</Button>);
-    screen.getByRole('button').click();
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-});
-```
-
-### Hook Testing
+Wraps components in `ThemeProvider`:
 
 ```typescript
-import { renderHook } from "@testing-library/react";
-import { useMounted } from "@/hooks/useMounted";
-
-describe("useMounted", () => {
-  it("should return false initially", () => {
-    const { result } = renderHook(() => useMounted());
-    expect(result.current).toBe(false);
-  });
-});
+import { render } from "@/__tests__/utils";
+render(<MyComponent />); // Wrapped in ThemeProvider
 ```
 
-### Utility Function Testing
+## Test Structure
 
-```typescript
-import { cn } from "@/lib/utils/utils";
-
-describe("cn utility", () => {
-  it("should merge class names", () => {
-    expect(cn("px-2 py-1", "px-3")).toBe("py-1 px-3");
-  });
-});
+```
+src/__tests__/
+├── setup.ts           # Global mocks
+├── utils.tsx          # Custom render
+├── lib/               # Utility tests
+├── hooks/             # Hook tests
+├── components/        # Component tests
+└── app/api/og/        # OG API tests
 ```
 
-## Best Practices
-
-### Do's
-
-**1. Test Behavior, Not Implementation**
-
-- Focus on what users see and interact with
-- Test component outputs and side effects
-
-**2. Use Descriptive Test Names**
-
-```typescript
-it("should show error message when form validation fails", () => {});
-```
-
-**3. Follow Arrange-Act-Assert Pattern**
-
-```typescript
-it('should increment counter on click', () => {
-  // Arrange
-  render(<Counter initialValue={0} />);
-  // Act
-  screen.getByRole('button', { name: 'Increment' }).click();
-  // Assert
-  expect(screen.getByText('1')).toBeInTheDocument();
-});
-```
-
-**4. Mock External Dependencies**
-
-- Use global mocks in setup.ts
-- Mock API calls with MSW
-- Mock heavy third-party libraries
-
-**5. Test Accessibility**
-
-```typescript
-expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
-```
-
-### Don'ts
-
-**1. Don't Test Implementation Details**
-
-- Avoid testing internal state directly
-- Don't test CSS classes unless they affect behavior
-
-**2. Don't Over-Mock**
-
-- Only mock what's necessary
-- Prefer real implementations when possible
-
-**3. Don't Write Tests That Can't Fail**
-
-- Ensure tests actually validate behavior
-- Avoid tests that always pass
-
-## Coverage
-
-### Running Coverage
-
-```bash
-pnpm test:coverage
-```
-
-### Coverage Reports
-
-- **HTML**: `coverage/index.html` - Interactive report
-- **JSON**: `coverage/coverage-summary.json` - Machine-readable
-- **Text**: Console output
-
-### Coverage Goals
+## Coverage Goals
 
 - **Statements**: > 80%
-- **Branches**: > 75%
+- **Branches**: > 80%
 - **Functions**: > 80%
 - **Lines**: > 80%
 
-## Common Issues
+Current coverage: 93% statements, 81% branches, 98% functions, 96% lines.
 
-### "Cannot find module" Errors
+## Common Patterns
 
-**Issue**: Path aliases not working in tests
-
-**Solution**: Check `vitest.config.ts` alias configuration
-
-### "act" Warnings
-
-**Issue**: React state updates outside act()
-
-**Solution**: Use `await waitFor()` for async updates:
+### Component Test
 
 ```typescript
-await waitFor(() => {
-  expect(screen.getByText("Updated")).toBeInTheDocument();
+import { render, screen } from "@/__tests__/utils";
+import MyComponent from "@/components/MyComponent";
+
+it("renders", () => {
+  render(<MyComponent />);
+  expect(screen.getByText("Hello")).toBeDefined();
 });
 ```
 
-### Timer/Date Issues
-
-**Issue**: Tests failing due to timezone differences
-
-**Solution**: Use consistent dates in tests:
+### Hook Test
 
 ```typescript
-beforeAll(() => {
-  vi.setSystemTime(new Date("2024-01-01T00:00:00.000Z"));
+import { renderHook, waitFor } from "@testing-library/react";
+import { useMyHook } from "@/hooks/use-my-hook";
+
+it("fetches data", async () => {
+  vi.mocked(global.fetch).mockResolvedValueOnce({
+    ok: true,
+    json: () => Promise.resolve({ data: [] }),
+  } as Response);
+  const { result } = renderHook(() => useMyHook());
+  await waitFor(() => expect(result.current.loading).toBe(false));
 });
 ```
 
@@ -219,4 +103,3 @@ beforeAll(() => {
 - [Vitest Documentation](https://vitest.dev/)
 - [Testing Library Docs](https://testing-library.com/)
 - [Jest DOM Matchers](https://github.com/testing-library/jest-dom)
-- [MSW Documentation](https://mswjs.io/)

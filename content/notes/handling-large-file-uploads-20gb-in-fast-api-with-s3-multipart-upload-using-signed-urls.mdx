@@ -14,7 +14,7 @@ Here's how to implement a **direct-to-S3 large file uploader** using:
 - **React + Vite** for the frontend
 - **MongoDB** for tracking uploads
 
-## 🧠 Why This Approach?
+## Why This Approach?
 
 Instead of uploading files directly to your backend server, we’ll use **S3 Multipart Upload**. This method breaks the file into smaller chunks, uploads them in parallel, and then combines them on the server. This approach is much more efficient and scalable.
 
@@ -31,7 +31,7 @@ This makes the system:
 - **Secure**: Uses signed URLs to ensure only authorized users can upload files.
 - **Efficient**: Uploads chunks in parallel, reducing the overall upload time.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Backend
   - **Python**: For the backend server.
@@ -42,7 +42,7 @@ This makes the system:
 - Database
   - **MongoDB**: For tracking uploads.
 
-## 🔁 Flow Overview
+## Flow Overview
 
 1. User selects file in frontend.
 2. Frontend sends filename to backend → backend creates multipart upload (S3) and stores metadata (MongoDB).
@@ -79,7 +79,7 @@ This makes the system:
 - API → MongoDB: Update status to completed
 - API → Client: Return success + file location
 
-## ✅ Final Thoughts
+## Final Thoughts
 
 Handling large file uploads efficiently is crucial for modern web applications. By using S3 Multipart Upload with Signed URLs, you can ensure that your system remains scalable, secure, and efficient. This approach is widely used in industries ranging from media to e-commerce, making it a reliable choice for handling large file uploads.
 

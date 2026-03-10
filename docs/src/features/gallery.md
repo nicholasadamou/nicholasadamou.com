@@ -1,72 +1,96 @@
 # Gallery Integration
 
-VSCO and Unsplash gallery features with infinite scroll and local caching.
+VSCO gallery features with infinite scroll.
 
 ## VSCO Gallery
 
 ### Features
 
-- Automated sync with VSCO profile
+- Local images from VSCO data export
 - Infinite scroll loading
-- Local image caching
-- Responsive masonry layout
+- Responsive layout
 - Image lazy loading
+- Automatic deduplication
 
 ### Architecture
 
-1. **Image Downloading**: Automated downloading using Playwright
-2. **Manifest Management**: JSON manifest tracking downloaded images
-3. **API Routes**: Server-side endpoints (`/api/vsco`)
-4. **Gallery Components**: React components for display
-5. **Local Caching**: Local fallback system for optimal performance
+1. **Data Source**: `data/vsco-export.json` — raw VSCO data export
+2. **Images**: `public/images/vsco/` — image files from the export
+3. **Data Reader**: `src/lib/vsco-local.ts` reads the export JSON directly
+4. **API Route**: `/api/vsco` serves paginated images
+5. **Gallery Components**: `VscoGallery` and `FeaturedGallery`
 
-### Components
+### Hooks
 
-- **VscoGallery** - Main gallery component with infinite scroll
-- **FeaturedGallery** - Curated photos for homepage
-- **VscoGallerySkeleton** - Loading skeleton
+- `useVscoGallery()` - Single-page gallery fetch
+- `useInfiniteVscoGallery()` - Paginated infinite scroll
 
-### File Structure
+### Obtaining the VSCO Data Export
+
+VSCO provides an official data export that includes all your image metadata and full-resolution photos. This is the only reliable way to get your images — VSCO’s Cloudflare protection blocks all API scraping and direct CDN downloads.
+
+#### Step 1: Request the Export
+
+1. Log in to [vsco.co](https://vsco.co)
+2. Go to **Account**
+3. Scroll down and click **Download my data**
+4. VSCO will email you when the export is ready (usually within a few hours)
+
+#### Step 2: Download the Archive
+
+1. Open the email from VSCO and click the download link or visit [vsco.co/user/account](https://vsco.co/user/account) and click on **Access snapshot**
+2. Extract the ZIP archive — you’ll get a folder like `vsco-username-12345/` containing:
 
 ```
-src/
-├── app/api/vsco/ - VSCO API endpoint
-├── components/features/gallery/ - Gallery components
-├── hooks/ - useVscoGallery, useInfiniteVscoGallery
-public/images/vsco/ - Downloaded images + manifest
+vsco-username-12345/
+├── images.json    # Metadata for all images (IDs, dimensions, dates, URLs)
+└── images/        # Full-resolution image files
+    ├── vsco_082925.jpg
+    ├── vsco5dd89b7d97fb0.jpg
+    └── ...
 ```
 
-### Development Workflow
+!!! note
+The export may contain more entries in `images.json` than files in `images/` — this is normal. Multiple metadata entries can share the same filename. The gallery automatically deduplicates by filename.
 
-1. Download images:
+#### Step 3: Copy into the Project
 
-   ```bash
-   cd tools/playwright-vsco-downloader
-   npm start -- --username nicholasadamou --max-images 50
-   ```
+```bash
+# Copy images
+cp ~/Downloads/vsco-username-12345/images/* public/images/vsco/
 
-2. Generate fallback manifest:
+# Copy metadata
+cp ~/Downloads/vsco-username-12345/images.json data/vsco-export.json
+```
 
-   ```bash
-   pnpm run download:images:vsco-fallback
-   ```
+That’s it — no build step or tooling needed. Run `pnpm dev` and the gallery will pick up the new images.
 
-3. Start development:
-   ```bash
-   pnpm dev
-   ```
+### How It Works Internally
 
-### Responsive Design
+`src/lib/vsco-local.ts` reads `data/vsco-export.json` at runtime and:
 
-- **Mobile**: 2 columns
-- **Tablet**: 3 columns
-- **Desktop**: 4-5 columns
-- **Large screens**: 6+ columns
+1. Filters out video entries (`is_video: true`)
+2. Deduplicates by `file_name` (keeps the first occurrence)
+3. Constructs image URLs as `/images/vsco/{file_name}`
+4. Sorts by `capture_date` (most recent first)
+5. Returns paginated results to the `/api/vsco` route
 
-### Image Fallback Logic
+### `images.json` Format
 
-1. Try local image first
-2. Fall back to VSCO responsive URL
-3. Fall back to original VSCO URL
+Each entry in the VSCO export looks like:
 
-For detailed VSCO integration, see the original VSCO.md file.
+```json
+{
+  "id": "60f6042f56ee7b3727dc1786",
+  "capture_date": 1626735666000,
+  "width": 2048,
+  "height": 1536,
+  "file_name": "vsco60f604326085a.jpg",
+  "is_video": false,
+  "perma_subdomain": "nicholasadamou",
+  "responsive_url": "im.vsco.co/aws-us-west-2/.../vsco60f604326085a.jpg",
+  "share_link": "http://vsco.co/nicholasadamou/media/60f6042f56ee7b3727dc1786"
+}
+```
+
+Only `id`, `capture_date`, `width`, `height`, `file_name`, `is_video`, and `perma_subdomain` are used by the gallery.

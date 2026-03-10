@@ -36,20 +36,6 @@ act -W .github/workflows/ci.yml -j test
 act -W .github/workflows/ci.yml -j build
 ```
 
-### Test Coverage
-
-```bash
-act -W .github/workflows/coverage.yml
-```
-
-## Configuration
-
-Create `.actrc` file in project root with platform settings and environment configuration.
-
-### Environment Variables
-
-Create `.secrets` file (don't commit) for sensitive data.
-
 ## Troubleshooting
 
 ### pnpm Not Found
@@ -68,9 +54,3 @@ act --network host
 act --verbose
 act --debug
 ```
-
-## Package.json Scripts
-
-Add convenience scripts to `package.json` for common ACT commands.
-
-For comprehensive documentation, see the original ACT_SETUP.md file.

@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { VscoApiResponse } from "@/types/vsco";
-import {
-  getLocalVscoImages,
-  hasLocalVscoImages,
-} from "@/lib/utils/api/vsco-local";
-import { logger } from "@/lib/logger";
+import type { VscoApiResponse } from "@/types/vsco";
+import { getLocalVscoImages, hasLocalVscoImages } from "@/lib/vsco-local";
 
-const CACHE_DURATION = 3600; // 1 hour in seconds
+const CACHE_DURATION = 3600; // 1 hour
 
 interface CachedVscoData {
   data: VscoApiResponse;
@@ -15,11 +11,7 @@ interface CachedVscoData {
 
 let cachedData: CachedVscoData | null = null;
 
-/**
- * Get VSCO images from local manifest
- */
 function getVscoImages(limit?: number, offset?: number): VscoApiResponse {
-  // For pagination, we don't cache individual pages, only cache when offset is 0 or undefined
   const shouldUseCache = !offset || offset === 0;
 
   if (
@@ -27,7 +19,6 @@ function getVscoImages(limit?: number, offset?: number): VscoApiResponse {
     cachedData &&
     Date.now() - cachedData.timestamp < CACHE_DURATION * 1000
   ) {
-    // If using cache and requesting first page, apply limit to cached data
     if (limit && cachedData.data.images.length > limit) {
       return {
         ...cachedData.data,
@@ -38,32 +29,23 @@ function getVscoImages(limit?: number, offset?: number): VscoApiResponse {
     return cachedData.data;
   }
 
-  // Get images from local manifest
   if (hasLocalVscoImages()) {
-    logger.debug(
-      `Using local VSCO images from manifest (limit: ${limit}, offset: ${offset})`
-    );
     const localData = getLocalVscoImages(limit, offset);
 
-    // Only cache when requesting first page
     if (shouldUseCache) {
-      cachedData = {
-        data: localData,
-        timestamp: Date.now(),
-      };
+      cachedData = { data: localData, timestamp: Date.now() };
     }
 
     return localData;
   }
 
-  // If no local images, return empty result
   return {
     images: [],
     hasMore: false,
     totalCount: 0,
     source: "local-manifest",
     error:
-      "No local VSCO manifest found. Run the VSCO downloader script to generate images.",
+      "No local VSCO manifest found. Run pnpm download:images:vsco to generate images.",
   };
 }
 
@@ -81,12 +63,11 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error("VSCO API error:", error);
+    console.error("VSCO API error:", error);
 
     return NextResponse.json(
       {
         error: "Failed to fetch VSCO gallery",
-        message: error instanceof Error ? error.message : "Unknown error",
         images: [],
         hasMore: false,
         totalCount: 0,

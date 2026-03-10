@@ -1,14 +1,11 @@
-import { allProjects } from "@/lib/content/contentlayer-data";
+import ProjectList from "@/components/projects/ProjectList";
+import type { Metadata } from "next";
 
-import ListPage from "@/components/common/layout/ListPage";
-
-import { metadata } from "./metadata";
-export { metadata };
-
-// Enable static generation for better performance
-export const dynamic = "force-static";
-export const revalidate = 3600; // Revalidate every hour
+export const metadata: Metadata = {
+  title: "Projects — Nicholas Adamou",
+  description: "Open-source projects and developer tools.",
+};
 
 export default function ProjectsPage() {
-  return <ListPage content={allProjects} type="projects" />;
+  return <ProjectList />;
 }

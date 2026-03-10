@@ -310,12 +310,12 @@ This prevents build-time errors when environment variables aren't available duri
 **2. Manual Polling Instead of `createAndPoll`**
 
 ```typescript path=null start=null
-// ❌ Don't use - causes timeouts
+//  Don't use - causes timeouts
 const run = await openai.beta.threads.runs.createAndPoll(threadId, {
   assistant_id: assistantId,
 });
 
-// ✅ Use manual polling with timeout control
+//  Use manual polling with timeout control
 const run = await openai.beta.threads.runs.create(threadId, {
   assistant_id: assistantId,
 });
@@ -497,10 +497,10 @@ If you're on the Hobby plan and experiencing timeouts, consider:
 **Solution**: Use the correct syntax:
 
 ```typescript path=null start=null
-// ✅ Correct
+//  Correct
 await openai.beta.threads.runs.retrieve(runId, { thread_id: threadId });
 
-// ❌ Incorrect
+//  Incorrect
 await openai.beta.threads.runs.retrieve(threadId, runId);
 ```
 
@@ -511,12 +511,12 @@ await openai.beta.threads.runs.retrieve(threadId, runId);
 **Solution**: Use lazy initialization:
 
 ```typescript path=null start=null
-// ❌ Don't do this
+//  Don't do this
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// ✅ Do this
+//  Do this
 function getOpenAIClient() {
   return new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,

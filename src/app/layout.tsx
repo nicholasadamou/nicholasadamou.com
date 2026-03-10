@@ -1,72 +1,47 @@
-import "@/styles/globals.css";
-
-import React from "react";
 import type { Metadata } from "next";
-
+import { Inter, DM_Serif_Display } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { DynamicChatbot } from "@/components/chat/DynamicChatbot";
+import BackNav from "@/components/layout/BackNav";
+import BottomNav from "@/components/layout/BottomNav";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getBaseUrl, generateOGUrl } from "@/lib/og";
+import "./globals.css";
 
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
-import { ThemeProvider } from "@/components/common/theme/ThemeProvider";
-import Navigation from "@/components/common/layout/Navigation";
-import { Footer } from "@/components/common/layout/Footer/Footer";
-import { DynamicLayout } from "@/app/components/DynamicLayout";
-
-import { getBaseUrl } from "@/lib/utils/api/get-base-url";
-import { generateSingleOGUrl } from "@/lib/utils/theme/detection";
-import {
-  StructuredData,
-  nicholasAdamouPersonData,
-  websiteData,
-} from "@/components/seo/StructuredData";
+const dmSerif = DM_Serif_Display({
+  variable: "--font-serif",
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const baseUrl = getBaseUrl();
 const description =
-  "Software Engineer passionate about making the world better through software.";
-const ogImageUrl = generateSingleOGUrl({
-  title: "Working hard to make the world better through software.",
+  "Senior software engineer at Onebrief. Passionate about making the world better through software.";
+const ogImageUrl = generateOGUrl({
+  title: "Nicholas Adamou",
+  description,
   type: "homepage",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Nicholas Adamou - Making the world better through software",
+    default: "Nicholas Adamou",
     template: "%s | Nicholas Adamou",
   },
   description,
-  keywords: [
-    "Nicholas Adamou",
-    "Software Engineer",
-    "Full Stack Developer",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Web Development",
-    "Cloud Architecture",
-    "DevOps",
-  ],
   authors: [{ name: "Nicholas Adamou", url: baseUrl }],
   creator: "Nicholas Adamou",
-  publisher: "Nicholas Adamou",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Nicholas Adamou - Making the world better through software",
+    title: "Nicholas Adamou",
     description,
     url: baseUrl,
     siteName: "Nicholas Adamou",
@@ -75,31 +50,19 @@ export const metadata: Metadata = {
         url: `${baseUrl}${ogImageUrl}`,
         width: 1200,
         height: 630,
-        alt: "Nicholas Adamou - Making the world better through software",
+        alt: "Nicholas Adamou",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nicholas Adamou - Making the world better through software",
+    title: "Nicholas Adamou",
     description,
-    site: "@nicholasadamou",
-    creator: "@nicholasadamou",
-    images: [
-      {
-        url: `${baseUrl}${ogImageUrl}`,
-        alt: "Nicholas Adamou - Making the world better through software",
-      },
-    ],
+    images: [`${baseUrl}${ogImageUrl}`],
   },
-  alternates: {
-    canonical: baseUrl,
-    types: {
-      "application/rss+xml": `${baseUrl}/rss.xml`,
-    },
-  },
-  verification: {
-    google: "your-google-site-verification-code", // Add your Google Search Console verification code
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -109,38 +72,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        {/* Resource hints for better performance */}
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <StructuredData type="person" data={nicholasAdamouPersonData} />
-        <StructuredData type="website" data={websiteData} />
-      </head>
-      <body className="width-full text-primary relative flex min-h-screen flex-col antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <DynamicLayout>
-            <Navigation />
-            <main className="mx-auto w-full flex-1 px-4 pt-28">{children}</main>
-            <Footer />
-          </DynamicLayout>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${dmSerif.variable} antialiased`}>
+        <ThemeProvider>
+          <BackNav />
+          {children}
+          <BottomNav />
+          <DynamicChatbot />
         </ThemeProvider>
-        {/* Only render analytics in production or when deployment ID is available */}
-        {process.env.NODE_ENV === "production" && (
-          <>
-            <Analytics />
-            <SpeedInsights />
-          </>
-        )}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

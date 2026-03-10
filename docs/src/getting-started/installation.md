@@ -37,18 +37,8 @@ Add your environment variables:
 # Unsplash (optional)
 UNSPLASH_ACCESS_KEY=your_access_key
 
-# VSCO (optional)
-VSCO_EMAIL=your_email
-VSCO_PASSWORD=your_password
-
 # Database (optional)
 POSTGRES_URL=your_postgres_url
-```
-
-## Initialize Submodules
-
-```bash
-git submodule update --init --recursive
 ```
 
 ## Start Development Server
@@ -66,21 +56,13 @@ To verify your installation:
 1. Open [http://localhost:3000](http://localhost:3000)
 2. Check that the page loads without errors
 3. Navigate through different sections
-4. Test dark mode toggle
+4. Test the theme system (light/dark)
 
 ## Troubleshooting
 
 ### Port Already in Use
 
-If port 3000 is already in use, Next.js will automatically use the next available port (e.g., 3001, 3005).
-
-### Submodule Issues
-
-If you encounter submodule errors:
-
-```bash
-git submodule update --init --recursive --remote
-```
+If port 3000 is already in use, Next.js will automatically use the next available port.
 
 ### Build Errors
 

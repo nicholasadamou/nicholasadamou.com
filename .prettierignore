@@ -6,12 +6,9 @@ node_modules/
 
 # Build outputs
 .next/
-.contentlayer/
 out/
 dist/
 build/
-
-# Generated files
 
 # Logs
 *.log
@@ -36,4 +33,4 @@ pnpm-lock.yaml
 Thumbs.db
 
 # Submodules
-tools/playwright-vsco-downloader/
+tools/

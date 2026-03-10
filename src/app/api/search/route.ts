@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllNotes, getAllProjects } from "@/lib/content/contentlayer-data";
-import type { Note, Project } from "@/lib/content/contentlayer-data";
+import { getAllArticles } from "@/lib/content/mdx";
+import { projects } from "@/lib/projects/config";
 
 interface SearchResult {
   type: "note" | "project";
@@ -8,7 +8,7 @@ interface SearchResult {
   title: string;
   summary: string;
   href: string;
-  technologies?: string[];
+  tags?: string[];
 }
 
 export async function GET(request: NextRequest) {
@@ -23,64 +23,56 @@ export async function GET(request: NextRequest) {
   const results: SearchResult[] = [];
 
   // Search notes
-  const notes = getAllNotes();
-  notes.forEach((note: Note) => {
-    const matchesTitle = note.title.toLowerCase().includes(lowerQuery);
-    const matchesSummary = note.summary?.toLowerCase().includes(lowerQuery);
-    const matchesContent = note.body?.raw?.toLowerCase().includes(lowerQuery);
+  const articles = getAllArticles();
+  for (const article of articles) {
+    const matchesTitle = article.title.toLowerCase().includes(lowerQuery);
+    const matchesSummary = article.summary?.toLowerCase().includes(lowerQuery);
+    const matchesContent = article.body?.raw
+      ?.toLowerCase()
+      .includes(lowerQuery);
 
     if (matchesTitle || matchesSummary || matchesContent) {
       results.push({
         type: "note",
-        slug: note.slug,
-        title: note.title,
-        summary: note.summary,
-        href: `/notes/${note.slug}`,
+        slug: article.slug,
+        title: article.title,
+        summary: article.summary,
+        href: `/notes/${article.slug}`,
       });
     }
-  });
+  }
 
   // Search projects
-  const projects = getAllProjects();
-  projects.forEach((project: Project) => {
-    const matchesTitle = project.title.toLowerCase().includes(lowerQuery);
-    const matchesSummary = project.summary?.toLowerCase().includes(lowerQuery);
-    const matchesLongSummary = project.longSummary
-      ?.toLowerCase()
+  for (const project of projects) {
+    const matchesName = project.name.toLowerCase().includes(lowerQuery);
+    const matchesDescription = project.description
+      .toLowerCase()
       .includes(lowerQuery);
-    const matchesTechnologies = project.technologies?.some((tech) =>
-      tech.toLowerCase().includes(lowerQuery)
+    const matchesTags = project.tags?.some((tag) =>
+      tag.toLowerCase().includes(lowerQuery)
     );
 
-    if (
-      matchesTitle ||
-      matchesSummary ||
-      matchesLongSummary ||
-      matchesTechnologies
-    ) {
+    if (matchesName || matchesDescription || matchesTags) {
       results.push({
         type: "project",
-        slug: project.slug,
-        title: project.title,
-        summary: project.summary,
-        href: `/projects/${project.slug}`,
-        technologies: project.technologies,
+        slug: project.name,
+        title: project.name,
+        summary: project.description,
+        href: project.href,
+        tags: project.tags,
       });
     }
-  });
+  }
 
   // Sort by relevance (title matches first)
   results.sort((a, b) => {
-    const aTitle = a.title.toLowerCase();
-    const bTitle = b.title.toLowerCase();
-    const aStartsWith = aTitle.startsWith(lowerQuery);
-    const bStartsWith = bTitle.startsWith(lowerQuery);
+    const aStartsWith = a.title.toLowerCase().startsWith(lowerQuery);
+    const bStartsWith = b.title.toLowerCase().startsWith(lowerQuery);
 
     if (aStartsWith && !bStartsWith) return -1;
     if (!aStartsWith && bStartsWith) return 1;
     return 0;
   });
 
-  // Limit to 10 results
   return NextResponse.json({ results: results.slice(0, 10) });
 }

@@ -8,9 +8,9 @@ Complete list of technologies and their purposes.
 
 - App Router for file-based routing
 - React Server Components
-- Server Actions
 - API Routes
 - Image Optimization
+- Dynamic OG image generation
 
 ### React 19
 
@@ -39,90 +39,57 @@ Complete list of technologies and their purposes.
 - Declarative animations
 - Gesture support
 - Layout animations
-- Performance optimized
+- Stagger effects
 
 ## Content Management
 
 ### MDX
 
 - Markdown with JSX
-- Custom components
-- Code highlighting
-- Rich content
+- Custom components (Table, YouTubeEmbed)
+- Code highlighting with rehype-prism
 
-### Contentlayer
+### gray-matter + reading-time
 
-- Type-safe content
-- Local files
-- Built-in validation
+- Frontmatter parsing
+- Reading time estimation
+- No Contentlayer dependency
 
-## Data & Caching
-
-### Redis (ioredis)
-
-- API response caching
-- Session storage
-- Rate limiting
+## Data & Storage
 
 ### Vercel Postgres
 
 - View counts
 - Analytics data
-- User interactions
 
 ## Image Services
 
-### Unsplash+
+### Unsplash
 
-- High-quality photos
-- Watermark-free
-- API integration
+- High-quality photos for articles
+- Local manifest-based resolution
+- Attribution tracking
 
 ### VSCO
 
-- Personal gallery
-- Automated sync
-- Local caching
+- Personal photography gallery
+- Local data export (no API/scraping needed)
+- Images served from `public/images/vsco/`
 
 ## Development Tools
 
-### ESLint
+### ESLint + Prettier
 
-- Code linting
-- Best practices
-- Custom rules
+- Code linting and formatting
+- Tailwind CSS class sorting
+- Pre-commit hooks via Husky + lint-staged
 
-### Prettier
-
-- Code formatting
-- Consistent style
-- Auto-fix
-
-### Husky
-
-- Git hooks
-- Pre-commit checks
-- Lint-staged
-
-## Testing
-
-### Vitest
+### Vitest + Testing Library
 
 - Unit testing
-- Fast execution
-- ESM support
-
-### Testing Library
-
 - Component testing
-- User-centric tests
-- Best practices
-
-### MSW
-
-- API mocking
-- Integration tests
-- Realistic testing
+- > 80% code coverage
+- jsdom environment
 
 ## Deployment
 
@@ -130,35 +97,7 @@ Complete list of technologies and their purposes.
 
 - Zero-config deployment
 - Edge network
-- Analytics
-- Speed Insights
-
-## Monitoring
-
-### Vercel Analytics
-
-- Page views
-- User behavior
-- Real user monitoring
-
-### Vercel Speed Insights
-
-- Core Web Vitals
-- Performance metrics
-- Real-time data
-
-## Version Control
-
-### Git
-
-- Source control
-- Collaboration
-
-### Git Submodules
-
-- Shared utilities
-- Playwright tools
-- Modular codebase
+- Analytics + Speed Insights
 
 ## Package Management
 

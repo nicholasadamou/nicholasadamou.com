@@ -1,10 +1,6 @@
-import { COLORS, DEFAULTS, LAYOUT, SPACING } from "../constants";
+import { COLORS, LAYOUT, SPACING } from "../constants";
 import { OGTheme } from "../types";
 
-/**
- * Enhanced image component with modern styling and fallback
- * Handles both successful image rendering and fallback states
- */
 export const ImageElement = ({
   imageSrc,
   altText,
@@ -14,6 +10,8 @@ export const ImageElement = ({
   altText?: string;
   theme?: OGTheme;
 }) => {
+  const isDark = theme === "dark";
+
   return (
     <div
       style={{
@@ -32,45 +30,29 @@ export const ImageElement = ({
           borderRadius: SPACING.imageContainer.borderRadius,
           overflow: "hidden",
           boxShadow: SPACING.imageContainer.boxShadow,
-          background:
-            theme === "light"
-              ? COLORS.gradient.imageBackgroundLight
-              : COLORS.gradient.imageBackground,
+          background: isDark
+            ? COLORS.gradient.imageBackground
+            : COLORS.gradient.imageBackgroundLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         {imageSrc ? (
-          <div
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={imageSrc}
+            alt={altText || ""}
+            width={LAYOUT.image.width}
+            height={LAYOUT.image.height}
             style={{
-              position: "relative",
-              width: `${LAYOUT.image.width}px`,
-              height: `${LAYOUT.image.height}px`,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
               borderRadius: "16px",
-              overflow: "hidden",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
             }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={imageSrc}
-              alt={altText || ""}
-              width={LAYOUT.image.width}
-              height={LAYOUT.image.height}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "16px",
-                zIndex: 0,
-              }}
-            />
-          </div>
+          />
         ) : (
-          // Fallback when no image or invalid URL
           <div
             style={{
               display: "flex",
@@ -78,15 +60,11 @@ export const ImageElement = ({
               justifyContent: "center",
               width: "100%",
               height: "100%",
-              fontSize: DEFAULTS.fallbackIconSize,
-              color:
-                theme === "light"
-                  ? COLORS.text.fallbackLight
-                  : COLORS.text.fallback,
-              textAlign: "center",
+              fontSize: "48px",
+              color: isDark ? COLORS.text.fallback : COLORS.text.fallbackLight,
             }}
           >
-            {DEFAULTS.fallbackIcon}
+            📸
           </div>
         )}
       </div>

@@ -6,8 +6,7 @@ Write content using MDX (Markdown + JSX components).
 
 ```
 content/
-├── notes/      # Blog posts
-└── projects/   # Project pages
+└── notes/      # Blog posts
 ```
 
 ## Frontmatter
@@ -19,45 +18,35 @@ date: "2024-12-21"
 summary: "Brief description"
 image: "https://unsplash.com/photos/..."
 pinned: false
-tags: ["tag1", "tag2"]
 ---
 ```
 
+Fields:
+
+- `title` - Post title (required)
+- `date` - Publication date (required)
+- `summary` - Short description (required)
+- `image` / `image_url` - Hero image (optional, Unsplash URL or local path)
+- `pinned` - Pin to top of list (optional)
+
+## Parsing Pipeline
+
+Content is parsed in `src/lib/content/mdx.ts` using:
+
+1. `gray-matter` - Frontmatter extraction with YAML engine
+2. `reading-time` - Estimated read time
+3. Custom slug generation from filename
+
 ## Custom Components
 
-Use React components in MDX:
+Available in MDX:
 
-```mdx
-<Alert type="info">Important information here</Alert>
-
-<Image src="/image.jpg" alt="Description" />
-
-<YouTubeEmbed videoId="..." />
-```
-
-## Available Components
-
-- `Alert` - Styled alert boxes
-- `Image` - Optimized images
-- `ImageFromContent` - Content images
-- `LinkPreview` - Link cards
-- `PlantUML` - Diagrams
-- `YouTubeEmbed` - Videos
-- `SourceCodeAccess` - GitHub code
-- `Latex` - Math equations
-- `Table` - Enhanced tables
-
-## Code Highlighting
-
-Syntax highlighting with Prism:
-
-\`\`\`typescript
-const example: string = "code";
-\`\`\`
+- `Table` - Enhanced tables with column definitions
+- `YouTubeEmbed` - Responsive YouTube embeds
 
 ## Creating Content
 
-1. Create `.mdx` file in `content/notes/` or `content/projects/`
-2. Add frontmatter
-3. Write content with Markdown/JSX
+1. Create `.mdx` file in `content/notes/`
+2. Add frontmatter with required fields
+3. Write content with Markdown
 4. Run dev server to preview

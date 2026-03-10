@@ -4,7 +4,7 @@ Configuration for external services and features.
 
 ## Required Variables
 
-None - the site runs without any environment variables.
+None — the site runs without any environment variables.
 
 ## Optional Variables
 
@@ -15,15 +15,6 @@ UNSPLASH_ACCESS_KEY=your_access_key
 ```
 
 For downloading Unsplash images and API access.
-
-### VSCO Integration
-
-```env
-VSCO_EMAIL=your_email
-VSCO_PASSWORD=your_password
-```
-
-For automated VSCO gallery downloads.
 
 ### Database
 
@@ -41,6 +32,30 @@ OPENAI_ASSISTANT_ID=your_assistant_id
 ```
 
 For AI chatbot features (optional).
+
+### GitHub
+
+```env
+GITHUB_TOKEN=your_github_token
+```
+
+For fetching GitHub repository data in the open source section.
+
+### Gumroad
+
+```env
+GUMROAD_API_KEY=your_gumroad_key
+```
+
+For product listing on the homepage.
+
+### Email (Contact Form)
+
+```env
+EMAIL_SERVICE_API_KEY=your_key
+```
+
+For the contact form email delivery.
 
 ## Local Development
 

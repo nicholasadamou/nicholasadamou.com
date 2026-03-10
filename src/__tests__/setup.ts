@@ -25,7 +25,7 @@ vi.mock("next/navigation", () => ({
 // Mock Next.js image
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
     return React.createElement("img", { ...props, alt: props.alt });
   },
 }));
@@ -51,18 +51,30 @@ vi.mock("framer-motion", () => ({
 }));
 
 // Mock IntersectionObserver
-global.IntersectionObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}));
+class IntersectionObserverMock {
+  readonly root = null;
+  readonly rootMargin = "";
+  readonly thresholds: ReadonlyArray<number> = [];
+  constructor(
+    public callback: IntersectionObserverCallback,
+    public options?: IntersectionObserverInit
+  ) {}
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+  takeRecords = vi.fn().mockReturnValue([]);
+}
+global.IntersectionObserver =
+  IntersectionObserverMock as unknown as typeof IntersectionObserver;
 
 // Mock ResizeObserver
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}));
+class ResizeObserverMock {
+  constructor(public callback: ResizeObserverCallback) {}
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+}
+global.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
 
 // Mock matchMedia
 Object.defineProperty(window, "matchMedia", {
@@ -79,69 +91,44 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
-// Mock next-themes
-vi.mock("next-themes", () => ({
-  useTheme: () => ({
-    theme: "light",
-    setTheme: vi.fn(),
-    resolvedTheme: "light",
-    themes: ["light", "dark"],
-    systemTheme: "light",
-  }),
-  ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
-}));
-
 // Mock global fetch
 global.fetch = vi.fn();
 
-// Mock localStorage for MSW
+// Mock localStorage
 class LocalStorageMock {
   private store: Record<string, string> = {};
-
   getItem(key: string): string | null {
     return this.store[key] || null;
   }
-
   setItem(key: string, value: string): void {
     this.store[key] = value.toString();
   }
-
   removeItem(key: string): void {
     delete this.store[key];
   }
-
   clear(): void {
     this.store = {};
   }
-
   get length(): number {
     return Object.keys(this.store).length;
   }
-
   key(index: number): string | null {
-    const keys = Object.keys(this.store);
-    return keys[index] || null;
+    return Object.keys(this.store)[index] || null;
   }
 }
-
 global.localStorage = new LocalStorageMock() as Storage;
 
-// Mock environment variables
 beforeAll(() => {
-  // Set NODE_ENV for test environment
   process.env.NODE_ENV = "test";
 
-  // Suppress expected React act warnings for async effects and timers
-  // These warnings are expected when testing components with setTimeout, fetch, etc.
   const originalError = console.error;
-  console.error = (...args: any[]) => {
+  console.error = (...args: unknown[]) => {
     const message = args[0];
     if (
       typeof message === "string" &&
       message.includes("An update to") &&
       message.includes("was not wrapped in act(...)")
     ) {
-      // Skip this specific warning as it's expected for async components
       return;
     }
     originalError.apply(console, args);

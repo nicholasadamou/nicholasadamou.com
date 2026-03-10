@@ -31,8 +31,6 @@ pnpm start            # Start production server
 
 ```bash
 pnpm lint             # Run ESLint
-pnpm lint:fix         # Fix linting issues
-pnpm type-check       # Run TypeScript check
 pnpm format           # Format with Prettier
 pnpm format:check     # Check formatting
 ```
@@ -40,7 +38,7 @@ pnpm format:check     # Check formatting
 #### Testing
 
 ```bash
-pnpm test             # Run tests
+pnpm test             # Run tests (watch mode)
 pnpm test:run         # Run tests once
 pnpm test:watch       # Watch mode
 pnpm test:coverage    # Generate coverage report
@@ -50,102 +48,50 @@ pnpm test:coverage    # Generate coverage report
 
 ```bash
 pnpm download:images:unsplash # Download Unsplash images
-pnpm download:images:vsco     # Download VSCO images
-```
-
-## Project Structure
-
-```
-├── src/
-│   ├── app/              # Next.js app directory
-│   ├── components/       # React components
-│   ├── hooks/           # Custom hooks
-│   │   ├── animation/   # Animation hooks
-│   │   ├── data/        # Data fetching hooks
-│   │   ├── observers/   # Observer hooks
-│   │   ├── ui/          # UI hooks
-│   │   └── utilities/   # Utility hooks
-│   ├── lib/             # Utilities and helpers
-│   │   ├── animation/   # Animation utilities
-│   │   ├── content/     # Content processing
-│   │   ├── image/       # Image utilities
-│   │   └── utils/       # General utilities
-│   └── types/           # TypeScript types
-├── content/             # MDX content
-│   ├── notes/          # Blog posts
-│   └── projects/       # Project pages
-├── public/              # Static assets
-├── scripts/             # Build scripts
-│   ├── build/          # Build-time scripts
-│   ├── setup/          # Setup scripts
-│   └── content/        # Content scripts
-└── tools/               # Git submodules
+pnpm prepare-chatbot-data     # Prepare chatbot training data
 ```
 
 ## Code Organization
 
+### Components
+
+Components are organized by domain:
+
+- `chat/` - Chatbot widget and dynamic loader
+- `gallery/` - VSCO and featured gallery
+- `home/` - Homepage sections (bio, social, Gumroad)
+- `layout/` - BackNav, BottomNav, CommandPalette
+- `mdx/` - Table, YouTubeEmbed for MDX content
+- `notes/` - Article pages, note list, related articles
+- `projects/` - Project list, filter bar, open source
+- `ui/` - Shared primitives (ImagePreview, UniversalImage)
+
 ### Hooks
 
-Hooks are organized by domain:
+Custom hooks in `src/hooks/`:
 
-- `animation/` - Performance-aware animation hooks
-- `data/` - Data fetching (Gumroad, VSCO)
-- `observers/` - Intersection observers
-- `ui/` - UI interactions (search, pagination)
-- `utilities/` - Generic utilities (mounted, interval)
+- `use-views.ts` - Page view tracking
+- `use-gumroad-products.ts` - Gumroad product fetching
+- `use-vsco-gallery.ts` - VSCO gallery data
+- `use-infinite-vsco-gallery.ts` - Paginated VSCO gallery
 
 ### Lib
 
-Library code is grouped by feature:
+Library code grouped by feature:
 
 - `animation/` - Framer Motion variants and config
-- `content/` - MDX, Git, Contentlayer utilities
-- `image/` - Image fallback and optimization
-- `utils/` - Categorized utilities (api, formatting, theme, positioning)
-
-## Adding New Features
-
-### 1. Create Component
-
-```typescript
-// src/components/features/my-feature/MyComponent.tsx
-import { FC } from 'react';
-
-export const MyComponent: FC = () => {
-  return <div>My Feature</div>;
-};
-```
-
-### 2. Add Custom Hook (if needed)
-
-```typescript
-// src/hooks/utilities/use-my-hook.ts
-export function useMyHook() {
-  // Hook logic
-  return {};
-}
-```
-
-### 3. Add Tests
-
-```typescript
-// src/__tests__/my-component.test.tsx
-import { render } from '@testing-library/react';
-import { MyComponent } from '@/components/features/my-feature/MyComponent';
-
-describe('MyComponent', () => {
-  it('renders', () => {
-    render(<MyComponent />);
-  });
-});
-```
+- `content/` - MDX parsing with gray-matter
+- `image/` - Unsplash image resolution and attribution
+- `projects/` - Project config and icon components
+- `og.ts` - OG image URL generation
+- `vsco-local.ts` - Local VSCO export reader
 
 ## Best Practices
 
 ### Code Style
 
 - Use TypeScript for all new code
-- Follow the existing patterns in the codebase
+- Follow existing patterns in the codebase
 - Use kebab-case for file names
 - Export named functions/components
 
@@ -162,27 +108,6 @@ describe('MyComponent', () => {
 - Maintain test coverage above 80%
 - Test edge cases and error states
 - Use Testing Library best practices
-
-## Debugging
-
-### VS Code
-
-Launch configuration is provided in `.vscode/launch.json`:
-
-1. Set breakpoints in your code
-2. Press F5 or Run → Start Debugging
-3. Debug in your browser or VS Code
-
-### Chrome DevTools
-
-1. Open Chrome DevTools (F12)
-2. Go to Sources tab
-3. Find your file in the file tree
-4. Set breakpoints and debug
-
-### React DevTools
-
-Install the [React DevTools](https://react.dev/learn/react-developer-tools) extension for component inspection.
 
 ## Next Steps
 

@@ -42,13 +42,26 @@ if [ -z "$PORT" ]; then
     exit 1
 fi
 
-# Activate virtual environment if it exists
-if [ -d "venv" ]; then
-    source venv/bin/activate
-elif [ -d "../venv" ]; then
-    source ../venv/bin/activate
-else
-    echo "Warning: No virtual environment found. Make sure mkdocs is installed." >&2
+# Set up virtual environment and install dependencies
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VENV_DIR="$SCRIPT_DIR/venv"
+REQ_FILE="$SCRIPT_DIR/requirements.txt"
+
+if [ ! -d "$VENV_DIR" ]; then
+    echo "Creating virtual environment..."
+    python3 -m venv "$VENV_DIR"
+fi
+
+source "$VENV_DIR/bin/activate"
+
+if [ -f "$REQ_FILE" ]; then
+    # Reinstall if requirements.txt is newer than the venv marker
+    MARKER="$VENV_DIR/.installed"
+    if [ ! -f "$MARKER" ] || [ "$REQ_FILE" -nt "$MARKER" ]; then
+        echo "Installing dependencies..."
+        pip install --quiet -r "$REQ_FILE"
+        touch "$MARKER"
+    fi
 fi
 
 echo "Starting MkDocs server on port $PORT..."

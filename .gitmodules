@@ -1,3 +1,0 @@
-[submodule "tools/playwright-vsco-downloader"]
-	path = tools/playwright-vsco-downloader
-	url = https://github.com/nicholasadamou/playwright-vsco-downloader

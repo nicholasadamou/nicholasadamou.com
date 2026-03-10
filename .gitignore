@@ -3,7 +3,12 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.js
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 # testing
 /coverage
@@ -23,14 +28,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# local env files
-.env*.local
-.env
-
-# chatbot training data
-training-data/chatbot-training-data.txt
-training-data/linkedin-training-data.txt
+# env files (can opt-in for committing if needed)
+.env*
 
 # vercel
 .vercel
@@ -39,23 +40,11 @@ training-data/linkedin-training-data.txt
 *.tsbuildinfo
 next-env.d.ts
 
-.contentlayer
-.contentlayer/
+# chatbot training data
+scripts/training-data/
 
-generated/
-generated
-.cache/
+# vsco images (downloaded at build time)
+public/images/vsco/
 
-.vscode
-.vscode/
-.idea/
-
-# Python virtual environment
-docs/venv/
-*.pyc
-__pycache__/
-
-# ACT (GitHub Actions locally)
-.actrc
-.secrets
-.env.act
+# mkdocs build output
+docs/build/

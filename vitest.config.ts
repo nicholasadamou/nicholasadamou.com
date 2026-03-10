@@ -10,12 +10,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/__tests__/setup.ts"],
     css: true,
-    exclude: [
-      "**/node_modules/**",
-      "**/dist/**",
-      "**/.next/**",
-      "tools/**", // Exclude tools directory from test discovery
-    ],
+    exclude: ["**/node_modules/**", "**/dist/**", "**/.next/**"],
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
@@ -26,10 +21,9 @@ export default defineConfig({
         "**/*.config.{js,ts}",
         "**/coverage/**",
         ".next/",
-        ".contentlayer/",
         "scripts/",
         "public/",
-        "tools/", // Exclude tools directory from coverage
+        "content/",
       ],
     },
   },
@@ -39,13 +33,8 @@ export default defineConfig({
       "@/components": path.resolve(__dirname, "./src/components"),
       "@/lib": path.resolve(__dirname, "./src/lib"),
       "@/hooks": path.resolve(__dirname, "./src/hooks"),
-      "@/styles": path.resolve(__dirname, "./src/styles"),
       "@/types": path.resolve(__dirname, "./src/types"),
       "@/app": path.resolve(__dirname, "./src/app"),
-      "contentlayer/generated": path.resolve(
-        __dirname,
-        "./.contentlayer/generated"
-      ),
     },
   },
 });

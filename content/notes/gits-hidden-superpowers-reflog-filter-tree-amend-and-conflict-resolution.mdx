@@ -90,7 +90,7 @@ Commit A' → Commit B' (secrets.txt removed)
           → Commit D' (secrets.txt removed from all history)
 ```
 
-⚠️ **Warning**: All commit hashes change. Force push required.
+**Warning**: All commit hashes change. Force push required.
 
 **Remove a file from all history:**
 
@@ -119,10 +119,10 @@ fi
 
 ### Important Warnings
 
-- ⚠️ Rewrites commit hashes—requires force push
-- ⚠️ Team members must re-clone or rebase
-- ⚠️ Use `git-filter-repo` for better performance (install via brew/pip)
-- ⚠️ Always backup before running: `git clone --mirror original backup`
+- Rewrites commit hashes—requires force push
+- Team members must re-clone or rebase
+- Use `git-filter-repo` for better performance (install via brew/pip)
+- Always backup before running: `git clone --mirror original backup`
 
 ### Modern Alternative
 
@@ -297,8 +297,8 @@ end note
 
 **During a rebase:**
 
-- `--ours` = incoming branch (what you're rebasing onto) ⚠️
-- `--theirs` = current branch (your commits) ⚠️
+- `--ours` = incoming branch (what you're rebasing onto)
+- `--theirs` = current branch (your commits)
 - Yes, it's reversed during rebase!
 
 ### Common Workflows

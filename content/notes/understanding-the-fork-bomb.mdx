@@ -1,5 +1,5 @@
 ---
-title: "Understanding the Fork Bomb 💣🍴"
+title: "Understanding the Fork Bomb "
 summary: "A deep dive into one of the simplest yet most destructive shell payloads — the fork bomb."
 date: "2025-05-08"
 pinned: false
@@ -16,7 +16,7 @@ The classic form looks like this:
 
 Yeah, that's it. Let's break down what this cryptic line actually does.
 
-## 🧬 Anatomy of the Fork Bomb
+## Anatomy of the Fork Bomb
 
 ### Function Definition: `:()`
 
@@ -38,23 +38,23 @@ This means **each function call spawns two new ones**, exponentially increasing 
 
 Finally, `;:` **calls the function once**, kicking off the chain reaction.
 
-## 🌱 Process Tree Growth
+## Process Tree Growth
 
 The process tree grows exponentially:
 
 ```
 :()                    (1 process)
-├── Child 1            (2 processes)
-│   ├── Grandchild 1   (4 processes)
-│   └── Grandchild 2
-└── Child 2
-    ├── Grandchild 3
-    └── Grandchild 4
+ Child 1            (2 processes)
+    Grandchild 1   (4 processes)
+    Grandchild 2
+ Child 2
+     Grandchild 3
+     Grandchild 4
 ```
 
 Each generation doubles the number of processes. This rapidly depletes system resources.
 
-## ⚙️ Fork Bomb Execution Flow
+## Fork Bomb Execution Flow
 
 **The cycle:**
 
@@ -66,7 +66,7 @@ Each generation doubles the number of processes. This rapidly depletes system re
 
 This continues until the system freezes.
 
-## 🖥️ What Happens When You Run It?
+## What Happens When You Run It?
 
 Running this code will:
 
@@ -76,7 +76,7 @@ Running this code will:
 
 This exponential growth rapidly overwhelms the process table, starving the system of resources and effectively freezing it.
 
-## 🛡️ How to Protect Against It
+## How to Protect Against It
 
 1. **Limit user processes** with `ulimit`:
 
@@ -88,11 +88,11 @@ ulimit -u 100
 
 3. **Audit shell scripts** and educate users about the risks of executing unknown code.
 
-## ⚠️ Warning
+## Warning
 
 Never run the fork bomb on a production system. It will almost certainly require a hard reboot. Always test destructive code in a **controlled environment** like a virtual machine.
 
-## 🔚 Final Thoughts
+## Final Thoughts
 
 The fork bomb is a powerful demonstration of how minimal code can wreak havoc. While it's often used as a teaching example or prank, it’s a serious tool that underscores the importance of resource management and shell security.
 

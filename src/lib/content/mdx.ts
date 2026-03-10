@@ -2,67 +2,29 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import yaml from "js-yaml";
-import { resolveImageUrl } from "@/lib/image/unsplash";
+import readingTime from "reading-time";
 
-// Types matching your existing Contentlayer schema
-export interface BaseContent {
+export interface Article {
   slug: string;
   title: string;
   summary: string;
   date: string;
-  image: string | null;
-  og: string;
-  _raw: {
-    sourceFilePath: string;
-    sourceFileDir: string;
-    sourceFileName: string;
-    contentType: string;
-  };
+  readTime: string;
+  image?: string | null;
+  pinned?: boolean;
   body: {
     code: string;
     raw: string;
   };
 }
 
-export interface Note extends BaseContent {
-  url?: string;
-  pinned?: boolean;
-  updatedAt?: string;
-  image_url?: string;
-}
-
-export interface Project extends BaseContent {
-  longSummary?: string;
-  url?: string;
-  demoUrl?: string;
-  technologies?: string[];
-  pinned?: boolean;
-  image_url?: string;
-}
-
 const contentDirectory = path.join(process.cwd(), "content");
 
-// Utility function to get the slug from file path
 const getSlug = (filePath: string): string => {
   return path.basename(filePath, ".mdx");
 };
 
-// Utility function to resolve image path from frontmatter
-const resolveImageFromUrl = (frontmatter: any): string | null => {
-  if (frontmatter.image_url) {
-    // Resolve Unsplash URLs to local paths at parse time
-    // Returns null if the image isn't available locally — the raw
-    // unsplash.com/photos/… page URL is not a valid image source.
-    return resolveImageUrl(frontmatter.image_url);
-  }
-  return null;
-};
-
-// Function to read and parse a single MDX file
-function parseMDXFile(
-  filePath: string,
-  contentType: "notes" | "projects"
-): BaseContent {
+function parseMDXFile(filePath: string): Article {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data: frontmatter, content } = matter(fileContent, {
     engines: {
@@ -71,93 +33,64 @@ function parseMDXFile(
   });
 
   const slug = getSlug(filePath);
-  const relativePath = path.relative(contentDirectory, filePath);
+  const stats = readingTime(content);
 
   return {
     slug,
     title: frontmatter.title,
     summary: frontmatter.summary,
     date: frontmatter.date,
-    image: resolveImageFromUrl(frontmatter),
-    og: `/${contentType}/${slug}/image.png`,
-    _raw: {
-      sourceFilePath: relativePath,
-      sourceFileDir: path.dirname(relativePath),
-      sourceFileName: path.basename(filePath),
-      contentType: "mdx",
-    },
+    readTime: stats.text,
+    image: frontmatter.image_url || frontmatter.image || null,
+    pinned: frontmatter.pinned || false,
     body: {
-      code: content, // Raw MDX content for processing
-      raw: content, // Raw content for reading time calculation
+      code: content,
+      raw: content,
     },
-    ...frontmatter, // Spread all other frontmatter properties
   };
 }
 
-// Function to get all content of a specific type
-function getAllContent(contentType: "notes" | "projects"): BaseContent[] {
-  const contentDir = path.join(contentDirectory, contentType);
+export function getAllArticles(): Article[] {
+  const notesDir = path.join(contentDirectory, "notes");
 
-  if (!fs.existsSync(contentDir)) {
+  if (!fs.existsSync(notesDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(contentDir);
+  const files = fs.readdirSync(notesDir);
   const mdxFiles = files.filter((file) => file.endsWith(".mdx"));
 
   return mdxFiles
     .map((file) => {
-      const filePath = path.join(contentDir, file);
-      return parseMDXFile(filePath, contentType);
+      const filePath = path.join(notesDir, file);
+      return parseMDXFile(filePath);
     })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Sort by date, newest first
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-// Function to get a specific content item by slug
-function getContentBySlug(
-  contentType: "notes" | "projects",
-  slug: string
-): BaseContent | null {
-  const filePath = path.join(contentDirectory, contentType, `${slug}.mdx`);
+export function getArticleBySlug(slug: string): Article | null {
+  const filePath = path.join(contentDirectory, "notes", `${slug}.mdx`);
 
   if (!fs.existsSync(filePath)) {
     return null;
   }
 
-  return parseMDXFile(filePath, contentType);
+  return parseMDXFile(filePath);
 }
 
-// Export the main functions (replacing Contentlayer's allNotes, allProjects)
-export function getAllNotes(): Note[] {
-  return getAllContent("notes") as Note[];
+export function getAllArticleSlugs(): string[] {
+  return getAllArticles().map((article) => article.slug);
 }
 
-export function getAllProjects(): Project[] {
-  return getAllContent("projects") as Project[];
-}
+export function getRelatedArticles(slug: string, count = 2): Article[] {
+  const all = getAllArticles();
+  const filtered = all.filter((a) => a.slug !== slug);
 
-export function getNoteBySlug(slug: string): Note | null {
-  return getContentBySlug("notes", slug) as Note | null;
-}
+  // Shuffle and pick `count` articles
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
 
-export function getProjectBySlug(slug: string): Project | null {
-  return getContentBySlug("projects", slug) as Project | null;
-}
-
-// Utility functions for filtering
-export function getPinnedNotes(): Note[] {
-  return getAllNotes().filter((note) => note.pinned === true);
-}
-
-export function getPinnedProjects(): Project[] {
-  return getAllProjects().filter((project) => project.pinned === true);
-}
-
-// Function to get all slugs for static generation
-export function getAllNoteSlugs(): string[] {
-  return getAllNotes().map((note) => note.slug);
-}
-
-export function getAllProjectSlugs(): string[] {
-  return getAllProjects().map((project) => project.slug);
+  return filtered.slice(0, count);
 }

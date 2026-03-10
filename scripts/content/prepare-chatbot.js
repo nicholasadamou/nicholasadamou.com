@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fs = require("fs");
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require("path");
 
 /**
@@ -10,9 +12,19 @@ const path = require("path");
 const OUTPUT_FILE = path.join(
   __dirname,
   "..",
-  "/training-data/chatbot-training-data.txt"
+  "training-data",
+  "chatbot-training-data.txt"
 );
-const CONTENT_DIR = path.join(__dirname, "..", "content");
+const CONTENT_DIR = path.join(__dirname, "..", "..", "content");
+const PROJECTS_CONFIG = path.join(
+  __dirname,
+  "..",
+  "..",
+  "src",
+  "lib",
+  "projects",
+  "config.ts"
+);
 
 // Helper function to recursively find all MDX files
 function findMdxFiles(dir, files = []) {
@@ -61,6 +73,35 @@ function extractContent(filePath) {
   };
 }
 
+// Extract projects from TypeScript config file
+function extractProjects() {
+  const content = fs.readFileSync(PROJECTS_CONFIG, "utf-8");
+  const projects = [];
+
+  // Match each project object in the array
+  const projectRegex =
+    /\{\s*name:\s*"([^"]+)"[\s\S]*?href:\s*"([^"]+)"[\s\S]*?description:\s*(?:"([^"]+)"|`([^`]+)`)[\s\S]*?(?:tags:\s*\[([^\]]*)\])?\s*\}/g;
+
+  let match;
+  while ((match = projectRegex.exec(content)) !== null) {
+    const tags = match[5]
+      ? match[5]
+          .match(/"([^"]+)"/g)
+          ?.map((t) => t.replace(/"/g, ""))
+          .join(", ")
+      : "";
+
+    projects.push({
+      name: match[1],
+      href: match[2],
+      description: match[3] || match[4],
+      tags,
+    });
+  }
+
+  return projects;
+}
+
 async function compileContent() {
   console.log("🚀 Starting content extraction for chatbot training...\n");
 
@@ -69,18 +110,13 @@ async function compileContent() {
 # This file contains all the content from nicholasadamou.com for AI assistant training.
 
 ## About Nicholas Adamou
-Nicholas Adamou is a Full Stack Software Engineer passionate about making the world better through software.
-He specializes in React, Next.js, TypeScript, Node.js, Java, Spring Boot, Cloud Architecture, and DevOps.
-His portfolio website showcases his projects, blog posts, and professional experience.
+Nicholas Adamou is a Senior Software Engineer at Onebrief, passionate about making the world better through software.
 
-I am a seasoned Senior Software Engineer with a strong academic foundation, holding a Master of Science in Computer Science from Georgia Institute of Technology and a Bachelor of Arts in Computer Science from Cornell College. My career is marked by a commitment to leveraging software engineering to create meaningful impact. I have a proven track record of delivering high-quality software solutions that meet the needs of users and stakeholders. I am a strong advocate for user-centered design and am passionate about creating well-designed products that are intuitive and easy to use.
+He is a senior software engineer who has worked at companies including IBM, Lockheed Martin (Space), Apple, and Fly Blackbird (acquired by SurfAir).
 
-What Got Me Into Coding
-My journey into programming began at a young age when my dad introduced me to the game Asteroids on Windows 98. The simple yet captivating mechanics of navigating a spaceship and dodging asteroids sparked my curiosity about how computers worked and how games were created. This early fascination laid the groundwork for my interest in technology.
+He holds a Master of Science in Computer Science from Georgia Institute of Technology and a Bachelor of Arts in Computer Science from Cornell College.
 
-Fast forward to 2007, when my dad bought me Halo 3, my intrigue deepened. The expansive Halo universe captivated me, especially the elusive Recon armor. Determined to unlock it, I scoured the web and discovered YouTube tutorials that showed how to modify my service record page on Bungie.net. This required using developer tools to tweak some code, much like navigating through the layers of a game. The experience of seeing the code behind the scenes was reminiscent of my early days with Asteroids, as both experiences fueled my desire to understand and create within the digital world.
-
-Beyond software engineering, I have a passion for photography and visual storytelling. Through my lens, I capture moments that resonate with me - from landscapes to urban scenes, always seeking to find beauty in the everyday. You can explore my photographic work on VSCO, where I share my perspective on the world around us.
+He specializes in React, Next.js, TypeScript, Node.js, Java, Spring Boot, Cloud Architecture, and DevOps. His portfolio website showcases his projects, blog posts (notes), and professional experience.
 
 ---
 
@@ -92,7 +128,7 @@ Beyond software engineering, I have a passion for photography and visual storyte
     console.log("📝 Processing blog posts...");
     const noteFiles = findMdxFiles(notesDir);
 
-    output += `## BLOG POSTS (${noteFiles.length} posts)\n\n`;
+    output += `## BLOG POSTS / NOTES (${noteFiles.length} posts)\n\n`;
 
     for (const file of noteFiles) {
       const { title, frontmatter, body } = extractContent(file);
@@ -105,22 +141,22 @@ Beyond software engineering, I have a passion for photography and visual storyte
     }
   }
 
-  // Process projects
-  const projectsDir = path.join(CONTENT_DIR, "projects");
-  if (fs.existsSync(projectsDir)) {
+  // Process projects from config
+  if (fs.existsSync(PROJECTS_CONFIG)) {
     console.log("\n🛠️  Processing projects...");
-    const projectFiles = findMdxFiles(projectsDir);
+    const projects = extractProjects();
 
-    output += `## PROJECTS (${projectFiles.length} projects)\n\n`;
+    output += `## PROJECTS (${projects.length} projects)\n\n`;
 
-    for (const file of projectFiles) {
-      const { title, frontmatter, body } = extractContent(file);
-      output += `### ${title}\n\n`;
-      if (frontmatter) {
-        output += `**Metadata:**\n${frontmatter}\n\n`;
+    for (const project of projects) {
+      output += `### ${project.name}\n\n`;
+      output += `- URL: ${project.href}\n`;
+      output += `- Description: ${project.description}\n`;
+      if (project.tags) {
+        output += `- Tags: ${project.tags}\n`;
       }
-      output += `${body}\n\n---\n\n`;
-      console.log(`  ✅ Processed: ${title}`);
+      output += `\n---\n\n`;
+      console.log(`  ✅ Processed: ${project.name}`);
     }
   }
 
@@ -128,25 +164,21 @@ Beyond software engineering, I have a passion for photography and visual storyte
   output += `## CONTACT INFORMATION
 
 Nicholas Adamou can be contacted through:
-- Email: contact form on the website at /contact
+- Email: nicholasadamou@outlook.com
 - GitHub: https://github.com/nicholasadamou
-- Twitter/X: @nicholasadamou
-- LinkedIn: Available on request through the contact form
+- LinkedIn: https://linkedin.com/in/nicholas-adamou
 
 ## WEBSITE STRUCTURE
 
 The website is organized into the following main sections:
-- Home (/) - Landing page with introduction
-- About (/about) - Detailed information about Nicholas, skills, and experience
+- Home (/) - Landing page with introduction, featured projects, and recent notes
 - Notes (/notes) - Blog posts and technical articles
-- Projects (/projects) - Portfolio of work and open-source contributions
-- Gallery (/gallery) - Photography and VSCO integration
-- Contact (/contact) - Contact form for reaching out
+- Projects (/projects) - Portfolio of open-source work and tools
 
 ## TECHNICAL STACK
 
 The website is built with:
-- Next.js 15 with App Router
+- Next.js 16 with App Router
 - React 19
 - TypeScript
 - Tailwind CSS
@@ -156,10 +188,9 @@ The website is built with:
 
 ## ADDITIONAL NOTES
 
-- All blog posts include view tracking and reading time estimates
+- All blog posts include reading time estimates
 - Projects may include links to live demos and GitHub repositories
-- The site features dark mode support
-- Photography gallery integrates with VSCO and Unsplash+
+- The site features a custom color theme picker with light/dark mode support
 - Content is dynamically managed through MDX files
 `;
 

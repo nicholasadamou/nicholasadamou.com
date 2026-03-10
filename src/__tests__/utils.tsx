@@ -1,18 +1,9 @@
 import { render, RenderOptions } from "@testing-library/react";
 import { ReactElement } from "react";
-import { ThemeProvider } from "next-themes";
-
-// Mock the theme provider for testing
-const MockThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="light">
-      {children}
-    </ThemeProvider>
-  );
-};
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-  return <MockThemeProvider>{children}</MockThemeProvider>;
+  return <ThemeProvider>{children}</ThemeProvider>;
 };
 
 const customRender = (

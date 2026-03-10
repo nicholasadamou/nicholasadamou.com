@@ -1,0 +1,343 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fafaf9;
+  --foreground: #0c0a09;
+
+  /* Syntax — One Light */
+  --mono-1: hsl(230, 8%, 24%);
+  --mono-2: hsl(230, 6%, 44%);
+  --mono-3: hsl(230, 4%, 64%);
+  --hue-1: hsl(198, 99%, 37%);
+  --hue-2: hsl(221, 87%, 60%);
+  --hue-3: hsl(301, 63%, 40%);
+  --hue-4: hsl(119, 34%, 47%);
+  --hue-5: hsl(5, 74%, 59%);
+  --hue-5-2: hsl(344, 84%, 43%);
+  --hue-6: hsl(35, 99%, 36%);
+  --hue-6-2: hsl(35, 99%, 40%);
+  --syntax-fg: hsl(230, 8%, 24%);
+  --syntax-bg: #f5f5f4;
+  --syntax-gutter: hsl(230, 4%, 64%);
+  --syntax-guide: hsla(230, 8%, 24%, 0.2);
+  --syntax-selection-color: hsl(230, 10%, 88%);
+  --syntax-comment: hsl(230, 4%, 64%);
+  --syntax-punctuation: hsl(230, 6%, 44%);
+  --syntax-inline-bg: rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  --background: #0c0a09;
+  --foreground: #fafaf9;
+
+  /* Syntax — One Dark */
+  --mono-1: hsl(220, 14%, 81%);
+  --mono-2: hsl(220, 9%, 55%);
+  --mono-3: hsl(220, 10%, 40%);
+  --hue-1: hsl(187, 47%, 55%);
+  --hue-2: hsl(207, 82%, 66%);
+  --hue-3: hsl(300, 38%, 73%);
+  --hue-4: hsl(95, 38%, 62%);
+  --hue-5: hsl(355, 65%, 65%);
+  --hue-5-2: hsl(5, 48%, 51%);
+  --hue-6: hsl(29, 54%, 61%);
+  --hue-6-2: hsl(39, 67%, 69%);
+  --syntax-fg: hsl(220, 14%, 81%);
+  --syntax-bg: #1a1a1a;
+  --syntax-gutter: hsl(220, 14%, 45%);
+  --syntax-guide: hsla(220, 14%, 81%, 0.15);
+  --syntax-selection-color: hsl(220, 13%, 28%);
+  --syntax-comment: hsl(220, 10%, 40%);
+  --syntax-punctuation: hsl(220, 14%, 81%);
+  --syntax-inline-bg: rgba(255, 255, 255, 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif;
+  --font-display:
+    var(--font-besley), Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom animations matching ericli.io */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInHome1 {
+  animation: 0.8s ease-out 0.4s forwards fadeInUp;
+  opacity: 0;
+}
+
+.animate-fadeInHome2 {
+  animation: 0.8s ease-out 0.8s forwards fadeInUp;
+  opacity: 0;
+}
+
+.animate-fadeInNav {
+  animation: 0.8s ease-out 1.2s forwards fadeInUp;
+  opacity: 0;
+}
+
+.animate-fadeInBack {
+  animation: 0.8s ease-out 0.8s forwards fadeInDown;
+  opacity: 0;
+}
+
+.animate-fadeInText {
+  animation: 1s ease-out 0.4s forwards fadeInUp;
+  opacity: 0;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==============================================
+   Syntax Highlighting — One Dark / One Light
+   Based on nicholasadamou.com Prism theme
+   ============================================== */
+
+/* --- Base code styles --- */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--syntax-fg);
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  font-size: 0.8125em;
+  line-height: 1.7;
+  tab-size: 2;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+pre[class*="language-"] {
+  background: var(--syntax-bg);
+  border-radius: 0.5rem;
+  padding: 1.25em 1.5em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+:not(pre) > code {
+  background: var(--syntax-inline-bg);
+  border-radius: 0.25rem;
+  padding: 0.15em 0.35em;
+  font-size: 0.875em;
+}
+
+/* Selection */
+code[class*="language-"]::selection,
+code[class*="language-"] *::selection,
+pre[class*="language-"] *::selection {
+  background: var(--syntax-selection-color);
+  color: inherit;
+}
+
+/* --- Token colors (variable-driven) --- */
+.token.comment,
+.token.prolog,
+.token.cdata {
+  color: var(--syntax-comment);
+  font-style: italic;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.entity {
+  color: var(--syntax-punctuation);
+}
+
+.token.attr-name,
+.token.class-name,
+.token.boolean,
+.token.constant,
+.token.number,
+.token.atrule {
+  color: var(--hue-6);
+}
+
+.token.keyword {
+  color: var(--hue-3);
+}
+
+.token.property,
+.token.tag,
+.token.symbol,
+.token.deleted,
+.token.important {
+  color: var(--hue-5);
+}
+
+.token.selector,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted,
+.token.regex,
+.token.attr-value,
+.token.attr-value > .token.punctuation {
+  color: var(--hue-4);
+}
+
+.token.variable,
+.token.operator,
+.token.function {
+  color: var(--hue-2);
+}
+
+.token.url {
+  color: var(--hue-1);
+}
+
+/* HTML overrides */
+.token.attr-value > .token.punctuation.attr-equals,
+.token.special-attr > .token.attr-value > .token.value.css {
+  color: var(--mono-1);
+}
+
+/* CSS overrides */
+.language-css .token.selector {
+  color: var(--hue-5);
+}
+
+.language-css .token.property {
+  color: var(--mono-1);
+}
+
+.language-css .token.function,
+.language-css .token.url > .token.function {
+  color: var(--hue-1);
+}
+
+.language-css .token.url > .token.string.url {
+  color: var(--hue-4);
+}
+
+.language-css .token.important,
+.language-css .token.atrule .token.rule {
+  color: var(--hue-3);
+}
+
+/* JS/TS overrides */
+.language-javascript .token.operator,
+.language-typescript .token.operator {
+  color: var(--hue-3);
+}
+
+.language-javascript
+  .token.template-string
+  > .token.interpolation
+  > .token.interpolation-punctuation.punctuation {
+  color: var(--hue-5-2);
+}
+
+/* JSON overrides */
+.language-json .token.operator {
+  color: var(--mono-1);
+}
+
+.language-json .token.null.keyword {
+  color: var(--hue-6);
+}
+
+/* Markdown overrides */
+.language-markdown .token.url,
+.language-markdown .token.url > .token.operator,
+.language-markdown .token.url-reference.url > .token.string {
+  color: var(--mono-1);
+}
+
+.language-markdown .token.url > .token.content {
+  color: var(--hue-2);
+}
+
+.language-markdown .token.url > .token.url,
+.language-markdown .token.url-reference.url {
+  color: var(--hue-1);
+}
+
+.language-markdown .token.blockquote.punctuation,
+.language-markdown .token.hr.punctuation {
+  color: var(--mono-3);
+  font-style: italic;
+}
+
+.language-markdown .token.code-snippet {
+  color: var(--hue-4);
+}
+
+.language-markdown .token.bold .token.content {
+  color: var(--hue-6);
+}
+
+.language-markdown .token.italic .token.content {
+  color: var(--hue-3);
+}
+
+.language-markdown .token.strike .token.content,
+.language-markdown .token.strike .token.punctuation,
+.language-markdown .token.list.punctuation,
+.language-markdown .token.title.important > .token.punctuation {
+  color: var(--hue-5);
+}
+
+/* General */
+.token.bold {
+  font-weight: bold;
+}
+
+.token.comment,
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.namespace {
+  opacity: 0.8;
+}

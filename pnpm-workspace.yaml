@@ -1,6 +1,3 @@
-packages:
-  # Main website package (root)
-  - "."
-
-  # Tools workspace
-  - "tools/*"
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver

@@ -3,10 +3,6 @@ import { ProcessedOGParams } from "../types";
 import { ImageElement } from "./ImageElement";
 import { TextElement } from "./TextElement";
 
-/**
- * Main layout component for Open Graph images
- * Handles the overall composition and layout of all OG image elements
- */
 export const OGLayout = ({
   title,
   description,
@@ -35,7 +31,7 @@ export const OGLayout = ({
         position: "relative",
       }}
     >
-      {/* Background pattern/texture */}
+      {/* Background pattern */}
       <div
         style={{
           position: "absolute",
@@ -50,7 +46,7 @@ export const OGLayout = ({
         }}
       />
 
-      {/* Main content container */}
+      {/* Main content */}
       <div
         style={{
           display: "flex",
@@ -81,26 +77,21 @@ export const OGLayout = ({
             gap: SPACING.contentGap,
           }}
         >
-          {/* Header text */}
           {headerText && (
             <TextElement text={headerText} styles={typography.header} />
           )}
-
-          {/* Main title with gradient */}
           <TextElement
             text={title}
             styles={
               isHomepage ? typography.titleHomepage : typography.titleDefault
             }
           />
-
-          {/* Description */}
           {description && (
             <TextElement text={description} styles={typography.description} />
           )}
         </div>
 
-        {/* Image section */}
+        {/* Image */}
         {processedImage && (
           <div
             style={{

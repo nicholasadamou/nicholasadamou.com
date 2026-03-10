@@ -1,11 +1,4 @@
-export type OGType =
-  | "homepage"
-  | "project"
-  | "note"
-  | "projects"
-  | "notes"
-  | "contact"
-  | "gallery";
+export type OGType = "homepage" | "note" | "notes";
 
 export type OGTheme = "dark" | "light";
 
@@ -37,9 +30,6 @@ export interface StyleConfig {
     | "inherit"
     | "unset";
   marginBottom?: string;
-  background?: string;
-  backgroundClip?: string;
-  WebkitBackgroundClip?: string;
   maxWidth?: string;
   textShadow?: string;
 }

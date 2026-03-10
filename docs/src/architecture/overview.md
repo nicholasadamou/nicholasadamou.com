@@ -8,7 +8,7 @@ High-level overview of the application architecture.
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Animations**: Framer Motion
-- **Content**: MDX with Contentlayer
+- **Content**: MDX with gray-matter and reading-time
 - **State**: React Server Components + Client Components
 - **Testing**: Vitest + Testing Library
 - **Deployment**: Vercel
@@ -18,13 +18,13 @@ High-level overview of the application architecture.
 ### Server-First
 
 - Default to React Server Components
-- Client components only when needed
+- Client components only when needed ("use client")
 - API routes for backend logic
 
 ### Performance
 
 - Image optimization with Next.js Image
-- Local caching for external APIs
+- Local images for Unsplash and VSCO
 - Lazy loading and code splitting
 - Core Web Vitals optimization
 
@@ -32,35 +32,36 @@ High-level overview of the application architecture.
 
 - TypeScript everywhere
 - Hot module replacement
-- Comprehensive testing
+- Comprehensive testing (>80% coverage)
 - Well-organized code structure
 
 ## Architecture Patterns
 
-### Folder-by-Feature
+### Folder-by-Domain
 
-Code is organized by feature rather than by type:
+Code is organized by domain rather than by type:
 
 ```
 src/
 ├── app/              # Routes (Next.js App Router)
-├── components/       # UI components by feature
-├── hooks/           # Custom hooks by domain
-└── lib/             # Utilities by feature
+├── components/       # UI components by domain
+├── hooks/            # Custom hooks
+└── lib/              # Utilities by feature
 ```
 
 ### Component Patterns
 
 - Server Components by default
 - Client Components with "use client"
-- Shared UI components in `components/common`
-- Feature-specific in `components/features`
+- Domain-specific components in `components/{domain}/`
+- Shared UI primitives in `components/ui/`
 
 ### Data Fetching
 
 - Server Components fetch data directly
 - API routes for client-side fetching
-- Unsplash images resolved to local paths at build time
+- Unsplash images resolved to local paths at parse time
+- VSCO images served from local data export
 
 ## Next Steps
 

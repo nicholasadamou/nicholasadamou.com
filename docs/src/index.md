@@ -1,6 +1,6 @@
 # nicholasadamou.com Documentation
 
-Welcome to the developer documentation for nicholasadamou.com - a modern portfolio and blog built with Next.js 16, React 19, and TypeScript.
+Welcome to the developer documentation for nicholasadamou.com — a modern portfolio and blog built with Next.js 16, React 19, and TypeScript.
 
 ## Overview
 
@@ -10,13 +10,15 @@ This documentation covers the architecture, features, and development workflow f
 
 - ⚡ **Next.js 16** with App Router and React Server Components
 - 🎨 **Modern UI** with Tailwind CSS and Framer Motion animations
-- 📝 **MDX Content** for blog posts and project pages
-- 🖼️ **Image Optimization** with Unsplash+ and local caching
-- 📸 **Gallery Integration** with VSCO and Unsplash
-- 🔍 **SEO Optimized** with dynamic metadata generation
-- 🌗 **Dark Mode** support with next-themes
+- 📝 **MDX Content** for blog posts with gray-matter and reading-time
+- 🖼️ **Image Optimization** with Unsplash and local caching
+- 📸 **Gallery Integration** with VSCO and local manifest
+- 🔍 **SEO Optimized** with dynamic OG image generation
+- 🌗 **Custom Theme System** with light/dark/custom color support
 - 📊 **Analytics** with Vercel Analytics and Speed Insights
-- ⚡ **Performance** focused with Core Web Vitals optimization
+- 🤖 **AI Chatbot** powered by OpenAI Assistant API
+- 📬 **Contact Form** with email integration
+- 🔎 **Search** with full-text content search
 
 ## Quick Links
 
@@ -30,8 +32,8 @@ This documentation covers the architecture, features, and development workflow f
 - **Version**: 0.1.0
 - **Node**: >=18.0.0
 - **Package Manager**: pnpm >=8.0.0
-- **Framework**: Next.js 16.1.0
-- **React**: 19.2.0
+- **Framework**: Next.js 16.1.6
+- **React**: 19.2.3
 
 ## Resources
 

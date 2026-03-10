@@ -147,15 +147,15 @@ The [`worker_threads`](https://nodejs.org/api/worker_threads.html) module (stabl
 
 ```
 Node.js Process
-├── Main Thread
-│   ├── V8 Instance
-│   └── Event Loop
-├── Worker Thread 1
-│   ├── V8 Instance
-│   └── Event Loop
-└── Worker Thread 2
-    ├── V8 Instance
-    └── Event Loop
+ Main Thread
+    V8 Instance
+    Event Loop
+ Worker Thread 1
+    V8 Instance
+    Event Loop
+ Worker Thread 2
+     V8 Instance
+     Event Loop
 
 Shared Memory (SharedArrayBuffer)
 ```

@@ -15,12 +15,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Needed for coverage comparison
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.15.0
+          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -61,7 +61,6 @@ jobs:
       - name: Verify coverage thresholds
         run: |
           if [ -f "coverage/coverage-summary.json" ]; then
-            # Extract coverage percentages from the JSON report
             STMT_COV=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.statements.pct")
             BRANCH_COV=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.branches.pct")
             FUNC_COV=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.functions.pct")
@@ -73,8 +72,6 @@ jobs:
             echo "Functions: ${FUNC_COV}%"
             echo "Lines: ${LINE_COV}%"
 
-            # Note: We're not enforcing strict coverage thresholds since this is a Next.js app
-            # with many UI components that don't require unit testing
             echo "✅ Coverage report generated successfully"
           else
             echo "⚠️  Coverage summary file not found, skipping threshold verification"
@@ -126,7 +123,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.15.0
+          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -161,13 +158,11 @@ jobs:
 
       - name: Compare coverage
         run: |
-          # Get coverage from base branch
           BASE_STMT=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.statements.pct")
           BASE_BRANCH=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.branches.pct")
           BASE_FUNC=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.functions.pct")
           BASE_LINE=$(node -p "JSON.parse(require('fs').readFileSync('./coverage/coverage-summary.json', 'utf8')).total.lines.pct")
 
-          # Get coverage from PR branch
           PR_STMT=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.statements.pct")
           PR_BRANCH=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.branches.pct")
           PR_FUNC=$(node -p "JSON.parse(require('fs').readFileSync('./coverage-pr.json', 'utf8')).total.functions.pct")

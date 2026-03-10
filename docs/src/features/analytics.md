@@ -12,4 +12,11 @@ Core Web Vitals tracking (LCP, FID, CLS).
 
 ## View Tracking
 
-Page view tracking with Postgres database.
+Per-article view tracking via `/api/notes/[slug]/views` with Vercel Postgres.
+
+The `useViews` hook handles both fetching and incrementing:
+
+```typescript
+const count = useViews(slug); // GET + POST on mount
+const count = useViews(slug, false); // GET only (no increment)
+```
