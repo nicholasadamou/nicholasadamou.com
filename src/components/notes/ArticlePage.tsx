@@ -64,7 +64,7 @@ export default function ArticlePage({
     >
       <div className="mx-auto max-w-[45rem] px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
         <article>
-          <header className="mb-8">
+          <header className="animate-fadeInText mb-8">
             <div className="mb-3 flex items-center gap-2 text-sm opacity-60 sm:text-base">
               <time>{formattedDate}</time>
               <span className="opacity-50">/</span>
@@ -79,7 +79,7 @@ export default function ArticlePage({
           </header>
 
           {image && (
-            <div className="mb-8 space-y-2">
+            <div className="animate-fadeInHome1 mb-8 space-y-2">
               <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                 <UniversalImage
                   src={image}
@@ -116,7 +116,7 @@ export default function ArticlePage({
           )}
 
           <div
-            className={`prose prose-base sm:prose-lg prose-headings:font-medium prose-headings:transition-colors prose-h2:text-2xl
+            className={`animate-fadeInHome2 prose prose-base sm:prose-lg prose-headings:font-medium prose-headings:transition-colors prose-h2:text-2xl
               prose-h2:mt-10 sm:prose-h2:mt-12
               prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 sm:prose-h3:mt-8
               prose-h3:mb-3 prose-p:leading-[1.75] prose-p:transition-colors prose-a:no-underline
