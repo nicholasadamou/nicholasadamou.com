@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { HexColorPicker } from "react-colorful";
 import { useTheme } from "@/components/ThemeProvider";
+import { useHomeLayout } from "@/hooks/use-home-layout";
 import CommandPalette from "@/components/layout/CommandPalette";
 import KeyboardShortcutsDialog from "@/components/layout/KeyboardShortcutsDialog";
 import { DynamicChatbot } from "@/components/chat/DynamicChatbot";
+import Tooltip from "@/components/ui/Tooltip";
 
 function HomeIcon() {
   return (
@@ -178,6 +180,8 @@ export default function BottomNav() {
   const [showSearch, setShowSearch] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const { layout } = useHomeLayout();
+  const isSingleCol = layout === "single";
   const {
     themeState,
     updateTheme,
@@ -253,58 +257,76 @@ export default function BottomNav() {
   return (
     <>
       <div
-        className={`animate-fadeInNav fixed inset-x-6 bottom-5 mx-auto flex max-w-xs items-center justify-between gap-4 rounded-full px-5 py-2.5 text-sm sm:bottom-6 sm:left-6 sm:right-auto sm:mx-0 sm:max-w-none sm:gap-6 ${navBg}`}
+        className={`animate-fadeInNav fixed inset-x-6 bottom-5 mx-auto flex max-w-xs items-center justify-between gap-4 rounded-full px-5 py-2.5 text-sm sm:bottom-6 sm:max-w-fit sm:gap-6 ${
+          isSingleCol ? "" : "sm:left-6 sm:right-auto sm:mx-0"
+        } ${navBg}`}
       >
-        <Link
-          href="/"
-          className={`font-semibold transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
-        >
-          <HomeIcon />
-        </Link>
-        <Link
-          href="https://github.com/nicholasadamou"
-          target="_blank"
-          className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
-        >
-          <GitHubIcon />
-        </Link>
-        <Link
-          href="https://linkedin.com/in/nicholas-adamou"
-          target="_blank"
-          className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
-        >
-          <LinkedInIcon />
-        </Link>
-        <Link
-          href="/contact"
-          className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
-        >
-          <MailIcon />
-        </Link>
-        <button
-          className={`color-picker-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
-          onClick={() => setShowPicker(!showPicker)}
-        >
-          <PaletteIcon />
-        </button>
-        <button
-          className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
-          onClick={() => setShowSearch(true)}
-        >
-          <SearchIcon />
-        </button>
-        <button
-          className={`chat-trigger hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
-          onClick={() => setShowChat((prev) => !prev)}
-        >
-          <ChatIcon />
-        </button>
-        <button
-          className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
-          onClick={() => setShowShortcuts(true)}
-        >
-          <HelpIcon />
-        </button>
+        <Tooltip label="Home">
+          <Link
+            href="/"
+            className={`font-semibold transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          >
+            <HomeIcon />
+          </Link>
+        </Tooltip>
+        <Tooltip label="GitHub">
+          <Link
+            href="https://github.com/nicholasadamou"
+            target="_blank"
+            className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          >
+            <GitHubIcon />
+          </Link>
+        </Tooltip>
+        <Tooltip label="LinkedIn">
+          <Link
+            href="https://linkedin.com/in/nicholas-adamou"
+            target="_blank"
+            className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          >
+            <LinkedInIcon />
+          </Link>
+        </Tooltip>
+        <Tooltip label="Contact">
+          <Link
+            href="/contact"
+            className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          >
+            <MailIcon />
+          </Link>
+        </Tooltip>
+        <Tooltip label="Theme">
+          <button
+            className={`color-picker-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+            onClick={() => setShowPicker(!showPicker)}
+          >
+            <PaletteIcon />
+          </button>
+        </Tooltip>
+        <Tooltip label="Search ⌘K">
+          <button
+            className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
+            onClick={() => setShowSearch(true)}
+          >
+            <SearchIcon />
+          </button>
+        </Tooltip>
+        <Tooltip label="Chat ⌘J">
+          <button
+            className={`chat-trigger hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
+            onClick={() => setShowChat((prev) => !prev)}
+          >
+            <ChatIcon />
+          </button>
+        </Tooltip>
+        <Tooltip label="Shortcuts ?">
+          <button
+            className={`hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
+            onClick={() => setShowShortcuts(true)}
+          >
+            <HelpIcon />
+          </button>
+        </Tooltip>
       </div>
 
       <CommandPalette
@@ -328,14 +350,30 @@ export default function BottomNav() {
           />
           <div className="mt-2.5 flex gap-1.5">
             <button
-              onClick={() => updateTheme({ mode: "light", color: "#fafaf9" })}
-              className={`flex h-8 flex-1 items-center justify-center rounded-lg px-3 pb-0.5 text-sm transition-all ${btnClass} cursor-pointer hover:opacity-60`}
+              onClick={() => {
+                updateTheme({ mode: "light", color: "#fafaf9" });
+                setShowPicker(false);
+              }}
+              disabled={themeState.mode === "light"}
+              className={`flex h-8 flex-1 items-center justify-center rounded-lg px-3 pb-0.5 text-sm transition-all ${btnClass} ${
+                themeState.mode === "light"
+                  ? "cursor-not-allowed opacity-40"
+                  : "cursor-pointer hover:opacity-60"
+              }`}
             >
               Light
             </button>
             <button
-              onClick={() => updateTheme({ mode: "dark", color: "#0c0a09" })}
-              className={`flex h-8 flex-1 items-center justify-center rounded-lg px-3 pb-0.5 text-sm transition-all ${btnClass} cursor-pointer hover:opacity-60`}
+              onClick={() => {
+                updateTheme({ mode: "dark", color: "#0c0a09" });
+                setShowPicker(false);
+              }}
+              disabled={themeState.mode === "dark"}
+              className={`flex h-8 flex-1 items-center justify-center rounded-lg px-3 pb-0.5 text-sm transition-all ${btnClass} ${
+                themeState.mode === "dark"
+                  ? "cursor-not-allowed opacity-40"
+                  : "cursor-pointer hover:opacity-60"
+              }`}
             >
               Dark
             </button>

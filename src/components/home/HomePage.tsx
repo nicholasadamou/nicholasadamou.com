@@ -57,7 +57,7 @@ export default function HomePage({ articles }: HomePageProps) {
         className={`flex flex-col justify-between gap-6 p-6 pb-32 text-sm ${
           isTwoCol
             ? "sm:h-full sm:flex-row sm:gap-0 sm:overflow-hidden sm:p-0"
-            : "mx-auto sm:max-w-[30rem] sm:py-10"
+            : "mx-auto sm:max-w-[30rem] sm:pb-24 sm:pt-10"
         }`}
       >
         {/* Bio */}

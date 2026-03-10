@@ -553,7 +553,10 @@ export default function CommandPalette({
           />
 
           {/* Command Palette */}
-          <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
+          <div
+            className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]"
+            onClick={onClose}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
