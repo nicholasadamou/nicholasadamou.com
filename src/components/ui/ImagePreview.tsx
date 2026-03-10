@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import UniversalImage from "@/components/ui/UniversalImage";
 
@@ -20,12 +20,18 @@ export default function ImagePreview({
   const [visible, setVisible] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isDesktop = useMemo(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 640px)").matches,
+    []
+  );
 
   const onEnter = useCallback(() => {
-    if (!src) return;
+    if (!src || !isDesktop) return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setVisible(true), 300);
-  }, [src]);
+  }, [src, isDesktop]);
 
   const onLeave = useCallback(() => {
     if (timeoutRef.current) {
