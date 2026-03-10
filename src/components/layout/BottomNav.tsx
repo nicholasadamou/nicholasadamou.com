@@ -210,7 +210,7 @@ export default function BottomNav() {
         e.preventDefault();
         setShowSearch((prev) => !prev);
       }
-      if ((e.metaKey || e.ctrlKey) && e.key === "j") {
+      if ((e.metaKey || e.ctrlKey) && e.key === "j" && isDesktop()) {
         e.preventDefault();
         setShowChat((prev) => !prev);
       }
@@ -294,7 +294,7 @@ export default function BottomNav() {
           <SearchIcon />
         </button>
         <button
-          className={`chat-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+          className={`chat-trigger hidden cursor-pointer transition-opacity hover:opacity-100 sm:block ${getOpacityClass()} ${getLinkColorClass()}`}
           onClick={() => setShowChat((prev) => !prev)}
         >
           <ChatIcon />
