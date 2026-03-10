@@ -10,6 +10,7 @@ export default function ThemedToaster() {
   return (
     <Toaster
       position="bottom-center"
+      containerStyle={{ bottom: 80 }}
       toastOptions={{
         style: {
           background: light ? "#1c1917" : "#fafaf9",
