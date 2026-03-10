@@ -27,6 +27,7 @@ export default function BioSection({
         height={80}
         className="rounded-full"
         priority
+        fetchPriority="high"
       />
       <h1 className="text-[15px] font-medium tracking-[-0.005em]">
         Hi, I&apos;m Nick, a senior software engineer at{" "}

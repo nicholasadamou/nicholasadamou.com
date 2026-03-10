@@ -7,7 +7,8 @@ Automation scripts organized by purpose.
 ```
 scripts/
 ├── build/          # Build-time automation
-│   └── download-unsplash.js
+│   ├── download-unsplash.js
+│   └── compress-images.mjs
 ├── content/        # Content processing
 │   └── prepare-chatbot.js
 └── training-data/  # Generated chatbot data
@@ -18,6 +19,7 @@ scripts/
 ### Build Scripts
 
 - **download-unsplash.js** - Downloads Unsplash images via API
+- **compress-images.mjs** - Compresses oversized images in `public/` using sharp
 
 ### Content Scripts
 
@@ -28,6 +30,9 @@ scripts/
 ```bash
 # Download Unsplash images locally
 pnpm run download:images:unsplash
+
+# Compress oversized public images
+node scripts/build/compress-images.mjs
 
 # Prepare chatbot data
 pnpm run prepare-chatbot-data

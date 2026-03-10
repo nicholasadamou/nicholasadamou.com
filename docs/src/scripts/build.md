@@ -1,6 +1,6 @@
 # Build Scripts
 
-Automated scripts for downloading images.
+Automated scripts for downloading and optimizing images.
 
 ## download-unsplash.js
 
@@ -18,6 +18,24 @@ pnpm run download:images:unsplash
 - Fetches images directly via the Unsplash API
 - Skips already-downloaded files
 - Requires `UNSPLASH_ACCESS_KEY` in `.env.local`
+
+## compress-images.mjs
+
+Compresses oversized images in `public/images/` using sharp.
+
+**Purpose**: Reduces image file sizes for faster page loads and smaller build output.
+
+```bash
+node scripts/build/compress-images.mjs
+```
+
+**Features**:
+
+- Processes all JPG/JPEG/PNG files larger than 500 KB
+- Resizes to max 2400px on the longest edge (preserves aspect ratio)
+- Re-encodes JPEGs with mozjpeg quality 80, PNGs with compression level 9
+- Only overwrites if the compressed version is smaller
+- Requires `sharp` (installed as a project dependency)
 
 ## Troubleshooting
 

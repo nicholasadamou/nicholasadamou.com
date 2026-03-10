@@ -94,7 +94,15 @@ export async function GET() {
       ownerType: ORG_NAMES.has(repo.owner.login.toLowerCase()) ? "org" : "user",
     }));
 
-    return NextResponse.json({ projects }, { status: 200 });
+    return NextResponse.json(
+      { projects },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching GitHub repos:", error);
     return NextResponse.json(

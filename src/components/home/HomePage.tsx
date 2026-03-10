@@ -1,10 +1,11 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { Eye } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout } from "@/hooks/use-home-layout";
-import { useViews } from "@/hooks/use-views";
+import { useBatchViews } from "@/hooks/use-batch-views";
 import BioSection from "@/components/home/BioSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
@@ -12,17 +13,6 @@ import { projects } from "@/lib/projects/config";
 import { ProjectIcon } from "@/lib/projects/icons";
 import ImagePreview from "@/components/ui/ImagePreview";
 import type { Article } from "@/lib/content/mdx";
-
-function NoteViewCount({ slug }: { slug: string }) {
-  const views = useViews(slug, false);
-  if (!views) return null;
-  return (
-    <span className="flex items-center gap-1">
-      <Eye size={11} />
-      {views.toLocaleString()}
-    </span>
-  );
-}
 
 interface HomePageProps {
   articles: Pick<Article, "slug" | "title" | "date" | "readTime" | "image">[];
@@ -38,6 +28,8 @@ export default function HomePage({ articles }: HomePageProps) {
     isHydrated,
   } = useTheme();
   const { layout } = useHomeLayout();
+  const slugs = useMemo(() => articles.map((a) => a.slug), [articles]);
+  const viewCounts = useBatchViews(slugs);
   const isTwoCol = layout === "two-column";
 
   if (!isHydrated) {
@@ -143,7 +135,12 @@ export default function HomePage({ articles }: HomePageProps) {
                       <span className="opacity-50">/</span>
                       <span>{article.readTime}</span>
                       <span className="opacity-50">/</span>
-                      <NoteViewCount slug={article.slug} />
+                      {viewCounts[article.slug] ? (
+                        <span className="flex items-center gap-1">
+                          <Eye size={11} />
+                          {viewCounts[article.slug].toLocaleString()}
+                        </span>
+                      ) : null}
                     </p>
                   </div>
                 </ImagePreview>

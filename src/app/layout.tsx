@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemedToaster from "@/components/layout/ThemedToaster";
 import BackNav from "@/components/layout/BackNav";
@@ -11,12 +11,6 @@ import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const dmSerif = DM_Serif_Display({
-  variable: "--font-serif",
-  weight: "400",
   subsets: ["latin"],
 });
 
@@ -73,7 +67,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${dmSerif.variable} antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://im.vsco.co" />
+        <link rel="dns-prefetch" href="https://im.vsco.co" />
+      </head>
+      <body className={`${inter.variable} antialiased`}>
         <ThemeProvider>
           <BackNav />
           {children}

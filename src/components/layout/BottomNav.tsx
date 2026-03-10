@@ -1,13 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import Link from "next/link";
-import { HexColorPicker } from "react-colorful";
 import { useTheme } from "@/components/ThemeProvider";
+
+const HexColorPicker = lazy(() =>
+  import("react-colorful").then((mod) => ({ default: mod.HexColorPicker }))
+);
 import { useHomeLayout } from "@/hooks/use-home-layout";
-import CommandPalette from "@/components/layout/CommandPalette";
-import KeyboardShortcutsDialog from "@/components/layout/KeyboardShortcutsDialog";
+import dynamic from "next/dynamic";
 import { DynamicChatbot } from "@/components/chat/DynamicChatbot";
+
+const CommandPalette = dynamic(
+  () => import("@/components/layout/CommandPalette"),
+  { ssr: false }
+);
+const KeyboardShortcutsDialog = dynamic(
+  () => import("@/components/layout/KeyboardShortcutsDialog"),
+  { ssr: false }
+);
 import Tooltip from "@/components/ui/Tooltip";
 
 function HomeIcon() {
@@ -349,11 +360,17 @@ export default function BottomNav() {
             isSingleCol ? "" : "sm:inset-x-auto sm:left-6 sm:mx-0"
           } ${pickerBg} color-picker-container z-50 rounded-xl backdrop-blur-md`}
         >
-          <HexColorPicker
-            color={themeState.color}
-            onChange={(color) => updateTheme({ mode: "custom", color })}
-            className="!w-full"
-          />
+          <Suspense
+            fallback={
+              <div className="aspect-square w-full animate-pulse rounded-lg bg-white/10" />
+            }
+          >
+            <HexColorPicker
+              color={themeState.color}
+              onChange={(color) => updateTheme({ mode: "custom", color })}
+              className="!w-full"
+            />
+          </Suspense>
           <div className="mt-2.5 flex gap-1.5">
             <button
               onClick={() => {
