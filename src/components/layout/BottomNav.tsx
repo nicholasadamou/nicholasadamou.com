@@ -3,6 +3,7 @@
 import {
   useState,
   useEffect,
+  useRef,
   useSyncExternalStore,
   lazy,
   Suspense,
@@ -241,21 +242,33 @@ export default function BottomNav() {
     }
   }, [showPicker]);
 
-  // Cmd+K / Cmd+J shortcuts (Cmd+K desktop only)
+  const panelRef = useRef({ showSearch, showChat, showPicker, showShortcuts });
+  useEffect(() => {
+    panelRef.current = { showSearch, showChat, showPicker, showShortcuts };
+  }, [showSearch, showChat, showPicker, showShortcuts]);
+
+  // Cmd+K / Cmd+J / Cmd+E shortcuts (desktop only)
   useEffect(() => {
     const checkDesktop = () => window.matchMedia("(min-width: 640px)").matches;
     const handleKeyDown = (e: KeyboardEvent) => {
+      const p = panelRef.current;
+      const hasOpen =
+        p.showSearch || p.showChat || p.showPicker || p.showShortcuts;
+
       if ((e.metaKey || e.ctrlKey) && e.key === "k" && checkDesktop()) {
         e.preventDefault();
-        setShowSearch((prev) => !prev);
+        if (p.showSearch) setShowSearch(false);
+        else if (!hasOpen) setShowSearch(true);
       }
       if ((e.metaKey || e.ctrlKey) && e.key === "j" && checkDesktop()) {
         e.preventDefault();
-        setShowChat((prev) => !prev);
+        if (p.showChat) setShowChat(false);
+        else if (!hasOpen) setShowChat(true);
       }
       if ((e.metaKey || e.ctrlKey) && e.key === "e" && checkDesktop()) {
         e.preventDefault();
-        setShowPicker((prev) => !prev);
+        if (p.showPicker) setShowPicker(false);
+        else if (!hasOpen) setShowPicker(true);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -265,6 +278,8 @@ export default function BottomNav() {
   // ? shortcut for help
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const p = panelRef.current;
+      if (p.showSearch || p.showChat || p.showPicker || p.showShortcuts) return;
       const target = e.target as HTMLElement;
       const isTyping =
         target.tagName === "INPUT" || target.tagName === "TEXTAREA";
