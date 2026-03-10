@@ -22,6 +22,7 @@ const EXPORT_DATA = [
   {
     id: "abc123",
     capture_date: 1704844800000, // 2024-01-10
+    upload_date: 1704931200000, // 2024-01-11
     height: 2048,
     width: 1536,
     file_name: "photo1.jpg",
@@ -33,6 +34,7 @@ const EXPORT_DATA = [
   {
     id: "def456",
     capture_date: 1704412800000, // 2024-01-05
+    upload_date: 1704499200000, // 2024-01-06
     height: 1800,
     width: 1200,
     file_name: "photo2.jpg",
@@ -44,6 +46,7 @@ const EXPORT_DATA = [
   {
     id: "dup789",
     capture_date: 1704326400000, // 2024-01-04 (duplicate file_name)
+    upload_date: 1704672000000, // 2024-01-08
     height: 2048,
     width: 1536,
     file_name: "photo1.jpg",
@@ -55,6 +58,7 @@ const EXPORT_DATA = [
   {
     id: "vid001",
     capture_date: 1704240000000,
+    upload_date: 1704240000000,
     height: 1920,
     width: 1080,
     file_name: "video.mp4",
@@ -89,20 +93,21 @@ describe("getLocalVscoImages", () => {
     const { getLocalVscoImages } = await import("@/lib/vsco-local");
     const result = getLocalVscoImages();
 
-    expect(result.images.length).toBe(2); // 2 unique files (deduped + no video)
-    expect(result.totalCount).toBe(2);
+    expect(result.images.length).toBe(3); // 3 unique ids (no video)
+    expect(result.totalCount).toBe(3);
     expect(result.source).toBe("vsco-export");
   });
 
-  it("sorts by capture date (most recent first)", async () => {
+  it("sorts by upload date (most recent first)", async () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
     vi.mocked(fs.readFileSync).mockReturnValue(JSON.stringify(EXPORT_DATA));
 
     const { getLocalVscoImages } = await import("@/lib/vsco-local");
     const result = getLocalVscoImages();
 
-    expect(result.images[0]?.id).toBe("abc123"); // Jan 10
-    expect(result.images[1]?.id).toBe("def456"); // Jan 5
+    expect(result.images[0]?.id).toBe("abc123"); // uploaded Jan 11
+    expect(result.images[1]?.id).toBe("dup789"); // uploaded Jan 8
+    expect(result.images[2]?.id).toBe("def456"); // uploaded Jan 6
   });
 
   it("supports pagination with limit and offset", async () => {
@@ -110,9 +115,9 @@ describe("getLocalVscoImages", () => {
     vi.mocked(fs.readFileSync).mockReturnValue(JSON.stringify(EXPORT_DATA));
 
     const { getLocalVscoImages } = await import("@/lib/vsco-local");
-    const result = getLocalVscoImages(1, 0);
+    const result = getLocalVscoImages(2, 0);
 
-    expect(result.images).toHaveLength(1);
+    expect(result.images).toHaveLength(2);
     expect(result.hasMore).toBe(true);
   });
 
@@ -127,23 +132,29 @@ describe("getLocalVscoImages", () => {
       "https://im.vsco.co/aws-us-west-2/abc/123/photo1.jpg"
     );
     expect(result.images[1]?.url).toBe(
+      "https://im.vsco.co/aws-us-west-2/abc/789/photo1_dup.jpg"
+    );
+    expect(result.images[2]?.url).toBe(
       "https://im.vsco.co/aws-us-west-2/abc/456/photo2.jpg"
     );
   });
 
-  it("deduplicates entries with the same file_name", async () => {
+  it("deduplicates entries with the same id", async () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
-    vi.mocked(fs.readFileSync).mockReturnValue(JSON.stringify(EXPORT_DATA));
+    const dataWithDuplicateId = [
+      ...EXPORT_DATA,
+      { ...EXPORT_DATA[0], file_name: "different.jpg" }, // same id, different file_name
+    ];
+    vi.mocked(fs.readFileSync).mockReturnValue(
+      JSON.stringify(dataWithDuplicateId)
+    );
 
     const { getLocalVscoImages } = await import("@/lib/vsco-local");
     const result = getLocalVscoImages();
 
-    // photo1.jpg appears twice in EXPORT_DATA but should only show once
-    const photo1s = result.images.filter(
-      (i) => i.url === "https://im.vsco.co/aws-us-west-2/abc/123/photo1.jpg"
-    );
-    expect(photo1s).toHaveLength(1);
-    expect(photo1s[0]?.id).toBe("abc123"); // keeps first occurrence
+    // abc123 appears twice but should only show once
+    const abc123s = result.images.filter((i) => i.id === "abc123");
+    expect(abc123s).toHaveLength(1);
   });
 
   it("filters out videos", async () => {

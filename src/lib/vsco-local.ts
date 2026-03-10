@@ -5,6 +5,7 @@ import type { VscoApiResponse, VscoImage } from "@/types/vsco";
 interface VscoExportEntry {
   id: string;
   capture_date: number;
+  upload_date: number;
   height: number;
   width: number;
   file_name: string;
@@ -58,17 +59,15 @@ export function getLocalVscoImages(
       width: entry.width,
       height: entry.height,
       vsco_url: `https://vsco.co/${entry.perma_subdomain}/media/${entry.id}`,
-      upload_date: new Date(entry.capture_date).toISOString(),
+      upload_date: new Date(entry.upload_date).toISOString(),
     });
   }
 
-  // Sort by capture date (most recent first)
-  images.sort((a, b) => {
-    if (!a.upload_date || !b.upload_date) return 0;
-    return (
-      new Date(b.upload_date).getTime() - new Date(a.upload_date).getTime()
-    );
-  });
+  // Sort by upload date (most recently posted first)
+  images.sort(
+    (a, b) =>
+      new Date(b.upload_date!).getTime() - new Date(a.upload_date!).getTime()
+  );
 
   const totalCount = images.length;
   const startIndex = offset || 0;
