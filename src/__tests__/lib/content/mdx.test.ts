@@ -91,12 +91,11 @@ describe("getAllArticles", () => {
 
   it("filters non-mdx files", async () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(fs.readdirSync).mockReturnValue([
       "a.mdx",
       "b.txt",
       "c.mdx",
-    ] as any);
+    ] as any); // eslint-disable-line @typescript-eslint/no-explicit-any
     vi.mocked(fs.readFileSync).mockReturnValue(MDX_FILE);
 
     const { getAllArticles } = await import("@/lib/content/mdx");
@@ -156,12 +155,11 @@ describe("getRelatedArticles", () => {
 
   it("excludes the given slug", async () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(fs.readdirSync).mockReturnValue([
       "a.mdx",
       "b.mdx",
       "c.mdx",
-    ] as any);
+    ] as any); // eslint-disable-line @typescript-eslint/no-explicit-any
     vi.mocked(fs.readFileSync).mockReturnValue(MDX_FILE);
 
     const { getRelatedArticles } = await import("@/lib/content/mdx");
@@ -171,13 +169,12 @@ describe("getRelatedArticles", () => {
 
   it("returns at most `count` articles", async () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(fs.readdirSync).mockReturnValue([
       "a.mdx",
       "b.mdx",
       "c.mdx",
       "d.mdx",
-    ] as any);
+    ] as any); // eslint-disable-line @typescript-eslint/no-explicit-any
     vi.mocked(fs.readFileSync).mockReturnValue(MDX_FILE);
 
     const { getRelatedArticles } = await import("@/lib/content/mdx");

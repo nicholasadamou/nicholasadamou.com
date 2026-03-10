@@ -3,13 +3,13 @@
 # Default port for MkDocs
 DEFAULT_PORT=8000
 # Ports to try if default is taken
-PORTS=($DEFAULT_PORT 8001 8002 8003 8004 8005 8080 8888)
+PORTS=("$DEFAULT_PORT" 8001 8002 8003 8004 8005 8080 8888)
 
 # Function to check if a port is available
 is_port_available() {
     local port=$1
     # Use lsof to check if port is in use (works on macOS and Linux)
-    ! lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1
+    ! lsof -Pi :"$port" -sTCP:LISTEN -t >/dev/null 2>&1
 }
 
 # Find an available port

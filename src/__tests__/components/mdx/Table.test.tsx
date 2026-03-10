@@ -25,16 +25,16 @@ describe("Table", () => {
   });
 
   it("returns null when columns is undefined", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { container } = render(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       <Table columns={undefined as any} data={DATA} />
     );
     expect(container.innerHTML).toBe("");
   });
 
   it("returns null when data is undefined", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { container } = render(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       <Table columns={COLUMNS} data={undefined as any} />
     );
     expect(container.innerHTML).toBe("");

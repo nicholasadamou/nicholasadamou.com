@@ -119,8 +119,6 @@ class LocalStorageMock {
 global.localStorage = new LocalStorageMock() as Storage;
 
 beforeAll(() => {
-  process.env.NODE_ENV = "test";
-
   const originalError = console.error;
   console.error = (...args: unknown[]) => {
     const message = args[0];

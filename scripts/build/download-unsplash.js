@@ -9,10 +9,12 @@
  * 4. Generates manifest.json mapping photo IDs to local paths + attribution
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require("fs");
 const path = require("path");
 const { pipeline } = require("stream/promises");
 const { Readable } = require("stream");
+/* eslint-enable @typescript-eslint/no-require-imports */
 
 const DOWNLOAD_DIR = path.join(process.cwd(), "public", "images", "unsplash");
 const MANIFEST_PATH = path.join(DOWNLOAD_DIR, "manifest.json");
