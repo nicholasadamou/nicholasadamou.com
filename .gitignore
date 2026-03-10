@@ -43,8 +43,5 @@ next-env.d.ts
 # chatbot training data
 scripts/training-data/
 
-# vsco images (served via CDN, not stored in repo)
-public/images/vsco/
-
 # mkdocs build output
 docs/build/
