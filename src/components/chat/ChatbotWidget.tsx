@@ -6,6 +6,7 @@ import { MessageCircle, Send, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useTheme } from "@/components/ThemeProvider";
+import { useHomeLayout } from "@/hooks/use-home-layout";
 
 interface Message {
   id: string;
@@ -27,6 +28,8 @@ interface ChatbotWidgetProps {
 
 export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
   const { shouldUseDarkText, isHydrated } = useTheme();
+  const { layout } = useHomeLayout();
+  const isSingleCol = layout === "single";
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -244,7 +247,7 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
       {isOpen && (
         <motion.div
           ref={chatWindowRef}
-          className="fixed bottom-[4.5rem] left-1/2 z-50 w-[600px] max-w-[calc(100vw-3rem)] -translate-x-1/2 sm:bottom-20"
+          className={`fixed bottom-[4.5rem] z-50 w-[600px] max-w-[calc(100vw-3rem)] sm:bottom-20 ${isSingleCol ? "left-1/2 -translate-x-1/2" : "left-6"}`}
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
