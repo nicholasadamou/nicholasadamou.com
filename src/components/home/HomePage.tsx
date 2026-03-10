@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Eye } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { useHomeLayout } from "@/hooks/use-home-layout";
 import { useViews } from "@/hooks/use-views";
 import BioSection from "@/components/home/BioSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
@@ -36,6 +37,8 @@ export default function HomePage({ articles }: HomePageProps) {
     shouldUseDarkText,
     isHydrated,
   } = useTheme();
+  const { layout } = useHomeLayout();
+  const isTwoCol = layout === "two-column";
 
   if (!isHydrated) {
     return <div className="flex h-screen items-center justify-center" />;
@@ -46,11 +49,23 @@ export default function HomePage({ articles }: HomePageProps) {
 
   return (
     <main
-      className={`min-h-screen w-full font-sans transition-colors duration-200 sm:h-screen ${getTextColorClass()}`}
+      className={`min-h-screen w-full font-sans transition-colors duration-200 ${
+        isTwoCol ? "sm:h-screen" : ""
+      } ${getTextColorClass()}`}
     >
-      <div className="flex flex-col justify-between gap-6 p-6 pb-32 text-sm sm:h-full sm:flex-row sm:gap-0 sm:overflow-hidden sm:p-0">
-        {/* Left column — Bio */}
-        <div className="flex-1 space-y-6 sm:max-w-[27rem] sm:p-10">
+      <div
+        className={`flex flex-col justify-between gap-6 p-6 pb-32 text-sm ${
+          isTwoCol
+            ? "sm:h-full sm:flex-row sm:gap-0 sm:overflow-hidden sm:p-0"
+            : "mx-auto sm:max-w-[30rem] sm:py-10"
+        }`}
+      >
+        {/* Bio */}
+        <div
+          className={`flex-1 space-y-6 ${
+            isTwoCol ? "sm:max-w-[27rem] sm:p-10" : ""
+          }`}
+        >
           <BioSection
             light={light}
             opacityClass={getOpacityClass()}
@@ -58,10 +73,16 @@ export default function HomePage({ articles }: HomePageProps) {
           />
         </div>
 
-        <hr className={`sm:hidden ${hr}`} />
+        <hr className={`${isTwoCol ? "sm:hidden" : ""} ${hr}`} />
 
-        {/* Right column */}
-        <div className="animate-fadeInHome2 no-scrollbar flex-1 space-y-6 sm:h-full sm:max-w-[25rem] sm:overflow-y-auto sm:p-10">
+        {/* Content */}
+        <div
+          className={`animate-fadeInHome2 no-scrollbar flex-1 space-y-6 ${
+            isTwoCol
+              ? "sm:h-full sm:max-w-[25rem] sm:overflow-y-auto sm:p-10"
+              : ""
+          }`}
+        >
           {/* Projects */}
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Projects</h2>

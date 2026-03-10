@@ -30,8 +30,11 @@ import {
   Star,
   GitFork,
   Image,
+  Columns2,
+  Rows3,
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { useHomeLayout, useIsDesktop } from "@/hooks/use-home-layout";
 
 interface SearchResult {
   type: "note" | "project";
@@ -83,6 +86,8 @@ export default function CommandPalette({
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const { shouldUseDarkText, updateTheme } = useTheme();
+  const { layout, toggleLayout } = useHomeLayout();
+  const isDesktop = useIsDesktop();
 
   const light = shouldUseDarkText();
 
@@ -198,6 +203,41 @@ export default function CommandPalette({
             },
           ]
         : []),
+      // Layout toggle (desktop only)
+      ...(isDesktop
+        ? [
+            {
+              id: "layout-toggle",
+              type: "theme" as const,
+              title:
+                layout === "single"
+                  ? "Two-Column Layout"
+                  : "Single-Column Layout",
+              subtitle:
+                layout === "single"
+                  ? "Switch homepage to side-by-side layout"
+                  : "Switch homepage to stacked layout",
+              icon:
+                layout === "single" ? (
+                  <Columns2 className="h-5 w-5" />
+                ) : (
+                  <Rows3 className="h-5 w-5" />
+                ),
+              action: () => {
+                toggleLayout();
+                onClose();
+              },
+              keywords: [
+                "layout",
+                "column",
+                "single",
+                "two",
+                "stacked",
+                "side by side",
+              ],
+            },
+          ]
+        : []),
       {
         id: "theme-light",
         type: "theme",
@@ -297,7 +337,7 @@ export default function CommandPalette({
         keywords: ["you build it", "youbuildit"],
       },
     ],
-    [router, onClose, updateTheme]
+    [router, onClose, updateTheme, layout, toggleLayout, isDesktop]
   );
 
   // Fetch GitHub repos once when palette opens
