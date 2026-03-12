@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAllArticles } from "@/lib/content/mdx";
 import { projects } from "@/lib/projects/config";
+import type { ProjectIconType } from "@/lib/projects/icons";
 
 interface SearchResult {
   type: "note" | "project";
@@ -9,6 +10,7 @@ interface SearchResult {
   summary: string;
   href: string;
   tags?: string[];
+  icon?: ProjectIconType;
 }
 
 export async function GET(request: NextRequest) {
@@ -60,6 +62,7 @@ export async function GET(request: NextRequest) {
         summary: project.description,
         href: project.href,
         tags: project.tags,
+        icon: project.icon,
       });
     }
   }

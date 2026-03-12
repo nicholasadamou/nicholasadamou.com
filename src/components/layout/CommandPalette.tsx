@@ -36,6 +36,7 @@ import {
 import toast from "react-hot-toast";
 import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout, useIsDesktop } from "@/hooks/use-home-layout";
+import { ProjectIcon, type ProjectIconType } from "@/lib/projects/icons";
 
 interface SearchResult {
   type: "note" | "project";
@@ -44,6 +45,7 @@ interface SearchResult {
   summary: string;
   href: string;
   tags?: string[];
+  icon?: ProjectIconType;
 }
 
 interface GitHubRepo {
@@ -685,6 +687,11 @@ export default function CommandPalette({
                                 {result.type === "note" ? (
                                   <FileText
                                     className={`h-5 w-5 ${iconMuted}`}
+                                  />
+                                ) : result.icon ? (
+                                  <ProjectIcon
+                                    icon={result.icon}
+                                    name={result.title}
                                   />
                                 ) : (
                                   <FolderGit2
