@@ -10,18 +10,31 @@ interface Heading {
   level: number;
 }
 
+let cachedHeadings: Heading[] = [];
+let cachedKey = "";
+
 function getHeadings(): Heading[] {
   const article = document.querySelector("article");
-  if (!article) return [];
-  return Array.from(article.querySelectorAll("h2[id], h3[id]")).map((el) => ({
+  if (!article)
+    return cachedHeadings.length === 0 ? cachedHeadings : (cachedHeadings = []);
+
+  const elements = article.querySelectorAll("h2[id], h3[id]");
+  const key = Array.from(elements)
+    .map((el) => `${el.tagName}:${el.id}`)
+    .join(",");
+
+  if (key === cachedKey) return cachedHeadings;
+
+  cachedKey = key;
+  cachedHeadings = Array.from(elements).map((el) => ({
     id: el.id,
     text: el.textContent || "",
     level: el.tagName === "H2" ? 2 : 3,
   }));
+  return cachedHeadings;
 }
 
 function subscribeToHeadings(callback: () => void) {
-  // Re-check headings on DOM mutations within the article
   const observer = new MutationObserver(callback);
   const article = document.querySelector("article");
   if (article) observer.observe(article, { childList: true, subtree: true });
