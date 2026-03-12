@@ -9,6 +9,7 @@ import {
   Suspense,
 } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/ThemeProvider";
 
 const HexColorPicker = lazy(() =>
@@ -207,6 +208,7 @@ function HelpIcon() {
 }
 
 export default function BottomNav() {
+  const pathname = usePathname();
   const [showPicker, setShowPicker] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
@@ -311,6 +313,7 @@ export default function BottomNav() {
   return (
     <>
       <div
+        key={pathname}
         className={`animate-fadeInNav fixed inset-x-6 bottom-5 mx-auto flex max-w-fit items-center justify-between gap-4 rounded-full px-5 py-2.5 text-sm sm:bottom-6 sm:gap-6 ${
           isSingleCol ? "" : "sm:left-6 sm:right-auto sm:mx-0"
         } ${navBg}`}
