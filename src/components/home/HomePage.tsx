@@ -65,7 +65,9 @@ export default function HomePage({ articles }: HomePageProps) {
           />
         </div>
 
-        <hr className={`${isTwoCol ? "sm:hidden" : ""} ${hr}`} />
+        <hr
+          className={`animate-fadeInHome2 ${isTwoCol ? "sm:hidden" : ""} ${hr}`}
+        />
 
         {/* Content */}
         <div
