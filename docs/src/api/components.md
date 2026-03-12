@@ -13,6 +13,7 @@ Reusable React components organized by domain.
 
 - `NoteList` - Blog post listing with view counts
 - `ArticlePage` - Full article renderer
+- `TableOfContents` - Auto-generated TOC from h2/h3 headings (fixed sidebar on desktop, inline collapsible on mobile)
 - `RelatedArticles` - Related post suggestions
 - `ProjectList` - Project cards with filter bar
 

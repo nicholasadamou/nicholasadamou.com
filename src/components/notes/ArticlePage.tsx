@@ -4,6 +4,7 @@ import { Eye, Pencil } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import { useViews } from "@/hooks/use-views";
 import RelatedArticles from "@/components/notes/RelatedArticles";
+import TableOfContents from "@/components/notes/TableOfContents";
 import UniversalImage from "@/components/ui/UniversalImage";
 
 interface ArticlePageProps {
@@ -115,8 +116,10 @@ export default function ArticlePage({
             </div>
           )}
 
+          <TableOfContents />
+
           <div
-            className={`animate-fadeInHome2 prose prose-base sm:prose-lg prose-headings:font-medium prose-headings:transition-colors prose-h2:text-2xl
+            className={`animate-fadeInHome2 prose prose-base sm:prose-lg prose-headings:font-medium
               prose-h2:mt-10 sm:prose-h2:mt-12
               prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 sm:prose-h3:mt-8
               prose-h3:mb-3 prose-p:leading-[1.75] prose-p:transition-colors prose-a:no-underline
