@@ -2,15 +2,17 @@
 
 import { Toaster } from "react-hot-toast";
 import { useTheme } from "@/components/ThemeProvider";
+import { useHomeLayout } from "@/hooks/use-home-layout";
 
 export default function ThemedToaster() {
   const { shouldUseDarkText } = useTheme();
+  const { layout } = useHomeLayout();
   const light = shouldUseDarkText();
 
   return (
     <Toaster
       position="bottom-center"
-      containerStyle={{ bottom: 80 }}
+      containerStyle={{ bottom: layout === "two-column" ? 24 : 80 }}
       toastOptions={{
         style: {
           background: light ? "#1c1917" : "#fafaf9",
