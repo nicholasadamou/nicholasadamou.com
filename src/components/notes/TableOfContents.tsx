@@ -110,7 +110,9 @@ export default function TableOfContents() {
   return (
     <>
       {/* Mobile/tablet: inline collapsible TOC */}
-      <details className={`mb-8 rounded-lg border xl:hidden ${inlineBg}`}>
+      <details
+        className={`animate-fadeInHome2 mb-8 rounded-lg border xl:hidden ${inlineBg}`}
+      >
         <summary
           className={`flex cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-medium ${inlineText}`}
         >
@@ -136,7 +138,7 @@ export default function TableOfContents() {
       </details>
 
       {/* Desktop: fixed sidebar TOC */}
-      <nav className="fixed right-8 top-1/2 hidden -translate-y-1/2 xl:block">
+      <nav className="animate-slideInRight fixed right-8 top-1/2 hidden -translate-y-1/2 xl:block">
         <ul className="space-y-2">
           {headings.map((heading) => {
             const isActive = activeId === heading.id;
