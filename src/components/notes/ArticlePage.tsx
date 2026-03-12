@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import { useViews } from "@/hooks/use-views";
 import RelatedArticles from "@/components/notes/RelatedArticles";
@@ -135,6 +135,45 @@ export default function ArticlePage({
             {children}
           </div>
         </article>
+
+        <section className="mb-8 mt-16">
+          <div
+            className={`rounded-lg border border-dashed p-6 ${
+              shouldUseDarkText() ? "border-stone-950/10" : "border-white/10"
+            }`}
+          >
+            <div className="flex items-start gap-4">
+              <Pencil
+                className={`mt-0.5 h-5 w-5 shrink-0 ${
+                  shouldUseDarkText() ? "text-stone-950/40" : "text-white/40"
+                }`}
+              />
+              <div>
+                <h3 className="text-base font-medium">Found a mistake?</h3>
+                <p
+                  className={`mt-1 text-sm ${
+                    shouldUseDarkText() ? "text-stone-950/60" : "text-white/60"
+                  }`}
+                >
+                  Every post is a Markdown file so contributing is simple as
+                  following the link below and pressing the pencil icon inside
+                  GitHub to edit it.
+                </p>
+                <a
+                  href={`https://github.com/nicholasadamou/nicholasadamou.com/edit/main/content/notes/${slug}.mdx`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-3 inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-60 ${
+                    shouldUseDarkText() ? "text-stone-950/80" : "text-white/80"
+                  }`}
+                >
+                  Edit on GitHub
+                  <span aria-hidden>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {relatedArticles && relatedArticles.length > 0 && (
           <RelatedArticles articles={relatedArticles} />
