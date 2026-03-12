@@ -139,7 +139,7 @@ export default function ArticlePage({
           </div>
         </article>
 
-        <section className="mb-8 mt-16">
+        <section className="animate-fadeInHome2 mb-8 mt-16">
           <div
             className={`rounded-lg border border-dashed p-6 ${
               shouldUseDarkText() ? "border-stone-950/10" : "border-white/10"
