@@ -91,6 +91,14 @@ export const projects: Project[] = [
     tags: ["Web App", "Design"],
   },
   {
+    name: "prr",
+    href: "https://prr-seven.vercel.app",
+    description:
+      "Run AI-powered code reviews on GitHub pull requests. Outputs structured, human-readable markdown comments for easy copy-paste into GitHub.",
+    icon: { kind: "image", src: "/images/projects/prr.svg" },
+    tags: ["CLI", "AI", "Code Review"],
+  },
+  {
     name: "squash",
     href: "https://squash-omega.vercel.app",
     description: "A browser-based image compression tool using WebAssembly.",
