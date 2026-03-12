@@ -391,7 +391,8 @@ export default function CommandPalette({
             r.name.toLowerCase().includes(lowerQuery) ||
             r.description?.toLowerCase().includes(lowerQuery) ||
             r.owner.toLowerCase().includes(lowerQuery) ||
-            r.language?.toLowerCase().includes(lowerQuery)
+            r.language?.toLowerCase().includes(lowerQuery) ||
+            `${r.owner}/${r.name}`.toLowerCase().includes(lowerQuery)
         )
         .slice(0, 5);
       setFilteredRepos(matchedRepos);
