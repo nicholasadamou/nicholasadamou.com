@@ -40,7 +40,11 @@ export function useInfiniteVscoGallery(
         if (reset) {
           setImages(data.images);
         } else {
-          setImages((prev) => [...prev, ...data.images]);
+          setImages((prev) => {
+            const seen = new Set(prev.map((img) => img.id));
+            const unique = data.images.filter((img) => !seen.has(img.id));
+            return [...prev, ...unique];
+          });
         }
 
         setHasMore(data.hasMore);
