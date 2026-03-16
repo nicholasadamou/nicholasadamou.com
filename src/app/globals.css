@@ -138,6 +138,17 @@ body {
   opacity: 0;
 }
 
+/* Spotify EQ bars */
+@keyframes eqBar {
+  0%,
+  100% {
+    height: 3px;
+  }
+  50% {
+    height: 12px;
+  }
+}
+
 /* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

@@ -1,0 +1,158 @@
+"use client";
+
+import { ArrowUpRight } from "lucide-react";
+import { useNowPlaying } from "@/hooks/use-now-playing";
+import type { SpotifyTrack } from "@/hooks/use-now-playing";
+
+interface SpotifySectionProps {
+  light: boolean;
+  opacityClass: string;
+  linkColorClass: string;
+}
+
+function SpotifyLogo({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+    </svg>
+  );
+}
+
+function EqBars({ className }: { className?: string }) {
+  return (
+    <div className={`flex items-end gap-[2px] ${className}`}>
+      <span
+        className="inline-block w-[3px] animate-[eqBar_0.8s_ease-in-out_infinite] rounded-full bg-[#1DB954]"
+        style={{ height: 8 }}
+      />
+      <span
+        className="inline-block w-[3px] animate-[eqBar_0.6s_ease-in-out_0.2s_infinite] rounded-full bg-[#1DB954]"
+        style={{ height: 12 }}
+      />
+      <span
+        className="inline-block w-[3px] animate-[eqBar_0.7s_ease-in-out_0.1s_infinite] rounded-full bg-[#1DB954]"
+        style={{ height: 6 }}
+      />
+    </div>
+  );
+}
+
+function TrackCard({
+  track,
+  isPlaying,
+  cardBg,
+  linkColorClass,
+  opacityClass,
+}: {
+  track: SpotifyTrack;
+  isPlaying?: boolean;
+  cardBg: string;
+  linkColorClass: string;
+  opacityClass: string;
+}) {
+  return (
+    <a
+      href={track.spotifyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex items-center gap-3 rounded-lg p-2 transition-opacity hover:opacity-60 ${cardBg}`}
+    >
+      {track.albumArt && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={track.albumArt}
+          alt={track.album}
+          className="h-12 w-12 rounded-md object-cover"
+        />
+      )}
+      <div className="min-w-0 flex-1">
+        <p
+          className={`truncate text-sm !leading-snug font-medium ${linkColorClass}`}
+        >
+          {track.title}
+        </p>
+        <p className={`truncate text-xs ${opacityClass}`}>{track.artist}</p>
+      </div>
+      {isPlaying && <EqBars className="shrink-0" />}
+    </a>
+  );
+}
+
+export default function SpotifySection({
+  light,
+  opacityClass,
+  linkColorClass,
+}: SpotifySectionProps) {
+  const { data, loading } = useNowPlaying();
+
+  const cardBg = light ? "bg-stone-950/[0.03]" : "bg-white/[0.04]";
+  const shimmer = light ? "bg-stone-950/[0.06]" : "bg-white/[0.08]";
+
+  return (
+    <div className="space-y-4 sm:space-y-3">
+      <h2 className={`flex items-center gap-1.5 ${opacityClass} text-sm`}>
+        <SpotifyLogo className="h-3.5 w-3.5" />
+        Listening
+      </h2>
+
+      <div className="space-y-3">
+        {loading ? (
+          <div className={`rounded-lg p-2 ${cardBg}`}>
+            <div className="flex items-center gap-3">
+              <div
+                className={`h-12 w-12 animate-pulse rounded-md ${shimmer}`}
+              />
+              <div className="flex-1 space-y-1.5">
+                <div
+                  className={`h-3.5 w-2/3 animate-pulse rounded ${shimmer}`}
+                />
+                <div className={`h-3 w-1/3 animate-pulse rounded ${shimmer}`} />
+              </div>
+            </div>
+          </div>
+        ) : data?.current ? (
+          <>
+            <TrackCard
+              track={data.current}
+              isPlaying={data.isPlaying}
+              cardBg={cardBg}
+              linkColorClass={linkColorClass}
+              opacityClass={opacityClass}
+            />
+            {data.recentlyPlayed.length > 0 && (
+              <div className="space-y-1">
+                <p className={`text-xs ${opacityClass}`}>Recently played</p>
+                {data.recentlyPlayed.map((track, i) => (
+                  <TrackCard
+                    key={`${track.spotifyUrl}-${i}`}
+                    track={track}
+                    cardBg={cardBg}
+                    linkColorClass={linkColorClass}
+                    opacityClass={opacityClass}
+                  />
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <p className={`text-sm ${opacityClass}`}>Not playing</p>
+        )}
+
+        <a
+          href="https://open.spotify.com/user/nicholasadamou"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-1 text-sm transition-opacity hover:opacity-60 ${opacityClass}`}
+        >
+          View on Spotify
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+      </div>
+    </div>
+  );
+}

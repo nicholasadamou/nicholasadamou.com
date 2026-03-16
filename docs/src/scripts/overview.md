@@ -11,6 +11,8 @@ scripts/
 │   └── compress-images.mjs
 ├── content/        # Content processing
 │   └── prepare-chatbot.js
+├── setup/          # One-time setup helpers
+│   └── spotify-token.js
 └── training-data/  # Generated chatbot data
 ```
 

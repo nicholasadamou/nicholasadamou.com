@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
+import SpotifySection from "@/components/home/SpotifySection";
 import AboutGallery from "./AboutGallery";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -113,7 +114,7 @@ export default function AboutPageClient() {
     <main
       className={`min-h-screen overflow-x-hidden font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-2xl px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-2xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-12">
           {/* Header */}
           <div className="space-y-2">
@@ -343,6 +344,15 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
+            {/* ── Listening ── */}
+            <SpotifySection
+              light={light}
+              opacityClass={getOpacityClass()}
+              linkColorClass={getLinkColorClass()}
+            />
+
+            <hr className={hr} />
+
             {/* ── Work ── */}
             <section className="space-y-4">
               <h2 className={`text-sm ${getOpacityClass()}`}>Work</h2>
@@ -375,7 +385,7 @@ export default function AboutPageClient() {
                         </p>
                       </div>
                       <span
-                        className={`hidden whitespace-nowrap text-xs sm:block ${getOpacityClass()}`}
+                        className={`hidden text-xs whitespace-nowrap sm:block ${getOpacityClass()}`}
                       >
                         {wp.date}
                       </span>

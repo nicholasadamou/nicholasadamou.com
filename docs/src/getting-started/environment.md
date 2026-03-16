@@ -49,6 +49,16 @@ GUMROAD_API_KEY=your_gumroad_key
 
 For product listing on the homepage.
 
+### Spotify
+
+```env
+SPOTIFY_CLIENT_ID=your_client_id
+SPOTIFY_CLIENT_SECRET=your_client_secret
+SPOTIFY_REFRESH_TOKEN=your_refresh_token
+```
+
+For the "Now Playing" section on the home and about pages. Run `node scripts/setup/spotify-token.js` to obtain the refresh token.
+
 ### Email (Contact Form)
 
 ```env

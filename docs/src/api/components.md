@@ -17,6 +17,10 @@ Reusable React components organized by domain.
 - `RelatedArticles` - Related post suggestions
 - `ProjectList` - Project cards with filter bar
 
+## Home
+
+- `SpotifySection` - Now playing / recently played tracks from Spotify (used on home and about pages)
+
 ## Gallery
 
 - `VscoGallery` - Infinite scroll VSCO gallery

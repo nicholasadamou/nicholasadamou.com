@@ -45,6 +45,32 @@ Contact form email delivery.
 
 GitHub repository data for the open source section. Responses include `Cache-Control: public, s-maxage=3600, stale-while-revalidate=7200`.
 
+## /api/spotify/now-playing
+
+Spotify integration showing the current or recently played tracks.
+
+- `GET` - Returns current track (if playing) and up to 3 recently played tracks
+
+Refreshes the access token automatically using the stored refresh token. Responses are cached for 30 seconds.
+
+**Response**:
+
+```json
+{
+  "isPlaying": true,
+  "current": {
+    "title": "...",
+    "artist": "...",
+    "album": "...",
+    "albumArt": "...",
+    "spotifyUrl": "..."
+  },
+  "recentlyPlayed": []
+}
+```
+
+**Env vars**: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`
+
 ## /api/search
 
 Full-text content search across blog posts.

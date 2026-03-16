@@ -26,7 +26,8 @@ Previous iterations: [v1](https://github.com/nicholasadamou/v1), [v2](https://gi
 - **🛡️ Type-Safe**: Full TypeScript coverage with strict configuration
 - **🤖 AI Chatbot**: OpenAI Assistant-powered chatbot trained on site content
 - **📸 Photography Gallery**: VSCO gallery with infinite scroll, powered by local data export
-- **🔗 API Integrations**: Gumroad products, GitHub repositories, and Unsplash images
+- **🎵 Spotify Now Playing**: Live "now playing" and recently played tracks via Spotify API
+- **🔗 API Integrations**: Gumroad products, GitHub repositories, Spotify, and Unsplash images
 - **📊 Analytics**: View tracking with Vercel Postgres
 - **🖼️ OG Images**: Dynamic Open Graph image generation with customizable layouts
 - **🔍 Search**: Full-text content search across blog posts
@@ -158,6 +159,7 @@ Copy `.env.example` to `.env.local` and configure the required variables:
 - `GITHUB_TOKEN` - GitHub API access
 - `GUMROAD_API_KEY` - Gumroad product integration
 - `UNSPLASH_ACCESS_KEY` - Unsplash image API
+- `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET` / `SPOTIFY_REFRESH_TOKEN` - Spotify now playing
 - `OPENAI_API_KEY` / `OPENAI_ASSISTANT_ID` - AI chatbot
 - Additional optional variables for email, etc.
 

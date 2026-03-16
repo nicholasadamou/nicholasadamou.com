@@ -9,6 +9,7 @@ import { useBatchViews } from "@/hooks/use-batch-views";
 import BioSection from "@/components/home/BioSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
+import SpotifySection from "@/components/home/SpotifySection";
 import { projects } from "@/lib/projects/config";
 import { ProjectIcon } from "@/lib/projects/icons";
 import ImagePreview from "@/components/ui/ImagePreview";
@@ -49,7 +50,7 @@ export default function HomePage({ articles }: HomePageProps) {
         className={`flex flex-col justify-between gap-6 p-6 pb-32 text-sm ${
           isTwoCol
             ? "sm:h-full sm:flex-row sm:gap-0 sm:overflow-hidden sm:p-0"
-            : "mx-auto sm:max-w-[30rem] sm:pb-24 sm:pt-10"
+            : "mx-auto sm:max-w-[30rem] sm:pt-10 sm:pb-24"
         }`}
       >
         {/* Bio */}
@@ -86,7 +87,7 @@ export default function HomePage({ articles }: HomePageProps) {
                   <Link
                     href={project.href}
                     target="_blank"
-                    className={`flex items-center gap-1.5 text-sm font-medium !leading-snug transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                    className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
                   >
                     <ProjectIcon icon={project.icon} name={project.name} />
                     {project.name.toLowerCase()}
@@ -120,7 +121,7 @@ export default function HomePage({ articles }: HomePageProps) {
                   <div className="space-y-0.5">
                     <Link
                       href={`/notes/${article.slug}`}
-                      className={`block text-sm font-medium !leading-snug transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                      className={`block text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
                     >
                       {article.title}
                     </Link>
@@ -169,6 +170,15 @@ export default function HomePage({ articles }: HomePageProps) {
               View gallery &rarr;
             </Link>
           </div>
+
+          <hr className={hr} />
+
+          {/* Spotify */}
+          <SpotifySection
+            light={light}
+            opacityClass={getOpacityClass()}
+            linkColorClass={getLinkColorClass()}
+          />
 
           <hr className={hr} />
 
