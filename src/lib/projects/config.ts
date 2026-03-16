@@ -105,4 +105,12 @@ export const projects: Project[] = [
     icon: { kind: "emoji", emoji: "🎨" },
     tags: ["Web App", "WebAssembly"],
   },
+  {
+    name: "devx",
+    href: "https://devx-flame.vercel.app",
+    description:
+      "A layered, extensible framework for building secure, customizable developer environments using Ansible and Vagrant.",
+    icon: { kind: "image", src: "/images/projects/devx.svg" },
+    tags: ["Framework", "DevOps", "Ansible"],
+  },
 ];
