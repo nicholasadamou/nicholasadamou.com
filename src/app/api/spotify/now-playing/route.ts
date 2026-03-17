@@ -86,6 +86,8 @@ export async function GET() {
     let durationMs: number | null = null;
     let device: string | null = null;
     let context: { name: string; type: string; url: string } | null = null;
+    let shuffle = false;
+    let repeat: "off" | "context" | "track" = "off";
 
     // Fetch full player state (includes device + currently playing)
     const playerRes = await fetch(PLAYER_URL, { headers });
@@ -97,6 +99,8 @@ export async function GET() {
         progressMs = data.progress_ms ?? null;
         durationMs = data.item.duration_ms ?? null;
         device = data.device?.name ?? null;
+        shuffle = data.shuffle_state ?? false;
+        repeat = data.repeat_state ?? "off";
         if (data.context) {
           const ctxType = data.context.type; // "playlist" | "album" | "artist"
           const ctxUrl = data.context.external_urls?.spotify ?? null;
@@ -176,6 +180,8 @@ export async function GET() {
         durationMs,
         device,
         context,
+        shuffle,
+        repeat,
       },
       { headers: cacheHeaders }
     );

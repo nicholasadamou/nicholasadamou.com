@@ -22,6 +22,8 @@ export interface NowPlayingData {
   durationMs: number | null;
   device: string | null;
   context: SpotifyContext | null;
+  shuffle: boolean;
+  repeat: "off" | "context" | "track";
 }
 
 interface UseNowPlayingResult {

@@ -8,6 +8,9 @@ import {
   Tablet,
   Speaker,
   Tv,
+  Shuffle,
+  Repeat,
+  Repeat1,
   type LucideIcon,
 } from "lucide-react";
 import { useNowPlaying } from "@/hooks/use-now-playing";
@@ -121,6 +124,13 @@ function DeviceIcon({ name }: { name: string }) {
   return <Icon className="h-3 w-3 shrink-0" />;
 }
 
+function formatTime(ms: number) {
+  const totalSec = Math.floor(ms / 1000);
+  const min = Math.floor(totalSec / 60);
+  const sec = totalSec % 60;
+  return `${min}:${sec.toString().padStart(2, "0")}`;
+}
+
 function ProgressBar({
   data,
   elapsed,
@@ -137,11 +147,17 @@ function ProgressBar({
   const barBg = light ? "bg-stone-950/10" : "bg-white/10";
 
   return (
-    <div className={`h-0.5 w-full overflow-hidden rounded-full ${barBg}`}>
-      <div
-        className="h-full rounded-full bg-[#1DB954] transition-[width] duration-1000 ease-linear"
-        style={{ width: `${pct}%` }}
-      />
+    <div className="space-y-0.5">
+      <div className={`h-0.5 w-full overflow-hidden rounded-full ${barBg}`}>
+        <div
+          className="h-full rounded-full bg-[#1DB954] transition-[width] duration-1000 ease-linear"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <div className="flex justify-between text-[10px] opacity-40">
+        <span>{formatTime(current)}</span>
+        <span>{formatTime(data.durationMs)}</span>
+      </div>
     </div>
   );
 }
@@ -208,12 +224,25 @@ export default function SpotifySection({
                   opacityClass={opacityClass}
                 />
                 <ProgressBar data={data} elapsed={elapsed} light={light} />
-                {data.device && (
-                  <p className={`flex items-center gap-1 text-xs opacity-40`}>
-                    <DeviceIcon name={data.device} />
-                    Playing on {data.device}
-                  </p>
-                )}
+                <div className="flex items-center justify-between text-xs opacity-40">
+                  {data.device && (
+                    <p className="flex items-center gap-1">
+                      <DeviceIcon name={data.device} />
+                      Playing on {data.device}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-1.5">
+                    {data.shuffle && (
+                      <Shuffle className="h-3 w-3 text-[#1DB954]" />
+                    )}
+                    {data.repeat !== "off" &&
+                      (data.repeat === "track" ? (
+                        <Repeat1 className="h-3 w-3 text-[#1DB954]" />
+                      ) : (
+                        <Repeat className="h-3 w-3 text-[#1DB954]" />
+                      ))}
+                  </div>
+                </div>
               </div>
             ) : (
               <div
