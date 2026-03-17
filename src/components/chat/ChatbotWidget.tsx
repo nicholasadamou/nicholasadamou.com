@@ -329,7 +329,7 @@ export function ChatbotWidget({
                     <p className={`text-sm font-medium ${titleColor}`}>
                       {noteSlug
                         ? "Ask me anything about this note."
-                        : "Hi! I&apos;m here to help you learn more about Nick!"}
+                        : "Hi! I'm here to help you learn more about Nick!"}
                     </p>
                     <p className={`mt-2 text-xs ${subtitleColor}`}>
                       Try asking:
