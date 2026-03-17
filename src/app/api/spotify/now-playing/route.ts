@@ -83,6 +83,10 @@ export async function GET() {
 
     let current = null;
     let isPlaying = false;
+    let progressMs: number | null = null;
+    let durationMs: number | null = null;
+    let device: string | null = null;
+    let context: { name: string; url: string } | null = null;
 
     // Try currently playing
     const nowRes = await fetch(NOW_PLAYING_URL, { headers });
@@ -91,6 +95,19 @@ export async function GET() {
       if (data.item && data.currently_playing_type === "track") {
         current = formatTrack(data.item);
         isPlaying = data.is_playing;
+        progressMs = data.progress_ms ?? null;
+        durationMs = data.item.duration_ms ?? null;
+        device = data.device?.name ?? null;
+        if (data.context) {
+          const ctxType = data.context.type; // "playlist" | "album" | "artist"
+          const ctxUrl = data.context.external_urls?.spotify ?? null;
+          // Use album name if context is album, otherwise label as type
+          const ctxName =
+            ctxType === "album"
+              ? data.item.album.name
+              : ctxType.charAt(0).toUpperCase() + ctxType.slice(1);
+          context = { name: ctxName, url: ctxUrl };
+        }
       }
     }
 
@@ -125,7 +142,15 @@ export async function GET() {
     }
 
     return NextResponse.json(
-      { isPlaying, current, recentlyPlayed },
+      {
+        isPlaying,
+        current,
+        recentlyPlayed,
+        progressMs,
+        durationMs,
+        device,
+        context,
+      },
       { headers: cacheHeaders }
     );
   } catch (error) {

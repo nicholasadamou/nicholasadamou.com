@@ -2,7 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { useNowPlaying } from "@/hooks/use-now-playing";
-import type { SpotifyTrack } from "@/hooks/use-now-playing";
+import type { SpotifyTrack, NowPlayingData } from "@/hooks/use-now-playing";
 import ImagePreview from "@/components/ui/ImagePreview";
 
 interface SpotifySectionProps {
@@ -98,12 +98,37 @@ function TrackCard({
   );
 }
 
+function ProgressBar({
+  data,
+  elapsed,
+  light,
+}: {
+  data: NowPlayingData;
+  elapsed: number;
+  light: boolean;
+}) {
+  if (!data.isPlaying || !data.progressMs || !data.durationMs) return null;
+
+  const current = Math.min(data.progressMs + elapsed, data.durationMs);
+  const pct = (current / data.durationMs) * 100;
+  const barBg = light ? "bg-stone-950/10" : "bg-white/10";
+
+  return (
+    <div className={`h-0.5 w-full overflow-hidden rounded-full ${barBg}`}>
+      <div
+        className="h-full rounded-full bg-[#1DB954] transition-[width] duration-1000 ease-linear"
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  );
+}
+
 export default function SpotifySection({
   light,
   opacityClass,
   linkColorClass,
 }: SpotifySectionProps) {
-  const { data, loading } = useNowPlaying();
+  const { data, loading, elapsed } = useNowPlaying();
 
   const cardBg = light ? "bg-stone-950/[0.03]" : "bg-white/[0.04]";
   const shimmer = light ? "bg-stone-950/[0.06]" : "bg-white/[0.08]";
@@ -133,13 +158,38 @@ export default function SpotifySection({
         ) : data ? (
           <>
             {data.isPlaying && data.current ? (
-              <TrackCard
-                track={data.current}
-                isPlaying
-                cardBg={cardBg}
-                linkColorClass={linkColorClass}
-                opacityClass={opacityClass}
-              />
+              <div className="space-y-1.5">
+                {data.context && (
+                  <p className={`text-xs ${opacityClass}`}>
+                    From{" "}
+                    {data.context.url ? (
+                      <a
+                        href={data.context.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-dashed underline-offset-2 transition-opacity hover:opacity-60"
+                      >
+                        {data.context.name}
+                      </a>
+                    ) : (
+                      data.context.name
+                    )}
+                  </p>
+                )}
+                <TrackCard
+                  track={data.current}
+                  isPlaying
+                  cardBg={cardBg}
+                  linkColorClass={linkColorClass}
+                  opacityClass={opacityClass}
+                />
+                <ProgressBar data={data} elapsed={elapsed} light={light} />
+                {data.device && (
+                  <p className={`text-xs opacity-40`}>
+                    Playing on {data.device}
+                  </p>
+                )}
+              </div>
             ) : (
               <div
                 className={`flex items-center gap-3 rounded-lg p-2 ${cardBg}`}
