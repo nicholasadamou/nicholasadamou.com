@@ -83,7 +83,10 @@
   "pnpm": {
     "ignoredBuiltDependencies": [
       "unrs-resolver"
-    ]
+    ],
+    "overrides": {
+      "prismjs": "^1.30.0"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
