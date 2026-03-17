@@ -30,27 +30,20 @@ function EqBars({
   className?: string;
   animated?: boolean;
 }) {
-  const anim = animated
-    ? [
-        "animate-[eqBar_0.8s_ease-in-out_infinite]",
-        "animate-[eqBar_0.6s_ease-in-out_0.2s_infinite]",
-        "animate-[eqBar_0.7s_ease-in-out_0.1s_infinite]",
-      ]
-    : ["", "", ""];
   const color = animated ? "bg-[#1DB954]" : "bg-current opacity-25";
 
   return (
     <div className={`flex items-end gap-[2px] ${className}`}>
       <span
-        className={`inline-block w-[3px] rounded-full ${anim[0]} ${color}`}
+        className={`inline-block w-[3px] rounded-full ${animated ? "animate-[eqBar_0.8s_ease-in-out_infinite]" : ""} ${color}`}
         style={{ height: animated ? 8 : 4 }}
       />
       <span
-        className={`inline-block w-[3px] rounded-full ${anim[1]} ${color}`}
+        className={`inline-block w-[3px] rounded-full ${animated ? "animate-[eqBar_0.6s_ease-in-out_0.2s_infinite]" : ""} ${color}`}
         style={{ height: animated ? 12 : 7 }}
       />
       <span
-        className={`inline-block w-[3px] rounded-full ${anim[2]} ${color}`}
+        className={`inline-block w-[3px] rounded-full ${animated ? "animate-[eqBar_0.7s_ease-in-out_0.1s_infinite]" : ""} ${color}`}
         style={{ height: animated ? 6 : 4 }}
       />
     </div>
