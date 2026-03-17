@@ -101,18 +101,23 @@ export async function GET() {
     if (recentRes.status === 200) {
       const data = await recentRes.json();
       if (data.items?.length > 0) {
-        // If no current track, use the most recent as current
-        if (!current) {
-          current = formatTrack(data.items[0].track);
-          recentlyPlayed = data.items
+        const seen = new Set<string>();
+        if (current) seen.add(current.spotifyUrl);
+
+        const unique = data.items.filter((item: { track: SpotifyTrack }) => {
+          const url = item.track.external_urls.spotify;
+          if (seen.has(url)) return false;
+          seen.add(url);
+          return true;
+        });
+
+        if (!current && unique.length > 0) {
+          current = formatTrack(unique[0].track);
+          recentlyPlayed = unique
             .slice(1, 4)
             .map((item: { track: SpotifyTrack }) => formatTrack(item.track));
         } else {
-          recentlyPlayed = data.items
-            .filter(
-              (item: { track: SpotifyTrack }) =>
-                item.track.external_urls.spotify !== current!.spotifyUrl
-            )
+          recentlyPlayed = unique
             .slice(0, 3)
             .map((item: { track: SpotifyTrack }) => formatTrack(item.track));
         }
