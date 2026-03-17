@@ -109,6 +109,10 @@ export async function GET() {
             .map((item: { track: SpotifyTrack }) => formatTrack(item.track));
         } else {
           recentlyPlayed = data.items
+            .filter(
+              (item: { track: SpotifyTrack }) =>
+                item.track.external_urls.spotify !== current!.spotifyUrl
+            )
             .slice(0, 3)
             .map((item: { track: SpotifyTrack }) => formatTrack(item.track));
         }
