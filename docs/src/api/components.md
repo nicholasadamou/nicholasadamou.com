@@ -5,7 +5,7 @@ Reusable React components organized by domain.
 ## Layout
 
 - `BackNav` - Route-aware breadcrumb navigation
-- `BottomNav` - Bottom navigation bar
+- `BottomNav` - Bottom navigation bar (detects active note slug for chatbot context)
 - `CommandPalette` - Keyboard shortcut palette
 - `ThemeProvider` - Custom theme context (light/dark/custom)
 

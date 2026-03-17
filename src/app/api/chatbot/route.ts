@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { sql } from "@vercel/postgres";
+import { getArticleBySlug, type Article } from "@/lib/content/mdx";
 
 // Simple in-memory cache for thread IDs (in production, use Redis or database)
 const threadCache = new Map<string, string>();
@@ -14,6 +15,28 @@ function getOpenAIClient() {
 
 // Set max duration for the function (60s for Pro plan, 10s for Hobby)
 export const maxDuration = 60;
+const MAX_NOTE_CONTEXT_CHARACTERS = 12000;
+
+function isValidNoteSlug(slug: string): boolean {
+  return /^[a-z0-9-]+$/i.test(slug);
+}
+
+function buildNoteInstructions(note: Article): string {
+  const isTruncated = note.body.raw.length > MAX_NOTE_CONTEXT_CHARACTERS;
+  const noteBody = isTruncated
+    ? `${note.body.raw.slice(0, MAX_NOTE_CONTEXT_CHARACTERS)}\n\n[Note content truncated for context window]`
+    : note.body.raw;
+
+  return `The user is currently reading a specific note on the website. Prioritize answering using this note when relevant.
+
+Current note metadata:
+- Title: ${note.title}
+- Slug: ${note.slug}
+- Summary: ${note.summary}
+
+Current note content:
+${noteBody}`;
+}
 
 export async function POST(req: NextRequest) {
   const encoder = new TextEncoder();
@@ -22,6 +45,15 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const message = body.message as string;
     const clientThreadId = body.threadId as string | undefined;
+    const rawNoteSlug = body.noteSlug as string | undefined;
+    const noteSlug =
+      rawNoteSlug && isValidNoteSlug(rawNoteSlug.trim())
+        ? rawNoteSlug.trim()
+        : null;
+    const activeNote = noteSlug ? getArticleBySlug(noteSlug) : null;
+    const noteInstructions = activeNote
+      ? buildNoteInstructions(activeNote)
+      : undefined;
 
     if (!message) {
       return new Response(JSON.stringify({ error: "Message is required" }), {
@@ -63,6 +95,9 @@ export async function POST(req: NextRequest) {
         try {
           const run = await openai.beta.threads.runs.create(threadId, {
             assistant_id: assistantId,
+            ...(noteInstructions
+              ? { additional_instructions: noteInstructions }
+              : {}),
             stream: false,
           });
 

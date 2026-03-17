@@ -41,6 +41,18 @@ function getDesktopSnapshot() {
 function getDesktopServerSnapshot() {
   return false;
 }
+function getActiveNoteSlug(pathname: string): string | null {
+  if (!pathname.startsWith("/notes/")) {
+    return null;
+  }
+
+  const [, , maybeSlug] = pathname.split("/");
+  if (!maybeSlug) {
+    return null;
+  }
+
+  return maybeSlug;
+}
 
 function HomeIcon() {
   return (
@@ -209,6 +221,7 @@ function HelpIcon() {
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const activeNoteSlug = getActiveNoteSlug(pathname);
   const [showPicker, setShowPicker] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
@@ -315,7 +328,7 @@ export default function BottomNav() {
       <div
         key={pathname}
         className={`animate-fadeInNav fixed inset-x-6 bottom-5 mx-auto flex max-w-fit items-center justify-between gap-4 rounded-full px-5 py-2.5 text-sm sm:bottom-6 sm:gap-6 ${
-          isSingleCol ? "" : "sm:left-6 sm:right-auto sm:mx-0"
+          isSingleCol ? "" : "sm:right-auto sm:left-6 sm:mx-0"
         } ${navBg}`}
       >
         <Tooltip label="Home">
@@ -400,7 +413,11 @@ export default function BottomNav() {
         isOpen={showShortcuts}
         onClose={() => setShowShortcuts(false)}
       />
-      <DynamicChatbot isOpen={showChat} onClose={() => setShowChat(false)} />
+      <DynamicChatbot
+        isOpen={showChat}
+        onClose={() => setShowChat(false)}
+        noteSlug={activeNoteSlug}
+      />
 
       {showPicker && (
         <div

@@ -11,8 +11,14 @@ const ChatbotWidget = dynamic(
 interface DynamicChatbotProps {
   isOpen: boolean;
   onClose: () => void;
+  noteSlug?: string | null;
 }
-
-export function DynamicChatbot({ isOpen, onClose }: DynamicChatbotProps) {
-  return <ChatbotWidget isOpen={isOpen} onClose={onClose} />;
+export function DynamicChatbot({
+  isOpen,
+  onClose,
+  noteSlug,
+}: DynamicChatbotProps) {
+  return (
+    <ChatbotWidget isOpen={isOpen} onClose={onClose} noteSlug={noteSlug} />
+  );
 }

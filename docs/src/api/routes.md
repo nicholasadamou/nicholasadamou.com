@@ -37,6 +37,12 @@ Gumroad product listing. Responses are cached in-memory for 1 hour with `Cache-C
 
 AI chatbot powered by OpenAI Assistant API. Logs all queries to `chatbot_logs` table in Postgres.
 
+- `POST` - Send a message to the assistant
+
+**Body params**: `message` (required), `threadId` (optional), `noteSlug` (optional)
+
+When `noteSlug` is provided and maps to a valid article, the note's content is injected as `additional_instructions` into the OpenAI run so the assistant can answer questions specific to that note. See [Chatbot — Note-Aware Chat](../features/chatbot.md#note-aware-chat) for details.
+
 ## /api/dashboard/chatbot-logs
 
 Paginated chatbot query logs for the private dashboard.

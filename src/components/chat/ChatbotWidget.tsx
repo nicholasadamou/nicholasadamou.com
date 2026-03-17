@@ -15,18 +15,35 @@ interface Message {
   timestamp: Date;
 }
 
-const SUGGESTED_QUESTIONS = [
+const GLOBAL_SUGGESTED_QUESTIONS = [
   "What projects have you worked on?",
   "Tell me about your experience",
   "How can I contact you?",
 ];
+const NOTE_SUGGESTED_QUESTIONS = [
+  "Can you summarize this note for me?",
+  "What are the key takeaways from this note?",
+  "Can you explain this note in simpler terms?",
+];
+
+const getContextKey = (noteSlug?: string | null) =>
+  noteSlug ? `note-${noteSlug}` : "global";
+const getMessagesStorageKey = (contextKey: string) =>
+  `chatbot-messages-${contextKey}`;
+const getThreadStorageKey = (contextKey: string) =>
+  `chatbot-thread-id-${contextKey}`;
 
 interface ChatbotWidgetProps {
   isOpen: boolean;
   onClose: () => void;
+  noteSlug?: string | null;
 }
 
-export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
+export function ChatbotWidget({
+  isOpen,
+  onClose,
+  noteSlug,
+}: ChatbotWidgetProps) {
   const { shouldUseDarkText, isHydrated } = useTheme();
   const { layout } = useHomeLayout();
   const isSingleCol = layout === "single";
@@ -37,13 +54,19 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatWindowRef = useRef<HTMLDivElement>(null);
+  const contextKey = getContextKey(noteSlug);
+  const suggestedQuestions = noteSlug
+    ? NOTE_SUGGESTED_QUESTIONS
+    : GLOBAL_SUGGESTED_QUESTIONS;
 
   const light = shouldUseDarkText();
 
   // Load chat history from session storage
   useEffect(() => {
-    const savedMessages = sessionStorage.getItem("chatbot-messages");
-    const savedThreadId = sessionStorage.getItem("chatbot-thread-id");
+    const messagesStorageKey = getMessagesStorageKey(contextKey);
+    const threadStorageKey = getThreadStorageKey(contextKey);
+    const savedMessages = sessionStorage.getItem(messagesStorageKey);
+    const savedThreadId = sessionStorage.getItem(threadStorageKey);
     if (savedMessages) {
       const parsed = JSON.parse(savedMessages);
       setMessages(
@@ -52,24 +75,36 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
           timestamp: new Date(msg.timestamp),
         }))
       );
+    } else {
+      setMessages([]);
     }
     if (savedThreadId) {
       setThreadId(savedThreadId);
+    } else {
+      setThreadId(null);
     }
-  }, []);
+
+    setInputValue("");
+  }, [contextKey]);
 
   // Save chat history to session storage
   useEffect(() => {
+    const messagesStorageKey = getMessagesStorageKey(contextKey);
     if (messages.length > 0) {
-      sessionStorage.setItem("chatbot-messages", JSON.stringify(messages));
+      sessionStorage.setItem(messagesStorageKey, JSON.stringify(messages));
+    } else {
+      sessionStorage.removeItem(messagesStorageKey);
     }
-  }, [messages]);
+  }, [contextKey, messages]);
 
   useEffect(() => {
+    const threadStorageKey = getThreadStorageKey(contextKey);
     if (threadId) {
-      sessionStorage.setItem("chatbot-thread-id", threadId);
+      sessionStorage.setItem(threadStorageKey, threadId);
+    } else {
+      sessionStorage.removeItem(threadStorageKey);
     }
-  }, [threadId]);
+  }, [contextKey, threadId]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -112,6 +147,7 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const sendMessage = async (content: string) => {
@@ -132,7 +168,7 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
       const response = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: content.trim(), threadId }),
+        body: JSON.stringify({ message: content.trim(), threadId, noteSlug }),
       });
 
       if (!response.ok || !response.body) {
@@ -209,10 +245,12 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
   };
 
   const clearChat = () => {
+    const messagesStorageKey = getMessagesStorageKey(contextKey);
+    const threadStorageKey = getThreadStorageKey(contextKey);
     setMessages([]);
     setThreadId(null);
-    sessionStorage.removeItem("chatbot-messages");
-    sessionStorage.removeItem("chatbot-thread-id");
+    sessionStorage.removeItem(messagesStorageKey);
+    sessionStorage.removeItem(threadStorageKey);
   };
 
   if (!isHydrated) return null;
@@ -262,9 +300,11 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
             >
               <div>
                 <h3 className={`font-semibold ${titleColor}`}>
-                  Chat Assistant
+                  {noteSlug ? "Note Assistant" : "Chat Assistant"}
                 </h3>
-                <p className={`text-xs ${subtitleColor}`}>Ask me anything!</p>
+                <p className={`text-xs ${subtitleColor}`}>
+                  {noteSlug ? "Ask about this note" : "Ask me anything!"}
+                </p>
               </div>
               {messages.length > 0 && (
                 <button
@@ -287,14 +327,16 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
                   </div>
                   <div>
                     <p className={`text-sm font-medium ${titleColor}`}>
-                      Hi! I&apos;m here to help you learn more about Nick!
+                      {noteSlug
+                        ? "Ask me anything about this note."
+                        : "Hi! I&apos;m here to help you learn more about Nick!"}
                     </p>
                     <p className={`mt-2 text-xs ${subtitleColor}`}>
                       Try asking:
                     </p>
                   </div>
                   <div className="flex w-full flex-col gap-2">
-                    {SUGGESTED_QUESTIONS.map((question) => (
+                    {suggestedQuestions.map((question) => (
                       <button
                         key={question}
                         onClick={() => sendMessage(question)}
@@ -326,7 +368,7 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
                         </ReactMarkdown>
                       </div>
                     ) : (
-                      <p className="whitespace-pre-wrap break-words leading-relaxed">
+                      <p className="leading-relaxed break-words whitespace-pre-wrap">
                         {message.content}
                       </p>
                     )}
@@ -365,7 +407,7 @@ export function ChatbotWidget({ isOpen, onClose }: ChatbotWidgetProps) {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your message..."
                   disabled={isLoading}
-                  className={`flex-1 rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors disabled:opacity-50 ${inputBg}`}
+                  className={`flex-1 rounded-lg border px-3 py-2.5 text-sm transition-colors outline-none disabled:opacity-50 ${inputBg}`}
                 />
                 <button
                   type="submit"
