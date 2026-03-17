@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { sql } from "@vercel/postgres";
 
 // Simple in-memory cache for thread IDs (in production, use Redis or database)
 const threadCache = new Map<string, string>();
@@ -151,6 +152,20 @@ export async function POST(req: NextRequest) {
                 responseText = responseText.replace(annotation.text, "");
               });
             }
+          }
+
+          // Log the query to Postgres (fire-and-forget)
+          if (process.env.POSTGRES_URL) {
+            const ip =
+              req.headers.get("x-forwarded-for")?.split(",")[0] ||
+              req.headers.get("remote-addr") ||
+              "unknown";
+            sql`
+              INSERT INTO chatbot_logs (message, response, thread_id, ip_address)
+              VALUES (${message}, ${responseText}, ${threadId}, ${ip})
+            `.catch((err) =>
+              console.error("Failed to log chatbot query:", err)
+            );
           }
 
           // Send the complete response

@@ -59,6 +59,14 @@ SPOTIFY_REFRESH_TOKEN=your_refresh_token
 
 For the "Now Playing" section on the home and about pages. Run `node scripts/setup/spotify-token.js` to obtain the refresh token.
 
+### Dashboard
+
+```env
+DASHBOARD_SECRET=your_random_secret
+```
+
+For accessing the private `/dashboard` page (chatbot analytics). Generate with `openssl rand -hex 32`.
+
 ### Email (Contact Form)
 
 ```env

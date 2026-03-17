@@ -68,6 +68,7 @@ nav:
       - Gallery Integration: features/gallery.md
       - Analytics: features/analytics.md
       - AI Chatbot: features/chatbot.md
+      - Dashboard: features/dashboard.md
       - SEO: features/seo.md
   - Scripts:
       - Overview: scripts/overview.md

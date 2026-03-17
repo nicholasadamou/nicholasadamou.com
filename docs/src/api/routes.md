@@ -35,7 +35,19 @@ Gumroad product listing. Responses are cached in-memory for 1 hour with `Cache-C
 
 ## /api/chatbot
 
-AI chatbot powered by OpenAI Assistant API.
+AI chatbot powered by OpenAI Assistant API. Logs all queries to `chatbot_logs` table in Postgres.
+
+## /api/dashboard/chatbot-logs
+
+Paginated chatbot query logs for the private dashboard.
+
+- `GET` - Returns chatbot logs (newest first, 50 per page)
+
+**Auth**: Requires `Authorization: Bearer <DASHBOARD_SECRET>` header.
+
+**Query params**: `page` (default: 1)
+
+**Env vars**: `DASHBOARD_SECRET`, `POSTGRES_URL`
 
 ## /api/emails
 
