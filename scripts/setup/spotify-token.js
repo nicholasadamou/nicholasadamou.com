@@ -38,7 +38,8 @@ const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const PORT = 3456;
 const REDIRECT_URI = `http://127.0.0.1:${PORT}/callback`;
-const SCOPES = "user-read-currently-playing user-read-recently-played";
+const SCOPES =
+  "user-read-currently-playing user-read-recently-played user-read-playback-state";
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
   console.error(

@@ -5,8 +5,7 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
 
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
-const NOW_PLAYING_URL =
-  "https://api.spotify.com/v1/me/player/currently-playing";
+const PLAYER_URL = "https://api.spotify.com/v1/me/player";
 const RECENTLY_PLAYED_URL =
   "https://api.spotify.com/v1/me/player/recently-played?limit=5";
 
@@ -88,10 +87,10 @@ export async function GET() {
     let device: string | null = null;
     let context: { name: string; url: string } | null = null;
 
-    // Try currently playing
-    const nowRes = await fetch(NOW_PLAYING_URL, { headers });
-    if (nowRes.status === 200) {
-      const data = await nowRes.json();
+    // Fetch full player state (includes device + currently playing)
+    const playerRes = await fetch(PLAYER_URL, { headers });
+    if (playerRes.status === 200) {
+      const data = await playerRes.json();
       if (data.item && data.currently_playing_type === "track") {
         current = formatTrack(data.item);
         isPlaying = data.is_playing;
@@ -101,7 +100,6 @@ export async function GET() {
         if (data.context) {
           const ctxType = data.context.type; // "playlist" | "album" | "artist"
           const ctxUrl = data.context.external_urls?.spotify ?? null;
-          // Use album name if context is album, otherwise label as type
           const ctxName =
             ctxType === "album"
               ? data.item.album.name
