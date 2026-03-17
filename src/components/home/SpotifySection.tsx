@@ -23,20 +23,35 @@ function SpotifyLogo({ className }: { className?: string }) {
   );
 }
 
-function EqBars({ className }: { className?: string }) {
+function EqBars({
+  className,
+  animated = true,
+}: {
+  className?: string;
+  animated?: boolean;
+}) {
+  const anim = animated
+    ? [
+        "animate-[eqBar_0.8s_ease-in-out_infinite]",
+        "animate-[eqBar_0.6s_ease-in-out_0.2s_infinite]",
+        "animate-[eqBar_0.7s_ease-in-out_0.1s_infinite]",
+      ]
+    : ["", "", ""];
+  const color = animated ? "bg-[#1DB954]" : "bg-current opacity-25";
+
   return (
     <div className={`flex items-end gap-[2px] ${className}`}>
       <span
-        className="inline-block w-[3px] animate-[eqBar_0.8s_ease-in-out_infinite] rounded-full bg-[#1DB954]"
-        style={{ height: 8 }}
+        className={`inline-block w-[3px] rounded-full ${anim[0]} ${color}`}
+        style={{ height: animated ? 8 : 4 }}
       />
       <span
-        className="inline-block w-[3px] animate-[eqBar_0.6s_ease-in-out_0.2s_infinite] rounded-full bg-[#1DB954]"
-        style={{ height: 12 }}
+        className={`inline-block w-[3px] rounded-full ${anim[1]} ${color}`}
+        style={{ height: animated ? 12 : 7 }}
       />
       <span
-        className="inline-block w-[3px] animate-[eqBar_0.7s_ease-in-out_0.1s_infinite] rounded-full bg-[#1DB954]"
-        style={{ height: 6 }}
+        className={`inline-block w-[3px] rounded-full ${anim[2]} ${color}`}
+        style={{ height: animated ? 6 : 4 }}
       />
     </div>
   );
@@ -115,15 +130,34 @@ export default function SpotifySection({
               </div>
             </div>
           </div>
-        ) : data?.current ? (
+        ) : data ? (
           <>
-            <TrackCard
-              track={data.current}
-              isPlaying={data.isPlaying}
-              cardBg={cardBg}
-              linkColorClass={linkColorClass}
-              opacityClass={opacityClass}
-            />
+            {data.isPlaying && data.current ? (
+              <TrackCard
+                track={data.current}
+                isPlaying
+                cardBg={cardBg}
+                linkColorClass={linkColorClass}
+                opacityClass={opacityClass}
+              />
+            ) : (
+              <div
+                className={`flex items-center gap-3 rounded-lg p-2 ${cardBg}`}
+              >
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-md ${shimmer}`}
+                >
+                  <SpotifyLogo className={`h-5 w-5 ${opacityClass}`} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className={`text-sm font-medium ${opacityClass}`}>
+                    Not playing
+                  </p>
+                  <p className={`text-xs opacity-40`}>Spotify is idle</p>
+                </div>
+                <EqBars className="shrink-0" animated={false} />
+              </div>
+            )}
             {data.recentlyPlayed.length > 0 && (
               <div className="space-y-1">
                 <p className={`text-xs ${opacityClass}`}>Recently played</p>
