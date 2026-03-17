@@ -196,7 +196,8 @@ export default function SpotifySection({
                       </a>
                     ) : (
                       data.context.name
-                    )}
+                    )}{" "}
+                    <span className="opacity-50">({data.context.type})</span>
                   </p>
                 )}
                 <TrackCard

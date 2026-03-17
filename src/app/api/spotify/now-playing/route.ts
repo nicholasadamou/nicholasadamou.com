@@ -85,7 +85,7 @@ export async function GET() {
     let progressMs: number | null = null;
     let durationMs: number | null = null;
     let device: string | null = null;
-    let context: { name: string; url: string } | null = null;
+    let context: { name: string; type: string; url: string } | null = null;
 
     // Fetch full player state (includes device + currently playing)
     const playerRes = await fetch(PLAYER_URL, { headers });
@@ -102,15 +102,26 @@ export async function GET() {
           const ctxUrl = data.context.external_urls?.spotify ?? null;
           let ctxName: string | null = null;
 
+          let ctxTypeLabel = ctxType;
+
           if (ctxType === "album") {
             ctxName = data.item.album.name;
+            ctxTypeLabel = "album";
           } else if (data.context.href) {
-            // Fetch playlist/artist name from the API
             try {
               const ctxRes = await fetch(data.context.href, { headers });
               if (ctxRes.ok) {
                 const ctxData = await ctxRes.json();
                 ctxName = ctxData.name ?? null;
+                if (ctxType === "playlist") {
+                  if (ctxData.collaborative) {
+                    ctxTypeLabel = "collaborative playlist";
+                  } else if (ctxData.public) {
+                    ctxTypeLabel = "public playlist";
+                  } else {
+                    ctxTypeLabel = "private playlist";
+                  }
+                }
               }
             } catch {
               // Ignore — fall back to type label
@@ -119,6 +130,7 @@ export async function GET() {
 
           context = {
             name: ctxName || ctxType.charAt(0).toUpperCase() + ctxType.slice(1),
+            type: ctxTypeLabel,
             url: ctxUrl,
           };
         }

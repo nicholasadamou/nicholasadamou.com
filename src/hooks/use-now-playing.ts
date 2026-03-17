@@ -10,6 +10,7 @@ export interface SpotifyTrack {
 
 export interface SpotifyContext {
   name: string;
+  type: string;
   url: string;
 }
 
