@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "plus.unsplash.com" },
       { protocol: "https", hostname: "im.vsco.co" },
       { protocol: "https", hostname: "i.scdn.co" },
+      { protocol: "https", hostname: "public-files.gumroad.com" },
     ],
   },
 };

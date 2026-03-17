@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import useGumroadProducts from "@/hooks/use-gumroad-products";
+import ImagePreview from "@/components/ui/ImagePreview";
 
 interface GumroadSectionProps {
   light: boolean;
@@ -44,32 +45,38 @@ export default function GumroadSection({
               </div>
             ))
           : products.slice(0, 3).map((product) => (
-              <a
+              <ImagePreview
                 key={product.id}
-                href={product.short_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center gap-3 rounded-lg p-2 transition-opacity hover:opacity-60 ${cardBg}`}
+                src={product.thumbnail_url}
+                alt={product.name}
+                previewClassName="relative aspect-square w-48"
               >
-                {product.thumbnail_url && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={product.thumbnail_url}
-                    alt={product.name}
-                    className="h-12 w-12 rounded-md object-cover"
-                  />
-                )}
-                <div className="min-w-0 flex-1">
-                  <p
-                    className={`text-sm font-medium !leading-snug ${linkColorClass}`}
-                  >
-                    {product.name}
-                  </p>
-                  <p className={`text-xs ${opacityClass}`}>
-                    {product.formatted_price}
-                  </p>
-                </div>
-              </a>
+                <a
+                  href={product.short_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-3 rounded-lg p-2 transition-opacity hover:opacity-60 ${cardBg}`}
+                >
+                  {product.thumbnail_url && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={product.thumbnail_url}
+                      alt={product.name}
+                      className="h-12 w-12 rounded-md object-cover"
+                    />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className={`text-sm !leading-snug font-medium ${linkColorClass}`}
+                    >
+                      {product.name}
+                    </p>
+                    <p className={`text-xs ${opacityClass}`}>
+                      {product.formatted_price}
+                    </p>
+                  </div>
+                </a>
+              </ImagePreview>
             ))}
         <a
           href="https://nicholasadamou.gumroad.com"
