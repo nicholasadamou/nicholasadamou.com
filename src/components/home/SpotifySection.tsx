@@ -35,16 +35,16 @@ function EqBars({
   return (
     <div className={`flex items-end gap-[2px] ${className}`}>
       <span
-        className={`inline-block w-[3px] rounded-full ${animated ? "animate-[eqBar_0.8s_ease-in-out_infinite]" : ""} ${color}`}
-        style={{ height: animated ? 8 : 4 }}
+        className={`eq-bar ${animated ? "eq-bar-1" : ""} ${color}`}
+        style={{ height: animated ? undefined : 4 }}
       />
       <span
-        className={`inline-block w-[3px] rounded-full ${animated ? "animate-[eqBar_0.6s_ease-in-out_0.2s_infinite]" : ""} ${color}`}
-        style={{ height: animated ? 12 : 7 }}
+        className={`eq-bar ${animated ? "eq-bar-2" : ""} ${color}`}
+        style={{ height: animated ? undefined : 7 }}
       />
       <span
-        className={`inline-block w-[3px] rounded-full ${animated ? "animate-[eqBar_0.7s_ease-in-out_0.1s_infinite]" : ""} ${color}`}
-        style={{ height: animated ? 6 : 4 }}
+        className={`eq-bar ${animated ? "eq-bar-3" : ""} ${color}`}
+        style={{ height: animated ? undefined : 4 }}
       />
     </div>
   );
