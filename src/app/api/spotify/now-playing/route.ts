@@ -100,11 +100,27 @@ export async function GET() {
         if (data.context) {
           const ctxType = data.context.type; // "playlist" | "album" | "artist"
           const ctxUrl = data.context.external_urls?.spotify ?? null;
-          const ctxName =
-            ctxType === "album"
-              ? data.item.album.name
-              : ctxType.charAt(0).toUpperCase() + ctxType.slice(1);
-          context = { name: ctxName, url: ctxUrl };
+          let ctxName: string | null = null;
+
+          if (ctxType === "album") {
+            ctxName = data.item.album.name;
+          } else if (data.context.href) {
+            // Fetch playlist/artist name from the API
+            try {
+              const ctxRes = await fetch(data.context.href, { headers });
+              if (ctxRes.ok) {
+                const ctxData = await ctxRes.json();
+                ctxName = ctxData.name ?? null;
+              }
+            } catch {
+              // Ignore — fall back to type label
+            }
+          }
+
+          context = {
+            name: ctxName || ctxType.charAt(0).toUpperCase() + ctxType.slice(1),
+            url: ctxUrl,
+          };
         }
       }
     }
