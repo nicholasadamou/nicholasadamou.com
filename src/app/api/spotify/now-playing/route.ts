@@ -78,7 +78,7 @@ export async function GET() {
     const token = await getAccessToken();
     const headers = { Authorization: `Bearer ${token}` };
     const cacheHeaders = {
-      "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+      "Cache-Control": "public, s-maxage=15, stale-while-revalidate=30",
     };
 
     let current = null;

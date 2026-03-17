@@ -19,7 +19,7 @@ interface UseNowPlayingResult {
   loading: boolean;
 }
 
-const POLL_INTERVAL = 30_000; // 30 seconds
+const POLL_INTERVAL = 15_000; // 15 seconds
 
 export function useNowPlaying(): UseNowPlayingResult {
   const [data, setData] = useState<NowPlayingData | null>(null);
