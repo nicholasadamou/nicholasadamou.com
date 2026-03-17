@@ -3,6 +3,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { useNowPlaying } from "@/hooks/use-now-playing";
 import type { SpotifyTrack } from "@/hooks/use-now-playing";
+import ImagePreview from "@/components/ui/ImagePreview";
 
 interface SpotifySectionProps {
   light: boolean;
@@ -64,30 +65,36 @@ function TrackCard({
   opacityClass: string;
 }) {
   return (
-    <a
-      href={track.spotifyUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`flex items-center gap-3 rounded-lg p-2 transition-opacity hover:opacity-60 ${cardBg}`}
+    <ImagePreview
+      src={track.albumArt}
+      alt={track.album}
+      previewClassName="relative aspect-square w-48"
     >
-      {track.albumArt && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={track.albumArt}
-          alt={track.album}
-          className="h-12 w-12 rounded-md object-cover"
-        />
-      )}
-      <div className="min-w-0 flex-1">
-        <p
-          className={`truncate text-sm !leading-snug font-medium ${linkColorClass}`}
-        >
-          {track.title}
-        </p>
-        <p className={`truncate text-xs ${opacityClass}`}>{track.artist}</p>
-      </div>
-      {isPlaying && <EqBars className="shrink-0" />}
-    </a>
+      <a
+        href={track.spotifyUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`flex items-center gap-3 rounded-lg p-2 transition-opacity hover:opacity-60 ${cardBg}`}
+      >
+        {track.albumArt && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={track.albumArt}
+            alt={track.album}
+            className="h-12 w-12 rounded-md object-cover"
+          />
+        )}
+        <div className="min-w-0 flex-1">
+          <p
+            className={`truncate text-sm !leading-snug font-medium ${linkColorClass}`}
+          >
+            {track.title}
+          </p>
+          <p className={`truncate text-xs ${opacityClass}`}>{track.artist}</p>
+        </div>
+        {isPlaying && <EqBars className="shrink-0" />}
+      </a>
+    </ImagePreview>
   );
 }
 

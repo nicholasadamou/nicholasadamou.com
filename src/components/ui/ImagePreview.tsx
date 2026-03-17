@@ -9,6 +9,7 @@ interface ImagePreviewProps {
   alt: string;
   children: React.ReactNode;
   className?: string;
+  previewClassName?: string;
 }
 
 export default function ImagePreview({
@@ -16,6 +17,7 @@ export default function ImagePreview({
   alt,
   children,
   className = "",
+  previewClassName,
 }: ImagePreviewProps) {
   const [visible, setVisible] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -90,7 +92,7 @@ export default function ImagePreview({
                 : "scale(0.8) translateY(10px)",
             }}
           >
-            <div className="relative aspect-video w-64">
+            <div className={previewClassName ?? "relative aspect-video w-64"}>
               <UniversalImage
                 src={src}
                 alt={alt}
