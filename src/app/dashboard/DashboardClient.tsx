@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
 import { itemVariants } from "@/lib/animation/variants";
@@ -68,7 +68,6 @@ export default function DashboardClient() {
   const [logs, setLogs] = useState<ChatLog[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(50);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -108,7 +107,6 @@ export default function DashboardClient() {
       }
       setTotal(data.total);
       setPage(data.page);
-      setPageSize(data.pageSize);
     } catch {
       setError("Failed to load logs");
     } finally {
@@ -196,6 +194,22 @@ export default function DashboardClient() {
     fetchLogs(page + 1, secret);
   };
 
+  const statCards = useMemo(
+    () =>
+      stats
+        ? [
+            { label: "Total Queries", value: stats.totalQueries },
+            { label: "Unique IPs", value: stats.uniqueIps },
+            { label: "Unique Threads", value: stats.uniqueThreads },
+            {
+              label: "Avg Response",
+              value: `${stats.avgResponseLength.toLocaleString()} chars`,
+            },
+          ]
+        : [],
+    [stats]
+  );
+
   if (!isHydrated) return <main className="min-h-screen" />;
 
   const light = shouldUseDarkText();
@@ -243,18 +257,6 @@ export default function DashboardClient() {
     fontSize: "11px",
     color: light ? "#1c1917" : "#e7e5e4",
   };
-
-  const statCards = stats
-    ? [
-        { label: "Total Queries", value: stats.totalQueries },
-        { label: "Unique IPs", value: stats.uniqueIps },
-        { label: "Unique Threads", value: stats.uniqueThreads },
-        {
-          label: "Avg Response",
-          value: `${stats.avgResponseLength.toLocaleString()} chars`,
-        },
-      ]
-    : [];
 
   return (
     <main

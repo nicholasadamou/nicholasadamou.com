@@ -93,6 +93,8 @@ function TrackCard({
           <img
             src={track.albumArt}
             alt={track.album}
+            loading="lazy"
+            decoding="async"
             className="h-12 w-12 rounded-md object-cover"
           />
         )}

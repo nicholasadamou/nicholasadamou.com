@@ -63,12 +63,30 @@ export function useNowPlaying(): UseNowPlayingResult {
     }
   }, []);
 
-  // Poll API
+  // Poll API — pause when tab is hidden, resume when visible
   useEffect(() => {
+    const startPolling = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(fetchNowPlaying, POLL_INTERVAL);
+    };
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+      } else {
+        // Fetch immediately on focus, then resume normal cadence
+        fetchNowPlaying();
+        startPolling();
+      }
+    };
+
     fetchNowPlaying();
-    intervalRef.current = setInterval(fetchNowPlaying, POLL_INTERVAL);
+    startPolling();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, [fetchNowPlaying]);
 

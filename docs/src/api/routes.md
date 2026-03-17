@@ -49,6 +49,16 @@ Paginated chatbot query logs for the private dashboard.
 
 **Env vars**: `DASHBOARD_SECRET`, `POSTGRES_URL`
 
+## /api/dashboard/chatbot-stats
+
+Aggregate analytics for the private dashboard, computed directly in the database.
+
+- `GET` - Returns summary stats, 30-day daily counts, and 24-hour distribution
+
+**Auth**: Requires `Authorization: Bearer <DASHBOARD_SECRET>` header.
+
+**Env vars**: `DASHBOARD_SECRET`, `POSTGRES_URL`
+
 ## /api/emails
 
 Contact form email delivery.
@@ -63,7 +73,9 @@ Spotify integration showing the current or recently played tracks.
 
 - `GET` - Returns current track (if playing) and up to 3 recently played tracks
 
-Refreshes the access token automatically using the stored refresh token. Responses are cached for 30 seconds.
+Refreshes the access token automatically using the stored refresh token. The player state and recently-played list are fetched in parallel. Context names (playlist/artist) are cached in-memory for 5 minutes to avoid a serial upstream call on every poll.
+
+**Cache-Control**: `public, s-maxage=15, stale-while-revalidate=30`
 
 **Response**:
 
@@ -74,10 +86,20 @@ Refreshes the access token automatically using the stored refresh token. Respons
     "title": "...",
     "artist": "...",
     "album": "...",
-    "albumArt": "...",
-    "spotifyUrl": "..."
+    "albumArt": "https://i.scdn.co/...",
+    "spotifyUrl": "https://open.spotify.com/track/..."
   },
-  "recentlyPlayed": []
+  "recentlyPlayed": [],
+  "progressMs": 42000,
+  "durationMs": 213000,
+  "device": "MacBook Pro",
+  "context": {
+    "name": "My Playlist",
+    "type": "private playlist",
+    "url": "https://open.spotify.com/playlist/..."
+  },
+  "shuffle": false,
+  "repeat": "off"
 }
 ```
 

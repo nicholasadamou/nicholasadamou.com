@@ -27,6 +27,14 @@ interface SpotifyTrack {
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
 
+// Cache context name lookups (playlist/artist names) for 5 minutes to avoid
+// a serial upstream fetch on every poll when playing from the same context.
+const contextCache = new Map<
+  string,
+  { name: string; label: string; expiresAt: number }
+>();
+const CONTEXT_CACHE_TTL = 5 * 60 * 1000;
+
 async function getAccessToken(): Promise<string> {
   if (cachedToken && Date.now() < cachedToken.expiresAt) {
     return cachedToken.token;
@@ -89,8 +97,12 @@ export async function GET() {
     let shuffle = false;
     let repeat: "off" | "context" | "track" = "off";
 
-    // Fetch full player state (includes device + currently playing)
-    const playerRes = await fetch(PLAYER_URL, { headers });
+    // Fetch player state and recently played in parallel
+    const [playerRes, recentRes] = await Promise.all([
+      fetch(PLAYER_URL, { headers }),
+      fetch(RECENTLY_PLAYED_URL, { headers }),
+    ]);
+
     if (playerRes.status === 200) {
       const data = await playerRes.json();
       if (data.item && data.currently_playing_type === "track") {
@@ -105,30 +117,42 @@ export async function GET() {
           const ctxType = data.context.type; // "playlist" | "album" | "artist"
           const ctxUrl = data.context.external_urls?.spotify ?? null;
           let ctxName: string | null = null;
-
           let ctxTypeLabel = ctxType;
 
           if (ctxType === "album") {
             ctxName = data.item.album.name;
             ctxTypeLabel = "album";
           } else if (data.context.href) {
-            try {
-              const ctxRes = await fetch(data.context.href, { headers });
-              if (ctxRes.ok) {
-                const ctxData = await ctxRes.json();
-                ctxName = ctxData.name ?? null;
-                if (ctxType === "playlist") {
-                  if (ctxData.collaborative) {
-                    ctxTypeLabel = "collaborative playlist";
-                  } else if (ctxData.public) {
-                    ctxTypeLabel = "public playlist";
-                  } else {
-                    ctxTypeLabel = "private playlist";
+            const cached = contextCache.get(data.context.href);
+            if (cached && Date.now() < cached.expiresAt) {
+              ctxName = cached.name;
+              ctxTypeLabel = cached.label;
+            } else {
+              try {
+                const ctxRes = await fetch(data.context.href, { headers });
+                if (ctxRes.ok) {
+                  const ctxData = await ctxRes.json();
+                  ctxName = ctxData.name ?? null;
+                  if (ctxType === "playlist") {
+                    if (ctxData.collaborative) {
+                      ctxTypeLabel = "collaborative playlist";
+                    } else if (ctxData.public) {
+                      ctxTypeLabel = "public playlist";
+                    } else {
+                      ctxTypeLabel = "private playlist";
+                    }
+                  }
+                  if (ctxName) {
+                    contextCache.set(data.context.href, {
+                      name: ctxName,
+                      label: ctxTypeLabel,
+                      expiresAt: Date.now() + CONTEXT_CACHE_TTL,
+                    });
                   }
                 }
+              } catch {
+                // Ignore — fall back to type label
               }
-            } catch {
-              // Ignore — fall back to type label
             }
           }
 
@@ -141,8 +165,6 @@ export async function GET() {
       }
     }
 
-    // Fetch recently played
-    const recentRes = await fetch(RECENTLY_PLAYED_URL, { headers });
     let recentlyPlayed: ReturnType<typeof formatTrack>[] = [];
 
     if (recentRes.status === 200) {
