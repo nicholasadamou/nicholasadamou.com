@@ -215,6 +215,7 @@ export default function DashboardClient() {
   const light = shouldUseDarkText();
   const cardBg = light ? "bg-stone-950/[0.03]" : "bg-white/[0.04]";
   const hr = `border-dashed ${getOpacityClass()} ${getHrColorClass()}`;
+  const skeletonBg = light ? "bg-stone-950/10" : "bg-white/10";
 
   if (!authenticated) {
     return (
@@ -301,8 +302,8 @@ export default function DashboardClient() {
           </motion.div>
 
           {/* Stat cards */}
-          {statCards.length > 0 && (
-            <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants}>
+            {statCards.length > 0 ? (
               <motion.div
                 variants={cardContainerVariants}
                 className="grid grid-cols-2 gap-3 sm:grid-cols-4"
@@ -311,7 +312,7 @@ export default function DashboardClient() {
                   <motion.div
                     key={card.label}
                     variants={itemVariants}
-                    className={`rounded-lg p-4 ${cardBg} space-y-1`}
+                    className={`space-y-1 rounded-lg p-4 ${cardBg}`}
                   >
                     <p
                       className={`text-[10px] tracking-wide uppercase ${getOpacityClass()}`}
@@ -322,11 +323,24 @@ export default function DashboardClient() {
                   </motion.div>
                 ))}
               </motion.div>
-            </motion.div>
-          )}
+            ) : (
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className={`space-y-2 rounded-lg p-4 ${cardBg}`}>
+                    <div
+                      className={`h-2 w-16 animate-pulse rounded ${skeletonBg}`}
+                    />
+                    <div
+                      className={`h-6 w-10 animate-pulse rounded ${skeletonBg}`}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
 
           {/* Queries over time chart */}
-          {stats && (
+          {stats ? (
             <motion.div
               variants={itemVariants}
               className={`rounded-lg p-4 ${cardBg} space-y-3`}
@@ -382,10 +396,22 @@ export default function DashboardClient() {
                 </BarChart>
               </ResponsiveContainer>
             </motion.div>
+          ) : (
+            <motion.div
+              variants={itemVariants}
+              className={`rounded-lg p-4 ${cardBg} space-y-3`}
+            >
+              <div
+                className={`h-2.5 w-36 animate-pulse rounded ${skeletonBg}`}
+              />
+              <div
+                className={`h-[160px] w-full animate-pulse rounded ${skeletonBg}`}
+              />
+            </motion.div>
           )}
 
           {/* Peak hours chart */}
-          {stats && (
+          {stats ? (
             <motion.div
               variants={itemVariants}
               className={`rounded-lg p-4 ${cardBg} space-y-3`}
@@ -431,6 +457,18 @@ export default function DashboardClient() {
                 </BarChart>
               </ResponsiveContainer>
             </motion.div>
+          ) : (
+            <motion.div
+              variants={itemVariants}
+              className={`rounded-lg p-4 ${cardBg} space-y-3`}
+            >
+              <div
+                className={`h-2.5 w-28 animate-pulse rounded ${skeletonBg}`}
+              />
+              <div
+                className={`h-[120px] w-full animate-pulse rounded ${skeletonBg}`}
+              />
+            </motion.div>
           )}
 
           <motion.hr variants={itemVariants} className={hr} />
@@ -442,7 +480,35 @@ export default function DashboardClient() {
             {total} chatbot {total === 1 ? "query" : "queries"}
           </motion.p>
 
-          {logs.length === 0 && !loading ? (
+          {loading && logs.length === 0 ? (
+            <motion.div variants={logContainerVariants} className="space-y-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  variants={itemVariants}
+                  className={`space-y-2 rounded-lg p-3 ${cardBg}`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div
+                      className={`h-3.5 w-2/3 animate-pulse rounded ${skeletonBg}`}
+                    />
+                    <div
+                      className={`h-3 w-20 shrink-0 animate-pulse rounded ${skeletonBg}`}
+                    />
+                  </div>
+                  <div
+                    className={`h-3 w-full animate-pulse rounded ${skeletonBg}`}
+                  />
+                  <div
+                    className={`h-3 w-4/5 animate-pulse rounded ${skeletonBg}`}
+                  />
+                  <div
+                    className={`h-2.5 w-24 animate-pulse rounded ${skeletonBg}`}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : logs.length === 0 ? (
             <motion.p
               variants={itemVariants}
               className={`text-sm ${getOpacityClass()}`}
@@ -488,7 +554,7 @@ export default function DashboardClient() {
             </motion.div>
           )}
 
-          {loading && (
+          {loading && logs.length > 0 && (
             <p className={`text-sm ${getOpacityClass()}`}>Loading…</p>
           )}
 
