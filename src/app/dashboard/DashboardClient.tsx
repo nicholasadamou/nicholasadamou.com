@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
+import { itemVariants } from "@/lib/animation/variants";
 import {
   BarChart,
   Bar,
@@ -11,6 +13,21 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { RefreshCw } from "lucide-react";
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const cardContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const logContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
 
 interface ChatLog {
   id: number;
@@ -244,11 +261,19 @@ export default function DashboardClient() {
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
       <div className="mx-auto max-w-4xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
-        <div className="animate-fadeInHome1 space-y-8">
-          <div className="flex items-start justify-between gap-4">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="space-y-8"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-between gap-4"
+          >
             <h1 className="text-3xl font-medium sm:text-4xl">Dashboard</h1>
             <div
-              className={`flex items-center gap-2 pt-2 text-xs ${getOpacityClass()}`}
+              className={`flex items-center gap-2 text-xs ${getOpacityClass()}`}
             >
               {lastUpdated && (
                 <span>
@@ -271,30 +296,39 @@ export default function DashboardClient() {
                 />
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Stat cards */}
           {statCards.length > 0 && (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {statCards.map((card) => (
-                <div
-                  key={card.label}
-                  className={`rounded-lg p-4 ${cardBg} space-y-1`}
-                >
-                  <p
-                    className={`text-[10px] tracking-wide uppercase ${getOpacityClass()}`}
+            <motion.div variants={itemVariants}>
+              <motion.div
+                variants={cardContainerVariants}
+                className="grid grid-cols-2 gap-3 sm:grid-cols-4"
+              >
+                {statCards.map((card) => (
+                  <motion.div
+                    key={card.label}
+                    variants={itemVariants}
+                    className={`rounded-lg p-4 ${cardBg} space-y-1`}
                   >
-                    {card.label}
-                  </p>
-                  <p className="text-xl font-medium">{card.value}</p>
-                </div>
-              ))}
-            </div>
+                    <p
+                      className={`text-[10px] tracking-wide uppercase ${getOpacityClass()}`}
+                    >
+                      {card.label}
+                    </p>
+                    <p className="text-xl font-medium">{card.value}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
           )}
 
           {/* Queries over time chart */}
           {stats && (
-            <div className={`rounded-lg p-4 ${cardBg} space-y-3`}>
+            <motion.div
+              variants={itemVariants}
+              className={`rounded-lg p-4 ${cardBg} space-y-3`}
+            >
               <p
                 className={`text-xs tracking-wide uppercase ${getOpacityClass()}`}
               >
@@ -345,12 +379,15 @@ export default function DashboardClient() {
                   />
                 </BarChart>
               </ResponsiveContainer>
-            </div>
+            </motion.div>
           )}
 
           {/* Peak hours chart */}
           {stats && (
-            <div className={`rounded-lg p-4 ${cardBg} space-y-3`}>
+            <motion.div
+              variants={itemVariants}
+              className={`rounded-lg p-4 ${cardBg} space-y-3`}
+            >
               <p
                 className={`text-xs tracking-wide uppercase ${getOpacityClass()}`}
               >
@@ -391,24 +428,31 @@ export default function DashboardClient() {
                   />
                 </BarChart>
               </ResponsiveContainer>
-            </div>
+            </motion.div>
           )}
 
-          <hr className={hr} />
+          <motion.hr variants={itemVariants} className={hr} />
 
-          <p className={`text-sm ${getOpacityClass()}`}>
+          <motion.p
+            variants={itemVariants}
+            className={`text-sm ${getOpacityClass()}`}
+          >
             {total} chatbot {total === 1 ? "query" : "queries"}
-          </p>
+          </motion.p>
 
           {logs.length === 0 && !loading ? (
-            <p className={`text-sm ${getOpacityClass()}`}>
+            <motion.p
+              variants={itemVariants}
+              className={`text-sm ${getOpacityClass()}`}
+            >
               No chatbot queries yet.
-            </p>
+            </motion.p>
           ) : (
-            <div className="space-y-3">
+            <motion.div variants={logContainerVariants} className="space-y-3">
               {logs.map((log) => (
-                <div
+                <motion.div
                   key={log.id}
+                  variants={itemVariants}
                   className={`space-y-2 rounded-lg p-3 ${cardBg}`}
                 >
                   <div className="flex items-start justify-between gap-4">
@@ -437,9 +481,9 @@ export default function DashboardClient() {
                       <span>Thread: {log.thread_id.slice(0, 12)}…</span>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {loading && (
@@ -454,7 +498,7 @@ export default function DashboardClient() {
               Load more ({logs.length} of {total})
             </button>
           )}
-        </div>
+        </motion.div>
       </div>
     </main>
   );
