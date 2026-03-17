@@ -1,6 +1,15 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Smartphone,
+  Laptop,
+  Monitor,
+  Tablet,
+  Speaker,
+  Tv,
+  type LucideIcon,
+} from "lucide-react";
 import { useNowPlaying } from "@/hooks/use-now-playing";
 import type { SpotifyTrack, NowPlayingData } from "@/hooks/use-now-playing";
 import ImagePreview from "@/components/ui/ImagePreview";
@@ -98,6 +107,20 @@ function TrackCard({
   );
 }
 
+const DEVICE_PATTERNS: [RegExp, LucideIcon][] = [
+  [/iphone|android|pixel|galaxy|phone/i, Smartphone],
+  [/ipad|tablet/i, Tablet],
+  [/macbook|laptop|notebook/i, Laptop],
+  [/imac|mac mini|mac pro|mac studio|desktop|pc/i, Monitor],
+  [/tv|chromecast|apple\s?tv|fire\s?stick|roku/i, Tv],
+  [/echo|homepod|sonos|speaker|alexa|google home/i, Speaker],
+];
+
+function DeviceIcon({ name }: { name: string }) {
+  const Icon = DEVICE_PATTERNS.find(([re]) => re.test(name))?.[1] ?? Speaker;
+  return <Icon className="h-3 w-3 shrink-0" />;
+}
+
 function ProgressBar({
   data,
   elapsed,
@@ -185,7 +208,8 @@ export default function SpotifySection({
                 />
                 <ProgressBar data={data} elapsed={elapsed} light={light} />
                 {data.device && (
-                  <p className={`text-xs opacity-40`}>
+                  <p className={`flex items-center gap-1 text-xs opacity-40`}>
+                    <DeviceIcon name={data.device} />
                     Playing on {data.device}
                   </p>
                 )}
