@@ -106,6 +106,14 @@ export const projects: Project[] = [
     tags: ["Web App", "WebAssembly"],
   },
   {
+    name: "sluice",
+    href: "https://sluice-tau.vercel.app",
+    description:
+      "Batched PostgreSQL data backfills with cycle detection, resume-from-interruption, migration interleaving, version collision renumbering, and safe database branch switching.",
+    icon: { kind: "image", src: "/images/projects/sluice.svg" },
+    tags: ["CLI", "PostgreSQL", "Migrations"],
+  },
+  {
     name: "devx",
     href: "https://devx-flame.vercel.app",
     description:
