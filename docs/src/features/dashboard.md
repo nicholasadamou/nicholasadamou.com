@@ -22,10 +22,10 @@ POSTGRES_URL=postgres://...
 
 ### Database
 
-The dashboard reads from the `chatbot_logs` table created by the chatbot setup script:
+The dashboard reads from the `chatbot_logs` table created by the database seed script:
 
 ```bash
-psql "$POSTGRES_URL" -f scripts/setup/create-chatbot-logs-table.sql
+psql "$POSTGRES_URL" -f scripts/setup/seed.sql
 ```
 
 See [Setup Scripts](../scripts/setup.md) for full details.
