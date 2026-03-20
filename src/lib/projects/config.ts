@@ -106,6 +106,14 @@ export const projects: Project[] = [
     tags: ["Web App", "WebAssembly"],
   },
   {
+    name: "distill",
+    href: "https://distill-ochre.vercel.app",
+    description:
+      "Compact technical books, documentation, and reference material into agent-optimized markdown. Outputs structured context repos that plug directly into Warp, Claude Code, or any agent that reads markdown.",
+    icon: { kind: "image", src: "/images/projects/distill.svg" },
+    tags: ["CLI", "AI", "Documentation"],
+  },
+  {
     name: "sluice",
     href: "https://sluice-tau.vercel.app",
     description:
