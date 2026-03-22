@@ -82,21 +82,23 @@ export default function HomePage({ articles }: HomePageProps) {
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Projects</h2>
             <div className="space-y-4 sm:space-y-3">
-              {projects.slice(0, 5).map((project) => (
-                <div key={project.name} className="space-y-0.5">
-                  <Link
-                    href={project.href}
-                    target="_blank"
-                    className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
-                  >
-                    <ProjectIcon icon={project.icon} name={project.name} />
-                    {project.name.toLowerCase()}
-                  </Link>
-                  <p className={`${getOpacityClass()}`}>
-                    {project.description}
-                  </p>
-                </div>
-              ))}
+              {projects
+                .filter((p) => p.featured)
+                .map((project) => (
+                  <div key={project.name} className="space-y-0.5">
+                    <Link
+                      href={project.href}
+                      target="_blank"
+                      className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                    >
+                      <ProjectIcon icon={project.icon} name={project.name} />
+                      {project.name.toLowerCase()}
+                    </Link>
+                    <p className={`${getOpacityClass()}`}>
+                      {project.description}
+                    </p>
+                  </div>
+                ))}
               <Link
                 href="/projects"
                 className={`text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}
