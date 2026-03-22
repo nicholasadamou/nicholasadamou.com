@@ -122,6 +122,14 @@ export const projects: Project[] = [
     tags: ["CLI", "PostgreSQL", "Migrations"],
   },
   {
+    name: "aptscout",
+    href: "https://aptscout-five.vercel.app",
+    description:
+      "Scrape apartment availability across multiple properties, store results in SQLite, and browse with a filterable web UI. Track prices, catch deals, never miss a unit.",
+    icon: { kind: "image", src: "/images/projects/aptscout.svg" },
+    tags: ["CLI", "Web App", "Scraping"],
+  },
+  {
     name: "devx",
     href: "https://devx-flame.vercel.app",
     description:

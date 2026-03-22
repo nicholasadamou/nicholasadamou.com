@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C84B31"/>
+      <stop offset="100%" stop-color="#B87333"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="6.4" fill="url(#g)"/>
+  <g transform="translate(16, 15.2)">
+    <!-- Cactus body -->
+    <rect x="-1.9" y="-9" width="3.8" height="16" rx="1.9" fill="#F5E6D3"/>
+    <!-- Left arm -->
+    <rect x="-7" y="-4.5" width="5.1" height="2.6" rx="1.3" fill="#F5E6D3"/>
+    <rect x="-7" y="-4.5" width="2.6" height="6.4" rx="1.3" fill="#F5E6D3"/>
+    <!-- Right arm -->
+    <rect x="1.9" y="-1.9" width="5.1" height="2.6" rx="1.3" fill="#F5E6D3"/>
+    <rect x="4.5" y="-1.9" width="2.6" height="5.1" rx="1.3" fill="#F5E6D3"/>
+    <!-- Pot -->
+    <path d="M -4.5,7 L 4.5,7 L 3.2,9.6 L -3.2,9.6 Z" fill="#F5E6D3" opacity="0.85"/>
+  </g>
+</svg>
