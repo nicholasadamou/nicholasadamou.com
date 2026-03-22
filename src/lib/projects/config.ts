@@ -15,7 +15,6 @@ export const projects: Project[] = [
     href: "https://dotbrains.dev",
     description: "Developer tools and open-source utilities.",
     icon: { kind: "image", src: "/images/projects/dotbrains.png" },
-    featured: true,
     tags: ["Web App", "Open Source"],
   },
   {
@@ -24,7 +23,6 @@ export const projects: Project[] = [
     description:
       "Helping you become a better software engineer through coding challenges that build real applications.",
     icon: { kind: "component", id: "youbuildit" },
-    featured: true,
     tags: ["Web App", "Education"],
   },
   {
@@ -41,7 +39,6 @@ export const projects: Project[] = [
     description:
       "A modern, easy-to-use package to automatically restart Python applications when file changes are detected.",
     icon: { kind: "image", src: "/images/projects/pyreload.svg" },
-    featured: true,
     tags: ["CLI", "Python"],
   },
   {
@@ -49,7 +46,6 @@ export const projects: Project[] = [
     href: "https://hermes-logging.vercel.app",
     description: "Zero-Boilerplate Java Logging.",
     icon: { kind: "image", src: "/images/projects/hermes.svg" },
-    featured: true,
     tags: ["Library", "Java"],
   },
   {
@@ -96,6 +92,7 @@ export const projects: Project[] = [
     description:
       "Run AI-powered code reviews on GitHub pull requests. Outputs structured, human-readable markdown comments for easy copy-paste into GitHub.",
     icon: { kind: "image", src: "/images/projects/prr.svg" },
+    featured: true,
     tags: ["CLI", "AI", "Code Review"],
   },
   {
@@ -111,6 +108,7 @@ export const projects: Project[] = [
     description:
       "Compact technical books, documentation, and reference material into agent-optimized markdown. Outputs structured context repos that plug directly into Warp, Claude Code, or any agent that reads markdown.",
     icon: { kind: "image", src: "/images/projects/distill.svg" },
+    featured: true,
     tags: ["CLI", "AI", "Documentation"],
   },
   {
@@ -119,6 +117,7 @@ export const projects: Project[] = [
     description:
       "Batched PostgreSQL data backfills with cycle detection, resume-from-interruption, migration interleaving, version collision renumbering, and safe database branch switching.",
     icon: { kind: "image", src: "/images/projects/sluice.svg" },
+    featured: true,
     tags: ["CLI", "PostgreSQL", "Migrations"],
   },
   {
@@ -127,6 +126,7 @@ export const projects: Project[] = [
     description:
       "Scrape apartment availability across multiple properties, store results in SQLite, and browse with a filterable web UI. Track prices, catch deals, never miss a unit.",
     icon: { kind: "image", src: "/images/projects/aptscout.svg" },
+    featured: true,
     tags: ["CLI", "Web App", "Scraping"],
   },
   {
