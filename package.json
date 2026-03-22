@@ -85,7 +85,8 @@
       "unrs-resolver"
     ],
     "overrides": {
-      "prismjs": "^1.30.0"
+      "prismjs": "^1.30.0",
+      "flatted": ">=3.4.2"
     }
   },
   "lint-staged": {
