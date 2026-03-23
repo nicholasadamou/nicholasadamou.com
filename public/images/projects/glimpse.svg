@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="7" fill="#0d1117"/>
+  <!-- Speech bubble -->
+  <path d="M16 4C9.4 4 4 8.2 4 13.5C4 16.8 6.2 19.6 9.5 21.2L7 27L13.5 23C14.3 23 15.1 23 16 23C22.6 23 28 18.8 28 13.5C28 8.2 22.6 4 16 4Z" fill="#58a6ff"/>
+  <!-- Text -->
+  <text x="16" y="16.5" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="800" font-size="9.5" fill="#0d1117">diff</text>
+</svg>

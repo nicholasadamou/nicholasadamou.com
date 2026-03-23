@@ -121,6 +121,14 @@ export const projects: Project[] = [
     tags: ["CLI", "PostgreSQL", "Migrations"],
   },
   {
+    name: "glimpse",
+    href: "https://glimpse-black.vercel.app",
+    description:
+      "Browser-based, GitHub-style diff viewer for git changes. View uncommitted changes, branch comparisons, commit ranges, and GitHub PRs with syntax-highlighted split diffs, inline comments, and AI code review.",
+    icon: { kind: "image", src: "/images/projects/glimpse.svg" },
+    tags: ["CLI", "Git", "Code Review"],
+  },
+  {
     name: "aptscout",
     href: "https://aptscout-five.vercel.app",
     description:
