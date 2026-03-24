@@ -85,19 +85,25 @@ export default function HomePage({ articles }: HomePageProps) {
               {projects
                 .filter((p) => p.featured)
                 .map((project) => (
-                  <div key={project.name} className="space-y-0.5">
-                    <Link
-                      href={project.href}
-                      target="_blank"
-                      className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
-                    >
-                      <ProjectIcon icon={project.icon} name={project.name} />
-                      {project.name.toLowerCase()}
-                    </Link>
-                    <p className={`${getOpacityClass()}`}>
-                      {project.description}
-                    </p>
-                  </div>
+                  <ImagePreview
+                    key={project.name}
+                    src={project.preview}
+                    alt={`${project.name} preview`}
+                  >
+                    <div className="space-y-0.5">
+                      <Link
+                        href={project.href}
+                        target="_blank"
+                        className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                      >
+                        <ProjectIcon icon={project.icon} name={project.name} />
+                        {project.name.toLowerCase()}
+                      </Link>
+                      <p className={`${getOpacityClass()}`}>
+                        {project.description}
+                      </p>
+                    </div>
+                  </ImagePreview>
                 ))}
               <Link
                 href="/projects"

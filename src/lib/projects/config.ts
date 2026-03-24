@@ -6,10 +6,19 @@ export interface Project {
   description: string;
   icon: ProjectIconType;
   featured?: boolean;
+  preview?: string;
   tags?: string[];
 }
 
-export const projects: Project[] = [
+/** Derive preview image path from project name. */
+function withPreviews(list: Project[]): Project[] {
+  return list.map((p) => ({
+    ...p,
+    preview: `/images/projects/previews/${p.name}.png`,
+  }));
+}
+
+export const projects: Project[] = withPreviews([
   {
     name: "dotbrains.dev",
     href: "https://dotbrains.dev",
@@ -145,4 +154,4 @@ export const projects: Project[] = [
     icon: { kind: "image", src: "/images/projects/devx.svg" },
     tags: ["Framework", "DevOps", "Ansible"],
   },
-];
+]);

@@ -7,6 +7,7 @@ import { projects } from "@/lib/projects/config";
 import { ProjectIcon } from "@/lib/projects/icons";
 import FilterBar, { type FilterOptions } from "@/components/projects/FilterBar";
 import OpenSourceSection from "@/components/projects/OpenSourceSection";
+import ImagePreview from "@/components/ui/ImagePreview";
 
 export default function ProjectList() {
   const {
@@ -80,7 +81,7 @@ export default function ProjectList() {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-[45rem] px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-8">
           <div className="space-y-2">
             <h1 className="text-3xl font-medium sm:text-4xl">Projects</h1>
@@ -93,46 +94,51 @@ export default function ProjectList() {
           {!isFiltering && featuredProjects.length > 0 && (
             <div className="space-y-4">
               <h2
-                className={`text-xs font-medium uppercase tracking-wider ${getOpacityClass()}`}
+                className={`text-xs font-medium tracking-wider uppercase ${getOpacityClass()}`}
               >
                 Featured
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {featuredProjects.map((project) => (
-                  <Link
+                  <ImagePreview
                     key={project.name}
-                    href={project.href}
-                    target="_blank"
-                    className={`group block space-y-2 rounded-lg p-4 transition-colors ${
-                      shouldUseDarkText()
-                        ? "bg-stone-950/[0.03] hover:bg-stone-950/[0.06]"
-                        : "bg-white/[0.03] hover:bg-white/[0.06]"
-                    }`}
+                    src={project.preview}
+                    alt={`${project.name} preview`}
                   >
-                    <div
-                      className={`flex items-center gap-2 text-sm font-medium !leading-snug transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
+                    <Link
+                      href={project.href}
+                      target="_blank"
+                      className={`group block space-y-2 rounded-lg p-4 transition-colors ${
+                        shouldUseDarkText()
+                          ? "bg-stone-950/[0.03] hover:bg-stone-950/[0.06]"
+                          : "bg-white/[0.03] hover:bg-white/[0.06]"
+                      }`}
                     >
-                      <ProjectIcon icon={project.icon} name={project.name} />
-                      {project.name}
-                    </div>
-                    <p
-                      className={`line-clamp-2 text-sm leading-relaxed ${getOpacityClass()}`}
-                    >
-                      {project.description}
-                    </p>
-                    {project.tags && project.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className={`rounded-full px-2 py-0.5 text-[11px] ${tagBg}`}
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                      <div
+                        className={`flex items-center gap-2 text-sm !leading-snug font-medium transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
+                      >
+                        <ProjectIcon icon={project.icon} name={project.name} />
+                        {project.name}
                       </div>
-                    )}
-                  </Link>
+                      <p
+                        className={`line-clamp-2 text-sm leading-relaxed ${getOpacityClass()}`}
+                      >
+                        {project.description}
+                      </p>
+                      {project.tags && project.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className={`rounded-full px-2 py-0.5 text-[11px] ${tagBg}`}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </Link>
+                  </ImagePreview>
                 ))}
               </div>
             </div>
@@ -148,34 +154,39 @@ export default function ProjectList() {
 
           <div className="animate-fadeInHome2 space-y-6">
             {filtered.map((project) => (
-              <Link
+              <ImagePreview
                 key={project.name}
-                href={project.href}
-                target="_blank"
-                className="group block space-y-1"
+                src={project.preview}
+                alt={`${project.name} preview`}
               >
-                <div
-                  className={`flex items-center gap-1.5 text-sm font-medium !leading-snug transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
+                <Link
+                  href={project.href}
+                  target="_blank"
+                  className="group block space-y-1"
                 >
-                  <ProjectIcon icon={project.icon} name={project.name} />
-                  {project.name}
-                </div>
-                <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-                  {project.description}
-                </p>
-                {project.tags && project.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 pt-0.5">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`rounded-full px-2 py-0.5 text-[11px] ${tagBg}`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div
+                    className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
+                  >
+                    <ProjectIcon icon={project.icon} name={project.name} />
+                    {project.name}
                   </div>
-                )}
-              </Link>
+                  <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
+                    {project.description}
+                  </p>
+                  {project.tags && project.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-0.5">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`rounded-full px-2 py-0.5 text-[11px] ${tagBg}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </Link>
+              </ImagePreview>
             ))}
 
             {filtered.length === 0 && isFiltering && (

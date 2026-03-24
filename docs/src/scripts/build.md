@@ -37,6 +37,33 @@ node scripts/build/compress-images.mjs
 - Only overwrites if the compressed version is smaller
 - Requires `sharp` (installed as a project dependency)
 
+## capture-previews.mjs
+
+Captures 1920×1080 screenshots of every project website using Playwright.
+
+**Purpose**: Generates preview images shown on hover for projects on the homepage and `/projects` page.
+
+```bash
+pnpm run capture:previews
+```
+
+To capture only specific projects:
+
+```bash
+node scripts/build/capture-previews.mjs prr sluice
+```
+
+**Features**:
+
+- Reads project URLs directly from `src/lib/projects/config.ts`
+- Launches headless Chromium at 1920×1080 viewport
+- Waits for network idle + 1.5s for animations/fonts to settle
+- Saves PNGs to `public/images/projects/previews/{name}.png`
+- Supports filtering by project name via CLI arguments
+- Requires Playwright: `npx playwright install chromium`
+
+**When to run**: After adding a new project or when a project site has changed significantly.
+
 ## Troubleshooting
 
 ### Missing API Key
