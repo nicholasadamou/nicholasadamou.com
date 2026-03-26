@@ -147,6 +147,14 @@ export const projects: Project[] = withPreviews([
     tags: ["CLI", "Web App", "Scraping"],
   },
   {
+    name: "linear-cli",
+    href: "https://linear-cli.vercel.app",
+    description:
+      "Search issues, manage comments, list labels and users, and check platform status — all from the command line. All commands output JSON.",
+    icon: { kind: "image", src: "/images/projects/linear-cli.svg" },
+    tags: ["CLI", "Linear", "Productivity"],
+  },
+  {
     name: "devx",
     href: "https://devx-flame.vercel.app",
     description:
