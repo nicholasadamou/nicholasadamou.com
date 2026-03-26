@@ -7,11 +7,12 @@ import {
   ArrowUpRight,
   User,
   Building2,
-  Filter,
   ChevronDown,
   X,
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import Pagination from "@/components/ui/Pagination";
+import SearchBar from "@/components/ui/SearchBar";
 
 interface Repo {
   name: string;
@@ -50,10 +51,6 @@ export default function OpenSourceSection() {
 
   const dark = shouldUseDarkText();
 
-  const inputBg = dark
-    ? "bg-stone-950/5 placeholder:text-stone-950/30 focus:ring-stone-950/10"
-    : "bg-white/5 placeholder:text-white/30 focus:ring-white/10";
-
   const cardBg = dark
     ? "bg-stone-950/[0.03] hover:bg-stone-950/[0.06]"
     : "bg-white/[0.03] hover:bg-white/[0.06]";
@@ -81,7 +78,6 @@ export default function OpenSourceSection() {
     : "bg-white/10 text-white/70";
   const chipClose = dark ? "hover:text-stone-950" : "hover:text-white";
   const linkText = dark ? "text-stone-950/70" : "text-white/70";
-  const funnelBg = dark ? "hover:bg-stone-950/5" : "hover:bg-white/5";
   const borderColor = dark ? "border-stone-950/10" : "border-white/10";
 
   const fetchRepos = useCallback(async () => {
@@ -194,22 +190,12 @@ export default function OpenSourceSection() {
       </div>
 
       <div className="space-y-4">
-        <div className="relative">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search repositories..."
-            className={`w-full rounded-lg border-none px-4 py-2.5 pr-12 text-sm outline-none transition-colors focus:ring-1 ${inputBg}`}
-          />
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className={`absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded-md p-2 ${funnelBg}`}
-            title="Toggle filters"
-          >
-            <Filter className={`h-4 w-4 ${labelText}`} />
-          </button>
-        </div>
+        <SearchBar
+          value={search}
+          onChange={setSearch}
+          placeholder="Search repositories..."
+          onToggleFilters={() => setShowFilters(!showFilters)}
+        />
 
         {showFilters && (
           <div className={`space-y-4 rounded-lg border p-4 ${panelBg}`}>
@@ -252,7 +238,7 @@ export default function OpenSourceSection() {
 
                   {showLangDropdown && (
                     <div
-                      className={`absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg ${dropdownBg}`}
+                      className={`absolute top-full right-0 left-0 z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg ${dropdownBg}`}
                     >
                       <div className="p-1">
                         {availableLanguages.map((lang) => (
@@ -337,7 +323,7 @@ export default function OpenSourceSection() {
 
                   {showOwnerDropdown && (
                     <div
-                      className={`absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg ${dropdownBg}`}
+                      className={`absolute top-full right-0 left-0 z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg ${dropdownBg}`}
                     >
                       <div className="p-1">
                         {availableOwners.map((owner) => (
@@ -509,33 +495,11 @@ export default function OpenSourceSection() {
             ))}
           </div>
 
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-3 pt-2">
-              <button
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                className={`cursor-pointer rounded-md px-3 py-1.5 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-30 ${
-                  dark ? "hover:bg-stone-950/5" : "hover:bg-white/5"
-                }`}
-              >
-                Previous
-              </button>
-              <span className={`text-xs ${getOpacityClass()}`}>
-                {currentPage} / {totalPages}
-              </span>
-              <button
-                onClick={() =>
-                  setCurrentPage((p) => Math.min(totalPages, p + 1))
-                }
-                disabled={currentPage === totalPages}
-                className={`cursor-pointer rounded-md px-3 py-1.5 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-30 ${
-                  dark ? "hover:bg-stone-950/5" : "hover:bg-white/5"
-                }`}
-              >
-                Next
-              </button>
-            </div>
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </>
       )}
     </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { ChevronDown, X, Filter } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import SearchBar from "@/components/ui/SearchBar";
 
 export interface FilterOptions {
   tags: string[];
@@ -32,11 +33,6 @@ export default function FilterBar({
 
   const dark = shouldUseDarkText();
 
-  // Theme-aware classes
-  const inputBg = dark
-    ? "bg-stone-950/5 placeholder:text-stone-950/30 focus:ring-stone-950/10"
-    : "bg-white/5 placeholder:text-white/30 focus:ring-white/10";
-
   const panelBg = dark
     ? "bg-stone-950/[0.03] border-stone-950/10"
     : "bg-white/[0.03] border-white/10";
@@ -60,8 +56,6 @@ export default function FilterBar({
   const chipClose = dark ? "hover:text-stone-950" : "hover:text-white";
 
   const linkText = dark ? "text-stone-950/70" : "text-white/70";
-
-  const funnelBg = dark ? "hover:bg-stone-950/5" : "hover:bg-white/5";
 
   const borderColor = dark ? "border-stone-950/10" : "border-white/10";
 
@@ -88,23 +82,12 @@ export default function FilterBar({
 
   return (
     <div className="w-full space-y-4">
-      {/* Search Bar */}
-      <div className="relative">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search projects..."
-          className={`w-full rounded-lg border-none px-4 py-2.5 pr-12 text-sm outline-none transition-colors focus:ring-1 ${inputBg}`}
-        />
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className={`absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded-md p-2 ${funnelBg}`}
-          title="Toggle filters"
-        >
-          <Filter className={`h-4 w-4 ${labelText}`} />
-        </button>
-      </div>
+      <SearchBar
+        value={searchTerm}
+        onChange={setSearchTerm}
+        placeholder="Search projects..."
+        onToggleFilters={() => setShowFilters(!showFilters)}
+      />
 
       {/* Filter Panel */}
       {showFilters && (
@@ -147,7 +130,7 @@ export default function FilterBar({
                 {/* Dropdown */}
                 {showTagDropdown && (
                   <div
-                    className={`absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg ${dropdownBg}`}
+                    className={`absolute top-full right-0 left-0 z-50 mt-1 max-h-60 overflow-auto rounded-md border shadow-lg ${dropdownBg}`}
                   >
                     <div className="p-1">
                       {availableTags.map((tag) => (
@@ -220,7 +203,7 @@ export default function FilterBar({
                 {/* Dropdown */}
                 {showStatusDropdown && (
                   <div
-                    className={`absolute left-0 right-0 top-full z-50 mt-1 rounded-md border shadow-lg ${dropdownBg}`}
+                    className={`absolute top-full right-0 left-0 z-50 mt-1 rounded-md border shadow-lg ${dropdownBg}`}
                   >
                     <div className="p-1">
                       {[

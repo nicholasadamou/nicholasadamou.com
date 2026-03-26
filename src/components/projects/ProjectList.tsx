@@ -8,6 +8,9 @@ import { ProjectIcon } from "@/lib/projects/icons";
 import FilterBar, { type FilterOptions } from "@/components/projects/FilterBar";
 import OpenSourceSection from "@/components/projects/OpenSourceSection";
 import ImagePreview from "@/components/ui/ImagePreview";
+import Pagination from "@/components/ui/Pagination";
+
+const PAGE_SIZE = 8;
 
 export default function ProjectList() {
   const {
@@ -23,6 +26,7 @@ export default function ProjectList() {
     tags: [],
     featuredStatus: "all",
   });
+  const [page, setPage] = useState(1);
 
   const availableTags = useMemo(() => {
     const tagSet = new Set<string>();
@@ -68,6 +72,20 @@ export default function ProjectList() {
 
     return list;
   }, [search, filters, isFiltering]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paginatedFiltered = filtered.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
+  // Reset to page 1 when filters change
+  const filterKey = `${search}|${filters.tags.join(",")}|${filters.featuredStatus}`;
+  const [lastFilterKey, setLastFilterKey] = useState(filterKey);
+  if (filterKey !== lastFilterKey) {
+    setLastFilterKey(filterKey);
+    setPage(1);
+  }
 
   if (!isHydrated) {
     return <main className="min-h-screen" />;
@@ -153,7 +171,7 @@ export default function ProjectList() {
           />
 
           <div className="animate-fadeInHome2 space-y-6">
-            {filtered.map((project) => (
+            {paginatedFiltered.map((project) => (
               <ImagePreview
                 key={project.name}
                 src={project.preview}
@@ -200,6 +218,12 @@ export default function ProjectList() {
                 .
               </p>
             )}
+
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
           </div>
 
           <OpenSourceSection />
