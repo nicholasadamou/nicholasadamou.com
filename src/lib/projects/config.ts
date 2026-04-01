@@ -155,6 +155,14 @@ export const projects: Project[] = withPreviews([
     tags: ["CLI", "Linear", "Productivity"],
   },
   {
+    name: "notion-cli",
+    href: "https://notion-cli.vercel.app",
+    description:
+      "CLI for the Notion API \u2014 search pages, list users, view activity.",
+    icon: { kind: "image", src: "/images/projects/notion-cli.svg" },
+    tags: ["CLI", "Notion", "Productivity"],
+  },
+  {
     name: "devx",
     href: "https://devx-flame.vercel.app",
     description:
