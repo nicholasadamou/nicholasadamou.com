@@ -88,7 +88,8 @@
     ],
     "overrides": {
       "prismjs": "^1.30.0",
-      "flatted": ">=3.4.2"
+      "flatted": ">=3.4.2",
+      "picomatch": ">=4.0.4"
     }
   },
   "lint-staged": {
