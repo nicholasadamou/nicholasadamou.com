@@ -162,12 +162,4 @@ export const projects: Project[] = withPreviews([
     icon: { kind: "image", src: "/images/projects/notion-cli.svg" },
     tags: ["CLI", "Notion", "Productivity"],
   },
-  {
-    name: "devx",
-    href: "https://devx-flame.vercel.app",
-    description:
-      "A layered, extensible framework for building secure, customizable developer environments using Ansible and Vagrant.",
-    icon: { kind: "image", src: "/images/projects/devx.svg" },
-    tags: ["Framework", "DevOps", "Ansible"],
-  },
 ]);
