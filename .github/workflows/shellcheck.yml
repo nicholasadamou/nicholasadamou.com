@@ -18,7 +18,7 @@ env:
 jobs:
   shellcheck:
     name: ShellCheck
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout code
@@ -38,7 +38,7 @@ jobs:
 
   shellcheck-detailed:
     name: Detailed ShellCheck Analysis
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout code
@@ -106,7 +106,7 @@ jobs:
 
   validate-executable:
     name: Validate Script Executability
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout code
@@ -141,7 +141,7 @@ jobs:
 
   syntax-check:
     name: Shell Syntax Validation
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout code
@@ -176,7 +176,7 @@ jobs:
 
   summary:
     name: Shell Script Quality Summary
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     needs:
       [shellcheck, shellcheck-detailed, validate-executable, syntax-check]
     if: always()
