@@ -162,4 +162,12 @@ export const projects: Project[] = withPreviews([
     icon: { kind: "image", src: "/images/projects/notion-cli.svg" },
     tags: ["CLI", "Notion", "Productivity"],
   },
+  {
+    name: "fugue",
+    href: "https://fugue-lyart.vercel.app",
+    description:
+      "Incognito mode for AI coding agents. Runs Claude, Codex, Gemini, and more in ephemeral, isolated environments \u2014 no credentials, caches, telemetry, or transcripts persist after the session.",
+    icon: { kind: "image", src: "/images/projects/fugue.svg" },
+    tags: ["CLI", "AI", "Security"],
+  },
 ]);
