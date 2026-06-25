@@ -71,7 +71,7 @@ export default function NoteList({ articles }: NoteListProps) {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-[45rem] px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-8">
           <div className="space-y-2">
             <h1 className="text-3xl font-medium sm:text-4xl">Notes</h1>
@@ -85,7 +85,7 @@ export default function NoteList({ articles }: NoteListProps) {
           {!search && pinnedArticles.length > 0 && (
             <div className="space-y-4">
               <h2
-                className={`text-xs font-medium uppercase tracking-wider ${getOpacityClass()}`}
+                className={`text-xs font-medium tracking-wider uppercase ${getOpacityClass()}`}
               >
                 Pinned
               </h2>
@@ -109,7 +109,7 @@ export default function NoteList({ articles }: NoteListProps) {
                     )}
                     <div className="space-y-1">
                       <span
-                        className={`block text-sm font-medium !leading-snug transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
+                        className={`block text-sm !leading-snug font-medium transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
                       >
                         {article.title}
                       </span>
@@ -136,7 +136,7 @@ export default function NoteList({ articles }: NoteListProps) {
             placeholder="Search notes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className={`w-full rounded-lg border-none px-4 py-2.5 text-sm outline-none transition-colors focus:ring-1 ${inputBg}`}
+            className={`w-full rounded-lg border-none px-4 py-2.5 text-sm transition-colors outline-none focus:ring-1 ${inputBg}`}
           />
 
           <div className="animate-fadeInHome2 space-y-6">
@@ -152,7 +152,7 @@ export default function NoteList({ articles }: NoteListProps) {
                 >
                   <div className="flex items-baseline justify-between gap-4">
                     <span
-                      className={`text-sm font-medium !leading-snug transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
+                      className={`text-sm !leading-snug font-medium transition-opacity group-hover:opacity-60 ${getLinkColorClass()}`}
                     >
                       {article.title}
                     </span>

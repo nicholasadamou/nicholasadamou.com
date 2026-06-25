@@ -37,7 +37,7 @@ export default function Tooltip({ label, children }: TooltipProps) {
       {children}
       {visible && (
         <div
-          className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-1 text-xs font-medium shadow-lg ${bg}`}
+          className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md px-2 py-1 text-xs font-medium whitespace-nowrap shadow-lg ${bg}`}
         >
           {label}
         </div>

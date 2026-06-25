@@ -70,7 +70,7 @@ export default function PrivacyPageClient() {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-2xl px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-2xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-12">
           {/* Header */}
           <div className="space-y-2">

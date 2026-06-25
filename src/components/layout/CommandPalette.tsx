@@ -628,7 +628,7 @@ export default function CommandPalette({
                       <>
                         {query && (
                           <div
-                            className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider ${textMuted}`}
+                            className={`px-4 py-2 text-xs font-semibold tracking-wider uppercase ${textMuted}`}
                           >
                             Actions
                           </div>
@@ -666,7 +666,7 @@ export default function CommandPalette({
                       <>
                         {query && filteredActions.length > 0 && (
                           <div
-                            className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider ${textMuted}`}
+                            className={`px-4 py-2 text-xs font-semibold tracking-wider uppercase ${textMuted}`}
                           >
                             Search Results
                           </div>
@@ -730,7 +730,7 @@ export default function CommandPalette({
                     {filteredRepos.length > 0 && (
                       <>
                         <div
-                          className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider ${textMuted}`}
+                          className={`px-4 py-2 text-xs font-semibold tracking-wider uppercase ${textMuted}`}
                         >
                           GitHub Repositories
                         </div>

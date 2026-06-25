@@ -14,7 +14,7 @@ export default function GalleryPageClient() {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-4xl px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-4xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-8">
           <div className="space-y-2">
             <h1 className="text-3xl font-medium sm:text-4xl">Gallery</h1>

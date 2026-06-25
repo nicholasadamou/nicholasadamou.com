@@ -25,7 +25,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
   const subColor = shouldUseDarkText() ? "text-stone-950/50" : "text-white/50";
 
   return (
-    <section className="animate-fadeInHome2 mb-8 mt-16">
+    <section className="animate-fadeInHome2 mt-16 mb-8">
       <div className="mb-8">
         <h2 className={`text-2xl font-bold ${headingColor}`}>
           If you liked this note.
@@ -51,7 +51,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
                 />
               </div>
             )}
-            <p className={`font-bold leading-tight ${getTextColorClass()}`}>
+            <p className={`leading-tight font-bold ${getTextColorClass()}`}>
               {article.title} — {article.readTime}
             </p>
             <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>

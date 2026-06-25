@@ -19,7 +19,7 @@ export function Table({ columns, data }: TableProps) {
             {columns.map((col) => (
               <th
                 key={col.key}
-                className="border-current/10 border-b px-4 py-2 text-left font-medium"
+                className="border-b border-current/10 px-4 py-2 text-left font-medium"
               >
                 {col.header}
               </th>
@@ -32,7 +32,7 @@ export function Table({ columns, data }: TableProps) {
               {columns.map((col) => (
                 <td
                   key={col.key}
-                  className="border-current/5 border-b px-4 py-2"
+                  className="border-b border-current/5 px-4 py-2"
                 >
                   {row[col.key]}
                 </td>

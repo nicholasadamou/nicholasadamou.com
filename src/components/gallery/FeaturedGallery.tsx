@@ -64,7 +64,7 @@ export default function FeaturedGallery() {
             sizes="(max-width: 640px) 45vw, 120px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="absolute bottom-1.5 right-1.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="absolute right-1.5 bottom-1.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <div className="rounded-full bg-white/20 p-1 backdrop-blur-sm">
               <ExternalLink className="h-2.5 w-2.5 text-white" />
             </div>

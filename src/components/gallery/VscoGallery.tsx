@@ -62,7 +62,7 @@ function Lightbox({
       {/* Close */}
       <button
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 cursor-pointer rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/20"
+        className="absolute top-4 right-4 z-10 cursor-pointer rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/20"
       >
         <X className="h-5 w-5" />
       </button>
@@ -73,7 +73,7 @@ function Lightbox({
         target="_blank"
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
-        className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
+        className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
       >
         <ExternalLink className="h-4 w-4" />
         View on VSCO
@@ -88,7 +88,7 @@ function Lightbox({
               onPrev();
             }}
             disabled={currentIndex === 0}
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-3 text-white backdrop-blur-md transition-colors hover:bg-black/70 disabled:opacity-30"
+            className="absolute top-1/2 left-4 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-3 text-white backdrop-blur-md transition-colors hover:bg-black/70 disabled:opacity-30"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -98,7 +98,7 @@ function Lightbox({
               onNext();
             }}
             disabled={currentIndex === images.length - 1}
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-3 text-white backdrop-blur-md transition-colors hover:bg-black/70 disabled:opacity-30"
+            className="absolute top-1/2 right-4 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-3 text-white backdrop-blur-md transition-colors hover:bg-black/70 disabled:opacity-30"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -233,7 +233,7 @@ export default function VscoGallery() {
                 loading={index < 12 ? "eager" : "lazy"}
               />
               <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
-              <div className="absolute bottom-4 right-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div className="absolute right-4 bottom-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div className="rounded-full bg-white/10 p-2 backdrop-blur-sm">
                   <ExternalLink className="h-4 w-4 text-white" />
                 </div>

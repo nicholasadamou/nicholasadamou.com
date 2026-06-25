@@ -63,7 +63,7 @@ export default function ArticlePage({
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-[45rem] px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <article>
           <header className="animate-fadeInText mb-8">
             <div className="mb-3 flex items-center gap-2 text-sm opacity-60 sm:text-base">
@@ -119,27 +119,13 @@ export default function ArticlePage({
           <TableOfContents />
 
           <div
-            className={`animate-fadeInHome2 prose prose-base sm:prose-lg prose-headings:font-medium
-              prose-h2:mt-10 sm:prose-h2:mt-12
-              prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 sm:prose-h3:mt-8
-              prose-h3:mb-3 prose-p:leading-[1.75] prose-p:transition-colors prose-a:no-underline
-              prose-a:border-b prose-a:border-dashed
-              prose-a:pb-0.5 prose-a:font-normal prose-a:transition-opacity prose-strong:font-medium prose-strong:transition-colors prose-ul:my-4
-              prose-ol:my-4 prose-ol:pl-5
-              prose-ul:pl-5 prose-li:pl-0.5 prose-li:my-2 prose-li:leading-[1.75] prose-li:transition-colors
-              prose-blockquote:font-normal prose-blockquote:border-l-2 prose-blockquote:pl-4
-              prose-blockquote:my-6 prose-blockquote:transition-colors prose-hr:my-8 prose-hr:transition-colors prose-img:rounded-md
-              prose-video:my-8 prose-video:rounded-md
-              prose-code:before:content-none
-              prose-code:after:content-none max-w-none
-              transition-colors duration-200
-              ${shouldUseDarkText() ? lightProseClasses : darkProseClasses}`}
+            className={`animate-fadeInHome2 prose prose-base sm:prose-lg prose-headings:font-medium prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 sm:prose-h3:mt-8 prose-h3:mb-3 prose-p:leading-[1.75] prose-p:transition-colors prose-a:no-underline prose-a:border-b prose-a:border-dashed prose-a:pb-0.5 prose-a:font-normal prose-a:transition-opacity prose-strong:font-medium prose-strong:transition-colors prose-ul:my-4 prose-ol:my-4 prose-ol:pl-5 prose-ul:pl-5 prose-li:pl-0.5 prose-li:my-2 prose-li:leading-[1.75] prose-li:transition-colors prose-blockquote:font-normal prose-blockquote:border-l-2 prose-blockquote:pl-4 prose-blockquote:my-6 prose-blockquote:transition-colors prose-hr:my-8 prose-hr:transition-colors prose-img:rounded-md prose-video:my-8 prose-video:rounded-md prose-code:before:content-none prose-code:after:content-none max-w-none transition-colors duration-200 ${shouldUseDarkText() ? lightProseClasses : darkProseClasses}`}
           >
             {children}
           </div>
         </article>
 
-        <section className="animate-fadeInHome2 mb-8 mt-16">
+        <section className="animate-fadeInHome2 mt-16 mb-8">
           <div
             className={`rounded-lg border border-dashed p-6 ${
               shouldUseDarkText() ? "border-stone-950/10" : "border-white/10"

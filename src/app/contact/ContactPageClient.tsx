@@ -90,7 +90,7 @@ export default function ContactPageClient() {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-2xl px-5 pb-32 pt-24 sm:pb-48 sm:pt-32">
+      <div className="mx-auto max-w-2xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-12">
           {/* Header */}
           <div className="space-y-2">
@@ -118,7 +118,7 @@ export default function ContactPageClient() {
                   type="text"
                   placeholder="Name"
                   {...register("name")}
-                  className={`w-full rounded-lg border px-3.5 py-2.5 text-sm outline-none transition-colors ${inputBg} ${inputBorder} ${inputFocus} placeholder:opacity-40`}
+                  className={`w-full rounded-lg border px-3.5 py-2.5 text-sm transition-colors outline-none ${inputBg} ${inputBorder} ${inputFocus} placeholder:opacity-40`}
                 />
                 {errors.name && (
                   <p className="text-xs text-red-500">{errors.name.message}</p>
@@ -135,7 +135,7 @@ export default function ContactPageClient() {
                   type="email"
                   placeholder="Email"
                   {...register("email")}
-                  className={`w-full rounded-lg border px-3.5 py-2.5 text-sm outline-none transition-colors ${inputBg} ${inputBorder} ${inputFocus} placeholder:opacity-40`}
+                  className={`w-full rounded-lg border px-3.5 py-2.5 text-sm transition-colors outline-none ${inputBg} ${inputBorder} ${inputFocus} placeholder:opacity-40`}
                 />
                 {errors.email && (
                   <p className="text-xs text-red-500">{errors.email.message}</p>
@@ -152,7 +152,7 @@ export default function ContactPageClient() {
                 id="message"
                 placeholder="Message"
                 {...register("message")}
-                className={`min-h-[140px] w-full rounded-lg border px-3.5 py-2.5 text-sm outline-none transition-colors ${inputBg} ${inputBorder} ${inputFocus} placeholder:opacity-40`}
+                className={`min-h-[140px] w-full rounded-lg border px-3.5 py-2.5 text-sm transition-colors outline-none ${inputBg} ${inputBorder} ${inputFocus} placeholder:opacity-40`}
               />
               {errors.message && (
                 <p className="text-xs text-red-500">{errors.message.message}</p>

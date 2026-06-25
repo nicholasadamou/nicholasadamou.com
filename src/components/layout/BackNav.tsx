@@ -29,7 +29,7 @@ export default function BackNav() {
 
   if (isArticle) {
     return (
-      <div className="animate-fadeInBack fixed left-2 top-3 z-10 flex items-center gap-1.5 sm:left-3 sm:top-4">
+      <div className="animate-fadeInBack fixed top-3 left-2 z-10 flex items-center gap-1.5 sm:top-4 sm:left-3">
         <Link
           href="/"
           className={`rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md ${backBg} transition-colors`}
@@ -49,7 +49,7 @@ export default function BackNav() {
 
   if (crumb) {
     return (
-      <div className="animate-fadeInBack fixed left-2 top-3 z-10 flex items-center gap-1.5 sm:left-3 sm:top-4">
+      <div className="animate-fadeInBack fixed top-3 left-2 z-10 flex items-center gap-1.5 sm:top-4 sm:left-3">
         <Link
           href="/"
           className={`rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md ${backBg} transition-colors`}
@@ -79,7 +79,7 @@ export default function BackNav() {
   return (
     <Link
       href="/"
-      className={`fixed left-2 top-3 z-10 rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md sm:left-3 sm:top-4 ${backBg} transition-colors`}
+      className={`fixed top-3 left-2 z-10 rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md sm:top-4 sm:left-3 ${backBg} transition-colors`}
     >
       Home
     </Link>
