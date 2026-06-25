@@ -126,7 +126,6 @@ export const projects: Project[] = withPreviews([
     description:
       "Batched PostgreSQL data backfills with cycle detection, resume-from-interruption, migration interleaving, version collision renumbering, and safe database branch switching.",
     icon: { kind: "image", src: "/images/projects/sluice.svg" },
-    featured: true,
     tags: ["CLI", "PostgreSQL", "Migrations"],
   },
   {
