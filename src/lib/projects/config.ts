@@ -143,7 +143,6 @@ export const projects: Project[] = withPreviews([
     description:
       "Scrape apartment availability across multiple properties, store results in SQLite, and browse with a filterable web UI. Track prices, catch deals, never miss a unit.",
     icon: { kind: "image", src: "/images/projects/aptscout.svg" },
-    featured: true,
     tags: ["CLI", "Web App", "Scraping"],
   },
   {
@@ -168,6 +167,7 @@ export const projects: Project[] = withPreviews([
     description:
       "Incognito mode for AI coding agents. Runs Claude, Codex, Gemini, and more in ephemeral, isolated environments \u2014 no credentials, caches, telemetry, or transcripts persist after the session.",
     icon: { kind: "image", src: "/images/projects/fugue.svg" },
+    featured: true,
     tags: ["CLI", "AI", "Security"],
   },
 ]);
