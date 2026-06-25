@@ -170,4 +170,13 @@ export const projects: Project[] = withPreviews([
     featured: true,
     tags: ["CLI", "AI", "Security"],
   },
+  {
+    name: "airlock",
+    href: "https://airlock-api.vercel.app",
+    description:
+      "Disposable browser isolation on your own machine. Open links in short-lived, containerized browser sessions via a web dashboard or browser extension — no cloud services.",
+    icon: { kind: "image", src: "/images/projects/airlock.svg" },
+    featured: true,
+    tags: ["Web App", "Security", "Docker"],
+  },
 ]);
