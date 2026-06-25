@@ -9,7 +9,7 @@ on:
 jobs:
   coverage:
     name: Coverage Report
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -111,7 +111,7 @@ jobs:
 
   coverage-comparison:
     name: Coverage Comparison
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
 
     steps:
