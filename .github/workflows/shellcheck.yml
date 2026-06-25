@@ -15,6 +15,10 @@ on:
 env:
   SHELLCHECK_OPTS: -e SC1091 -S style
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   shellcheck:
     name: ShellCheck
