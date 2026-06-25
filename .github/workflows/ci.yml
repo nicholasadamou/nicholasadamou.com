@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
           cache: "pnpm"
 
       - name: Install dependencies
@@ -55,7 +55,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
           cache: "pnpm"
 
       - name: Install dependencies
@@ -71,7 +71,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [24.x]
 
     steps:
       - name: Checkout code
@@ -100,7 +100,7 @@ jobs:
           NODE_ENV: test
 
       - name: Upload coverage reports
-        if: matrix.node-version == '20.x'
+        if: matrix.node-version == '24.x'
         uses: codecov/codecov-action@v3
         with:
           file: ./coverage/lcov.info
@@ -123,7 +123,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
           cache: "pnpm"
 
       - name: Install dependencies
@@ -161,7 +161,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
           cache: "pnpm"
 
       - name: Install dependencies
