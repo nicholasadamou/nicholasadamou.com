@@ -45,3 +45,10 @@ scripts/training-data/
 
 # mkdocs build output
 docs/build/
+
+# python (mkdocs docs tooling)
+venv/
+.venv/
+docs/venv/
+__pycache__/
+*.pyc

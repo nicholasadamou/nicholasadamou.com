@@ -34,3 +34,9 @@ Thumbs.db
 
 # Submodules
 tools/
+
+# Python virtualenv & mkdocs build (docs tooling)
+venv/
+.venv/
+docs/venv/
+docs/build/
