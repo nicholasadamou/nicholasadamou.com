@@ -114,14 +114,6 @@ export const projects: Project[] = withPreviews([
     tags: ["CLI", "AI", "Documentation"],
   },
   {
-    name: "sluice",
-    href: "https://sluice-tau.vercel.app",
-    description:
-      "Batched PostgreSQL data backfills with cycle detection, resume-from-interruption, migration interleaving, version collision renumbering, and safe database branch switching.",
-    icon: { kind: "image", src: "/images/projects/sluice.svg" },
-    tags: ["CLI", "PostgreSQL", "Migrations"],
-  },
-  {
     name: "glimpse",
     href: "https://glimpse-black.vercel.app",
     description:
@@ -136,22 +128,6 @@ export const projects: Project[] = withPreviews([
       "Scrape apartment availability across multiple properties, store results in SQLite, and browse with a filterable web UI. Track prices, catch deals, never miss a unit.",
     icon: { kind: "image", src: "/images/projects/aptscout.svg" },
     tags: ["CLI", "Web App", "Scraping"],
-  },
-  {
-    name: "linear-cli",
-    href: "https://linear-cli.vercel.app",
-    description:
-      "Search issues, manage comments, list labels and users, and check platform status — all from the command line. All commands output JSON.",
-    icon: { kind: "image", src: "/images/projects/linear-cli.svg" },
-    tags: ["CLI", "Linear", "Productivity"],
-  },
-  {
-    name: "notion-cli",
-    href: "https://notion-cli.vercel.app",
-    description:
-      "CLI for the Notion API \u2014 search pages, list users, view activity.",
-    icon: { kind: "image", src: "/images/projects/notion-cli.svg" },
-    tags: ["CLI", "Notion", "Productivity"],
   },
   {
     name: "fugue",
