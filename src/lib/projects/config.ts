@@ -20,13 +20,6 @@ function withPreviews(list: Project[]): Project[] {
 
 export const projects: Project[] = withPreviews([
   {
-    name: "dotbrains.dev",
-    href: "https://dotbrains.dev",
-    description: "Developer tools and open-source utilities.",
-    icon: { kind: "image", src: "/images/projects/dotbrains.png" },
-    tags: ["Web App", "Open Source"],
-  },
-  {
     name: "youbuildit.dev",
     href: "https://youbuildit.dev",
     description:
