@@ -1,5 +1,12 @@
 import type { ProjectIconType } from "./icons";
 
+/**
+ * Single source of truth for the You Build It live URL.
+ * Consumed by the project card below and the command palette so the link
+ * never drifts across the two surfaces.
+ */
+export const YOUBUILDIT_URL = "https://youbuildit.vercel.app";
+
 export interface Project {
   name: string;
   href: string;
@@ -20,8 +27,11 @@ function withPreviews(list: Project[]): Project[] {
 
 export const projects: Project[] = withPreviews([
   {
+    // `name` stays "youbuildit.dev" intentionally: it's the brand label and
+    // also keys the preview asset path (youbuildit.dev.png). The live site is
+    // currently served from YOUBUILDIT_URL — don't "fix" this to match.
     name: "youbuildit.dev",
-    href: "https://youbuildit.dev",
+    href: YOUBUILDIT_URL,
     description:
       "Helping you become a better software engineer through coding challenges that build real applications.",
     icon: { kind: "component", id: "youbuildit" },

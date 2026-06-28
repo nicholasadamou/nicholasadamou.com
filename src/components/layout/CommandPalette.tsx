@@ -37,6 +37,7 @@ import toast from "react-hot-toast";
 import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout, useIsDesktop } from "@/hooks/use-home-layout";
 import { ProjectIcon, type ProjectIconType } from "@/lib/projects/icons";
+import { YOUBUILDIT_URL } from "@/lib/projects/config";
 
 interface SearchResult {
   type: "note" | "project";
@@ -337,10 +338,10 @@ export default function CommandPalette({
         id: "company-youbuildit",
         type: "company",
         title: "You Build It",
-        subtitle: "Visit youbuildit.dev",
+        subtitle: `Visit ${YOUBUILDIT_URL.replace(/^https?:\/\//, "")}`,
         icon: <Building2 className="h-5 w-5" />,
         action: () => {
-          window.open("https://youbuildit.dev", "_blank");
+          window.open(YOUBUILDIT_URL, "_blank");
           onClose();
         },
         keywords: ["you build it", "youbuildit"],
