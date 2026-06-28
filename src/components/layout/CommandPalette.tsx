@@ -337,10 +337,10 @@ export default function CommandPalette({
         id: "company-youbuildit",
         type: "company",
         title: "You Build It",
-        subtitle: "Visit youbuildit.dev",
+        subtitle: "Visit youbuildit.vercel.app",
         icon: <Building2 className="h-5 w-5" />,
         action: () => {
-          window.open("https://youbuildit.dev", "_blank");
+          window.open("https://youbuildit.vercel.app", "_blank");
           onClose();
         },
         keywords: ["you build it", "youbuildit"],

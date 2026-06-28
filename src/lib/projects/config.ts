@@ -21,7 +21,7 @@ function withPreviews(list: Project[]): Project[] {
 export const projects: Project[] = withPreviews([
   {
     name: "youbuildit.dev",
-    href: "https://youbuildit.dev",
+    href: "https://youbuildit.vercel.app",
     description:
       "Helping you become a better software engineer through coding challenges that build real applications.",
     icon: { kind: "component", id: "youbuildit" },
