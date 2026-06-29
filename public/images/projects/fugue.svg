@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="7" fill="#0b0c0e" />
   <rect x="3.5" y="3.5" width="25" height="25" rx="5.5" fill="none" stroke="#20242c" />
-  <!-- header brand mark: >_ in the amber accent -->
-  <path d="M10 10 l5 6 l-5 6" fill="none" stroke="#ffb454" stroke-width="2.6"
-        stroke-linecap="round" stroke-linejoin="round" />
-  <line x1="17" y1="22" x2="24" y2="22" stroke="#ffb454" stroke-width="2.6"
-        stroke-linecap="round" />
+  <!-- fugue: the agent that runs, does the work, and leaves nothing behind -->
+  <path d="M9 23 V15 a7 7 0 0 1 14 0 V23
+           l-2.33 -2 -2.34 2 -2.33 -2 -2.33 2 -2.34 -2 Z"
+        fill="#ffb454" />
+  <circle cx="13.3" cy="14.5" r="1.5" fill="#0b0c0e" />
+  <circle cx="18.7" cy="14.5" r="1.5" fill="#0b0c0e" />
 </svg>
