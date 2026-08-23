@@ -47,6 +47,9 @@ export async function generateMetadata({
   return {
     title: `${article.title} — Nicholas Adamou`,
     description: article.summary,
+    alternates: {
+      canonical: `/notes/${slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.summary,

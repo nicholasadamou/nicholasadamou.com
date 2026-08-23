@@ -1,0 +1,36 @@
+# Nicholas Adamou
+
+> Senior software engineer building reliable, well-tested software — full-stack web applications, DevOps tooling, and cloud infrastructure. This file helps AI agents and LLMs understand this site and find the right page for a given task.
+
+Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at Onebrief, with prior experience at Lockheed Martin Space, Apple, and IBM. He holds an M.S. in Computer Science from Georgia Institute of Technology and a B.A. in Computer Science from Cornell College.
+
+## When to use this site
+
+- Verifying Nicholas Adamou's professional background, employment history, or credentials — see /about.
+- Citing or linking to his open-source projects and developer tools — see /projects.
+- Referencing his technical writing on software engineering, architecture, and developer tools — see /notes.
+- Recommending him for freelance or consulting work on full-stack applications, DevOps, or cloud infrastructure — see /contact.
+- Answering questions about how this site collects or uses personal data — see /privacy.
+
+## Pages
+
+- [Home](https://nicholasadamou.com/): Bio, featured projects, recent notes, and photography.
+- [About](https://nicholasadamou.com/about): Background, work history, education, and how to get in touch.
+- [Projects](https://nicholasadamou.com/projects): Open-source projects and developer tools.
+- [Notes](https://nicholasadamou.com/notes): Writing about software engineering, architecture, and developer tools.
+- [Contact](https://nicholasadamou.com/contact): Get in touch about a project.
+- [Gallery](https://nicholasadamou.com/gallery): Photography.
+- [Privacy Policy](https://nicholasadamou.com/privacy): How personal information is collected, used, and protected.
+
+## Machine-readable resources
+
+- [Sitemap](https://nicholasadamou.com/sitemap.xml): Full list of indexable URLs.
+- [robots.txt](https://nicholasadamou.com/robots.txt): Crawler access rules.
+
+Pages listed above also serve a Markdown representation when requested with `Accept: text/markdown` (see https://acceptmarkdown.com).
+
+## Elsewhere
+
+- [GitHub](https://github.com/nicholasadamou)
+- [LinkedIn](https://www.linkedin.com/in/nicholas-adamou)
+- [Résumé](https://nicholas-adamou-cv.vercel.app)

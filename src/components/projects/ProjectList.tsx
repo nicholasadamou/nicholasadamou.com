@@ -18,7 +18,6 @@ export default function ProjectList() {
     getLinkColorClass,
     getOpacityClass,
     shouldUseDarkText,
-    isHydrated,
   } = useTheme();
 
   const [search, setSearch] = useState("");
@@ -85,10 +84,6 @@ export default function ProjectList() {
   if (filterKey !== lastFilterKey) {
     setLastFilterKey(filterKey);
     setPage(1);
-  }
-
-  if (!isHydrated) {
-    return <main className="min-h-screen" />;
   }
 
   const tagBg = shouldUseDarkText()

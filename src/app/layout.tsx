@@ -32,6 +32,9 @@ export const metadata: Metadata = {
   description,
   authors: [{ name: "Nicholas Adamou", url: baseUrl }],
   creator: "Nicholas Adamou",
+  alternates: {
+    canonical: baseUrl,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Nicholas Adamou",
   description:
     "Learn about how I collect, use, and protect your personal information on nicholasadamou.com.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

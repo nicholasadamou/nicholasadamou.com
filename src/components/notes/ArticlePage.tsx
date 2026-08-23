@@ -34,12 +34,8 @@ export default function ArticlePage({
   relatedArticles,
   children,
 }: ArticlePageProps) {
-  const { getTextColorClass, isHydrated, shouldUseDarkText } = useTheme();
+  const { getTextColorClass, shouldUseDarkText } = useTheme();
   const views = useViews(slug);
-
-  if (!isHydrated) {
-    return <main className="min-h-screen" />;
-  }
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",

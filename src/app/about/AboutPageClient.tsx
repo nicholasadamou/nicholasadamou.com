@@ -7,86 +7,15 @@ import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import SpotifySection from "@/components/home/SpotifySection";
 import AboutGallery from "./AboutGallery";
 import { useTheme } from "@/components/ThemeProvider";
+import {
+  connectLinks,
+  credentials,
+  resumes,
+  workplaces,
+} from "@/lib/content/about-data";
 
 import arizona from "../../../public/images/gallery/arizona.jpg";
 import lakePlacid from "../../../public/images/gallery/lake-placid.jpg";
-
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
-
-const connectLinks = [
-  { label: "GitHub", href: "https://github.com/nicholasadamou" },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/nicholas-adamou",
-  },
-  { label: "LeetCode", href: "https://leetcode.com/nicholasadamou" },
-  {
-    label: "HackerRank",
-    href: "https://www.hackerrank.com/profile/nicholas_adamou",
-  },
-  { label: "CodePen", href: "https://codepen.io/nicholasadamou" },
-  { label: "VSCO", href: "https://vsco.co/nicholasadamou" },
-  {
-    label: "Gumroad",
-    href: "https://nicholasadamou.gumroad.com",
-  },
-];
-
-const credentials = [
-  { label: "Credly", href: "https://www.credly.com/users/nicholas-adamou" },
-];
-
-const resumes = [
-  { label: "Resume", href: "https://nicholas-adamou-cv.vercel.app" },
-];
-
-const workplaces = [
-  {
-    title: "Senior Software Engineer",
-    company: "Onebrief",
-    date: "Feb 2026 –",
-    logo: "/images/work/onebrief-logo.svg",
-    href: "https://onebrief.com",
-  },
-  {
-    title: "Senior Software Engineer",
-    company: "Lockheed Martin, Space",
-    date: "Dec 2024 – Feb 2026",
-    logo: "/images/work/lockheed-martin-logo.svg",
-    href: "https://www.lockheedmartin.com/en-us/capabilities/space.html",
-  },
-  {
-    title: "Senior Software Engineer",
-    company: "Apple",
-    date: "Sep 2024 – Nov 2024",
-    logo: "/images/work/apple-logo.svg",
-    href: "https://apple.com",
-    contract: true,
-  },
-  {
-    title: "Senior Software Engineer",
-    company: "IBM",
-    date: "Oct 2023 – Aug 2024",
-    logo: "/images/work/ibm-logo.svg",
-    href: "https://ibm.com",
-  },
-  {
-    title: "Software Engineer II",
-    company: "IBM",
-    date: "May 2021 – Oct 2023",
-    logo: "/images/work/ibm-logo.svg",
-    href: "https://ibm.com",
-  },
-  {
-    title: "Software Engineer I",
-    company: "IBM",
-    date: "May 2020 – May 2021",
-    logo: "/images/work/ibm-logo.svg",
-    href: "https://ibm.com",
-  },
-];
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
@@ -99,10 +28,7 @@ export default function AboutPageClient() {
     getLinkColorClass,
     getHrColorClass,
     shouldUseDarkText,
-    isHydrated,
   } = useTheme();
-
-  if (!isHydrated) return <main className="min-h-screen" />;
 
   const light = shouldUseDarkText();
   const cardBg = light ? "bg-stone-950/[0.03]" : "bg-white/[0.04]";

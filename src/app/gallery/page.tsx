@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Gallery",
   description:
     "A curated collection of photography work, showcasing moments and perspectives through the lens.",
+  alternates: {
+    canonical: "/gallery",
+  },
 };
 
 export default function GalleryPage() {

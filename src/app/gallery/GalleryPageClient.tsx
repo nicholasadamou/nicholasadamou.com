@@ -4,11 +4,7 @@ import VscoGallery from "@/components/gallery/VscoGallery";
 import { useTheme } from "@/components/ThemeProvider";
 
 export default function GalleryPageClient() {
-  const { getTextColorClass, getOpacityClass, isHydrated } = useTheme();
-
-  if (!isHydrated) {
-    return <main className="min-h-screen" />;
-  }
+  const { getTextColorClass, getOpacityClass } = useTheme();
 
   return (
     <main

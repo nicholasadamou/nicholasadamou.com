@@ -39,7 +39,6 @@ export default function NoteList({ articles }: NoteListProps) {
     getLinkColorClass,
     getOpacityClass,
     shouldUseDarkText,
-    isHydrated,
   } = useTheme();
 
   const [search, setSearch] = useState("");
@@ -58,10 +57,6 @@ export default function NoteList({ articles }: NoteListProps) {
         a.title.toLowerCase().includes(q) || a.summary.toLowerCase().includes(q)
     );
   }, [articles, search]);
-
-  if (!isHydrated) {
-    return <main className="min-h-screen" />;
-  }
 
   const inputBg = shouldUseDarkText()
     ? "bg-stone-950/5 placeholder:text-stone-950/30 focus:ring-stone-950/10"

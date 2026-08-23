@@ -26,16 +26,11 @@ export default function HomePage({ articles }: HomePageProps) {
     getOpacityClass,
     getHrColorClass,
     shouldUseDarkText,
-    isHydrated,
   } = useTheme();
   const { layout } = useHomeLayout();
   const slugs = useMemo(() => articles.map((a) => a.slug), [articles]);
   const viewCounts = useBatchViews(slugs);
   const isTwoCol = layout === "two-column";
-
-  if (!isHydrated) {
-    return <div className="flex h-screen items-center justify-center" />;
-  }
 
   const light = shouldUseDarkText();
   const hr = `border-dashed ${getOpacityClass()} ${getHrColorClass()}`;

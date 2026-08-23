@@ -29,7 +29,6 @@ export default function ContactPageClient() {
     getOpacityClass,
     getLinkColorClass,
     shouldUseDarkText,
-    isHydrated,
   } = useTheme();
 
   const {
@@ -77,8 +76,6 @@ export default function ContactPageClient() {
     }
   };
 
-  if (!isHydrated) return <main className="min-h-screen" />;
-
   const light = shouldUseDarkText();
   const inputBg = light ? "bg-stone-950/[0.03]" : "bg-white/[0.04]";
   const inputBorder = light ? "border-stone-950/10" : "border-white/10";
@@ -101,6 +98,17 @@ export default function ContactPageClient() {
               I help companies and individuals build out their digital presence.
             </p>
           </div>
+
+          {/* Intro */}
+          <p className="text-sm leading-relaxed">
+            I work with startups, engineering teams, and individual founders to
+            build reliable, well-tested software — from full-stack web
+            applications and internal tooling to DevOps pipelines and cloud
+            infrastructure. Whether you need a hand shipping a new feature,
+            untangling technical debt, or someone to own a project end-to-end,
+            tell me about what you&apos;re building below and I&apos;ll get back
+            to you within a couple of days.
+          </p>
 
           {/* Form */}
           <form

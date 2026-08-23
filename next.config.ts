@@ -17,6 +17,24 @@ const withMDX = createMDX({
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  // These routes also serve a Markdown representation of the same content
+  // via Accept-header negotiation (see src/proxy.ts). Declaring `Vary:
+  // Accept` here — in addition to setting it on the negotiated response
+  // itself — ensures CDNs cache the HTML and Markdown variants separately
+  // instead of serving one to the wrong Accept header. Per
+  // https://acceptmarkdown.com.
+  async headers() {
+    const varyAccept = { key: "Vary", value: "Accept" };
+    return [
+      { source: "/", headers: [varyAccept] },
+      { source: "/about", headers: [varyAccept] },
+      { source: "/contact", headers: [varyAccept] },
+      { source: "/privacy", headers: [varyAccept] },
+      { source: "/projects", headers: [varyAccept] },
+      { source: "/notes", headers: [varyAccept] },
+      { source: "/notes/:slug", headers: [varyAccept] },
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
