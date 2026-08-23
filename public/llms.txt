@@ -22,15 +22,21 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at One
 - [Gallery](https://nicholasadamou.com/gallery): Photography.
 - [Privacy Policy](https://nicholasadamou.com/privacy): How personal information is collected, used, and protected.
 
-## Machine-readable resources
+## Developer resources
 
+Nicholas Adamou's developer resources — open-source projects, technical
+writing, and machine-readable guides for agents and search engines:
+
+- [Projects](https://nicholasadamou.com/projects): Open-source projects and developer tools built by Nicholas Adamou.
+- [Notes](https://nicholasadamou.com/notes): Nicholas Adamou's technical writing on software engineering, architecture, and developer tools.
+- [GitHub](https://github.com/nicholasadamou): Source code for Nicholas Adamou's open-source projects.
 - [Sitemap](https://nicholasadamou.com/sitemap.xml): Full list of indexable URLs.
 - [robots.txt](https://nicholasadamou.com/robots.txt): Crawler access rules.
+- [llms.txt](https://nicholasadamou.com/llms.txt): This file.
 
 Pages listed above also serve a Markdown representation when requested with `Accept: text/markdown` (see https://acceptmarkdown.com).
 
 ## Elsewhere
 
-- [GitHub](https://github.com/nicholasadamou)
 - [LinkedIn](https://www.linkedin.com/in/nicholas-adamou)
 - [Résumé](https://nicholas-adamou-cv.vercel.app)

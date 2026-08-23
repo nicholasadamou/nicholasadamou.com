@@ -180,6 +180,9 @@ export default function SpotifySection({
         <SpotifyLogo className="h-3.5 w-3.5" />
         Listening
       </h2>
+      <p className={`text-xs ${opacityClass}`}>
+        What I&apos;m currently listening to on Spotify, updated in real time.
+      </p>
 
       <div className="space-y-3">
         {loading ? (

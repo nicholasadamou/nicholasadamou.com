@@ -46,9 +46,11 @@ export function getPersonJsonLd() {
 
 /**
  * Represents Nicholas Adamou as an independent practice (the /contact page
- * offers freelance/consulting work). No public email, phone, or physical
- * address is published anywhere on the site, so those ContactPoint/address
- * fields are intentionally omitted rather than fabricated.
+ * offers freelance/consulting work). No public email, phone, or street
+ * address is published anywhere on the site, so those ContactPoint fields
+ * are intentionally omitted rather than fabricated. `address` is limited to
+ * the country he operates from (consistent with his US-based employers and
+ * education listed elsewhere on the site) rather than a specific location.
  */
 export function getOrganizationJsonLd() {
   const baseUrl = getBaseUrl();
@@ -64,6 +66,10 @@ export function getOrganizationJsonLd() {
       name: "Nicholas Adamou",
     },
     sameAs: SAME_AS,
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "US",
+    },
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",

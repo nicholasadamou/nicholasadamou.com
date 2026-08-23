@@ -45,10 +45,40 @@ describe("server-rendered content (no JavaScript)", () => {
     expect(textLength(html)).toBeGreaterThan(500);
   });
 
+  it("homepage has a non-flat heading hierarchy (h1 > h2 > h3)", () => {
+    const html = ssrHtml(
+      <HomePage
+        articles={[
+          {
+            slug: "test-article",
+            title: "Test Article Title",
+            date: "2025-01-01",
+            readTime: "5 min read",
+            image: null,
+          },
+        ]}
+      />
+    );
+    expect(html).toContain("<h1");
+    expect(html).toContain("<h2");
+    // Featured project names and note titles are real page content, not
+    // just chrome — giving them their own h3 keeps the outline from being
+    // a flat h1 followed by a run of same-level h2 section labels.
+    expect(html).toContain("<h3");
+    expect(html).toContain("Test Article Title");
+  });
+
   it("about page renders an H1 and substantial text without hydration", () => {
     const html = ssrHtml(<AboutPageClient />);
     expect(html).toContain("<h1");
     expect(textLength(html)).toBeGreaterThan(500);
+  });
+
+  it("about page includes a Developer Resources section linking to projects and notes", () => {
+    const html = ssrHtml(<AboutPageClient />);
+    expect(html).toContain("Developer Resources");
+    expect(html).toMatch(/href="\/projects"/);
+    expect(html).toMatch(/href="\/notes"/);
   });
 
   it("contact page renders an H1 and substantial text without hydration", () => {

@@ -30,6 +30,19 @@ export const resumes: AboutLink[] = [
   { label: "Resume", href: "https://nicholas-adamou-cv.vercel.app" },
 ];
 
+export interface DeveloperResource extends AboutLink {
+  /** Same-origin app route — render with next/link, no external-link icon. */
+  internal?: boolean;
+}
+
+export const developerResources: DeveloperResource[] = [
+  { label: "Projects", href: "/projects", internal: true },
+  { label: "Notes", href: "/notes", internal: true },
+  { label: "GitHub", href: "https://github.com/nicholasadamou" },
+  { label: "llms.txt", href: "/llms.txt" },
+  { label: "Sitemap", href: "/sitemap.xml" },
+];
+
 export interface Workplace {
   title: string;
   company: string;

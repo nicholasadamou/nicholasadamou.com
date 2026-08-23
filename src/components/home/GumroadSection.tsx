@@ -25,6 +25,9 @@ export default function GumroadSection({
   return (
     <div className="space-y-4 sm:space-y-3">
       <h2 className={`${opacityClass} text-sm`}>Products</h2>
+      <p className={`text-xs ${opacityClass}`}>
+        Digital products and templates I&apos;ve published on Gumroad.
+      </p>
       <div className="space-y-3">
         {loading
           ? Array.from({ length: 2 }).map((_, i) => (

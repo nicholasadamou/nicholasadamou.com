@@ -86,14 +86,19 @@ export default function HomePage({ articles }: HomePageProps) {
                     alt={`${project.name} preview`}
                   >
                     <div className="space-y-0.5">
-                      <Link
-                        href={project.href}
-                        target="_blank"
-                        className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
-                      >
-                        <ProjectIcon icon={project.icon} name={project.name} />
-                        {project.name.toLowerCase()}
-                      </Link>
+                      <h3>
+                        <Link
+                          href={project.href}
+                          target="_blank"
+                          className={`flex items-center gap-1.5 text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                        >
+                          <ProjectIcon
+                            icon={project.icon}
+                            name={project.name}
+                          />
+                          {project.name.toLowerCase()}
+                        </Link>
+                      </h3>
                       <p className={`${getOpacityClass()}`}>
                         {project.description}
                       </p>
@@ -122,12 +127,14 @@ export default function HomePage({ articles }: HomePageProps) {
                   alt={`${article.title} header image`}
                 >
                   <div className="space-y-0.5">
-                    <Link
-                      href={`/notes/${article.slug}`}
-                      className={`block text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
-                    >
-                      {article.title}
-                    </Link>
+                    <h3>
+                      <Link
+                        href={`/notes/${article.slug}`}
+                        className={`block text-sm !leading-snug font-medium transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                      >
+                        {article.title}
+                      </Link>
+                    </h3>
                     <p
                       className={`flex items-center gap-1.5 ${getOpacityClass()}`}
                     >

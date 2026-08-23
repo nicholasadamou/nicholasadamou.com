@@ -30,11 +30,16 @@ describe("getOrganizationJsonLd", () => {
     expect(data.url).toMatch(/^https?:\/\//);
     expect(data.contactPoint["@type"]).toBe("ContactPoint");
     expect(data.contactPoint.url).toContain("/contact");
-    // No email/phone/address is published on the site, so none should be
-    // invented here — asserting the keys stay absent guards against drift.
+    // No email/phone/street address is published on the site, so none
+    // should be invented here — asserting the keys stay absent guards
+    // against drift. Only the country (an already-public fact, matching
+    // his US-based employers/education) is included in `address`.
     expect(data.contactPoint).not.toHaveProperty("email");
     expect(data.contactPoint).not.toHaveProperty("telephone");
-    expect(data).not.toHaveProperty("address");
+    expect(data.address["@type"]).toBe("PostalAddress");
+    expect(data.address.addressCountry).toBe("US");
+    expect(data.address).not.toHaveProperty("streetAddress");
+    expect(data.address).not.toHaveProperty("addressLocality");
   });
 
   it("is JSON-serializable", () => {

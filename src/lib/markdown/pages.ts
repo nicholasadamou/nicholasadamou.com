@@ -3,6 +3,7 @@ import { projects } from "@/lib/projects/config";
 import {
   connectLinks,
   credentials,
+  developerResources,
   resumes,
   workplaces,
 } from "@/lib/content/about-data";
@@ -75,6 +76,13 @@ export function getAboutMarkdown(): string {
     "## Credentials",
     "",
     ...credentials.map((l) => `- [${l.label}](${l.href})`),
+    "",
+    "## Developer Resources",
+    "",
+    ...developerResources.map(
+      (r) =>
+        `- [${r.label}](${r.href.startsWith("/") ? baseUrl + r.href : r.href})`
+    ),
     "",
     "## Resume",
     "",
