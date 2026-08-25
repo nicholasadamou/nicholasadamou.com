@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
       { source: "/projects", headers: [varyAccept] },
       { source: "/notes", headers: [varyAccept] },
       { source: "/notes/:slug", headers: [varyAccept] },
+      { source: "/developers", headers: [varyAccept] },
     ];
   },
   images: {

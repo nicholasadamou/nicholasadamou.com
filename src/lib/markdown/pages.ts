@@ -32,6 +32,18 @@ export function getHomeMarkdown(): string {
     "",
     `More about me: ${baseUrl}/about`,
     "",
+    "## How to read this site",
+    "",
+    "Nicholas Adamou's personal site is organized for both people and agents.",
+    "",
+    "### People",
+    "",
+    `Start with the bio on this page, then continue to [About](${baseUrl}/about) for work history, [Projects](${baseUrl}/projects) for open-source tools, and [Notes](${baseUrl}/notes) for technical writing. Use [Contact](${baseUrl}/contact) for freelance or consulting inquiries.`,
+    "",
+    "### Agents",
+    "",
+    `Prefer [llms.txt](${baseUrl}/llms.txt) and [Nicholas Adamou developer resources](${baseUrl}/developers). Pages also serve Markdown when requested with \`Accept: text/markdown\`. The [sitemap](${baseUrl}/sitemap.xml) lists every indexable URL.`,
+    "",
     "## Projects",
     "",
     ...featured.flatMap((p) => [`- [${p.name}](${p.href}): ${p.description}`]),
@@ -184,6 +196,80 @@ export function getNoteArticleMarkdown(slug: string): string | null {
     `${article.date} · ${article.readTime}`,
     "",
     article.body.raw,
+    "",
+  ].join("\n");
+}
+
+/**
+ * Short recovery document for nonexistent paths. Served with HTTP 404 and
+ * `Content-Type: text/markdown` when the client prefers markdown, so agents
+ * can recover via sitemap / llms.txt / developer resources instead of
+ * parsing an HTML shell.
+ */
+export function getNotFoundMarkdown(): string {
+  const baseUrl = getBaseUrl();
+
+  return [
+    "# Page not found",
+    "",
+    "The page you're looking for doesn't exist or may have moved.",
+    "",
+    "## Where to look next",
+    "",
+    `- [Home](${baseUrl}/): Bio, projects, notes, and photography.`,
+    `- [About](${baseUrl}/about): Background, work history, and how to reach me.`,
+    `- [Projects](${baseUrl}/projects): Open-source projects and developer tools.`,
+    `- [Notes](${baseUrl}/notes): Writing on software engineering and architecture.`,
+    `- [Nicholas Adamou developer resources](${baseUrl}/developers): Machine-readable guides, markdown negotiation, OpenAPI, and agent entry points.`,
+    `- [Contact](${baseUrl}/contact): Get in touch about a project.`,
+    `- [Sitemap](${baseUrl}/sitemap.xml): Full list of indexable URLs.`,
+    `- [llms.txt](${baseUrl}/llms.txt): Machine-readable guide to this site for AI agents.`,
+    "",
+  ].join("\n");
+}
+
+export function getDevelopersMarkdown(): string {
+  const baseUrl = getBaseUrl();
+
+  return [
+    "# Nicholas Adamou developer resources",
+    "",
+    "Machine-readable entry points for agents and developers working with Nicholas Adamou's site — open-source projects, technical writing, and content APIs. There is no public product API key, OAuth provider, webhook hub, or MCP server on this host; the surface below is the content and discovery stack.",
+    "",
+    "## Start here",
+    "",
+    `- [llms.txt](${baseUrl}/llms.txt): Site map for AI agents — when to use this site, page index, and developer links.`,
+    `- [Sitemap](${baseUrl}/sitemap.xml): Full list of indexable URLs.`,
+    `- [robots.txt](${baseUrl}/robots.txt): Crawler access rules.`,
+    `- [OpenAPI](${baseUrl}/openapi.json): OpenAPI 3.1 description of public agent-facing endpoints.`,
+    `- [API catalog](${baseUrl}/.well-known/api-catalog): RFC 9727 linkset pointing at the OpenAPI document.`,
+    "",
+    "## Content as Markdown",
+    "",
+    "Request any of the pages below with `Accept: text/markdown` (see https://acceptmarkdown.com). Responses use `Content-Type: text/markdown; charset=utf-8` and `Vary: Accept`.",
+    "",
+    `- [Home](${baseUrl}/)`,
+    `- [About](${baseUrl}/about)`,
+    `- [Projects](${baseUrl}/projects)`,
+    `- [Notes](${baseUrl}/notes)`,
+    `- [Contact](${baseUrl}/contact)`,
+    `- [Privacy](${baseUrl}/privacy)`,
+    `- [Nicholas Adamou developer resources](${baseUrl}/developers)`,
+    `- Individual notes at ${baseUrl}/notes/{slug}`,
+    "",
+    "## Search",
+    "",
+    `GET ${baseUrl}/api/search?q={query} — JSON search across notes and projects. Returns up to 10 results.`,
+    "",
+    "## Open-source and writing",
+    "",
+    `- [Projects](${baseUrl}/projects): Open-source projects and developer tools built by Nicholas Adamou.`,
+    `- [Notes](${baseUrl}/notes): Technical writing on software engineering, architecture, and developer tools.`,
+    `- [GitHub](https://github.com/nicholasadamou): Source repositories.`,
+    "",
+    "## What this site is not",
+    "",
+    "This host does not expose a transactional SaaS API, MCP server, OAuth authorization server, or webhook delivery system. For those capabilities, see the individual open-source projects linked from /projects.",
     "",
   ].join("\n");
 }

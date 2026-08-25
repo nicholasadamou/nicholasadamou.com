@@ -10,10 +10,17 @@ describe("developerResources", () => {
     expect(notes).toMatchObject({ href: "/notes", internal: true });
   });
 
-  it("links to GitHub, llms.txt, and the sitemap", () => {
+  it("links to the named developer resources index, GitHub, OpenAPI, llms.txt, and the sitemap", () => {
     const labels = developerResources.map((r) => r.label);
+    expect(labels).toContain("Nicholas Adamou developer resources");
     expect(labels).toContain("GitHub");
+    expect(labels).toContain("OpenAPI");
     expect(labels).toContain("llms.txt");
     expect(labels).toContain("Sitemap");
+
+    const index = developerResources.find(
+      (r) => r.label === "Nicholas Adamou developer resources"
+    );
+    expect(index).toMatchObject({ href: "/developers", internal: true });
   });
 });

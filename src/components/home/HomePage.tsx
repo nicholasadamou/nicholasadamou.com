@@ -7,6 +7,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout } from "@/hooks/use-home-layout";
 import { useBatchViews } from "@/hooks/use-batch-views";
 import BioSection from "@/components/home/BioSection";
+import HowToReadSection from "@/components/home/HowToReadSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
 import SpotifySection from "@/components/home/SpotifySection";
@@ -73,6 +74,8 @@ export default function HomePage({ articles }: HomePageProps) {
               : ""
           }`}
         >
+          <HowToReadSection />
+
           {/* Projects */}
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Projects</h2>
