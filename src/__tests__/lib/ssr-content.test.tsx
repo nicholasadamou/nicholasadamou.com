@@ -7,6 +7,7 @@ import AboutPageClient from "@/app/about/AboutPageClient";
 import ContactPageClient from "@/app/contact/ContactPageClient";
 import PrivacyPageClient from "@/app/privacy/PrivacyPageClient";
 import GalleryPageClient from "@/app/gallery/GalleryPageClient";
+import DevelopersPageClient from "@/app/developers/DevelopersPageClient";
 import ProjectList from "@/components/projects/ProjectList";
 import NoteList from "@/components/notes/NoteList";
 import ArticlePage from "@/components/notes/ArticlePage";
@@ -66,6 +67,24 @@ describe("server-rendered content (no JavaScript)", () => {
     // a flat h1 followed by a run of same-level h2 section labels.
     expect(html).toContain("<h3");
     expect(html).toContain("Test Article Title");
+  });
+
+  it("homepage exposes nested h2/h3 text that is not trapped inside links", () => {
+    const html = ssrHtml(<HomePage articles={[]} />);
+    // is-agentic graders ignore headings whose only text lives inside <a>.
+    expect(html).toMatch(/<h2[^>]*>How to read this site<\/h2>/);
+    expect(html).toMatch(/<h3[^>]*>People<\/h3>/);
+    expect(html).toMatch(/<h3[^>]*>Agents<\/h3>/);
+    expect(html).toContain("Nicholas Adamou developer resources");
+    expect(textLength(html)).toBeGreaterThan(500);
+  });
+
+  it("developers page renders a named H1 and substantial text without hydration", () => {
+    const html = ssrHtml(<DevelopersPageClient />);
+    expect(html).toContain("<h1");
+    expect(html).toContain("Nicholas Adamou developer resources");
+    expect(html).toContain("openapi.json");
+    expect(textLength(html)).toBeGreaterThan(500);
   });
 
   it("about page renders an H1 and substantial text without hydration", () => {
