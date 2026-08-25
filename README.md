@@ -8,9 +8,9 @@
 ![MDX](https://img.shields.io/badge/-MDX-FCB32C?style=flat-square&logo=mdx&logoColor=black)
 
 [![Continuous Integration](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/ci.yml/badge.svg)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/ci.yml)
-[![Unit Tests](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/test.yml/badge.svg)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/test.yml)
+[![Unit Tests](https://img.shields.io/github/actions/workflow/status/nicholasadamou/nicholasadamou.com/ci.yml?branch=main&job=Unit%20Tests&label=Unit%20Tests)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/ci.yml)
 [![Test Coverage](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/coverage.yml/badge.svg)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/coverage.yml)
-[![Shell Script Validation](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/shellcheck.yml)
+[![Shell Script Validation](https://img.shields.io/github/actions/workflow/status/nicholasadamou/nicholasadamou.com/ci.yml?branch=main&job=Shell%20Script%20Validation&label=Shell%20Script%20Validation)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/ci.yml)
 
 > A modern clean, and performant personal portfolio website built with Next.js 16, featuring MDX blog posts, AI chatbot, VSCO gallery integration, and a custom luminance-based theme system.
 
