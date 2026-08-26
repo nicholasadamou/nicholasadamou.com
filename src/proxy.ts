@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prefersMarkdown } from "@/lib/markdown/negotiate";
+import {
+  prefersMarkdown,
+  prefersMarkdownRecovery,
+} from "@/lib/markdown/negotiate";
 import { isRscRequest } from "@/lib/markdown/is-rsc-request";
 
 const MARKDOWN_PATHS: Record<string, string> = {
@@ -59,12 +62,8 @@ export function proxy(request: NextRequest) {
 
   const accept = request.headers.get("accept");
 
-  if (!prefersMarkdown(accept)) {
-    return appendVaryAccept(NextResponse.next());
-  }
-
   const target = markdownTargetFor(pathname);
-  if (target) {
+  if (target && prefersMarkdown(accept)) {
     const url = request.nextUrl.clone();
     url.pathname = target;
     return appendVaryAccept(NextResponse.rewrite(url));
@@ -79,9 +78,14 @@ export function proxy(request: NextRequest) {
 
   // Nonexistent (or otherwise unmapped) paths: short Markdown recovery
   // body with a real HTTP 404 so agents can find the sitemap / llms.txt.
-  const notFound = request.nextUrl.clone();
-  notFound.pathname = "/api/markdown/not-found";
-  return appendVaryAccept(NextResponse.rewrite(notFound));
+  // Use relaxed negotiation — many agents curl without Accept: text/markdown.
+  if (!target && prefersMarkdownRecovery(accept)) {
+    const notFound = request.nextUrl.clone();
+    notFound.pathname = "/api/markdown/not-found";
+    return appendVaryAccept(NextResponse.rewrite(notFound));
+  }
+
+  return appendVaryAccept(NextResponse.next());
 }
 
 export const config = {

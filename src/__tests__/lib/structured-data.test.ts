@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { getPersonJsonLd, getOrganizationJsonLd } from "@/lib/structured-data";
+import {
+  getPersonJsonLd,
+  getOrganizationJsonLd,
+  getWebSiteJsonLd,
+} from "@/lib/structured-data";
 
 describe("getPersonJsonLd", () => {
   it("produces valid Person schema with required identity fields", () => {
@@ -44,5 +48,20 @@ describe("getOrganizationJsonLd", () => {
 
   it("is JSON-serializable", () => {
     expect(() => JSON.stringify(getOrganizationJsonLd())).not.toThrow();
+  });
+});
+
+describe("getWebSiteJsonLd", () => {
+  it("links to nicholasadamou developer resources", () => {
+    const data = getWebSiteJsonLd();
+
+    expect(data["@type"]).toBe("WebSite");
+    expect(data.alternateName).toBe("nicholasadamou");
+    expect(data.hasPart.name).toBe("nicholasadamou developer resources");
+    expect(data.hasPart.url).toContain("/developers");
+  });
+
+  it("is JSON-serializable", () => {
+    expect(() => JSON.stringify(getWebSiteJsonLd())).not.toThrow();
   });
 });

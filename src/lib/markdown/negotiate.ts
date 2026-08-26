@@ -28,3 +28,22 @@ export function prefersMarkdown(acceptHeader: string | null): boolean {
 
   return markdownQ >= htmlQ;
 }
+
+/**
+ * Whether a 404 recovery response should be Markdown instead of HTML.
+ * Agents and curl often send no Accept header or only a wildcard type,
+ * so treat those as Markdown-friendly while still honoring explicit HTML.
+ */
+export function prefersMarkdownRecovery(acceptHeader: string | null): boolean {
+  if (prefersMarkdown(acceptHeader)) return true;
+  if (!acceptHeader) return true;
+
+  const trimmed = acceptHeader.trim();
+  if (trimmed === "*/*") return true;
+
+  const entries = acceptHeader.split(",").map((entry) => entry.trim());
+  const htmlEntry = entries.find((entry) => entry.startsWith("text/html"));
+  if (!htmlEntry) return true;
+
+  return qValue(htmlEntry) <= 0;
+}

@@ -55,9 +55,10 @@ export default function HowToReadSection() {
             </a>{" "}
             and the{" "}
             <Link href="/developers" className={link}>
-              Nicholas Adamou developer resources
+              nicholasadamou developer resources
             </Link>{" "}
-            page. Pages also serve Markdown when requested with{" "}
+            page (also titled Nicholas Adamou developer resources). Pages also
+            serve Markdown when requested with{" "}
             <code className="text-[0.85em]">Accept: text/markdown</code>. The{" "}
             <a href="/sitemap.xml" className={link}>
               sitemap

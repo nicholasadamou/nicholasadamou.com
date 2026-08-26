@@ -38,6 +38,7 @@ describe("getDevelopersMarkdown", () => {
     const markdown = getDevelopersMarkdown();
 
     expect(markdown).toContain("# Nicholas Adamou developer resources");
+    expect(markdown).toContain("nicholasadamou developer resources");
     expect(markdown).toMatch(/\/llms\.txt/);
     expect(markdown).toMatch(/\/openapi\.json/);
     expect(markdown).toMatch(/\/\.well-known\/api-catalog/);
