@@ -234,7 +234,7 @@ export function getDevelopersMarkdown(): string {
   return [
     "# Nicholas Adamou developer resources",
     "",
-    "Machine-readable entry points for agents and developers working with Nicholas Adamou's site — open-source projects, technical writing, and content APIs. There is no public product API key, OAuth provider, webhook hub, or MCP server on this host; the surface below is the content and discovery stack.",
+    "nicholasadamou developer resources — machine-readable entry points for agents and developers working with Nicholas Adamou's site — open-source projects, technical writing, and content APIs. There is no public product API key, OAuth provider, webhook hub, or MCP server on this host; the surface below is the content and discovery stack.",
     "",
     "## Start here",
     "",

@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { prefersMarkdown } from "@/lib/markdown/negotiate";
+import {
+  prefersMarkdown,
+  prefersMarkdownRecovery,
+} from "@/lib/markdown/negotiate";
 import { isRscRequest } from "@/lib/markdown/is-rsc-request";
 import { markdownResponse } from "@/lib/markdown/response";
 
@@ -24,6 +27,31 @@ describe("prefersMarkdown", () => {
 
   it("returns false when markdown is explicitly rejected", () => {
     expect(prefersMarkdown("text/markdown;q=0, text/html")).toBe(false);
+  });
+});
+
+describe("prefersMarkdownRecovery", () => {
+  it("returns true when Accept is missing or */*", () => {
+    expect(prefersMarkdownRecovery(null)).toBe(true);
+    expect(prefersMarkdownRecovery("*/*")).toBe(true);
+  });
+
+  it("returns true for bare text/markdown", () => {
+    expect(prefersMarkdownRecovery("text/markdown")).toBe(true);
+  });
+
+  it("returns false when text/html is explicitly accepted", () => {
+    expect(
+      prefersMarkdownRecovery(
+        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+      )
+    ).toBe(false);
+  });
+
+  it("returns true when html is rejected", () => {
+    expect(prefersMarkdownRecovery("text/html;q=0, application/json")).toBe(
+      true
+    );
   });
 });
 

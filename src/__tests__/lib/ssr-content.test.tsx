@@ -75,7 +75,10 @@ describe("server-rendered content (no JavaScript)", () => {
     expect(html).toMatch(/<h2[^>]*>How to read this site<\/h2>/);
     expect(html).toMatch(/<h3[^>]*>People<\/h3>/);
     expect(html).toMatch(/<h3[^>]*>Agents<\/h3>/);
-    expect(html).toContain("Nicholas Adamou developer resources");
+    expect(html).toMatch(/<h3[^>]*>Featured open-source tools<\/h3>/);
+    expect(html).toMatch(/<h3[^>]*>Recent writing<\/h3>/);
+    expect(html).toMatch(/<h3[^>]*>Photography gallery<\/h3>/);
+    expect(html).toContain("nicholasadamou developer resources");
     expect(textLength(html)).toBeGreaterThan(500);
   });
 
@@ -83,6 +86,7 @@ describe("server-rendered content (no JavaScript)", () => {
     const html = ssrHtml(<DevelopersPageClient />);
     expect(html).toContain("<h1");
     expect(html).toContain("Nicholas Adamou developer resources");
+    expect(html).toContain("nicholasadamou developer resources");
     expect(html).toContain("openapi.json");
     expect(textLength(html)).toBeGreaterThan(500);
   });

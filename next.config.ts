@@ -17,6 +17,15 @@ const withMDX = createMDX({
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  async redirects() {
+    return [
+      {
+        source: "/nicholasadamou-developer-resources",
+        destination: "/developers",
+        permanent: true,
+      },
+    ];
+  },
   // These routes also serve a Markdown representation of the same content
   // via Accept-header negotiation (see src/proxy.ts). Declaring `Vary:
   // Accept` here — in addition to setting it on the negotiated response

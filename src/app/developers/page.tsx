@@ -4,7 +4,14 @@ import DevelopersPageClient from "./DevelopersPageClient";
 export const metadata: Metadata = {
   title: "Nicholas Adamou developer resources",
   description:
-    "Machine-readable developer resources for Nicholas Adamou — llms.txt, Markdown content negotiation, OpenAPI, sitemap, and agent entry points.",
+    "nicholasadamou developer resources — machine-readable guides for agents: llms.txt, Markdown content negotiation, OpenAPI, sitemap, and API catalog.",
+  keywords: [
+    "nicholasadamou",
+    "nicholasadamou developer resources",
+    "Nicholas Adamou developer resources",
+    "openapi",
+    "llms.txt",
+  ],
   alternates: {
     canonical: "/developers",
   },

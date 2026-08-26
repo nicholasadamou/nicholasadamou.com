@@ -72,8 +72,11 @@ export default function DevelopersPageClient() {
               Nicholas Adamou developer resources
             </h1>
             <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-              Machine-readable entry points for agents and developers working
-              with Nicholas Adamou&apos;s site — open-source projects, technical
+              <span className="font-medium">
+                nicholasadamou developer resources
+              </span>{" "}
+              — machine-readable entry points for agents and developers working
+              with Nicholas Adamou&apos;s site: open-source projects, technical
               writing, and content APIs. This host does not run a public product
               API key, OAuth provider, webhook hub, or MCP server; the surface
               below is the content and discovery stack.

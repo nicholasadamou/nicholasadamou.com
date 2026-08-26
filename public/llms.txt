@@ -31,7 +31,7 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at One
 
 ## Developer resources
 
-Nicholas Adamou's developer resources — open-source projects, technical
+nicholasadamou developer resources — open-source projects, technical
 writing, and machine-readable guides for agents and search engines:
 
 - [Nicholas Adamou developer resources](https://nicholasadamou.com/developers): Index of agent-facing endpoints and docs.
