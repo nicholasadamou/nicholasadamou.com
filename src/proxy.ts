@@ -50,9 +50,12 @@ export function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/api/") ||
     pathname.startsWith("/_next/") ||
+    pathname.startsWith("/.well-known/") ||
     pathname === "/llms.txt" ||
     pathname === "/openapi.json" ||
-    pathname === "/.well-known/api-catalog" ||
+    pathname === "/server.json" ||
+    pathname === "/mcp" ||
+    pathname.startsWith("/mcp/") ||
     pathname === "/sitemap.xml" ||
     pathname === "/robots.txt" ||
     /\.[a-zA-Z0-9]+$/.test(pathname)

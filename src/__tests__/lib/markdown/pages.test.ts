@@ -43,6 +43,11 @@ describe("getDevelopersMarkdown", () => {
     expect(markdown).toMatch(/\/openapi\.json/);
     expect(markdown).toMatch(/\/\.well-known\/api-catalog/);
     expect(markdown).toContain("Accept: text/markdown");
+    expect(markdown).toMatch(/\/api\/v1\/search/);
+    expect(markdown).toContain("application/problem+json");
+    expect(markdown).toContain("/mcp");
+    expect(markdown).toContain("npx nicholasadamou");
+    expect(markdown).toContain("Versioning and deprecation");
   });
 });
 

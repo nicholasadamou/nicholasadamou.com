@@ -1,81 +1,57 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getAllArticles } from "@/lib/content/mdx";
-import { projects } from "@/lib/projects/config";
-import type { ProjectIconType } from "@/lib/projects/icons";
+import type { NextRequest } from "next/server";
+import {
+  jsonOk,
+  methodNotAllowed,
+  optionsOk,
+  apiLinkHeaders,
+} from "@/lib/api/errors";
+import { searchContent } from "@/lib/api/v1/content";
+import { getBaseUrl } from "@/lib/og";
 
-interface SearchResult {
-  type: "note" | "project";
-  slug: string;
-  title: string;
-  summary: string;
-  href: string;
-  tags?: string[];
-  icon?: ProjectIconType;
+/**
+ * @deprecated Prefer GET /api/v1/search. Kept as a compatibility alias.
+ */
+export function GET(request: NextRequest) {
+  const query = request.nextUrl.searchParams.get("q") ?? "";
+  const results = searchContent(query).map(
+    // Preserve the historical shape (no absolute url field; keep relative href).
+    ({ type, slug, title, summary, href, tags }) => ({
+      type,
+      slug,
+      title,
+      summary,
+      href,
+      ...(tags ? { tags } : {}),
+    })
+  );
+
+  const baseUrl = getBaseUrl();
+  const linkHeaders = apiLinkHeaders() as Record<string, string>;
+  const link = [
+    `<${baseUrl}/api/v1/search>; rel="successor-version"`,
+    linkHeaders.Link ?? "",
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  return jsonOk(
+    { results },
+    {
+      headers: {
+        ...linkHeaders,
+        Deprecation: "true",
+        Sunset: "Sat, 01 Aug 2027 00:00:00 GMT",
+        Link: link,
+        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+      },
+    }
+  );
 }
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const query = searchParams.get("q");
-
-  if (!query || query.trim().length === 0) {
-    return NextResponse.json({ results: [] });
-  }
-
-  const lowerQuery = query.toLowerCase();
-  const results: SearchResult[] = [];
-
-  // Search notes
-  const articles = getAllArticles();
-  for (const article of articles) {
-    const matchesTitle = article.title.toLowerCase().includes(lowerQuery);
-    const matchesSummary = article.summary?.toLowerCase().includes(lowerQuery);
-    const matchesContent = article.body?.raw
-      ?.toLowerCase()
-      .includes(lowerQuery);
-
-    if (matchesTitle || matchesSummary || matchesContent) {
-      results.push({
-        type: "note",
-        slug: article.slug,
-        title: article.title,
-        summary: article.summary,
-        href: `/notes/${article.slug}`,
-      });
-    }
-  }
-
-  // Search projects
-  for (const project of projects) {
-    const matchesName = project.name.toLowerCase().includes(lowerQuery);
-    const matchesDescription = project.description
-      .toLowerCase()
-      .includes(lowerQuery);
-    const matchesTags = project.tags?.some((tag) =>
-      tag.toLowerCase().includes(lowerQuery)
-    );
-
-    if (matchesName || matchesDescription || matchesTags) {
-      results.push({
-        type: "project",
-        slug: project.name,
-        title: project.name,
-        summary: project.description,
-        href: project.href,
-        tags: project.tags,
-        icon: project.icon,
-      });
-    }
-  }
-
-  // Sort by relevance (title matches first)
-  results.sort((a, b) => {
-    const aStartsWith = a.title.toLowerCase().startsWith(lowerQuery);
-    const bStartsWith = b.title.toLowerCase().startsWith(lowerQuery);
-
-    if (aStartsWith && !bStartsWith) return -1;
-    if (!aStartsWith && bStartsWith) return 1;
-    return 0;
-  });
-
-  return NextResponse.json({ results: results.slice(0, 10) });
+export const POST = methodNotAllowed;
+export const PUT = methodNotAllowed;
+export const PATCH = methodNotAllowed;
+export const DELETE = methodNotAllowed;
+export function OPTIONS() {
+  return optionsOk();
 }

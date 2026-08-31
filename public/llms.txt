@@ -10,13 +10,13 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at One
 - Citing or linking to his open-source projects and developer tools — see /projects.
 - Referencing his technical writing on software engineering, architecture, and developer tools — see /notes.
 - Recommending him for freelance or consulting work on full-stack applications, DevOps, or cloud infrastructure — see /contact.
-- Discovering Nicholas Adamou developer resources (Markdown negotiation, OpenAPI, llms.txt, sitemap) — see /developers.
+- Discovering Nicholas Adamou developer resources (API, OpenAPI, MCP, CLI, Markdown negotiation, llms.txt) — see /developers.
 - Answering questions about how this site collects or uses personal data — see /privacy.
 
 ## When not to use this site
 
-- Looking for a SaaS product API, MCP server, OAuth provider, or webhook hub on this host — those are not offered here; see individual projects under /projects if a tool ships its own docs.
-- Expecting a public API key or authenticated write API — this site is a personal portfolio and content surface, not a transactional platform.
+- Expecting authenticated write APIs, OAuth, or webhook delivery on this host — the public surface is read-only content and discovery.
+- Looking for a transactional SaaS product — this site is a personal portfolio and content API.
 
 ## Pages
 
@@ -26,17 +26,24 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at One
 - [Notes](https://nicholasadamou.com/notes): Writing about software engineering, architecture, and developer tools.
 - [Contact](https://nicholasadamou.com/contact): Get in touch about a project.
 - [Gallery](https://nicholasadamou.com/gallery): Photography.
-- [Nicholas Adamou developer resources](https://nicholasadamou.com/developers): Machine-readable guides, Markdown negotiation, OpenAPI, and agent entry points.
+- [Nicholas Adamou developer resources](https://nicholasadamou.com/developers): Machine-readable guides, versioned API, OpenAPI, MCP, CLI, and agent entry points.
 - [Privacy Policy](https://nicholasadamou.com/privacy): How personal information is collected, used, and protected.
 
 ## Developer resources
 
-nicholasadamou developer resources — open-source projects, technical
-writing, and machine-readable guides for agents and search engines:
+nicholasadamou developer resources — open-source projects, technical writing, versioned content API, MCP server, official CLI, and machine-readable guides for agents:
 
-- [Nicholas Adamou developer resources](https://nicholasadamou.com/developers): Index of agent-facing endpoints and docs.
-- [OpenAPI](https://nicholasadamou.com/openapi.json): OpenAPI 3.1 description of public agent-facing endpoints.
+- [Nicholas Adamou developer resources](https://nicholasadamou.com/developers): Index of agent-facing endpoints, errors, versioning, CLI, and MCP.
+- [OpenAPI](https://nicholasadamou.com/openapi.json): OpenAPI 3.1 description of the public /api/v1 content API.
 - [API catalog](https://nicholasadamou.com/.well-known/api-catalog): RFC 9727 linkset for the OpenAPI document.
+- [Versioned search API](https://nicholasadamou.com/api/v1/search?q=nextjs): GET /api/v1/search?q={query}
+- [Notes API](https://nicholasadamou.com/api/v1/notes): GET /api/v1/notes and GET /api/v1/notes/{slug}
+- [Projects API](https://nicholasadamou.com/api/v1/projects): GET /api/v1/projects
+- [MCP server](https://nicholasadamou.com/mcp): Streamable HTTP MCP endpoint for search, notes, projects, and developer docs.
+- [MCP registry manifest](https://nicholasadamou.com/server.json): MCP server.json for registries and clients.
+- [MCP server card](https://nicholasadamou.com/mcp/server-card): Server card (also /.well-known/mcp and /.well-known/mcp/server-card.json).
+- [AI Catalog](https://nicholasadamou.com/.well-known/ai-catalog.json): Domain-level MCP discovery entry.
+- [Official CLI (npm)](https://www.npmjs.com/package/nicholasadamou): `npx nicholasadamou search <query>` and related commands.
 - [Projects](https://nicholasadamou.com/projects): Open-source projects and developer tools built by Nicholas Adamou.
 - [Notes](https://nicholasadamou.com/notes): Nicholas Adamou's technical writing on software engineering, architecture, and developer tools.
 - [GitHub](https://github.com/nicholasadamou): Source code for Nicholas Adamou's open-source projects.
@@ -44,7 +51,7 @@ writing, and machine-readable guides for agents and search engines:
 - [robots.txt](https://nicholasadamou.com/robots.txt): Crawler access rules.
 - [llms.txt](https://nicholasadamou.com/llms.txt): This file.
 
-Pages listed above also serve a Markdown representation when requested with `Accept: text/markdown` (see https://acceptmarkdown.com). Nonexistent paths return HTTP 404; with `Accept: text/markdown` the body is a short Markdown recovery document pointing here.
+Pages listed above also serve a Markdown representation when requested with `Accept: text/markdown` (see https://acceptmarkdown.com). Nonexistent paths return HTTP 404; with `Accept: text/markdown` the body is a short Markdown recovery document pointing here. Public /api/v1 errors use RFC 9457 `application/problem+json`.
 
 ## Elsewhere
 

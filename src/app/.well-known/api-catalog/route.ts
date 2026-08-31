@@ -24,6 +24,12 @@ export function GET() {
             type: "text/html",
           },
         ],
+        status: [
+          {
+            href: `${baseUrl}/server.json`,
+            type: "application/json",
+          },
+        ],
       },
     ],
   };

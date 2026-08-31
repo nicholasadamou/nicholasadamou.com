@@ -1,0 +1,40 @@
+{
+  "name": "nicholasadamou",
+  "version": "2.0.0",
+  "description": "Official CLI for Nicholas Adamou developer resources — search notes and projects, list content, and print docs.",
+  "type": "module",
+  "bin": {
+    "nicholasadamou": "./bin/nicholasadamou.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md"
+  ],
+  "keywords": [
+    "nicholasadamou",
+    "nicholas adamou",
+    "cli",
+    "api",
+    "mcp",
+    "developer-resources"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Adamou",
+    "email": "nicholasadamouemail@gmail.com",
+    "url": "https://nicholasadamou.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasadamou/nicholasadamou.com.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://nicholasadamou.com/developers",
+  "bugs": {
+    "url": "https://github.com/nicholasadamou/nicholasadamou.com/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
