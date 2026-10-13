@@ -73,7 +73,7 @@ describe("server-rendered content (no JavaScript)", () => {
     const html = ssrHtml(<HomePage articles={[]} />);
     expect(html).toMatch(/<h3[^>]*>Featured open-source tools<\/h3>/);
     expect(html).toMatch(/<h3[^>]*>Recent writing<\/h3>/);
-    expect(html).toMatch(/<h3[^>]*>Photography gallery<\/h3>/);
+    expect(html).not.toContain("Photography gallery");
     expect(textLength(html)).toBeGreaterThan(500);
   });
 

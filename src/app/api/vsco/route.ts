@@ -1,3 +1,4 @@
+import { galleryEnabled } from "@/lib/features";
 import { NextRequest, NextResponse } from "next/server";
 import type { VscoApiResponse } from "@/types/vsco";
 import { getLocalVscoImages, hasLocalVscoImages } from "@/lib/vsco-local";
@@ -50,6 +51,15 @@ function getVscoImages(limit?: number, offset?: number): VscoApiResponse {
 }
 
 export async function GET(request: NextRequest) {
+  if (!galleryEnabled) {
+    return NextResponse.json(
+      { error: "Gallery unavailable" },
+      {
+        status: 404,
+        headers: { "Cache-Control": "no-store" },
+      }
+    );
+  }
   try {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "12");

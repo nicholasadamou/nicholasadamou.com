@@ -7,6 +7,14 @@ previews do not depend on VSCO availability; each opens the full photograph.
 The full gallery uses the VSCO export with infinite scroll. Its remote images
 remain dependent on VSCO allowing CDN requests.
 
+## Feature flag
+
+The gallery is disabled by default. Set `NEXT_PUBLIC_GALLERY_ENABLED=true` in
+Vercel (or `.env.local`) and rebuild to enable it once CDN access is reliable.
+The flag controls homepage previews, About previews, navigation, the sitemap,
+`/gallery`, and `/api/vsco`. Disabled routes return 404. Existing bundled photos
+on the About page remain available.
+
 ## VSCO Gallery
 
 ### Features

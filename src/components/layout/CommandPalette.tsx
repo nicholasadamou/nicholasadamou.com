@@ -1,5 +1,6 @@
 "use client";
 
+import { galleryEnabled } from "@/lib/features";
 import React, {
   useState,
   useEffect,
@@ -146,18 +147,22 @@ export default function CommandPalette({
         },
         keywords: ["projects", "work", "portfolio"],
       },
-      {
-        id: "nav-gallery",
-        type: "navigation",
-        title: "Gallery",
-        subtitle: "View photography",
-        icon: <Camera className="h-5 w-5" />,
-        action: () => {
-          router.push("/gallery");
-          onClose();
-        },
-        keywords: ["gallery", "photos", "photography", "vsco", "images"],
-      },
+      ...(galleryEnabled
+        ? [
+            {
+              id: "nav-gallery",
+              type: "navigation" as const,
+              title: "Gallery",
+              subtitle: "View photography",
+              icon: <Camera className="h-5 w-5" />,
+              action: () => {
+                router.push("/gallery");
+                onClose();
+              },
+              keywords: ["gallery", "photos", "photography", "vsco", "images"],
+            },
+          ]
+        : []),
       {
         id: "nav-about",
         type: "navigation",
@@ -564,7 +569,6 @@ export default function CommandPalette({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -573,7 +577,6 @@ export default function CommandPalette({
             onClick={onClose}
           />
 
-          {/* Command Palette */}
           <div
             className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]"
             onClick={onClose}
@@ -586,7 +589,6 @@ export default function CommandPalette({
               className={`mx-4 w-full max-w-2xl overflow-hidden rounded-xl border shadow-2xl ${panelBg} ${panelBorder}`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Search Input */}
               <div
                 className={`flex items-center gap-3 border-b px-4 py-3 ${panelBorder}`}
               >
@@ -614,7 +616,6 @@ export default function CommandPalette({
                 </kbd>
               </div>
 
-              {/* Results */}
               <div className="max-h-[60vh] overflow-y-auto">
                 {isLoading && (
                   <div className={`px-4 py-8 text-center text-sm ${textMuted}`}>
@@ -636,7 +637,6 @@ export default function CommandPalette({
 
                 {!isLoading && (
                   <div className="py-2">
-                    {/* Actions */}
                     {filteredActions.length > 0 && (
                       <>
                         {query && (
@@ -674,7 +674,6 @@ export default function CommandPalette({
                       </>
                     )}
 
-                    {/* Search Results */}
                     {results.length > 0 && (
                       <>
                         {query && filteredActions.length > 0 && (
@@ -739,7 +738,6 @@ export default function CommandPalette({
                       </>
                     )}
 
-                    {/* GitHub Repositories */}
                     {filteredRepos.length > 0 && (
                       <>
                         <div
@@ -805,7 +803,6 @@ export default function CommandPalette({
                       </>
                     )}
 
-                    {/* Empty state */}
                     {!query &&
                       filteredActions.length === 0 &&
                       results.length === 0 && (
@@ -819,7 +816,6 @@ export default function CommandPalette({
                 )}
               </div>
 
-              {/* Footer */}
               <div
                 className={`flex items-center justify-between border-t px-4 py-2 text-xs ${footerBg} ${panelBorder}`}
               >

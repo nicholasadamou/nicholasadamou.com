@@ -1,3 +1,4 @@
+import { galleryEnabled } from "@/lib/features";
 import { clients, services, processSteps } from "@/lib/content/clients";
 import { getAllArticles, getArticleBySlug } from "@/lib/content/mdx";
 import { projects } from "@/lib/projects/config";
@@ -52,10 +53,14 @@ export function getHomeMarkdown(): string {
     ]),
     `- [View all notes](${baseUrl}/notes)`,
     "",
-    "## Photos",
-    "",
-    `A curated collection of photography work. [View gallery](${baseUrl}/gallery)`,
-    "",
+    ...(galleryEnabled
+      ? [
+          "## Photos",
+          "",
+          `A curated collection of photography work.${galleryEnabled ? ` [View gallery](${baseUrl}/gallery)` : ""}`,
+          "",
+        ]
+      : []),
   ];
 
   return lines.join("\n");
@@ -98,7 +103,7 @@ export function getAboutMarkdown(): string {
     "",
     "## Photography",
     "",
-    `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou). [View gallery](${baseUrl}/gallery)`,
+    `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou).${galleryEnabled ? ` [View gallery](${baseUrl}/gallery)` : ""}`,
     "",
     "## Work",
     "",
