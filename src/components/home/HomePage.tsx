@@ -11,6 +11,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout } from "@/hooks/use-home-layout";
 import { useBatchViews } from "@/hooks/use-batch-views";
 import BioSection from "@/components/home/BioSection";
+import HowToReadSection from "@/components/home/HowToReadSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
 import SpotifySection from "@/components/home/SpotifySection";
@@ -77,9 +78,12 @@ export default function HomePage({ articles }: HomePageProps) {
               : ""
           }`}
         >
+          <HowToReadSection />
+
           {/* Projects */}
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Projects</h2>
+            <h3 className="text-sm font-medium">Featured open-source tools</h3>
             <div className="space-y-4 sm:space-y-3">
               {projects
                 .filter((p) => p.featured)
@@ -179,6 +183,7 @@ export default function HomePage({ articles }: HomePageProps) {
           {/* Notes */}
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Notes</h2>
+            <h3 className="text-sm font-medium">Recent writing</h3>
             <div className="space-y-4 sm:space-y-3">
               {articles.map((article) => (
                 <ImagePreview
@@ -232,6 +237,7 @@ export default function HomePage({ articles }: HomePageProps) {
           {/* Photos */}
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Photos</h2>
+            <h3 className="text-sm font-medium">Photography gallery</h3>
             <FeaturedGallery />
             <Link
               href="/gallery"

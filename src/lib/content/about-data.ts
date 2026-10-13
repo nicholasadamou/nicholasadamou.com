@@ -36,9 +36,17 @@ export interface DeveloperResource extends AboutLink {
 }
 
 export const developerResources: DeveloperResource[] = [
+  {
+    label: "Nicholas Adamou developer resources",
+    href: "/developers",
+    internal: true,
+  },
   { label: "Projects", href: "/projects", internal: true },
   { label: "Notes", href: "/notes", internal: true },
   { label: "GitHub", href: "https://github.com/nicholasadamou" },
+  { label: "OpenAPI", href: "/openapi.json" },
+  { label: "MCP", href: "/mcp" },
+  { label: "CLI (npm)", href: "https://www.npmjs.com/package/nicholasadamou" },
   { label: "llms.txt", href: "/llms.txt" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];

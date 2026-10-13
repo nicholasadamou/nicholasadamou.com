@@ -6,6 +6,7 @@ import { useTheme } from "@/components/ThemeProvider";
 
 const labels: Record<string, string> = {
   "/about": "About",
+  "/developers": "Developer resources",
   "/clients": "Client work",
   "/projects": "Projects",
   "/notes": "Notes",

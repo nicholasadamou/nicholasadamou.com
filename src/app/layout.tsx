@@ -16,7 +16,7 @@ const inter = Inter({
 
 const baseUrl = getBaseUrl();
 const description =
-  "Senior outcome engineer at Onebrief. Passionate about making the world better through software.";
+  "Senior outcome engineer at Onebrief. Client websites, open-source projects, technical writing, and developer resources.";
 const ogImageUrl = generateOGUrl({
   title: "Nicholas Adamou",
   description,
@@ -74,6 +74,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://im.vsco.co" />
         <link rel="dns-prefetch" href="https://im.vsco.co" />
+        <link rel="describedby" href={`${baseUrl}/llms.txt`} />
       </head>
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider>

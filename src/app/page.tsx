@@ -1,7 +1,11 @@
 import { getAllArticles } from "@/lib/content/mdx";
 import { resolveImageUrl } from "@/lib/image/unsplash";
 import HomePage from "@/components/home/HomePage";
-import { getPersonJsonLd, getOrganizationJsonLd } from "@/lib/structured-data";
+import {
+  getPersonJsonLd,
+  getOrganizationJsonLd,
+  getWebSiteJsonLd,
+} from "@/lib/structured-data";
 
 export default function Home() {
   const articles = getAllArticles()
@@ -26,6 +30,12 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(getOrganizationJsonLd()),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getWebSiteJsonLd()),
         }}
       />
       <HomePage articles={articles} />

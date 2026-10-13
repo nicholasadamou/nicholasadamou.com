@@ -47,6 +47,12 @@ export default function NotFound() {
                 — writing on software engineering and architecture
               </li>
               <li>
+                <Link href="/developers" className="underline">
+                  Nicholas Adamou developer resources
+                </Link>{" "}
+                — Markdown negotiation, OpenAPI, and agent entry points
+              </li>
+              <li>
                 <Link href="/contact" className="underline">
                   Contact
                 </Link>{" "}

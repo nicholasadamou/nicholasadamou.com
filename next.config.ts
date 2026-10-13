@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
   // Use the worker checker: the CLI checker stalls under the Flox Node runtime.
   experimental: { useTypeScriptCli: false },
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  async redirects() {
+    return [
+      {
+        source: "/nicholasadamou-developer-resources",
+        destination: "/developers",
+        permanent: true,
+      },
+    ];
+  },
   // These routes also serve a Markdown representation of the same content
   // via Accept-header negotiation (see src/proxy.ts). Declaring `Vary:
   // Accept` here — in addition to setting it on the negotiated response
@@ -37,6 +46,7 @@ const nextConfig: NextConfig = {
       { source: "/projects", headers: [varyAccept] },
       { source: "/notes", headers: [varyAccept] },
       { source: "/notes/:slug", headers: [varyAccept] },
+      { source: "/developers", headers: [varyAccept] },
     ];
   },
   images: {

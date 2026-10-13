@@ -229,7 +229,11 @@ export default function AboutPageClient() {
               </h2>
               <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
                 Open-source projects, technical writing, and machine-readable
-                guides for developers and AI agents.
+                guides for developers and AI agents — including the{" "}
+                <Link href="/developers" className="underline">
+                  Nicholas Adamou developer resources
+                </Link>{" "}
+                index.
               </p>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {developerResources.map((resource) =>

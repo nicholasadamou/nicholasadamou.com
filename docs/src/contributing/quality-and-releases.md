@@ -30,6 +30,11 @@ Husky as the installed Git hook to avoid competing hook managers.
 have explicit limits. The total leaves a small growth allowance. Simplify or split
 responsibilities before increasing a limit; justify changes during review.
 
+The initial budget includes the developer resources, versioned API, and MCP
+implementation already landed on main before this quality gate was merged. Their
+existing large modules have fixed baselines; the 300-line default still applies
+to new files.
+
 ```mermaid
 flowchart TD
   Edit[Edit code or documentation] --> Check[Shared quality checks]

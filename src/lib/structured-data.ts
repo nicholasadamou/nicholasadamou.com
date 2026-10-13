@@ -77,3 +77,29 @@ export function getOrganizationJsonLd() {
     },
   };
 }
+
+export function getWebSiteJsonLd() {
+  const baseUrl = getBaseUrl();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Nicholas Adamou",
+    alternateName: "nicholasadamou",
+    url: baseUrl,
+    description:
+      "Personal site of Nicholas Adamou — software engineering, open-source projects, and nicholasadamou developer resources for agents.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${baseUrl}/api/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+    hasPart: {
+      "@type": "WebPage",
+      name: "nicholasadamou developer resources",
+      url: `${baseUrl}/developers`,
+      description:
+        "Machine-readable developer resources: llms.txt, OpenAPI, Markdown negotiation, and sitemap.",
+    },
+  };
+}

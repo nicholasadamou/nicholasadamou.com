@@ -38,6 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/developers`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/privacy`,
       changeFrequency: "yearly",
       priority: 0.3,
