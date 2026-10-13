@@ -28,7 +28,7 @@ interface Repo {
 const ITEMS_PER_PAGE = 6;
 
 const ORGS = [
-  "dotbrains",
+  "smeltery",
   "transmute-games",
   "daily-coding-problem",
   "youbuildit",

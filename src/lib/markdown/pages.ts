@@ -25,9 +25,9 @@ export function getHomeMarkdown(): string {
   const lines = [
     "# Nicholas Adamou",
     "",
-    "Hi, I'm Nick, a senior software engineer at [Onebrief](https://www.onebrief.com).",
+    "Hi, I'm Nick, a senior outcome engineer at [Onebrief](https://www.onebrief.com).",
     "",
-    "I'm a senior software engineer who's worked at companies including [IBM](https://www.ibm.com), [Lockheed Martin, Space](https://www.lockheedmartin.com), [Apple](https://www.apple.com), and [Fly Blackbird (acquired by SurfAir)](https://www.surfair.com).",
+    "I'm a senior outcome engineer who's worked at companies including [IBM](https://www.ibm.com), [Lockheed Martin, Space](https://www.lockheedmartin.com), [Apple](https://www.apple.com), and [Fly Blackbird (acquired by SurfAir)](https://www.surfair.com).",
     "",
     "I hold a [Master of Science in Computer Science](https://www.parchment.com/u/award/6a9ef8b5cd81ba6e9befa8fd094e5a8e) from [Georgia Institute of Technology](https://www.gatech.edu) and a [Bachelor of Arts in Computer Science](https://drive.google.com/file/d/1ayD1gYOiD6pEq_mVtC64IUQYU1EB5yK2/view?usp=sharing) from [Cornell College](https://www.cornellcollege.edu). I'm passionate about making the world better through software.",
     "",
@@ -69,7 +69,7 @@ export function getAboutMarkdown(): string {
     "",
     "A glimpse into me.",
     "",
-    "I am a seasoned Senior Software Engineer with a strong academic foundation, holding a [Master of Science in Computer Science](https://www.parchment.com/u/award/6a9ef8b5cd81ba6e9befa8fd094e5a8e) from [Georgia Institute of Technology](https://www.gatech.edu) and a [Bachelor of Arts in Computer Science](https://drive.google.com/file/d/1ayD1gYOiD6pEq_mVtC64IUQYU1EB5yK2/view?usp=sharing) from [Cornell College](https://www.cornellcollege.edu). My career is marked by a commitment to leveraging software engineering to create meaningful impact. I am a strong advocate for user-centered design and am passionate about creating well-designed products that are intuitive and easy to use.",
+    "I am a seasoned Senior Outcome Engineer with a strong academic foundation, holding a [Master of Science in Computer Science](https://www.parchment.com/u/award/6a9ef8b5cd81ba6e9befa8fd094e5a8e) from [Georgia Institute of Technology](https://www.gatech.edu) and a [Bachelor of Arts in Computer Science](https://drive.google.com/file/d/1ayD1gYOiD6pEq_mVtC64IUQYU1EB5yK2/view?usp=sharing) from [Cornell College](https://www.cornellcollege.edu). My career is marked by a commitment to leveraging software engineering to create meaningful impact. I am a strong advocate for user-centered design and am passionate about creating well-designed products that are intuitive and easy to use.",
     "",
     "## What Got Me Into Coding",
     "",
@@ -116,15 +116,24 @@ export function getAboutMarkdown(): string {
 
 export function getContactMarkdown(): string {
   const baseUrl = getBaseUrl();
-
   return [
-    "# Let's talk about your project",
+    "# Tell me what you’re working toward",
     "",
-    "I help companies and individuals build out their digital presence.",
+    "A new website, a fresh direction, or software that makes your work easier. Share a little context so we can have a useful first conversation.",
     "",
-    "I work with startups, engineering teams, and individual founders to build reliable, well-tested software — from full-stack web applications and internal tooling to DevOps pipelines and cloud infrastructure. Whether you need a hand shipping a new feature, untangling technical debt, or someone to own a project end-to-end, tell me about what you're building and I'll get back to you within a couple of days.",
+    "I usually reply within a couple of days.",
     "",
-    `Use the contact form at ${baseUrl}/contact to get in touch. By submitting it, you agree to the [privacy policy](${baseUrl}/privacy).`,
+    "## Project intake",
+    "",
+    "Required: name, email, project type, timeframe, and a 20–5,000 character project brief.",
+    "",
+    "Optional: business or organization, current website, and an approximate budget with currency. A budget is not a quote or commitment.",
+    "",
+    "Describe your audience, goals, features, and any existing content or designs. Do not include passwords or sensitive personal information.",
+    "",
+    `[Submit your project brief](${baseUrl}/contact). Your details are used to respond to your inquiry; see the [privacy policy](${baseUrl}/privacy).`,
+    "",
+    `[Explore client work](${baseUrl}/clients)`,
     "",
   ].join("\n");
 }

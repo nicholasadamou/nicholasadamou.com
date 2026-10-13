@@ -57,3 +57,16 @@ describe("BackNav", () => {
     expect(screen.getByText("Privacy Policy")).toBeDefined();
   });
 });
+
+it.each([
+  ["/clients", "Client work"],
+  ["/about", "About"],
+  ["/projects", "Projects"],
+  ["/notes", "Notes"],
+  ["/gallery", "Gallery"],
+])("renders a current-page breadcrumb for %s", (path, label) => {
+  mockPathname = path;
+  render(<BackNav />);
+  expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeDefined();
+  expect(screen.getByText(label).getAttribute("aria-current")).toBe("page");
+});

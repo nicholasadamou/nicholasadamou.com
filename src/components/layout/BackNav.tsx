@@ -4,84 +4,52 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/ThemeProvider";
 
-const BREADCRUMBS: Record<string, { label: string; href?: string }> = {
-  "/contact": { label: "Contact" },
-  "/privacy": { label: "Privacy Policy" },
+const labels: Record<string, string> = {
+  "/about": "About",
+  "/clients": "Client work",
+  "/projects": "Projects",
+  "/notes": "Notes",
+  "/gallery": "Gallery",
+  "/contact": "Contact",
+  "/privacy": "Privacy Policy",
+  "/dashboard": "Dashboard",
+  "/og-preview": "Social preview",
 };
 
 export default function BackNav() {
   const pathname = usePathname();
-  const { shouldUseDarkText, isHydrated } = useTheme();
-
-  if (!isHydrated || pathname === "/") return null;
-
-  const light = shouldUseDarkText();
-  const backBg = light
+  const { shouldUseDarkText } = useTheme();
+  if (pathname === "/") return null;
+  const isArticle = /^\/notes\/[^/]+$/.test(pathname);
+  const label = isArticle ? "Notes" : labels[pathname];
+  const color = shouldUseDarkText()
     ? "text-stone-950/60 hover:bg-stone-950/5"
     : "text-white/60 hover:bg-white/5";
-  const textOnly = backBg.split(" ")[0];
-
-  // /notes/[slug] → Home / Notes breadcrumb
-  const isArticle = /^\/notes\/[^/]+$/.test(pathname);
-
-  // Static breadcrumb pages
-  const crumb = BREADCRUMBS[pathname];
-
-  if (isArticle) {
-    return (
-      <div className="animate-fadeInBack fixed top-3 left-2 z-10 flex items-center gap-1.5 sm:top-4 sm:left-3">
-        <Link
-          href="/"
-          className={`rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md ${backBg} transition-colors`}
-        >
-          Home
-        </Link>
-        <span className={`text-sm ${textOnly}`}>/</span>
-        <Link
-          href="/notes"
-          className={`rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md ${backBg} transition-colors`}
-        >
-          Notes
-        </Link>
-      </div>
-    );
-  }
-
-  if (crumb) {
-    return (
-      <div className="animate-fadeInBack fixed top-3 left-2 z-10 flex items-center gap-1.5 sm:top-4 sm:left-3">
-        <Link
-          href="/"
-          className={`rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md ${backBg} transition-colors`}
-        >
-          Home
-        </Link>
-        <span className={`text-sm ${textOnly}`}>/</span>
-        {crumb.href ? (
-          <Link
-            href={crumb.href}
-            className={`rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md ${backBg} transition-colors`}
-          >
-            {crumb.label}
-          </Link>
-        ) : (
-          <span
-            className={`rounded-full bg-white/0 px-3 py-2 text-sm ${textOnly}`}
-          >
-            {crumb.label}
-          </span>
-        )}
-      </div>
-    );
-  }
-
-  // Default: simple Home link
+  const linkClass = `rounded-full px-3 py-2 text-sm backdrop-blur-md transition-colors ${color}`;
   return (
-    <Link
-      href="/"
-      className={`fixed top-3 left-2 z-10 rounded-full bg-white/0 px-3 py-2 text-sm backdrop-blur-md sm:top-4 sm:left-3 ${backBg} transition-colors`}
+    <nav
+      aria-label="Breadcrumb"
+      className="fixed top-3 left-2 z-10 flex items-center gap-1.5 sm:top-4 sm:left-3"
     >
-      Home
-    </Link>
+      <Link href="/" className={linkClass}>
+        Home
+      </Link>
+      {label && (
+        <>
+          <span aria-hidden="true" className="text-sm opacity-50">
+            /
+          </span>
+          {isArticle ? (
+            <Link href="/notes" className={linkClass}>
+              Notes
+            </Link>
+          ) : (
+            <span aria-current="page" className={`px-3 py-2 text-sm ${color}`}>
+              {label}
+            </span>
+          )}
+        </>
+      )}
+    </nav>
   );
 }

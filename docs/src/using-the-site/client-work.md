@@ -21,6 +21,7 @@ flowchart LR
   Image[Local WebP screenshot] --> Page
 ```
 
-The page uses local images with explicit dimensions and responsive sizing. The
+The page uses local images with explicit dimensions, responsive sizing, and
+content-hashed URLs so refreshed screenshots cannot reuse stale optimized images. The
 first image is preloaded; subsequent images load lazily. No live screenshot
 service or third-party image request is needed when someone visits the page.

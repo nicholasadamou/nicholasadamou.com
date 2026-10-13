@@ -67,7 +67,17 @@ Aggregate analytics for the private dashboard, computed directly in the database
 
 ## /api/emails
 
-Contact form email delivery.
+Project intake delivery through Formcarry (`POST`). The server validates the same
+schema as the form in `src/lib/content/contact.ts`.
+
+Required: `name`, `email`, `projectType`, `timeline`, and `message` (20–5,000
+characters). Optional: `company`, HTTP(S) `website`, `budget`, and `source`
+(`clients` or `contact`). Invalid JSON or fields return 400; an unavailable
+configuration returns 503; delivery failure or timeout returns 502. Successful
+requests return 200. Errors are JSON with a recoverable `message`.
+
+The UI retains details after a failed request and replaces the form with a
+confirmation after success. Tests mock delivery; they never send actual messages.
 
 ## /api/github/repos
 

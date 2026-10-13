@@ -30,7 +30,7 @@ export default function BioSection({
         fetchPriority="high"
       />
       <h1 className="text-[15px] font-medium tracking-[-0.005em]">
-        Hi, I&apos;m Nick, a senior software engineer at{" "}
+        Hi, I&apos;m Nick, a senior outcome engineer at{" "}
         <Link
           href="https://www.onebrief.com"
           target="_blank"
@@ -42,7 +42,7 @@ export default function BioSection({
       </h1>
       <div className={`space-y-3 leading-relaxed ${opacityClass}`}>
         <p>
-          I&apos;m a senior software engineer who&apos;s worked at companies
+          I&apos;m a senior outcome engineer who&apos;s worked at companies
           including{" "}
           <Link
             href="https://www.ibm.com"

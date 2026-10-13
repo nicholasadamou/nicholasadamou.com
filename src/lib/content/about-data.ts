@@ -54,9 +54,16 @@ export interface Workplace {
 
 export const workplaces: Workplace[] = [
   {
+    title: "Senior Outcome Engineer",
+    company: "Onebrief",
+    date: "Oct 2026 – Present",
+    logo: "/images/work/onebrief-logo.svg",
+    href: "https://onebrief.com",
+  },
+  {
     title: "Senior Software Engineer",
     company: "Onebrief",
-    date: "Feb 2026 –",
+    date: "Feb 2026 – Oct 2026",
     logo: "/images/work/onebrief-logo.svg",
     href: "https://onebrief.com",
   },

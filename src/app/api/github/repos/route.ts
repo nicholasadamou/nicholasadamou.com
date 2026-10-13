@@ -12,7 +12,7 @@ interface GitHubRepo {
 
 const ACCOUNTS = [
   { type: "users", name: "nicholasadamou" },
-  { type: "orgs", name: "dotbrains" },
+  { type: "orgs", name: "smeltery" },
   { type: "orgs", name: "transmute-games" },
   { type: "orgs", name: "daily-coding-problem" },
   { type: "orgs", name: "youbuildit" },

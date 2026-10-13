@@ -39,7 +39,7 @@ export const OGLayout = ({
             color: "#b9c6b5",
           }}
         >
-          <span>SOFTWARE ENGINEER & BUILDER</span>
+          <span>SENIOR OUTCOME ENGINEER & BUILDER</span>
           <span>nicholasadamou.com</span>
         </div>
         <div

@@ -20,9 +20,9 @@ export function getPersonJsonLd() {
     name: "Nicholas Adamou",
     url: baseUrl,
     image: `${baseUrl}/images/avatar/nicholas-adamou.jpeg`,
-    jobTitle: "Senior Software Engineer",
+    jobTitle: "Senior Outcome Engineer",
     description:
-      "Senior software engineer passionate about making the world better through software.",
+      "Senior outcome engineer passionate about making the world better through software.",
     worksFor: {
       "@type": "Organization",
       name: "Onebrief",

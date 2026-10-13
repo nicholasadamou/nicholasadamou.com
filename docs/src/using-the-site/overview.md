@@ -28,7 +28,10 @@ The theme picker supports light, dark, and custom colors.
 
 ## Contact and privacy
 
-Use [the contact page](https://nicholasadamou.com/contact) to discuss work. Check the
+Use [the contact page](https://nicholasadamou.com/contact) to share a project brief.
+Provide your name, email, project type, timeframe, and goals; optionally add your
+business, current website, and budget. Details stay in the form if delivery fails.
+A successful submission shows a confirmation. Check the
 [privacy policy](https://nicholasadamou.com/privacy) before submitting personal information.
 If a service is unavailable, try again later. Chat responses can be inaccurate;
 use the published pages to verify professional details.

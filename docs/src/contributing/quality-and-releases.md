@@ -10,6 +10,10 @@ server, then `flox services stop web` to stop it. CI activates the same environm
 The React Hooks ESLint plugin remains pinned to the existing 7.0.1 ruleset;
 upgrading compiler diagnostics is a separate refactoring task.
 
+Vercel uses the commands in `vercel.json` and detects Bun from `bun.lock`.
+The `packageManager` field is omitted because the existing Vercel Corepack
+setting does not support Bun. Flox supplies the development/CI version.
+
 Bun installs from `bun.lock`; Node runs Next.js and Vitest through their normal
 entry points. Update dependencies deliberately and commit the lockfile.
 

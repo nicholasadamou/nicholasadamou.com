@@ -17,7 +17,7 @@ describe("client portfolio discovery", () => {
       );
     }
     expect(html).toContain('"@type":"CollectionPage"');
-    expect(html).toContain('href="/contact"');
+    expect(html).toContain('href="/contact?from=clients"');
   });
 
   it("provides the same work, services, and process in Markdown", () => {

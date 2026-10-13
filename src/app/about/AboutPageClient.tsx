@@ -78,7 +78,7 @@ export default function AboutPageClient() {
             {/* ── Bio ── */}
             <section className="space-y-4 text-sm leading-relaxed">
               <p>
-                I am a seasoned Senior Software Engineer with a strong academic
+                I am a seasoned Senior Outcome Engineer with a strong academic
                 foundation, holding a{" "}
                 <a
                   href="https://www.parchment.com/u/award/6a9ef8b5cd81ba6e9befa8fd094e5a8e"

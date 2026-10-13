@@ -1,5 +1,7 @@
 "use client";
 
+import { clientImages } from "@/lib/content/client-images";
+
 import { useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -137,7 +139,7 @@ export default function HomePage({ articles }: HomePageProps) {
               {clients.map((client) => (
                 <ImagePreview
                   key={client.slug}
-                  src={`/images/clients/${client.slug}.webp`}
+                  src={clientImages[client.slug].src}
                   alt={`${client.name} homepage`}
                 >
                   <Link
@@ -147,7 +149,7 @@ export default function HomePage({ articles }: HomePageProps) {
                   >
                     <div className="overflow-hidden rounded-lg border border-current/10">
                       <Image
-                        src={`/images/clients/${client.slug}.webp`}
+                        src={clientImages[client.slug]}
                         alt={`${client.name} homepage`}
                         width={1440}
                         height={900}

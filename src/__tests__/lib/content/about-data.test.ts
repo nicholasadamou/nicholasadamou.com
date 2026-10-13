@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { developerResources } from "@/lib/content/about-data";
+import { developerResources, workplaces } from "@/lib/content/about-data";
 
 describe("developerResources", () => {
   it("links to projects and notes as internal routes", () => {
@@ -16,4 +16,19 @@ describe("developerResources", () => {
     expect(labels).toContain("llms.txt");
     expect(labels).toContain("Sitemap");
   });
+});
+
+it("records the Onebrief promotion without changing the previous title", () => {
+  expect(workplaces.slice(0, 2)).toMatchObject([
+    {
+      title: "Senior Outcome Engineer",
+      company: "Onebrief",
+      date: "Oct 2026 – Present",
+    },
+    {
+      title: "Senior Software Engineer",
+      company: "Onebrief",
+      date: "Feb 2026 – Oct 2026",
+    },
+  ]);
 });
