@@ -11,7 +11,7 @@ remain dependent on VSCO allowing CDN requests.
 
 The gallery is disabled by default. Set `NEXT_PUBLIC_GALLERY_ENABLED=true` in
 Vercel (or `.env.local`) and rebuild to enable it once CDN access is reliable.
-The flag controls homepage previews, About previews, navigation, the sitemap,
+The flag controls homepage previews, the entire About Photography section, navigation, the sitemap,
 `/gallery`, and `/api/vsco`. Disabled routes return 404. Existing bundled photos
 on the About page remain available.
 

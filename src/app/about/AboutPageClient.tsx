@@ -277,22 +277,25 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            <section className="space-y-4">
-              <h2 className={`text-sm ${getOpacityClass()}`}>Photography</h2>
-              <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-                Beyond software engineering, I have a passion for photography
-                and visual storytelling. You can explore my work on{" "}
-                <a
-                  href="https://vsco.co/nicholasadamou"
-                  target="_blank"
-                  className={dashedLink}
-                >
-                  VSCO
-                </a>
-                .
-              </p>
-              {galleryEnabled && (
-                <>
+            {galleryEnabled && (
+              <>
+                <section className="space-y-4">
+                  <h2 className={`text-sm ${getOpacityClass()}`}>
+                    Photography
+                  </h2>
+                  <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
+                    Beyond software engineering, I have a passion for
+                    photography and visual storytelling. You can explore my work
+                    on{" "}
+                    <a
+                      href="https://vsco.co/nicholasadamou"
+                      target="_blank"
+                      className={dashedLink}
+                    >
+                      VSCO
+                    </a>
+                    .
+                  </p>
                   <FeaturedGallery />
                   <div className="flex gap-3">
                     <Link
@@ -302,12 +305,11 @@ export default function AboutPageClient() {
                       View Gallery →
                     </Link>
                   </div>
-                </>
-              )}
-            </section>
+                </section>
 
-            <hr className={hr} />
-
+                <hr className={hr} />
+              </>
+            )}
             <SpotifySection
               light={light}
               opacityClass={getOpacityClass()}

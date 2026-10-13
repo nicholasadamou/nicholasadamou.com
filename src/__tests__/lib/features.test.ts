@@ -29,6 +29,7 @@ describe("gallery feature flag", () => {
       );
       expect(getHomeMarkdown().includes("/gallery")).toBe(enabled);
       expect(getAboutMarkdown().includes("/gallery")).toBe(enabled);
+      expect(getAboutMarkdown().includes("## Photography")).toBe(enabled);
       if (enabled) expect(page()).toBeTruthy();
       else {
         expect(page).toThrow("NEXT_NOT_FOUND");

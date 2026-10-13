@@ -101,10 +101,14 @@ export function getAboutMarkdown(): string {
     "",
     ...resumes.map((l) => `- [${l.label}](${l.href})`),
     "",
-    "## Photography",
-    "",
-    `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou).${galleryEnabled ? ` [View gallery](${baseUrl}/gallery)` : ""}`,
-    "",
+    ...(galleryEnabled
+      ? [
+          "## Photography",
+          "",
+          `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou). [View gallery](${baseUrl}/gallery)`,
+          "",
+        ]
+      : []),
     "## Work",
     "",
     "I specialize in Full Stack Development and DevOps, focusing on creating scalable applications and optimizing development processes.",
