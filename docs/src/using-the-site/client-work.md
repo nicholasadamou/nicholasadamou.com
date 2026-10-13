@@ -1,8 +1,8 @@
 # Client work
 
 The [client portfolio](https://nicholasadamou.com/clients) shows real homepage
-screenshots for Bold Performance, Adamou Financial Consulting, JEA Business
-Development, and Rebecca Richards Photography. Select a card to visit the live
+screenshots for Bold Performance, Adamou Financial Consulting, and JEA Business
+Development. Select a card to visit the live
 site in a new tab. Screenshots are snapshots; the live websites may change.
 
 ## Maintain the portfolio

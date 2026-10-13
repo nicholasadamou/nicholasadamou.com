@@ -29,17 +29,6 @@ export const clients = [
     href: "https://jeabizdev.com",
     surface: "bg-[#dfe5ef]",
   },
-  {
-    slug: "rebecca-richards-photography",
-    name: "Rebecca Richards Photography",
-    category: "Photography",
-    description:
-      "A welcoming portfolio for a Pennsylvania wedding photographer, giving the images room to tell their stories and visitors a clear path to get in touch.",
-    imageDescription:
-      "family photography and a wedding photography introduction",
-    href: "https://rebecca-richards-photography.vercel.app",
-    surface: "bg-[#eee1df]",
-  },
 ] as const;
 
 export const services = [
