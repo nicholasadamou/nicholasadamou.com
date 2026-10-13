@@ -9,7 +9,7 @@ Extracts and prepares site content for AI chatbot training.
 **Usage**:
 
 ```bash
-pnpm run prepare-chatbot-data
+bun run prepare-chatbot-data
 ```
 
 **Output**: Training data in `scripts/training-data/`

@@ -38,9 +38,9 @@ act -W .github/workflows/ci.yml -j build
 
 ## Troubleshooting
 
-### pnpm Not Found
+### bun Not Found
 
-Use full Ubuntu image with pnpm pre-installed.
+Use full Ubuntu image with bun pre-installed.
 
 ### Network Issues
 

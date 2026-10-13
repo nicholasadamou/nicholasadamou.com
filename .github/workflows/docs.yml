@@ -7,11 +7,6 @@ on:
     paths:
       - "docs/**"
       - ".github/workflows/docs.yml"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "docs/**"
   workflow_dispatch:
 
 permissions:
@@ -74,29 +69,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  verify:
-    name: Verify Build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    needs: build
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./site
-
-      - name: Verify build output
-        run: |
-          echo "Checking for index.html..."
-          if [ -f "./site/index.html" ]; then
-            echo "✅ Documentation built successfully"
-            echo "📊 Build stats:"
-            du -sh ./site
-            find ./site -name "*.html" | wc -l | xargs echo "  HTML files:"
-          else
-            echo "❌ Build verification failed"
-            exit 1
-          fi

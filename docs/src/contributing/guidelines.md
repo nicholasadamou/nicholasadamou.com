@@ -14,7 +14,7 @@ cd nicholasadamou.com
 ### 2. Install Dependencies
 
 ```bash
-pnpm install
+bun install
 ```
 
 ### 3. Set Up Environment
@@ -33,10 +33,10 @@ git checkout -b fix/navigation-bug
 ## Development Workflow
 
 ```bash
-pnpm dev       # Start dev server
-pnpm test      # Run tests
-pnpm lint      # Run linting
-pnpm build     # Build check
+bun run dev       # Start dev server
+bun run test      # Run tests
+bun run lint      # Run linting
+bun run build     # Build check
 ```
 
 ## Pull Request Process
@@ -44,15 +44,15 @@ pnpm build     # Build check
 ### Before Submitting
 
 - Code follows project style guidelines
-- Tests pass locally (`pnpm test:run`)
-- Build succeeds (`pnpm build`)
+- Tests pass locally (`bun run test:run`)
+- Build succeeds (`bun run build`)
 - Documentation is updated if needed
 
 ### Commit Messages
 
 Follow conventional commits:
 
-```
+```text
 feat: add dark mode toggle
 fix: resolve navigation bug on mobile
 docs: update installation guide

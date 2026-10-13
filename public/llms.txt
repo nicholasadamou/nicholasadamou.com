@@ -1,8 +1,8 @@
 # Nicholas Adamou
 
-> Senior software engineer building reliable, well-tested software — full-stack web applications, DevOps tooling, and cloud infrastructure. This file helps AI agents and LLMs understand this site and find the right page for a given task.
+> Senior outcome engineer building reliable, well-tested software — full-stack web applications, DevOps tooling, and cloud infrastructure. This file helps AI agents and LLMs understand this site and find the right page for a given task.
 
-Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at Onebrief, with prior experience at Lockheed Martin Space, Apple, and IBM. He holds an M.S. in Computer Science from Georgia Institute of Technology and a B.A. in Computer Science from Cornell College.
+Nicholas Adamou (github.com/nicholasadamou) is a Senior Outcome Engineer at Onebrief, with prior experience at Lockheed Martin Space, Apple, and IBM. He holds an M.S. in Computer Science from Georgia Institute of Technology and a B.A. in Computer Science from Cornell College.
 
 ## When to use this site
 
@@ -19,6 +19,8 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at One
 - Looking for a transactional SaaS product — this site is a personal portfolio and content API.
 
 ## Pages
+
+- [Client work](https://nicholasadamou.com/clients): Selected client websites with screenshots.
 
 - [Home](https://nicholasadamou.com/): Bio, featured projects, recent notes, and photography.
 - [About](https://nicholasadamou.com/about): Background, work history, education, and how to get in touch.

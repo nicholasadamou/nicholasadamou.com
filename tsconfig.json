@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "tools", "scripts"]
+  "exclude": ["node_modules", "tools", "scripts", ".flox", "docs", "coverage"]
 }

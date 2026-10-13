@@ -1,0 +1,16 @@
+{
+  "total": 16700,
+  "perFile": 300,
+  "exceptions": {
+    "src/app/about/AboutPageClient.tsx": 345,
+    "src/app/dashboard/DashboardClient.tsx": 539,
+    "src/components/chat/ChatbotWidget.tsx": 385,
+    "src/components/layout/BottomNav.tsx": 455,
+    "src/components/layout/CommandPalette.tsx": 828,
+    "src/components/projects/OpenSourceSection.tsx": 470,
+    "src/app/developers/DevelopersPageClient.tsx": 364,
+    "src/lib/markdown/pages.ts": 339,
+    "src/lib/mcp/server.ts": 395,
+    "src/lib/openapi.ts": 542
+  }
+}

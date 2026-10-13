@@ -4,7 +4,7 @@ Write content using MDX (Markdown + JSX components).
 
 ## Structure
 
-```
+```text
 content/
 └── notes/      # Blog posts
 ```

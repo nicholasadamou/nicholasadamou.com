@@ -1,5 +1,7 @@
 # nicholasadamou.com Documentation
 
+Start with the [visitor guide](using-the-site/overview.md), [client portfolio](using-the-site/client-work.md), or [quality and releases](contributing/quality-and-releases.md).
+
 Welcome to the developer documentation for nicholasadamou.com — a modern portfolio and blog built with Next.js 16, React 19, and TypeScript.
 
 ## Overview
@@ -31,7 +33,7 @@ This documentation covers the architecture, features, and development workflow f
 
 - **Version**: 0.1.0
 - **Node**: >=18.0.0
-- **Package Manager**: pnpm >=8.0.0
+- **Package Manager**: bun >=8.0.0
 - **Framework**: Next.js 16.1.6
 - **React**: 19.2.3
 

@@ -110,9 +110,9 @@ async function compileContent() {
 # This file contains all the content from nicholasadamou.com for AI assistant training.
 
 ## About Nicholas Adamou
-Nicholas Adamou is a Senior Software Engineer at Onebrief, passionate about making the world better through software.
+Nicholas Adamou is a Senior Outcome Engineer at Onebrief, passionate about making the world better through software.
 
-He is a senior software engineer who has worked at companies including IBM, Lockheed Martin (Space), Apple, and Fly Blackbird (acquired by SurfAir).
+He is a senior outcome engineer who has worked at companies including IBM, Lockheed Martin (Space), Apple, and Fly Blackbird (acquired by SurfAir).
 
 He holds a Master of Science in Computer Science from Georgia Institute of Technology and a Bachelor of Arts in Computer Science from Cornell College.
 

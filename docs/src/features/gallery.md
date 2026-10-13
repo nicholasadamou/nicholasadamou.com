@@ -41,7 +41,7 @@ VSCO provides an official data export that includes all your image metadata and 
 1. Open the email from VSCO and click the download link or visit [vsco.co/user/account](https://vsco.co/user/account) and click on **Access snapshot**
 2. Extract the ZIP archive — you’ll get a folder like `vsco-username-12345/` containing:
 
-```
+```text
 vsco-username-12345/
 ├── images.json    # Metadata for all images (IDs, dimensions, dates, URLs)
 └── images/        # Full-resolution image files
@@ -60,7 +60,7 @@ The export may contain more entries in `images.json` than files in `images/` —
 cp ~/Downloads/vsco-username-12345/images.json data/vsco-export.json
 ```
 
-That's it — no build step or tooling needed. Run `pnpm dev` and the gallery will pick up the new images.
+That's it — no build step or tooling needed. Run `bun run dev` and the gallery will pick up the new images.
 
 ### How It Works Internally
 

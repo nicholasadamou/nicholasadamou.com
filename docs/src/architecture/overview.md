@@ -41,7 +41,7 @@ High-level overview of the application architecture.
 
 Code is organized by domain rather than by type:
 
-```
+```text
 src/
 ├── app/              # Routes (Next.js App Router)
 ├── components/       # UI components by domain

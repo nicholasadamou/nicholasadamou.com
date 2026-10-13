@@ -53,6 +53,9 @@ theme:
 
 nav:
   - Home: index.md
+  - Visitor Guide:
+      - Using the Site: using-the-site/overview.md
+      - Client Work: using-the-site/client-work.md
   - Getting Started:
       - Installation: getting-started/installation.md
       - Development: getting-started/development.md
@@ -80,6 +83,7 @@ nav:
       - Components: api/components.md
       - Utilities: api/utilities.md
   - Contributing:
+      - Quality and Releases: contributing/quality-and-releases.md
       - Guidelines: contributing/guidelines.md
       - Code Style: contributing/code-style.md
       - Testing: contributing/testing.md

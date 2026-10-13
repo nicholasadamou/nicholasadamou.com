@@ -14,7 +14,7 @@ const ogImageUrl = generateOGUrl({
 });
 
 export const metadata: Metadata = {
-  title: "Notes — Nicholas Adamou",
+  title: "Notes",
   description:
     "Writing about software engineering, architecture, and developer tools.",
   alternates: {

@@ -101,13 +101,8 @@ Complete list of technologies and their purposes.
 
 ## Package Management
 
-### pnpm
+### Bun and Flox
 
-- Fast installation
-- Disk efficient
-- Strict dependencies
-
-## Next Steps
-
-- [Architecture Overview →](overview.md)
-- [Project Structure →](structure.md)
+Bun installs JavaScript dependencies from `bun.lock` and runs project scripts.
+Flox provides the locked Node 24, Bun, Python, pre-commit, and ShellCheck toolchain
+for local development and CI. Node remains the application runtime.

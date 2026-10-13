@@ -123,6 +123,18 @@ export default function CommandPalette({
         keywords: ["notes", "blog", "posts", "articles"],
       },
       {
+        id: "nav-clients",
+        type: "navigation",
+        title: "Client work",
+        subtitle: "Explore client websites",
+        icon: <Briefcase size={16} />,
+        action: () => {
+          router.push("/clients");
+          onClose();
+        },
+        keywords: ["clients", "websites"],
+      },
+      {
         id: "nav-projects",
         type: "navigation",
         title: "Projects",
@@ -323,16 +335,16 @@ export default function CommandPalette({
       },
       // Company Links
       {
-        id: "company-dotbrains",
+        id: "company-smeltery",
         type: "company",
-        title: "DotBrains",
-        subtitle: "Visit dotbrains.dev",
+        title: "Smeltery",
+        subtitle: "Explore Smeltery on GitHub",
         icon: <Building2 className="h-5 w-5" />,
         action: () => {
-          window.open("https://dotbrains.dev", "_blank");
+          window.open("https://github.com/smeltery", "_blank");
           onClose();
         },
-        keywords: ["dotbrains", "company"],
+        keywords: ["smeltery", "company"],
       },
       {
         id: "company-youbuildit",

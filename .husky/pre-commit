@@ -1,1 +1,1 @@
-pnpm lint-staged
+flox activate -- bun run check

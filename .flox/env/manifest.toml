@@ -1,0 +1,22 @@
+schema-version = "1.18.0"
+
+[install]
+bun.pkg-path = "bun"
+nodejs.pkg-path = "nodejs_24"
+python.pkg-path = "python312"
+pre-commit.pkg-path = "pre-commit"
+shellcheck.pkg-path = "shellcheck"
+
+[vars]
+NEXT_TELEMETRY_DISABLED = "1"
+
+[hook]
+on-activate = '''
+  export PATH="$FLOX_ENV_PROJECT/node_modules/.bin:$PATH"
+'''
+
+[services.web]
+command = "bun run dev"
+
+[options]
+systems = ["aarch64-darwin", "x86_64-darwin", "aarch64-linux", "x86_64-linux"]

@@ -12,10 +12,10 @@ This project uses **Vitest** with **React Testing Library** for comprehensive un
 ## Running Tests
 
 ```bash
-pnpm test             # Watch mode
-pnpm test:run         # Run once
-pnpm test:watch       # Watch mode
-pnpm test:coverage    # Coverage report
+bun run test             # Watch mode
+bun run test:run         # Run once
+bun run test:watch       # Watch mode
+bun run test:coverage    # Coverage report
 ```
 
 ## Test Configuration
@@ -49,7 +49,7 @@ render(<MyComponent />); // Wrapped in ThemeProvider
 
 ## Test Structure
 
-```
+```text
 src/__tests__/
 ├── setup.ts           # Global mocks
 ├── utils.tsx          # Custom render

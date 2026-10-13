@@ -334,6 +334,7 @@ export default function BottomNav() {
         <Tooltip label="Home">
           <Link
             href="/"
+            aria-label="Home"
             className={`font-semibold transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
           >
             <HomeIcon />
@@ -342,6 +343,7 @@ export default function BottomNav() {
         <Tooltip label="GitHub">
           <Link
             href="https://github.com/nicholasadamou"
+            aria-label="GitHub"
             target="_blank"
             className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
           >
@@ -351,6 +353,7 @@ export default function BottomNav() {
         <Tooltip label="LinkedIn">
           <Link
             href="https://linkedin.com/in/nicholas-adamou"
+            aria-label="LinkedIn"
             target="_blank"
             className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
           >
@@ -360,6 +363,7 @@ export default function BottomNav() {
         <Tooltip label="Contact">
           <Link
             href="/contact"
+            aria-label="Contact"
             className={`transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
           >
             <MailIcon />
@@ -368,6 +372,7 @@ export default function BottomNav() {
         <Tooltip label="Theme ⌘E">
           <button
             className={`color-picker-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+            aria-label="Customize theme"
             onClick={() => setShowPicker(!showPicker)}
           >
             <PaletteIcon />
@@ -377,6 +382,7 @@ export default function BottomNav() {
           <Tooltip label="Search ⌘K">
             <button
               className={`cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+              aria-label="Search"
               onClick={() => setShowSearch(true)}
             >
               <SearchIcon />
@@ -387,6 +393,7 @@ export default function BottomNav() {
           <Tooltip label="Chat ⌘J">
             <button
               className={`chat-trigger cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+              aria-label="Chat"
               onClick={() => setShowChat((prev) => !prev)}
             >
               <ChatIcon />
@@ -397,6 +404,7 @@ export default function BottomNav() {
           <Tooltip label="Shortcuts ?">
             <button
               className={`cursor-pointer transition-opacity hover:opacity-100 ${getOpacityClass()} ${getLinkColorClass()}`}
+              aria-label="Keyboard shortcuts"
               onClick={() => setShowShortcuts(true)}
             >
               <HelpIcon />

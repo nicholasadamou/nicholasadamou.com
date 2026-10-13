@@ -1,7 +1,11 @@
 "use client";
 
+import { clientImages } from "@/lib/content/client-images";
+
 import { useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { clients } from "@/lib/content/clients";
 import { Eye } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout } from "@/hooks/use-home-layout";
@@ -118,6 +122,62 @@ export default function HomePage({ articles }: HomePageProps) {
             </div>
           </div>
 
+          <hr className={hr} />
+
+          <section
+            className="space-y-4 sm:space-y-3"
+            aria-labelledby="client-work-heading"
+          >
+            <div className="flex items-center justify-between">
+              <h2
+                id="client-work-heading"
+                className={`${getOpacityClass()} text-sm`}
+              >
+                Client work
+              </h2>
+              <span className={`text-xs ${getOpacityClass()}`}>
+                Selected websites
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-4">
+              {clients.map((client) => (
+                <ImagePreview
+                  key={client.slug}
+                  src={clientImages[client.slug].src}
+                  alt={`${client.name} homepage`}
+                >
+                  <Link
+                    href="/clients"
+                    aria-label={`Explore ${client.name} and more client work`}
+                    className={`group block ${getLinkColorClass()}`}
+                  >
+                    <div className="overflow-hidden rounded-lg border border-current/10">
+                      <Image
+                        src={clientImages[client.slug]}
+                        alt={`${client.name} homepage`}
+                        width={1440}
+                        height={900}
+                        sizes="(max-width: 640px) 45vw, 160px"
+                        className="aspect-[8/5] w-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none"
+                      />
+                    </div>
+                    <h3 className="mt-2 text-xs leading-snug font-medium">
+                      {client.name}
+                    </h3>
+                    <p className={`mt-0.5 text-[11px] ${getOpacityClass()}`}>
+                      {client.category}
+                    </p>
+                  </Link>
+                </ImagePreview>
+              ))}
+            </div>
+            <Link
+              href="/clients"
+              className={`inline-block text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}
+            >
+              Explore client work &rarr;
+            </Link>
+          </section>
           <hr className={hr} />
 
           {/* Notes */}

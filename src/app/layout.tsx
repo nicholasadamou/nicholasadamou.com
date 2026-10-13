@@ -16,7 +16,7 @@ const inter = Inter({
 
 const baseUrl = getBaseUrl();
 const description =
-  "Senior software engineer at Onebrief. nicholasadamou developer resources, open-source projects, and technical writing.";
+  "Senior outcome engineer at Onebrief. Client websites, open-source projects, technical writing, and developer resources.";
 const ogImageUrl = generateOGUrl({
   title: "Nicholas Adamou",
   description,
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Nicholas Adamou",
   },
   description,
+  other: { "is-agentic-site-type": "business" },
   authors: [{ name: "Nicholas Adamou", url: baseUrl }],
   creator: "Nicholas Adamou",
   alternates: {

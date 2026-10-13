@@ -14,7 +14,7 @@ AI assistant trained on site content using OpenAI Assistant API.
 ### Extract Site Content
 
 ```bash
-pnpm run prepare-chatbot-data
+bun run prepare-chatbot-data
 ```
 
 This creates training data from all blog posts and site information.
