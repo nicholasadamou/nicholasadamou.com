@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: quality
+        name: Site quality checks
+        entry: flox activate -- bun run check
+        language: system
+        pass_filenames: false
+        always_run: true

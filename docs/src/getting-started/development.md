@@ -7,7 +7,7 @@ Learn how to develop and work with the codebase.
 ### Starting the Dev Server
 
 ```bash
-pnpm dev
+bun run dev
 ```
 
 Features in development mode:
@@ -22,33 +22,33 @@ Features in development mode:
 #### Development
 
 ```bash
-pnpm dev              # Start dev server
-pnpm build            # Build for production
-pnpm start            # Start production server
+bun run dev              # Start dev server
+bun run build            # Build for production
+bun run start            # Start production server
 ```
 
 #### Code Quality
 
 ```bash
-pnpm lint             # Run ESLint
-pnpm format           # Format with Prettier
-pnpm format:check     # Check formatting
+bun run lint             # Run ESLint
+bun run format           # Format with Prettier
+bun run format:check     # Check formatting
 ```
 
 #### Testing
 
 ```bash
-pnpm test             # Run tests (watch mode)
-pnpm test:run         # Run tests once
-pnpm test:watch       # Watch mode
-pnpm test:coverage    # Generate coverage report
+bun run test             # Run tests (watch mode)
+bun run test:run         # Run tests once
+bun run test:watch       # Watch mode
+bun run test:coverage    # Generate coverage report
 ```
 
 #### Build Scripts
 
 ```bash
-pnpm download:images:unsplash # Download Unsplash images
-pnpm prepare-chatbot-data     # Prepare chatbot training data
+bun run download:images:unsplash # Download Unsplash images
+bun run prepare-chatbot-data     # Prepare chatbot training data
 ```
 
 ## Code Organization

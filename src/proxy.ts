@@ -6,6 +6,7 @@ const MARKDOWN_PATHS: Record<string, string> = {
   "/about": "/api/markdown/about",
   "/contact": "/api/markdown/contact",
   "/privacy": "/api/markdown/privacy",
+  "/clients": "/api/markdown/clients",
   "/projects": "/api/markdown/projects",
   "/notes": "/api/markdown/notes",
 };
@@ -47,6 +48,7 @@ export const config = {
     "/about",
     "/contact",
     "/privacy",
+    "/clients",
     "/projects",
     "/notes",
     "/notes/:slug*",

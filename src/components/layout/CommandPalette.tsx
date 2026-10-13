@@ -123,6 +123,18 @@ export default function CommandPalette({
         keywords: ["notes", "blog", "posts", "articles"],
       },
       {
+        id: "nav-clients",
+        type: "navigation",
+        title: "Client work",
+        subtitle: "Explore client websites",
+        icon: <Briefcase size={16} />,
+        action: () => {
+          router.push("/clients");
+          onClose();
+        },
+        keywords: ["clients", "websites"],
+      },
+      {
         id: "nav-projects",
         type: "navigation",
         title: "Projects",

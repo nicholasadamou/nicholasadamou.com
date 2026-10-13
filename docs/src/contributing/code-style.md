@@ -34,9 +34,9 @@ This project uses **Husky** and **lint-staged** to automatically format and lint
 ### Manual Commands
 
 ```bash
-pnpm format           # Format all files
-pnpm format:check     # Check formatting
-pnpm lint             # Lint JavaScript/TypeScript
+bun run format           # Format all files
+bun run format:check     # Check formatting
+bun run lint             # Lint JavaScript/TypeScript
 ```
 
 ### Skipping Pre-commit Hooks

@@ -1,124 +1,22 @@
 # Documentation
 
-Developer documentation for nicholasadamou.com built with MkDocs Material.
+- [Visitor guide](src/using-the-site/overview.md)
+- [Client portfolio](src/using-the-site/client-work.md)
+- [Installation](src/getting-started/installation.md)
+- [Environment variables](src/getting-started/environment.md)
+- [Architecture](src/architecture/overview.md)
+- [SEO and agent access](src/features/seo.md)
+- [Quality and releases](src/contributing/quality-and-releases.md)
 
-## Setup
+## Preview
 
-### Install MkDocs
-
-Using a virtual environment (recommended):
-
-```bash
-# Create virtual environment
-python3 -m venv venv
-
-# Activate it (bash/zsh)
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
+```sh
+flox activate
+python -m venv docs/venv
+docs/venv/bin/pip install -r docs/requirements.txt
+docs/venv/bin/mkdocs serve -f docs/mkdocs.yml
 ```
 
-Or install globally:
-
-```bash
-pip install -r requirements.txt
-```
-
-### Local Development
-
-```bash
-# Serve docs locally (standard way)
-mkdocs serve
-
-# Open http://127.0.0.1:8000
-```
-
-#### Auto Port Selection
-
-If port 8000 is already in use, use the provided scripts that automatically find an available port:
-
-**For Bash/Zsh:**
-
-```bash
-./serve.sh
-```
-
-**For Fish shell:**
-
-```fish
-./serve.fish
-```
-
-These scripts will:
-
-- Try ports 8000, 8001, 8002, 8003, 8004, 8005, 8080, 8888 in order
-- If all are taken, scan ports 8000-9000 for an available one
-- Display the URL with the selected port
-- Pass any additional arguments to `mkdocs serve` (e.g., `./serve.sh --dirty`)
-
-### Build
-
-```bash
-# Build static site
-mkdocs build
-
-# Output in docs/build/
-```
-
-## Structure
-
-- `src/` - Markdown documentation source files
-- `build/` - Generated static site (gitignored)
-- `mkdocs.yml` - Configuration (in project root)
-
-## Writing Docs
-
-### Creating New Pages
-
-1. Create a new `.md` file in `docs/src/`
-2. Add it to the nav in `mkdocs.yml`
-3. Link from other pages
-
-### Markdown Extensions
-
-Supported features:
-
-- Admonitions (`!!! note`)
-- Code blocks with syntax highlighting
-- Tabs (`=== "Tab 1"`)
-- Mermaid diagrams
-- Math (KaTeX)
-- Task lists
-- And more!
-
-### Example Admonition
-
-```markdown
-!!! tip "Pro Tip"
-This is a tip admonition.
-```
-
-### Example Code Block
-
-```markdown
-\`\`\`typescript
-const greeting = "Hello, World!";
-\`\`\`
-```
-
-## Deployment
-
-The docs can be deployed to GitHub Pages:
-
-```bash
-mkdocs gh-deploy
-```
-
-Or build and deploy the `docs/build/` directory to any static host.
-
-## Links
-
-- [MkDocs](https://www.mkdocs.org/)
-- [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
-- [Writing your docs](https://www.mkdocs.org/user-guide/writing-your-docs/)
+Run `docs/venv/bin/mkdocs build --strict -f docs/mkdocs.yml` to validate the
+published documentation. Mermaid diagrams are parsed separately by
+`bun run lint:mermaid` and rendered by the Material theme.

@@ -16,6 +16,9 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  agentRules: false,
+  // Use the worker checker: the CLI checker stalls under the Flox Node runtime.
+  experimental: { useTypeScriptCli: false },
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   // These routes also serve a Markdown representation of the same content
   // via Accept-header negotiation (see src/proxy.ts). Declaring `Vary:
@@ -30,6 +33,7 @@ const nextConfig: NextConfig = {
       { source: "/about", headers: [varyAccept] },
       { source: "/contact", headers: [varyAccept] },
       { source: "/privacy", headers: [varyAccept] },
+      { source: "/clients", headers: [varyAccept] },
       { source: "/projects", headers: [varyAccept] },
       { source: "/notes", headers: [varyAccept] },
       { source: "/notes/:slug", headers: [varyAccept] },

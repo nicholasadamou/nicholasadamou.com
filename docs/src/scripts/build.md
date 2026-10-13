@@ -9,7 +9,7 @@ Downloads Unsplash images via the API.
 **Purpose**: Downloads images referenced in content to `public/images/unsplash/`.
 
 ```bash
-pnpm run download:images:unsplash
+bun run download:images:unsplash
 ```
 
 **Features**:
@@ -44,7 +44,7 @@ Captures 1920×1080 screenshots of every project website using Playwright.
 **Purpose**: Generates preview images shown on hover for projects on the homepage and `/projects` page.
 
 ```bash
-pnpm run capture:previews
+bun run capture:previews
 ```
 
 To capture only specific projects:

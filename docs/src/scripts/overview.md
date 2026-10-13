@@ -4,7 +4,7 @@ Automation scripts organized by purpose.
 
 ## Directory Structure
 
-```
+```text
 scripts/
 ├── build/          # Build-time automation
 │   ├── download-unsplash.js
@@ -31,14 +31,14 @@ scripts/
 
 ```bash
 # Download Unsplash images locally
-pnpm run download:images:unsplash
+bun run download:images:unsplash
 
 # Compress oversized public images
 node scripts/build/compress-images.mjs
 
 # Prepare chatbot data
-pnpm run prepare-chatbot-data
+bun run prepare-chatbot-data
 
 # Start development
-pnpm dev
+bun run dev
 ```

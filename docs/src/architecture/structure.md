@@ -4,7 +4,7 @@ Detailed breakdown of the project's directory structure.
 
 ## Root Directory
 
-```
+```text
 ├── .github/          # GitHub Actions workflows
 ├── content/          # MDX content files
 ├── docs/             # MkDocs documentation
@@ -19,7 +19,7 @@ Detailed breakdown of the project's directory structure.
 
 Next.js 16 App Router pages and API routes.
 
-```
+```text
 app/
 ├── api/             # API endpoints
 │   ├── chatbot/     # AI chatbot
@@ -39,7 +39,7 @@ app/
 
 React components organized by domain.
 
-```
+```text
 components/
 ├── chat/            # Chatbot widget
 ├── gallery/         # VSCO gallery, featured gallery
@@ -56,7 +56,7 @@ components/
 
 Custom React hooks.
 
-```
+```text
 hooks/
 ├── use-views.ts                 # Page view tracking
 ├── use-gumroad-products.ts      # Gumroad products
@@ -68,7 +68,7 @@ hooks/
 
 Utilities and helper functions.
 
-```
+```text
 lib/
 ├── animation/     # Framer Motion variants
 ├── content/       # MDX parsing (gray-matter)
@@ -80,21 +80,21 @@ lib/
 
 ## Content Directory
 
-```
+```text
 content/
 └── notes/         # Blog posts (.mdx)
 ```
 
 ## Data Directory
 
-```
+```text
 data/
 └── vsco-export.json  # VSCO data export metadata
 ```
 
 ## Scripts Directory
 
-```
+```text
 scripts/
 ├── build/         # Image download scripts
 ├── content/       # Chatbot training data
@@ -103,7 +103,7 @@ scripts/
 
 ## Public Directory
 
-```
+```text
 public/
 └── images/        # Image assets
     ├── unsplash/  # Downloaded Unsplash images

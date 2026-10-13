@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ContactPageClient from "./ContactPageClient";
 
 export const metadata: Metadata = {
-  title: "Contact | Nicholas Adamou",
+  title: "Contact",
   description:
     "I help companies and individuals build out their digital presence. Let's talk about your project.",
   alternates: {

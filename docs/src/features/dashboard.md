@@ -36,13 +36,13 @@ See [Setup Scripts](../scripts/setup.md) for full details.
 
 Returns a paginated list of chatbot interactions.
 
-**Query params**
+### Query params
 
 | Param  | Default | Description           |
 | ------ | ------- | --------------------- |
 | `page` | `1`     | Page number (1-based) |
 
-**Response**
+### Response
 
 ```json
 {
@@ -66,7 +66,7 @@ Returns a paginated list of chatbot interactions.
 
 Returns aggregate analytics computed directly in the database.
 
-**Response**
+### Chatbot statistics response
 
 ```json
 {

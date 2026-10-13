@@ -14,6 +14,8 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Software Engineer at One
 
 ## Pages
 
+- [Client work](https://nicholasadamou.com/clients): Selected client websites with screenshots.
+
 - [Home](https://nicholasadamou.com/): Bio, featured projects, recent notes, and photography.
 - [About](https://nicholasadamou.com/about): Background, work history, education, and how to get in touch.
 - [Projects](https://nicholasadamou.com/projects): Open-source projects and developer tools.

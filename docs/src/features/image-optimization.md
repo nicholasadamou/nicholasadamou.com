@@ -36,7 +36,7 @@ Metadata is in `data/vsco-export.json` (from VSCO's data export). Images use `un
 
 ```bash
 # Download Unsplash images locally
-pnpm run download:images:unsplash
+bun run download:images:unsplash
 
 # Compress oversized images in public/ (requires sharp)
 node scripts/build/compress-images.mjs

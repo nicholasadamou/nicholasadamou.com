@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Nicholas Adamou",
   },
   description,
+  other: { "is-agentic-site-type": "business" },
   authors: [{ name: "Nicholas Adamou", url: baseUrl }],
   creator: "Nicholas Adamou",
   alternates: {

@@ -1,3 +1,4 @@
+import { clients, services, processSteps } from "@/lib/content/clients";
 import { getAllArticles, getArticleBySlug } from "@/lib/content/mdx";
 import { projects } from "@/lib/projects/config";
 import {
@@ -31,6 +32,13 @@ export function getHomeMarkdown(): string {
     "I hold a [Master of Science in Computer Science](https://www.parchment.com/u/award/6a9ef8b5cd81ba6e9befa8fd094e5a8e) from [Georgia Institute of Technology](https://www.gatech.edu) and a [Bachelor of Arts in Computer Science](https://drive.google.com/file/d/1ayD1gYOiD6pEq_mVtC64IUQYU1EB5yK2/view?usp=sharing) from [Cornell College](https://www.cornellcollege.edu). I'm passionate about making the world better through software.",
     "",
     `More about me: ${baseUrl}/about`,
+    "",
+    "## Client work",
+    "",
+    ...clients.map(
+      (client) => `- [${client.name}](${client.href}): ${client.description}`
+    ),
+    `[Explore client work](${baseUrl}/clients)`,
     "",
     "## Projects",
     "",
@@ -184,6 +192,33 @@ export function getNoteArticleMarkdown(slug: string): string | null {
     `${article.date} · ${article.readTime}`,
     "",
     article.body.raw,
+    "",
+  ].join("\n");
+}
+
+export function getClientsMarkdown(): string {
+  return [
+    "# Client work",
+    "",
+    "Selected websites built by Nicholas Adamou.",
+    "",
+    ...clients.flatMap((client) => [
+      `## ${client.name}`,
+      "",
+      client.description,
+      "",
+      `[Visit ${client.name}](${client.href})`,
+      "",
+      `![${client.name} homepage](${getBaseUrl()}/images/clients/${client.slug}.webp)`,
+      "",
+    ]),
+    "## How I can help",
+    "",
+    ...services.flatMap((s) => [`### ${s.title}`, "", s.description, ""]),
+    "## Working together",
+    "",
+    ...processSteps.flatMap((s) => [`### ${s.title}`, "", s.description, ""]),
+    `[Discuss your project](${getBaseUrl()}/contact)`,
     "",
   ].join("\n");
 }

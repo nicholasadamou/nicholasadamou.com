@@ -40,3 +40,7 @@ venv/
 .venv/
 docs/venv/
 docs/build/
+
+.flox/
+bun.lock
+coverage/
