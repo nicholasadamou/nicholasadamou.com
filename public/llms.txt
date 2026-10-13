@@ -27,7 +27,6 @@ Nicholas Adamou (github.com/nicholasadamou) is a Senior Outcome Engineer at Oneb
 - [Projects](https://nicholasadamou.com/projects): Open-source projects and developer tools.
 - [Notes](https://nicholasadamou.com/notes): Writing about software engineering, architecture, and developer tools.
 - [Contact](https://nicholasadamou.com/contact): Get in touch about a project.
-- [Gallery](https://nicholasadamou.com/gallery): Photography.
 - [Nicholas Adamou developer resources](https://nicholasadamou.com/developers): Machine-readable guides, versioned API, OpenAPI, MCP, CLI, and agent entry points.
 - [Privacy Policy](https://nicholasadamou.com/privacy): How personal information is collected, used, and protected.
 

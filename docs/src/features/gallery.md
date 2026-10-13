@@ -1,6 +1,19 @@
 # Gallery Integration
 
-VSCO gallery features with infinite scroll.
+The homepage features four photographs bundled with the site. Static imports
+provide content-hashed URLs, responsive optimization, and blur placeholders. These
+previews do not depend on VSCO availability; each opens the full photograph.
+
+The full gallery uses the VSCO export with infinite scroll. Its remote images
+remain dependent on VSCO allowing CDN requests.
+
+## Feature flag
+
+The gallery is disabled by default. Set `NEXT_PUBLIC_GALLERY_ENABLED=true` in
+Vercel (or `.env.local`) and rebuild to enable it once CDN access is reliable.
+The flag controls homepage previews, the entire About Photography section, navigation, the sitemap,
+`/gallery`, and `/api/vsco`. Disabled routes return 404. Existing bundled photos
+on the About page remain available.
 
 ## VSCO Gallery
 
@@ -18,7 +31,7 @@ VSCO gallery features with infinite scroll.
 2. **Images**: Served directly from VSCO's CDN (`im.vsco.co`)
 3. **Data Reader**: `src/lib/vsco-local.ts` reads the export JSON directly
 4. **API Route**: `/api/vsco` serves paginated images
-5. **Gallery Components**: `VscoGallery` and `FeaturedGallery`
+5. **Gallery Components**: `VscoGallery`
 
 ### Hooks
 

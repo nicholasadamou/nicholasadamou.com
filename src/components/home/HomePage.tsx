@@ -1,5 +1,6 @@
 "use client";
 
+import { galleryEnabled } from "@/lib/features";
 import { clientImages } from "@/lib/content/client-images";
 
 import { useMemo } from "react";
@@ -11,7 +12,6 @@ import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout } from "@/hooks/use-home-layout";
 import { useBatchViews } from "@/hooks/use-batch-views";
 import BioSection from "@/components/home/BioSection";
-import HowToReadSection from "@/components/home/HowToReadSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
 import SpotifySection from "@/components/home/SpotifySection";
@@ -78,8 +78,6 @@ export default function HomePage({ articles }: HomePageProps) {
               : ""
           }`}
         >
-          <HowToReadSection />
-
           {/* Projects */}
           <div className="space-y-4 sm:space-y-3">
             <h2 className={`${getOpacityClass()} text-sm`}>Projects</h2>
@@ -234,21 +232,24 @@ export default function HomePage({ articles }: HomePageProps) {
 
           <hr className={hr} />
 
-          {/* Photos */}
-          <div className="space-y-4 sm:space-y-3">
-            <h2 className={`${getOpacityClass()} text-sm`}>Photos</h2>
-            <h3 className="text-sm font-medium">Photography gallery</h3>
-            <FeaturedGallery />
-            <Link
-              href="/gallery"
-              className={`text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}
-            >
-              View gallery &rarr;
-            </Link>
-          </div>
+          {galleryEnabled && (
+            <>
+              {/* Photos */}
+              <div className="space-y-4 sm:space-y-3">
+                <h2 className={`${getOpacityClass()} text-sm`}>Photos</h2>
+                <h3 className="text-sm font-medium">Photography gallery</h3>
+                <FeaturedGallery />
+                <Link
+                  href="/gallery"
+                  className={`text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}
+                >
+                  View gallery &rarr;
+                </Link>
+              </div>
 
-          <hr className={hr} />
-
+              <hr className={hr} />
+            </>
+          )}
           {/* Spotify */}
           <SpotifySection
             light={light}

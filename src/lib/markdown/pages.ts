@@ -1,3 +1,4 @@
+import { galleryEnabled } from "@/lib/features";
 import { clients, services, processSteps } from "@/lib/content/clients";
 import { getAllArticles, getArticleBySlug } from "@/lib/content/mdx";
 import { projects } from "@/lib/projects/config";
@@ -40,18 +41,6 @@ export function getHomeMarkdown(): string {
     ),
     `[Explore client work](${baseUrl}/clients)`,
     "",
-    "## How to read this site",
-    "",
-    "Nicholas Adamou's personal site is organized for both people and agents.",
-    "",
-    "### People",
-    "",
-    `Start with the bio on this page, then continue to [About](${baseUrl}/about) for work history, [Projects](${baseUrl}/projects) for open-source tools, and [Notes](${baseUrl}/notes) for technical writing. Use [Contact](${baseUrl}/contact) for freelance or consulting inquiries.`,
-    "",
-    "### Agents",
-    "",
-    `Prefer [llms.txt](${baseUrl}/llms.txt) and [Nicholas Adamou developer resources](${baseUrl}/developers). Pages also serve Markdown when requested with \`Accept: text/markdown\`. The [sitemap](${baseUrl}/sitemap.xml) lists every indexable URL.`,
-    "",
     "## Projects",
     "",
     ...featured.flatMap((p) => [`- [${p.name}](${p.href}): ${p.description}`]),
@@ -64,10 +53,14 @@ export function getHomeMarkdown(): string {
     ]),
     `- [View all notes](${baseUrl}/notes)`,
     "",
-    "## Photos",
-    "",
-    `A curated collection of photography work. [View gallery](${baseUrl}/gallery)`,
-    "",
+    ...(galleryEnabled
+      ? [
+          "## Photos",
+          "",
+          `A curated collection of photography work.${galleryEnabled ? ` [View gallery](${baseUrl}/gallery)` : ""}`,
+          "",
+        ]
+      : []),
   ];
 
   return lines.join("\n");
@@ -108,10 +101,14 @@ export function getAboutMarkdown(): string {
     "",
     ...resumes.map((l) => `- [${l.label}](${l.href})`),
     "",
-    "## Photography",
-    "",
-    `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou). [View gallery](${baseUrl}/gallery)`,
-    "",
+    ...(galleryEnabled
+      ? [
+          "## Photography",
+          "",
+          `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou). [View gallery](${baseUrl}/gallery)`,
+          "",
+        ]
+      : []),
     "## Work",
     "",
     "I specialize in Full Stack Development and DevOps, focusing on creating scalable applications and optimizing development processes.",

@@ -1,5 +1,6 @@
 "use client";
 
+import { galleryEnabled } from "@/lib/features";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
@@ -43,13 +44,11 @@ export default function AboutPageClient() {
     >
       <div className="mx-auto max-w-2xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
         <div className="animate-fadeInHome1 space-y-12">
-          {/* Header */}
           <div className="space-y-2">
             <h1 className="text-3xl font-medium sm:text-4xl">About</h1>
             <p className={`text-sm ${getOpacityClass()}`}>A glimpse into me.</p>
           </div>
 
-          {/* Image section for mobile view */}
           <div className="relative mb-8 md:hidden">
             <Image
               src={arizona}
@@ -69,13 +68,11 @@ export default function AboutPageClient() {
             />
           </div>
 
-          {/* Gallery for larger screens */}
           <div className="hidden md:block">
             <AboutGallery />
           </div>
 
           <div className="animate-fadeInHome2 space-y-12">
-            {/* ── Bio ── */}
             <section className="space-y-4 text-sm leading-relaxed">
               <p>
                 I am a seasoned Senior Outcome Engineer with a strong academic
@@ -180,7 +177,6 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {/* ── Connect ── */}
             <section className="space-y-4">
               <h2 className={`text-sm ${getOpacityClass()}`}>Connect</h2>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -201,7 +197,6 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {/* ── Credentials ── */}
             <section className="space-y-4">
               <h2 className={`text-sm ${getOpacityClass()}`}>Credentials</h2>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -222,7 +217,6 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {/* ── Developer Resources ── */}
             <section className="space-y-4">
               <h2 className={`text-sm ${getOpacityClass()}`}>
                 Developer Resources
@@ -263,7 +257,6 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {/* ── Resume ── */}
             <section className="space-y-4">
               <h2 className={`text-sm ${getOpacityClass()}`}>Resume</h2>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -284,35 +277,39 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {/* ── Photography ── */}
-            <section className="space-y-4">
-              <h2 className={`text-sm ${getOpacityClass()}`}>Photography</h2>
-              <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-                Beyond software engineering, I have a passion for photography
-                and visual storytelling. You can explore my work on{" "}
-                <a
-                  href="https://vsco.co/nicholasadamou"
-                  target="_blank"
-                  className={dashedLink}
-                >
-                  VSCO
-                </a>
-                .
-              </p>
-              <FeaturedGallery />
-              <div className="flex gap-3">
-                <Link
-                  href="/gallery"
-                  className={`text-sm transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
-                >
-                  View Gallery →
-                </Link>
-              </div>
-            </section>
+            {galleryEnabled && (
+              <>
+                <section className="space-y-4">
+                  <h2 className={`text-sm ${getOpacityClass()}`}>
+                    Photography
+                  </h2>
+                  <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
+                    Beyond software engineering, I have a passion for
+                    photography and visual storytelling. You can explore my work
+                    on{" "}
+                    <a
+                      href="https://vsco.co/nicholasadamou"
+                      target="_blank"
+                      className={dashedLink}
+                    >
+                      VSCO
+                    </a>
+                    .
+                  </p>
+                  <FeaturedGallery />
+                  <div className="flex gap-3">
+                    <Link
+                      href="/gallery"
+                      className={`text-sm transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                    >
+                      View Gallery →
+                    </Link>
+                  </div>
+                </section>
 
-            <hr className={hr} />
-
-            {/* ── Listening ── */}
+                <hr className={hr} />
+              </>
+            )}
             <SpotifySection
               light={light}
               opacityClass={getOpacityClass()}
@@ -321,7 +318,6 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {/* ── Work ── */}
             <section className="space-y-4">
               <h2 className={`text-sm ${getOpacityClass()}`}>Work</h2>
               <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>

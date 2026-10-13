@@ -1,3 +1,5 @@
+import { galleryEnabled } from "@/lib/features";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import GalleryPageClient from "./GalleryPageClient";
 
@@ -11,5 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default function GalleryPage() {
+  if (!galleryEnabled) notFound();
   return <GalleryPageClient />;
 }
