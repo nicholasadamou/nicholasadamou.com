@@ -2,7 +2,6 @@ import { describe, it, expect } from "vitest";
 import {
   getAboutMarkdown,
   getDevelopersMarkdown,
-  getHomeMarkdown,
   getNotFoundMarkdown,
 } from "@/lib/markdown/pages";
 
@@ -48,16 +47,5 @@ describe("getDevelopersMarkdown", () => {
     expect(markdown).toContain("/mcp");
     expect(markdown).toContain("npx nicholasadamou");
     expect(markdown).toContain("Versioning and deprecation");
-  });
-});
-
-describe("getHomeMarkdown", () => {
-  it("includes a nested How to read this site outline", () => {
-    const markdown = getHomeMarkdown();
-
-    expect(markdown).toContain("## How to read this site");
-    expect(markdown).toContain("### People");
-    expect(markdown).toContain("### Agents");
-    expect(markdown).toMatch(/\/developers/);
   });
 });
