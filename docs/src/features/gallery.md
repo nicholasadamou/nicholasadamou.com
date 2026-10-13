@@ -1,6 +1,11 @@
 # Gallery Integration
 
-VSCO gallery features with infinite scroll.
+The homepage features four photographs bundled with the site. Static imports
+provide content-hashed URLs, responsive optimization, and blur placeholders. These
+previews do not depend on VSCO availability; each opens the full photograph.
+
+The full gallery uses the VSCO export with infinite scroll. Its remote images
+remain dependent on VSCO allowing CDN requests.
 
 ## VSCO Gallery
 
@@ -18,7 +23,7 @@ VSCO gallery features with infinite scroll.
 2. **Images**: Served directly from VSCO's CDN (`im.vsco.co`)
 3. **Data Reader**: `src/lib/vsco-local.ts` reads the export JSON directly
 4. **API Route**: `/api/vsco` serves paginated images
-5. **Gallery Components**: `VscoGallery` and `FeaturedGallery`
+5. **Gallery Components**: `VscoGallery`
 
 ### Hooks
 
