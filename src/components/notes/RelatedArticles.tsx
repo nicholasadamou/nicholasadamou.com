@@ -25,7 +25,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
   const subColor = shouldUseDarkText() ? "text-stone-950/50" : "text-white/50";
 
   return (
-    <section className="animate-fadeInHome2 mt-16 mb-8">
+    <section className="animate-fadeInHome2 mt-16">
       <div className="mb-8">
         <h2 className={`text-2xl font-bold ${headingColor}`}>
           If you liked this note.

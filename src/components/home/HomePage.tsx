@@ -11,6 +11,7 @@ import { Eye } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import { useHomeLayout } from "@/hooks/use-home-layout";
 import { useBatchViews } from "@/hooks/use-batch-views";
+import SiteFooter from "@/components/layout/SiteFooter";
 import BioSection from "@/components/home/BioSection";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
@@ -267,6 +268,7 @@ export default function HomePage({ articles }: HomePageProps) {
             opacityClass={getOpacityClass()}
             linkColorClass={getLinkColorClass()}
           />
+          <SiteFooter embedded />
         </div>
       </div>
     </main>

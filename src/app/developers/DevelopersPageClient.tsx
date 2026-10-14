@@ -87,7 +87,7 @@ export default function DevelopersPageClient() {
     <main
       className={`min-h-screen overflow-x-hidden font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-2xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
+      <div className="mx-auto max-w-2xl px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
         <div className="animate-fadeInHome1 space-y-12">
           <div className="space-y-3">
             <h1 className="text-3xl font-medium sm:text-4xl">

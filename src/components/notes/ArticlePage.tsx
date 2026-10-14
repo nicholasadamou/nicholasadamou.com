@@ -59,7 +59,7 @@ export default function ArticlePage({
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
+      <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
         <article>
           <header className="animate-fadeInText mb-8">
             <div className="mb-3 flex items-center gap-2 text-sm opacity-60 sm:text-base">
