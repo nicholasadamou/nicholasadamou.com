@@ -63,19 +63,20 @@ export const OGLayout = (params: ProcessedOGParams) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
-              gap: 34,
-              paddingLeft: 50,
+              alignItems: "flex-start",
+              gap: 30,
+              width: 330,
+              marginLeft: 70,
             }}
           >
-            <Icon size={156} color={secondary} strokeWidth={1} />
+            <Icon size={64} color={secondary} strokeWidth={1.5} />
             <span
               style={{
-                fontSize: 16,
+                fontSize: 35,
+                fontWeight: 600,
                 color: secondary,
-                textAlign: "center",
-                width: 300,
-                lineHeight: 1.5,
+                letterSpacing: -1,
+                lineHeight: 1.2,
               }}
             >
               {brand.tagline}
@@ -147,13 +148,13 @@ export const OGLayout = (params: ProcessedOGParams) => {
         style={{
           display: "flex",
           position: "absolute",
-          bottom: 104,
-          right: 0,
-          padding: "48px 34px 22px",
-          width: 420,
+          bottom: 128,
+          right: 34,
+          padding: processedImage ? "10px 14px" : 0,
+          borderRadius: 8,
           justifyContent: "flex-end",
-          color: "#fafaf9",
-          background: "linear-gradient(transparent, rgba(0,0,0,0.75))",
+          color: processedImage ? brand.colors.paper : secondary,
+          background: processedImage ? brand.colors.ink : "transparent",
           fontSize: 16,
         }}
       >
