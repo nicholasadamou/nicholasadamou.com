@@ -57,3 +57,19 @@ The Flox mark comes from its [official favicon](https://flox.dev/favicon.svg),
 with the background removed and its path rendered in monochrome. Brand marks
 identify technologies; they do not imply endorsement. Add new assets under
 `public/brands/technology/` and register their names in the case-study component.
+
+## Visual brand sections
+
+Each case study includes locally hosted logo variants and a social preview from
+its project’s brand page. Palette names, typography pairings, and usage notes live
+in `content/clients/brands.json`; the shared `BrandShowcase` component renders them.
+The case-study renderer inserts this visual after the Brand ideation heading;
+the original Markdown remains readable as prose and a brand table for agents.
+
+Assets live under `public/brands/clients/<slug>/`. Preserve SVG artwork and its
+proportions; export social PNGs to WebP without changing their composition.
+Source brand guides are [Bold Performance](https://bold-performance.vercel.app/brand/),
+[Afin](https://adamou-financial-consulting.vercel.app/brand/),
+[JEA](https://jeabizdev.com/brand/), and [Alder House](https://alder-house.vercel.app/brand/).
+Photographs retain their source projects’ credits and terms. The displayed font
+names document the pairing; the site’s own typography renders those labels.

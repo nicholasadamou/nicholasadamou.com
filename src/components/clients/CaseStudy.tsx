@@ -90,7 +90,7 @@ export default function CaseStudy({
           </ul>
           <TableOfContents />
           <div
-            className={`animate-fadeInHome2 prose prose-stone sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-medium prose-h2:mt-12 prose-p:leading-[1.75] prose-a:font-normal prose-a:decoration-dashed prose-a:underline-offset-4 prose-img:rounded-xl max-w-none ${shouldUseDarkText() ? "" : "prose-invert"}`}
+            className={`animate-fadeInHome2 prose prose-stone sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-medium prose-h2:mt-12 prose-p:leading-[1.75] prose-a:font-normal prose-a:decoration-dashed prose-a:underline-offset-4 prose-img:rounded-xl prose-code:before:content-none prose-code:after:content-none max-w-none ${shouldUseDarkText() ? "" : "prose-invert"}`}
           >
             {children}
           </div>
