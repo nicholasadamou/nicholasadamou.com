@@ -25,6 +25,16 @@ export function HomeCard({
         fontFamily: "Inter",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 0,
+          width: 550,
+          height: 526,
+          background: "#080808",
+        }}
+      />
       {processedImage && (
         <img
           src={processedImage}

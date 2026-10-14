@@ -39,7 +39,7 @@ export const OGLayout = (params: ProcessedOGParams) => {
           top: 0,
           width: 550,
           height: 526,
-          background: dark ? brand.colors.surface : "#e7e5e4",
+          background: "#080808",
           alignItems: "center",
           justifyContent: "center",
         }}
