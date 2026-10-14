@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #fafaf9;
   --foreground: #0c0a09;
@@ -388,6 +392,10 @@ pre[class*="language-"] *::selection {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .animate-fadeInHome1,
   .animate-fadeInHome2,
   .animate-fadeInNav,
