@@ -95,18 +95,18 @@ export default function DevelopersPageClient() {
             </h2>
             <ul className="grid gap-3 sm:grid-cols-2">
               {discovery.map((item) => (
-                <li
-                  key={item.href}
-                  className={`rounded-xl border border-current/10 p-4 ${cardBg}`}
-                >
-                  <a href={item.href} className={`text-sm font-medium ${link}`}>
-                    {item.label}
-                  </a>
-                  <p
-                    className={`mt-2 text-xs leading-relaxed ${getOpacityClass()}`}
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className={`block h-full rounded-xl border border-current/10 p-4 transition-colors hover:border-current/30 focus-visible:outline-2 focus-visible:outline-offset-4 ${cardBg}`}
                   >
-                    {item.description}
-                  </p>
+                    <span className="text-sm font-medium">{item.label}</span>
+                    <p
+                      className={`mt-2 text-xs leading-relaxed ${getOpacityClass()}`}
+                    >
+                      {item.description}
+                    </p>
+                  </a>
                 </li>
               ))}
             </ul>
