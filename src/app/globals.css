@@ -386,3 +386,16 @@ pre[class*="language-"] *::selection {
 .token.namespace {
   opacity: 0.8;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadeInHome1,
+  .animate-fadeInHome2,
+  .animate-fadeInNav,
+  .animate-fadeInBack,
+  .animate-fadeInText,
+  .animate-slideInRight {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

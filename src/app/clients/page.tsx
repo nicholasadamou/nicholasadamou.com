@@ -45,7 +45,7 @@ export default function ClientsPage() {
         }}
       />
 
-      <header>
+      <header className="animate-fadeInHome1">
         <div className="mb-5 flex items-center gap-3 text-xs tracking-[0.18em] uppercase">
           <span
             className="h-2 w-2 rounded-full bg-emerald-500"
@@ -80,7 +80,7 @@ export default function ClientsPage() {
       <section
         id="selected-work"
         aria-labelledby="work-heading"
-        className="scroll-mt-16 pt-12"
+        className="animate-fadeInHome2 scroll-mt-16 pt-12"
       >
         <div className="mb-10 flex items-end justify-between gap-4">
           <div>
@@ -153,7 +153,7 @@ export default function ClientsPage() {
 
       <section
         aria-labelledby="services-heading"
-        className="mt-20 border-t border-current/15 pt-12 sm:mt-16 sm:pt-12"
+        className="animate-fadeInHome2 mt-20 border-t border-current/15 pt-12 sm:mt-16 sm:pt-12"
       >
         <div className="grid gap-10 sm:grid-cols-[1fr_1.4fr] sm:gap-8">
           <div>
@@ -193,7 +193,7 @@ export default function ClientsPage() {
 
       <section
         aria-labelledby="process-heading"
-        className="mt-16 rounded-2xl bg-current/[0.04] p-7 ring-1 ring-current/10 sm:mt-12 sm:p-6"
+        className="animate-fadeInHome2 mt-16 rounded-2xl bg-current/[0.04] p-7 ring-1 ring-current/10 sm:mt-12 sm:p-6"
       >
         <p className="mb-4 text-xs tracking-[0.18em] uppercase opacity-50">
           Working together
@@ -217,7 +217,7 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      <footer className="mt-16 flex flex-col justify-between gap-8 rounded-2xl bg-[#d9e5d4] p-8 text-[#18271c] sm:mt-12 sm:p-8">
+      <footer className="animate-fadeInHome2 mt-16 flex flex-col justify-between gap-8 rounded-2xl bg-[#d9e5d4] p-8 text-[#18271c] sm:mt-12 sm:p-8">
         <div>
           <p className="mb-5 text-xs tracking-[0.18em] uppercase opacity-65">
             Your next chapter

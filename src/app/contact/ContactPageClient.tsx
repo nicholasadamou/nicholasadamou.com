@@ -72,7 +72,7 @@ export default function ContactPageClient() {
         {sent ? (
           <div
             role="status"
-            className="mt-12 rounded-2xl border border-current/15 p-8"
+            className="animate-fadeInText mt-12 rounded-2xl border border-current/15 p-8"
           >
             <CheckCircle2 size={28} aria-hidden="true" />
             <h2 className="mt-4 text-2xl font-medium">
@@ -93,7 +93,7 @@ export default function ContactPageClient() {
           <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            className="mt-10 space-y-7"
+            className="animate-fadeInHome2 mt-10 space-y-7"
           >
             <p className={`text-xs ${getOpacityClass()}`}>
               Fields marked * are required. Everything else is optional.
