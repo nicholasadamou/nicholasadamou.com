@@ -30,7 +30,7 @@ credentials described in [environment setup](docs/src/getting-started/environmen
 ## Quality
 
 ```sh
-bun run check   # all quality gates and tests
+bun run check  # all quality gates and tests
 bun run build  # production build
 ```
 
