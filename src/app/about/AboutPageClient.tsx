@@ -1,6 +1,6 @@
 "use client";
 
-import { galleryEnabled } from "@/lib/features";
+import type { VscoImage } from "@/types/vsco";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
@@ -19,11 +19,11 @@ import {
 import arizona from "../../../public/images/gallery/arizona.jpg";
 import lakePlacid from "../../../public/images/gallery/lake-placid.jpg";
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
-
-export default function AboutPageClient() {
+export default function AboutPageClient({
+  photos = [],
+}: {
+  photos?: VscoImage[];
+}) {
   const {
     getTextColorClass,
     getOpacityClass,
@@ -277,39 +277,34 @@ export default function AboutPageClient() {
 
             <hr className={hr} />
 
-            {galleryEnabled && (
-              <>
-                <section className="space-y-4">
-                  <h2 className={`text-sm ${getOpacityClass()}`}>
-                    Photography
-                  </h2>
-                  <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-                    Beyond software engineering, I have a passion for
-                    photography and visual storytelling. You can explore my work
-                    on{" "}
-                    <a
-                      href="https://vsco.co/nicholasadamou"
-                      target="_blank"
-                      className={dashedLink}
-                    >
-                      VSCO
-                    </a>
-                    .
-                  </p>
-                  <FeaturedGallery />
-                  <div className="flex gap-3">
-                    <Link
-                      href="/gallery"
-                      className={`text-sm transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
-                    >
-                      View Gallery →
-                    </Link>
-                  </div>
-                </section>
+            <>
+              <section className="space-y-4">
+                <h2 className={`text-sm ${getOpacityClass()}`}>Photography</h2>
+                <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
+                  Beyond software engineering, I have a passion for photography
+                  and visual storytelling. You can explore my work on{" "}
+                  <a
+                    href="https://vsco.co/nicholasadamou"
+                    target="_blank"
+                    className={dashedLink}
+                  >
+                    VSCO
+                  </a>
+                  .
+                </p>
+                <FeaturedGallery photos={photos} />
+                <div className="flex gap-3">
+                  <Link
+                    href="/gallery"
+                    className={`text-sm transition-opacity hover:opacity-60 ${getLinkColorClass()}`}
+                  >
+                    View Gallery →
+                  </Link>
+                </div>
+              </section>
 
-                <hr className={hr} />
-              </>
-            )}
+              <hr className={hr} />
+            </>
             <SpotifySection
               light={light}
               opacityClass={getOpacityClass()}

@@ -1,3 +1,4 @@
+import { getLocalVscoImages } from "@/lib/vsco-local";
 import { getAllArticles } from "@/lib/content/mdx";
 import { resolveImageUrl } from "@/lib/image/unsplash";
 import HomePage from "@/components/home/HomePage";
@@ -18,6 +19,7 @@ export default function Home() {
       image: image ? resolveImageUrl(image) : null,
     }));
 
+  const photos = getLocalVscoImages(4).images;
   return (
     <>
       <script
@@ -38,7 +40,7 @@ export default function Home() {
           __html: JSON.stringify(getWebSiteJsonLd()),
         }}
       />
-      <HomePage articles={articles} />
+      <HomePage articles={articles} photos={photos} />
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { getLocalVscoImages } from "@/lib/vsco-local";
 import { pageMetadata } from "@/lib/og";
 import type { Metadata } from "next";
 import AboutPageClient from "./AboutPageClient";
@@ -17,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutPageClient />;
+  return <AboutPageClient photos={getLocalVscoImages(4).images} />;
 }

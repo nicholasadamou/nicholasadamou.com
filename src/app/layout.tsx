@@ -73,8 +73,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://im.vsco.co" />
-        <link rel="dns-prefetch" href="https://im.vsco.co" />
         <link rel="describedby" href={`${baseUrl}/llms.txt`} />
       </head>
       <body className={`${inter.variable} antialiased`}>
