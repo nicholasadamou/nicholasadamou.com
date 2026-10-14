@@ -18,6 +18,7 @@ export function HomeCard({
         display: "flex",
         width: "100%",
         height: "100%",
+        overflow: "hidden",
         position: "relative",
         background,
         color: foreground,
@@ -32,7 +33,7 @@ export function HomeCard({
           height={526}
           style={{
             position: "absolute",
-            right: 0,
+            right: -45,
             top: 0,
             objectFit: "cover",
             objectPosition: "center",

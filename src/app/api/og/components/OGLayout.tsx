@@ -24,6 +24,7 @@ export const OGLayout = (params: ProcessedOGParams) => {
         display: "flex",
         width: "100%",
         height: "100%",
+        overflow: "hidden",
         position: "relative",
         background,
         color: foreground,
@@ -48,7 +49,10 @@ export const OGLayout = (params: ProcessedOGParams) => {
           alt={processedImage ? title : brand.name}
           width={550}
           height={526}
-          style={{ objectFit: "cover" }}
+          style={{
+            objectFit: "cover",
+            transform: processedImage ? undefined : "translateX(45px)",
+          }}
         />
       </div>
       <svg
