@@ -79,7 +79,7 @@ export function HomeCard({
             gap: 10,
             fontSize: 17,
             color: secondary,
-            marginTop: 20,
+            marginTop: 10,
           }}
         >
           <span>{brand.role} at</span>
