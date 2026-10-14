@@ -29,6 +29,17 @@ export const clients = [
     href: "https://jeabizdev.com",
     surface: "bg-[#dfe5ef]",
   },
+  {
+    slug: "alder-house",
+    name: "Alder House",
+    category: "Portrait & lifestyle photography",
+    description:
+      "A warm, image-led home for portrait and lifestyle photography, bringing together a portfolio, session guides, and a clear path to planning a shoot.",
+    imageDescription:
+      "a family walking along the beach and photography session planning",
+    href: "https://alder-house.vercel.app",
+    surface: "bg-[#e9e5da]",
+  },
 ] as const;
 
 export const services = [
