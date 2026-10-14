@@ -32,7 +32,11 @@ export default function CaseStudy({
 }) {
   const { getTextColorClass, shouldUseDarkText } = useTheme();
   const client = clients.find((item) => item.slug === slug)!;
-  const related = clients.filter((item) => item.slug !== slug).slice(0, 2);
+  const index = clients.indexOf(client);
+  const related = [
+    ...clients.slice(index + 1),
+    ...clients.slice(0, index),
+  ].slice(0, 2);
   return (
     <main className={`min-h-screen font-sans ${getTextColorClass()}`}>
       <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
@@ -64,11 +68,11 @@ export default function CaseStudy({
             alt={`${client.name} homepage showing ${client.imageDescription}`}
             priority
             sizes="(max-width: 720px) 100vw, 680px"
-            className="mb-6 h-auto w-full rounded-xl border border-current/10"
+            className="animate-fadeInHome1 mb-6 h-auto w-full rounded-xl border border-current/10"
           />
           <ul
             aria-label="Technology stack"
-            className="mb-8 flex flex-wrap gap-2"
+            className="animate-fadeInHome2 mb-8 flex flex-wrap gap-2"
           >
             {stack.map((item) => (
               <li
