@@ -64,7 +64,7 @@ export default function ContactPageClient() {
 
   return (
     <main
-      className={`min-h-screen px-6 pt-24 pb-32 sm:pt-32 ${getTextColorClass()}`}
+      className={`min-h-screen px-6 pt-24 pb-12 sm:pt-32 sm:pb-16 ${getTextColorClass()}`}
     >
       <div className="mx-auto max-w-2xl">
         <ContactIntro />

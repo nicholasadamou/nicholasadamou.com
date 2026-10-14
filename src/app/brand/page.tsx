@@ -40,7 +40,7 @@ const samples = [
 
 export default function BrandPage() {
   return (
-    <main className="text-foreground mx-auto max-w-2xl space-y-12 px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
+    <main className="text-foreground mx-auto max-w-2xl space-y-12 px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
       <header className="space-y-4">
         <p className="text-xs tracking-[0.16em] uppercase opacity-60">
           The identity

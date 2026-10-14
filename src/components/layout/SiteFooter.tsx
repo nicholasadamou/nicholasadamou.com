@@ -20,7 +20,7 @@ export default function SiteFooter({
   return (
     <footer
       aria-label="Site footer"
-      className={`text-foreground @container ${embedded ? "pt-8 pb-24" : "mx-auto -mt-16 max-w-2xl px-5 pb-32 sm:-mt-24 sm:pb-40"}`}
+      className={`text-foreground @container ${embedded ? "pt-8 pb-24" : "mx-auto max-w-2xl px-5 pb-32 sm:pb-40"}`}
     >
       <div className="grid grid-cols-2 gap-x-8 gap-y-9 border-t border-current/15 pt-9 @[34rem]:grid-cols-[1.3fr_1fr_1fr]">
         <div className="col-span-2 space-y-3 @[34rem]:col-span-1">

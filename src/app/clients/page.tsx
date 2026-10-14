@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata(
 
 export default function ClientsPage() {
   return (
-    <main className="text-foreground mx-auto min-h-screen max-w-2xl px-5 pt-24 pb-32 sm:pt-32 sm:pb-48">
+    <main className="text-foreground mx-auto min-h-screen max-w-2xl px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
