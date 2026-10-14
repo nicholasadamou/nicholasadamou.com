@@ -1,13 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import ResourceOverview from "./ResourceOverview";
 import { useTheme } from "@/components/ThemeProvider";
 
-/**
- * Discoverability page for name-based queries like
- * "nicholasadamou developer resources". Documents the real machine-readable
- * surface: versioned API, OpenAPI, MCP, CLI, and Markdown negotiation.
- */
 export default function DevelopersPageClient() {
   const {
     getTextColorClass,
@@ -89,32 +85,26 @@ export default function DevelopersPageClient() {
     >
       <div className="mx-auto max-w-2xl px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
         <div className="animate-fadeInHome1 space-y-12">
-          <div className="space-y-3">
-            <h1 className="text-3xl font-medium sm:text-4xl">
-              Nicholas Adamou developer resources
-            </h1>
-            <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-              <span className="font-medium">
-                nicholasadamou developer resources
-              </span>{" "}
-              — versioned content API, OpenAPI, MCP server, official CLI, and
-              Markdown negotiation for agents and developers working with
-              Nicholas Adamou&apos;s site. Public surfaces are read-only and
-              require no API key.
-            </p>
-          </div>
+          <ResourceOverview />
 
           <hr className={hr} />
 
           <section className="space-y-4">
-            <h2 className={`text-sm ${getOpacityClass()}`}>Start here</h2>
-            <ul className="space-y-3">
+            <h2 className={`text-sm ${getOpacityClass()}`}>
+              Discovery & reference
+            </h2>
+            <ul className="grid gap-3 sm:grid-cols-2">
               {discovery.map((item) => (
-                <li key={item.href} className="space-y-1">
+                <li
+                  key={item.href}
+                  className={`rounded-xl border border-current/10 p-4 ${cardBg}`}
+                >
                   <a href={item.href} className={`text-sm font-medium ${link}`}>
                     {item.label}
                   </a>
-                  <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
+                  <p
+                    className={`mt-2 text-xs leading-relaxed ${getOpacityClass()}`}
+                  >
                     {item.description}
                   </p>
                 </li>
@@ -329,41 +319,6 @@ npx nicholasadamou docs`}</code>
                 </Link>
               ))}
             </div>
-          </section>
-
-          <hr className={hr} />
-
-          <section className="space-y-4">
-            <h2 className={`text-sm ${getOpacityClass()}`}>
-              Open-source and writing
-            </h2>
-            <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed">
-              <li>
-                <Link href="/projects" className={link}>
-                  Projects
-                </Link>{" "}
-                — open-source projects and developer tools built by Nicholas
-                Adamou.
-              </li>
-              <li>
-                <Link href="/notes" className={link}>
-                  Notes
-                </Link>{" "}
-                — technical writing on software engineering, architecture, and
-                developer tools.
-              </li>
-              <li>
-                <a
-                  href="https://github.com/nicholasadamou"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={link}
-                >
-                  GitHub
-                </a>{" "}
-                — source repositories.
-              </li>
-            </ul>
           </section>
 
           <hr className={hr} />

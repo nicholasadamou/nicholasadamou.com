@@ -13,7 +13,7 @@ import { generateOGUrl, pageMetadata } from "@/lib/og";
 import portrait from "../../../public/brand/portrait.png";
 
 export const metadata = pageMetadata(
-  "Brand resources",
+  "Brand",
   "The visual identity of Nicholas Adamou: portrait, colors, typography, icons, and social cards.",
   "/brand",
   "brand"

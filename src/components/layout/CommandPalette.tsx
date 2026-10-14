@@ -161,7 +161,7 @@ export default function CommandPalette({
       {
         id: "nav-brand",
         type: "navigation",
-        title: "Brand resources",
+        title: "Brand",
         subtitle: "Identity and social cards",
         icon: <Palette className="h-5 w-5" />,
         action: () => {

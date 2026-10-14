@@ -108,7 +108,10 @@ export default function SiteFooter({
           Privacy
         </Link>
         <Link href="/brand" className={linkClass}>
-          Brand resources
+          Brand
+        </Link>
+        <Link href="/developers" className={linkClass}>
+          Developers
         </Link>
         <button
           type="button"

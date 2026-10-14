@@ -9,7 +9,7 @@ export const HEADER_TEXT: Record<OGType, string> = {
   homepage: "Senior outcome engineer",
   page: "Nicholas Adamou",
   clients: "Selected client work",
-  brand: "Brand resources",
+  brand: "Brand",
   note: "Note",
   notes: "Notes",
 } as const;
