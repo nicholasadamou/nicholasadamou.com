@@ -1,13 +1,19 @@
+import { pageMetadata } from "@/lib/og";
 import type { Metadata } from "next";
 import AboutPageClient from "./AboutPageClient";
 
-export const metadata: Metadata = {
+const page: Metadata = {
   title: "About",
   description:
-    "Software Engineer who is passionate about making the world better through software.",
+    "Senior outcome engineer at Onebrief. Building thoughtful software and purposeful websites.",
   alternates: {
     canonical: "/about",
   },
+};
+
+export const metadata: Metadata = {
+  ...page,
+  ...pageMetadata(String(page.title), page.description!, "/about"),
 };
 
 export default function AboutPage() {

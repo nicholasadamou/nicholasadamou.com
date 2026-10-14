@@ -99,7 +99,7 @@ describe("processOGParams", () => {
     });
 
     expect(result.processedImage).toBe("data:image/png;base64,avatar");
-    expect(result.headerText).toBe("Software Engineer");
+    expect(result.headerText).toBe("Senior outcome engineer");
   });
 
   it("sets headerText based on type", async () => {

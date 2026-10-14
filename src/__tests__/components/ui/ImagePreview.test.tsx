@@ -1,8 +1,42 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
+import { hydrateRoot } from "react-dom/client";
 import ImagePreview from "@/components/ui/ImagePreview";
 
 describe("ImagePreview", () => {
+  it("hydrates server markup without recovering or replacing content", async () => {
+    const tree = (
+      <ImagePreview src="/test.jpg" alt="preview">
+        <span>Portfolio</span>
+      </ImagePreview>
+    );
+    vi.stubGlobal("window", undefined);
+    let html: string;
+    try {
+      html = renderToString(tree);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    const container = document.createElement("div");
+    container.innerHTML = html;
+    document.body.append(container);
+    const original = container.firstElementChild;
+    const onRecoverableError = vi.fn();
+    let root: ReturnType<typeof hydrateRoot> | undefined;
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, tree, { onRecoverableError });
+      });
+      expect(onRecoverableError).not.toHaveBeenCalled();
+      expect(container.firstElementChild).toBe(original);
+      expect(document.body.querySelector(".pointer-events-none")).toBeTruthy();
+    } finally {
+      await act(async () => root?.unmount());
+      container.remove();
+    }
+  });
+
   it("renders children", () => {
     render(
       <ImagePreview src="/test.jpg" alt="test">

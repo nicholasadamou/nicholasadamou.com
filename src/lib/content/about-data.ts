@@ -36,6 +36,7 @@ export interface DeveloperResource extends AboutLink {
 }
 
 export const developerResources: DeveloperResource[] = [
+  { label: "Brand resources", href: "/brand", internal: true },
   {
     label: "Nicholas Adamou developer resources",
     href: "/developers",

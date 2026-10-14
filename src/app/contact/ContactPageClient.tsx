@@ -1,10 +1,11 @@
 "use client";
 
+import ContactIntro from "./ContactIntro";
 import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import {
   contactSchema,
@@ -19,13 +20,17 @@ export default function ContactPageClient() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     reset,
-  } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    mode: "onChange",
+  });
   const [status, setStatus] = useState("");
   const [sent, setSent] = useState(false);
   const light = shouldUseDarkText();
-  const inputClass = `w-full rounded-lg border px-4 py-3 text-sm outline-none transition-colors placeholder:opacity-40 ${light ? "border-stone-950/15 bg-stone-950/[0.03] focus:border-stone-950/50" : "border-white/15 bg-white/[0.04] focus:border-white/50"}`;
+  const panelClass = `space-y-5 rounded-2xl border p-5 sm:p-6 ${light ? "border-stone-950/10 bg-stone-950/[0.02]" : "border-white/10 bg-white/[0.02]"}`;
+  const inputClass = `w-full rounded-lg border px-4 py-3 text-sm outline-none transition-colors placeholder:opacity-40 focus:ring-2 focus:ring-current/10 aria-invalid:border-red-500 ${light ? "border-stone-950/15 bg-stone-950/[0.03] focus:border-stone-950/50" : "border-white/15 bg-white/[0.04] focus:border-white/50"}`;
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus("");
@@ -62,31 +67,7 @@ export default function ContactPageClient() {
       className={`min-h-screen px-6 pt-24 pb-32 sm:pt-32 ${getTextColorClass()}`}
     >
       <div className="mx-auto max-w-2xl">
-        <p
-          className={`mb-5 text-xs tracking-[0.18em] uppercase ${getOpacityClass()}`}
-        >
-          A good place to start
-        </p>
-        <h1 className="max-w-xl text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-          Tell me what you’re
-          <br />
-          working toward.
-        </h1>
-        <p
-          className={`mt-6 max-w-xl text-base leading-relaxed ${getOpacityClass()}`}
-        >
-          A new website, a fresh direction, or software that makes your work
-          easier. Share a little context so we can have a useful first
-          conversation.
-        </p>
-        <div
-          className={`mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm ${getOpacityClass()}`}
-        >
-          <span>I usually reply within a couple of days.</span>
-          <Link href="/clients" className="underline underline-offset-4">
-            Explore client work ↗
-          </Link>
-        </div>
+        <ContactIntro />
 
         {sent ? (
           <div
@@ -112,14 +93,14 @@ export default function ContactPageClient() {
           <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            className="mt-12 space-y-10"
+            className="mt-10 space-y-7"
           >
             <p className={`text-xs ${getOpacityClass()}`}>
               Fields marked * are required. Everything else is optional.
             </p>
-            <fieldset disabled={isSubmitting} className="space-y-5">
-              <legend className="mb-5 text-lg font-medium">
-                01 / About you
+            <fieldset disabled={isSubmitting} className={panelClass}>
+              <legend className="px-2 text-sm font-medium">
+                01 — About you
               </legend>
               <div className="grid gap-5 sm:grid-cols-2">
                 {contactFields.map((field) => (
@@ -153,9 +134,9 @@ export default function ContactPageClient() {
                 ))}
               </div>
             </fieldset>
-            <fieldset disabled={isSubmitting} className="space-y-5">
-              <legend className="mb-5 text-lg font-medium">
-                02 / The project
+            <fieldset disabled={isSubmitting} className={panelClass}>
+              <legend className="px-2 text-sm font-medium">
+                02 — Your project
               </legend>
               <div className="grid gap-5 sm:grid-cols-2">
                 {[
@@ -176,30 +157,37 @@ export default function ContactPageClient() {
                       <label htmlFor={name} className="text-sm">
                         {field.label} *
                       </label>
-                      <select
-                        id={name}
-                        {...register(name)}
-                        defaultValue=""
-                        required
-                        aria-invalid={!!errors[name]}
-                        aria-describedby={
-                          errors[name] ? `${name}-error` : undefined
-                        }
-                        className={inputClass}
-                      >
-                        <option value="" disabled>
-                          Select an option
-                        </option>
-                        {field.options.map((option) => (
-                          <option
-                            key={option}
-                            value={option}
-                            className="bg-background text-foreground"
-                          >
-                            {option}
+                      <div className="relative">
+                        <select
+                          id={name}
+                          {...register(name)}
+                          defaultValue=""
+                          required
+                          aria-invalid={!!errors[name]}
+                          aria-describedby={
+                            errors[name] ? `${name}-error` : undefined
+                          }
+                          className={`${inputClass} min-h-11 appearance-none pr-10`}
+                        >
+                          <option value="" disabled>
+                            Select an option
                           </option>
-                        ))}
-                      </select>
+                          {field.options.map((option) => (
+                            <option
+                              key={option}
+                              value={option}
+                              className="bg-background text-foreground"
+                            >
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown
+                          size={16}
+                          aria-hidden="true"
+                          className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 opacity-50"
+                        />
+                      </div>
                       {errors[name] && (
                         <p
                           id={`${name}-error`}
@@ -229,6 +217,11 @@ export default function ContactPageClient() {
                   a quote or commitment.
                 </p>
               </div>
+            </fieldset>
+            <fieldset disabled={isSubmitting} className={panelClass}>
+              <legend className="px-2 text-sm font-medium">
+                03 — The bigger picture
+              </legend>
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm">
                   What would a successful project look like? *
@@ -261,11 +254,11 @@ export default function ContactPageClient() {
                 {status}
               </p>
             )}
-            <div className="space-y-4">
+            <div className="space-y-4 pt-1">
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className={`inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full px-6 py-4 text-sm font-medium disabled:cursor-wait disabled:opacity-50 ${light ? "bg-stone-950 text-white" : "bg-white text-stone-950"}`}
+                disabled={!isValid || isSubmitting}
+                className={`inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl px-6 py-3.5 text-sm font-medium transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 disabled:cursor-not-allowed disabled:opacity-30 ${light ? "bg-stone-950 text-white" : "bg-white text-stone-950"}`}
               >
                 {isSubmitting ? "Sending your brief…" : "Send project brief"}
                 <ArrowRight size={16} aria-hidden="true" />

@@ -4,36 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, ArrowRight } from "lucide-react";
 import { clients, services, processSteps } from "@/lib/content/clients";
-import { getBaseUrl } from "@/lib/og";
+import { getBaseUrl, pageMetadata } from "@/lib/og";
 
 const title = "Client work";
 const description =
   "Selected websites built by Nicholas Adamou for independent businesses, consultants, coaches, and creatives.";
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata(
   title,
   description,
-  alternates: { canonical: "/clients" },
-  openGraph: {
-    title,
-    description,
-    url: "/clients",
-    type: "website",
-    images: [
-      {
-        url: "/images/clients/bold-performance.webp",
-        width: 1440,
-        height: 900,
-        alt: "Bold Performance website",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: ["/images/clients/bold-performance.webp"],
-  },
-};
+  "/clients",
+  "clients"
+);
 
 export default function ClientsPage() {
   return (

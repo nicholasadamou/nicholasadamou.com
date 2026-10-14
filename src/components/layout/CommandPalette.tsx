@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
+  Palette,
   FileText,
   FolderGit2,
   X,
@@ -96,7 +97,6 @@ export default function CommandPalette({
 
   const light = shouldUseDarkText();
 
-  // Define available actions
   const actions: Action[] = useMemo(
     () => [
       {
@@ -164,6 +164,18 @@ export default function CommandPalette({
           ]
         : []),
       {
+        id: "nav-brand",
+        type: "navigation",
+        title: "Brand resources",
+        subtitle: "Identity and social cards",
+        icon: <Palette className="h-5 w-5" />,
+        action: () => {
+          router.push("/brand");
+          onClose();
+        },
+        keywords: ["brand", "identity", "logo", "colors"],
+      },
+      {
         id: "nav-about",
         type: "navigation",
         title: "About",
@@ -199,7 +211,6 @@ export default function CommandPalette({
         },
         keywords: ["privacy", "policy", "data"],
       },
-      // Dev tools (only in development)
       ...(process.env.NODE_ENV === "development"
         ? [
             {
@@ -224,7 +235,6 @@ export default function CommandPalette({
             },
           ]
         : []),
-      // Layout toggle (desktop only)
       ...(isDesktop
         ? [
             {
@@ -289,7 +299,6 @@ export default function CommandPalette({
         },
         keywords: ["dark", "theme", "night"],
       },
-      // Social Links
       {
         id: "social-github",
         type: "social",
@@ -338,7 +347,6 @@ export default function CommandPalette({
         },
         keywords: ["resume", "cv", "experience"],
       },
-      // Company Links
       {
         id: "company-smeltery",
         type: "company",
@@ -383,7 +391,6 @@ export default function CommandPalette({
     }
   }, [isOpen]);
 
-  // Filter actions and repos based on query
   const filterActions = useCallback(
     (searchQuery: string) => {
       if (!searchQuery.trim()) {
@@ -420,7 +427,6 @@ export default function CommandPalette({
     [actions, allRepos]
   );
 
-  // Search function using API
   const performSearch = useCallback(
     async (searchQuery: string) => {
       if (!searchQuery.trim()) {
@@ -491,7 +497,6 @@ export default function CommandPalette({
     };
   }, [isOpen, actions]);
 
-  // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
@@ -545,7 +550,6 @@ export default function CommandPalette({
     handleResultClick,
   ]);
 
-  // Theme-aware styles
   const backdropBg = "bg-black/50 backdrop-blur-sm";
   const panelBg = light ? "bg-white" : "bg-stone-900";
   const panelBorder = light ? "border-stone-200" : "border-white/10";

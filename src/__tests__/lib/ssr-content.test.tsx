@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { ReactElement } from "react";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { clients } from "@/lib/content/clients";
 import HomePage from "@/components/home/HomePage";
 import AboutPageClient from "@/app/about/AboutPageClient";
 import ContactPageClient from "@/app/contact/ContactPageClient";
@@ -42,6 +43,12 @@ function ssrHtml(element: ReactElement): string {
 describe("server-rendered content (no JavaScript)", () => {
   it("homepage renders an H1 and substantial text without hydration", () => {
     const html = ssrHtml(<HomePage articles={[]} />);
+    const document = new DOMParser().parseFromString(html, "text/html");
+    for (const client of clients) {
+      const link = document.querySelector(`a[href="${client.href}"]`);
+      expect(link?.getAttribute("target")).toBe("_blank");
+      expect(link?.getAttribute("rel")).toContain("noopener");
+    }
     expect(html).toContain("<h1");
     expect(textLength(html)).toBeGreaterThan(500);
   });

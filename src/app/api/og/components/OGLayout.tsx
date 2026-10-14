@@ -1,226 +1,138 @@
-/* eslint-disable @next/next/no-img-element -- ImageResponse renders embedded image data, not a browser page. */
-import { COLORS, FLEX, SPACING, TYPOGRAPHY } from "../constants";
+/* eslint-disable @next/next/no-img-element -- Embedded assets for ImageResponse. */
+import { AVATAR_BASE64 } from "../avatar-data";
+import { HomeCard } from "./HomeCard";
+import { brand } from "@/lib/brand";
 import { ProcessedOGParams } from "../types";
-import { ImageElement } from "./ImageElement";
-import { TextElement } from "./TextElement";
 
-export const OGLayout = ({
-  title,
-  description,
-  headerText,
-  processedImage,
-  type,
-  theme = "dark",
-}: ProcessedOGParams) => {
-  const isHomepage = type === "homepage";
-  const isDark = theme === "dark";
-  const typography = isDark ? TYPOGRAPHY.dark : TYPOGRAPHY.light;
-
-  if (isHomepage) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          background: "#101916",
-          color: "#f6f4eb",
-          padding: 64,
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontSize: 22,
-            color: "#b9c6b5",
-          }}
-        >
-          <span>SENIOR OUTCOME ENGINEER & BUILDER</span>
-          <span>nicholasadamou.com</span>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 48,
-          }}
-        >
-          <div
-            style={{ display: "flex", flexDirection: "column", maxWidth: 750 }}
-          >
-            <span
-              style={{
-                fontSize: 88,
-                fontWeight: 700,
-                letterSpacing: -5,
-                lineHeight: 1.05,
-              }}
-            >
-              Nicholas Adamou
-            </span>
-            <span
-              style={{
-                marginTop: 28,
-                fontSize: 30,
-                lineHeight: 1.4,
-                color: "#b9c6b5",
-              }}
-            >
-              Thoughtful software. Purposeful websites.
-            </span>
-          </div>
-          {processedImage && (
-            <img
-              src={processedImage}
-              alt="Nicholas Adamou"
-              width={200}
-              height={200}
-              style={{
-                borderRadius: 100,
-                objectFit: "cover",
-                border: "4px solid #b9c6b5",
-              }}
-            />
-          )}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            fontSize: 20,
-            color: "#b9c6b5",
-            borderTop: "1px solid #425146",
-            paddingTop: 24,
-          }}
-        >
-          <span>Engineering</span>
-          <span>·</span>
-          <span>Client work</span>
-          <span>·</span>
-          <span>Notes & ideas</span>
-        </div>
-      </div>
-    );
-  }
-
+export const OGLayout = (params: ProcessedOGParams) => {
+  if (params.type === "homepage") return <HomeCard {...params} />;
+  const {
+    title,
+    description,
+    headerText,
+    processedImage,
+    theme = "dark",
+  } = params;
+  const dark = theme === "dark";
+  const background = dark ? brand.colors.ink : brand.colors.paper;
+  const foreground = dark ? brand.colors.paper : brand.colors.ink;
+  const secondary = dark ? brand.colors.stone : "#57534e";
+  const heading = title.length > 130 ? `${title.slice(0, 127).trim()}…` : title;
   return (
     <div
       style={{
         display: "flex",
-        height: "100%",
         width: "100%",
-        background: isHomepage
-          ? isDark
-            ? COLORS.gradient.background.homepage
-            : COLORS.gradient.background.homepageLight
-          : isDark
-            ? COLORS.gradient.background.default
-            : COLORS.gradient.background.defaultLight,
+        height: "100%",
+        overflow: "hidden",
         position: "relative",
+        background,
+        color: foreground,
+        fontFamily: "Inter",
       }}
     >
-      {/* Background pattern */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: isDark
-            ? COLORS.gradient.pattern
-            : COLORS.gradient.patternLight,
-          opacity: 0.6,
-        }}
-      />
-
-      {/* Main content */}
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          position: "absolute",
+          right: 0,
+          top: 0,
+          width: 550,
+          height: 526,
+          background: "#080808",
           alignItems: "center",
-          height: "100%",
-          width: "100%",
-          padding: isHomepage
-            ? SPACING.containerPadding.homepage
-            : SPACING.containerPadding.default,
-          position: "relative",
-          zIndex: 1,
+          justifyContent: "center",
         }}
       >
-        {/* Text content */}
+        <img
+          src={processedImage || AVATAR_BASE64}
+          alt={processedImage ? title : brand.name}
+          width={550}
+          height={526}
+          style={{
+            objectFit: "cover",
+            transform: processedImage ? "translateX(0px)" : "translateX(45px)",
+          }}
+        />
+      </div>
+      <svg
+        width="1200"
+        height="526"
+        viewBox="0 0 1200 526"
+        style={{ position: "absolute", top: 0, left: 0 }}
+      >
+        <path d="M0 0H760L670 526H0Z" fill={background} />
+        <path d="M750 0H760L670 526H660Z" fill={secondary} />
+      </svg>
+      <div
+        style={{
+          display: "flex",
+          position: "absolute",
+          top: 44,
+          left: 54,
+          flexDirection: "column",
+          width: 610,
+        }}
+      >
+        <span style={{ fontSize: 33, fontWeight: 600, letterSpacing: -1 }}>
+          {brand.name}
+        </span>
+        <span
+          style={{
+            marginTop: 20,
+            fontSize: 17,
+            color: secondary,
+            letterSpacing: 2,
+          }}
+        >
+          {headerText.toUpperCase()}
+        </span>
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            flex: processedImage
-              ? FLEX.textFlex.withImage
-              : FLEX.textFlex.withoutImage,
-            maxWidth: processedImage
-              ? FLEX.textMaxWidth.withImage
-              : FLEX.textMaxWidth.withoutImage,
-            gap: SPACING.contentGap,
+            marginTop: 38,
+            fontSize: heading.length > 85 ? 40 : heading.length > 50 ? 50 : 67,
+            fontWeight: 700,
+            lineHeight: 1.1,
+            letterSpacing: -2.5,
           }}
         >
-          {headerText && (
-            <TextElement text={headerText} styles={typography.header} />
-          )}
-          <TextElement
-            text={title}
-            styles={
-              isHomepage ? typography.titleHomepage : typography.titleDefault
-            }
-          />
-          {description && (
-            <TextElement text={description} styles={typography.description} />
-          )}
+          {heading}
         </div>
-
-        {/* Image */}
-        {processedImage && (
+        {description && (
           <div
             style={{
-              flex: FLEX.imageFlex,
               display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              marginTop: 24,
+              fontSize: 21,
+              lineHeight: 1.4,
+              color: secondary,
             }}
           >
-            <ImageElement
-              imageSrc={processedImage}
-              altText={title}
-              theme={theme}
-            />
+            {description.length > 160
+              ? `${description.slice(0, 157).trim()}…`
+              : description}
           </div>
         )}
       </div>
-
-      {/* Brand accent for homepage */}
-      {isHomepage && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: SPACING.brandAccent.bottom,
-            left: SPACING.brandAccent.left,
-            height: SPACING.brandAccent.height,
-            width: SPACING.brandAccent.width,
-            background: isDark
-              ? COLORS.gradient.accent
-              : COLORS.gradient.accentLight,
-            borderRadius: SPACING.brandAccent.borderRadius,
-            opacity: SPACING.brandAccent.opacity,
-          }}
-        />
-      )}
+      <div
+        style={{
+          display: "flex",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: 104,
+          alignItems: "center",
+          borderTop: `3px solid ${secondary}`,
+          padding: "20px 42px",
+          background,
+        }}
+      >
+        <span style={{ fontSize: 24, fontWeight: 600, letterSpacing: -0.5 }}>
+          {brand.tagline}
+        </span>
+      </div>
     </div>
   );
 };

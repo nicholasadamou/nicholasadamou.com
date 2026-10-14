@@ -3,7 +3,14 @@ import { OGParams, OGType, OGTheme, ProcessedOGParams } from "../types";
 import { isValidImagePath, fetchImageAsBase64 } from "./image";
 import { AVATAR_BASE64 } from "../avatar-data";
 
-const VALID_TYPES: OGType[] = ["homepage", "note", "notes"];
+const VALID_TYPES: OGType[] = [
+  "homepage",
+  "note",
+  "notes",
+  "page",
+  "clients",
+  "brand",
+];
 const VALID_THEMES: OGTheme[] = ["dark", "light"];
 
 export const cleanSearchParams = (searchParams: URLSearchParams): void => {

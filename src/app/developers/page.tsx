@@ -1,7 +1,8 @@
+import { pageMetadata } from "@/lib/og";
 import type { Metadata } from "next";
 import DevelopersPageClient from "./DevelopersPageClient";
 
-export const metadata: Metadata = {
+const page: Metadata = {
   title: "Nicholas Adamou developer resources: API, CLI, and MCP",
   description:
     "nicholasadamou developer resources — versioned content API, OpenAPI, RFC 9457 errors, official CLI, MCP server, and Markdown negotiation.",
@@ -18,6 +19,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/developers",
   },
+};
+
+export const metadata: Metadata = {
+  ...page,
+  ...pageMetadata(String(page.title), page.description!, "/developers"),
 };
 
 export default function DevelopersPage() {

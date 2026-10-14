@@ -1,6 +1,7 @@
 # Documentation
 
 - [Visitor guide](src/using-the-site/overview.md)
+- [Brand resources](src/using-the-site/brand.md)
 - [Client portfolio](src/using-the-site/client-work.md)
 - [Installation](src/getting-started/installation.md)
 - [Environment variables](src/getting-started/environment.md)

@@ -8,13 +8,14 @@ describe("OGLayout", () => {
       <OGLayout title="Test Title" type="note" theme="dark" headerText="Note" />
     );
     expect(screen.getByText("Test Title")).toBeDefined();
+    expect(screen.queryByText("nicholasadamou.com")).toBeNull();
   });
 
   it("renders header text", () => {
     render(
       <OGLayout title="Title" type="note" theme="dark" headerText="Note" />
     );
-    expect(screen.getByText("Note")).toBeDefined();
+    expect(screen.getByText("NOTE")).toBeDefined();
   });
 
   it("renders description when provided", () => {
@@ -43,21 +44,21 @@ describe("OGLayout", () => {
     render(
       <OGLayout
         title="Title"
-        type="homepage"
+        type="note"
         theme="dark"
-        headerText="Software Engineer"
+        headerText="Note"
         processedImage="data:image/png;base64,abc"
       />
     );
     const img = screen.getByRole("img");
-    expect(img).toBeDefined();
+    expect(img.style.transform).toBe("translateX(0px)");
   });
 
-  it("does not render image section when no processedImage", () => {
+  it("uses the portrait when no article image is available", () => {
     const { container } = render(
       <OGLayout title="Title" type="note" theme="dark" headerText="Note" />
     );
-    expect(container.querySelector("img")).toBeNull();
+    expect(container.querySelector("img")?.alt).toBe("Nicholas Adamou");
   });
 
   it("renders brand accent for homepage", () => {

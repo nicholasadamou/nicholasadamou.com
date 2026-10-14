@@ -1,5 +1,7 @@
 # nicholasadamou.com
 
+[![Nicholas Adamou — Making the world better through software](public/brand/social-home.png)](https://nicholasadamou.com)
+
 [![CI](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/ci.yml/badge.svg)](https://github.com/nicholasadamou/nicholasadamou.com/actions/workflows/ci.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-149eca?logo=react)](https://react.dev)
