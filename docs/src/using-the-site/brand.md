@@ -19,7 +19,9 @@ stone for supporting labels on dark surfaces.
 Cards are generated at `/api/og` at 1200 × 630 pixels. Types include `homepage`,
 `page`, `clients`, `brand`, `note`, and `notes`. Both `dark` and `light` themes are
 supported. Main pages have their own card metadata; note images remain optional.
-Long titles and descriptions are bounded to preserve the layout.
+Long titles and descriptions are bounded to preserve the layout. The root card
+uses the motto as its headline, an angled portrait panel, the current employer
+logo beside the role, and a footer explicitly identifying previous employers.
 
 The renderer embeds the portrait and employer logo and reads bundled Inter fonts,
 so those assets do not depend on external requests. External article images are

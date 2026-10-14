@@ -1,3 +1,4 @@
+import { HomeCard } from "./HomeCard";
 /* eslint-disable @next/next/no-img-element -- ImageResponse renders embedded image data. */
 import { ArrowUpRight, Code2, Layers3, PenLine, Github } from "lucide-react";
 import { brand } from "@/lib/brand";
@@ -9,10 +10,22 @@ export const OGLayout = ({
   headerText,
   processedImage,
   companyLogo,
+  experienceLogos,
   type,
   theme = "dark",
 }: ProcessedOGParams) => {
-  const home = type === "homepage";
+  if (type === "homepage")
+    return (
+      <HomeCard
+        title={title}
+        headerText={headerText}
+        type={type}
+        theme={theme}
+        processedImage={processedImage}
+        companyLogo={companyLogo}
+        experienceLogos={experienceLogos}
+      />
+    );
   const dark = theme === "dark";
   const color = dark ? brand.colors.paper : brand.colors.ink;
   const muted = dark ? "#a8a29e" : "#57534e";
@@ -61,7 +74,7 @@ export const OGLayout = ({
           <span style={{ fontSize: 20, fontWeight: 600 }}>{brand.name}</span>
         </div>
         <span style={{ fontSize: 16, color: muted, letterSpacing: 2 }}>
-          {home ? "ENGINEERING & INDEPENDENT WORK" : headerText.toUpperCase()}
+          {headerText.toUpperCase()}
         </span>
       </div>
       <div
@@ -82,39 +95,11 @@ export const OGLayout = ({
             gap: 22,
           }}
         >
-          {home && (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                fontSize: 18,
-                color: muted,
-              }}
-            >
-              <span>{brand.role} at</span>
-              {companyLogo && (
-                <img
-                  src={companyLogo}
-                  alt="Onebrief"
-                  width={36}
-                  height={36}
-                  style={{ borderRadius: 18 }}
-                />
-              )}
-              <span>Onebrief</span>
-            </div>
-          )}
           <div
             style={{
               display: "flex",
-              fontSize: home
-                ? 76
-                : heading.length > 85
-                  ? 44
-                  : heading.length > 50
-                    ? 52
-                    : 64,
+              fontSize:
+                heading.length > 85 ? 44 : heading.length > 50 ? 52 : 64,
               fontWeight: 700,
               lineHeight: 1.08,
               letterSpacing: -2.5,
@@ -122,7 +107,7 @@ export const OGLayout = ({
           >
             {heading}
           </div>
-          {(description || home) && (
+          {description && (
             <div
               style={{
                 display: "flex",
@@ -131,11 +116,9 @@ export const OGLayout = ({
                 lineHeight: 1.45,
               }}
             >
-              {home
-                ? brand.tagline
-                : description!.length > 160
-                  ? `${description!.slice(0, 157).trim()}…`
-                  : description}
+              {description.length > 160
+                ? `${description.slice(0, 157).trim()}…`
+                : description}
             </div>
           )}
         </div>
@@ -144,7 +127,7 @@ export const OGLayout = ({
             src={processedImage}
             alt={title}
             width={260}
-            height={home ? 300 : 260}
+            height={260}
             style={{
               objectFit: "cover",
               borderRadius: 20,

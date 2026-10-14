@@ -15,6 +15,7 @@ export interface ProcessedOGParams extends OGParams {
   headerText: string;
   processedImage?: string;
   companyLogo?: string;
+  experienceLogos?: string[];
 }
 
 export interface ImageDimensions {

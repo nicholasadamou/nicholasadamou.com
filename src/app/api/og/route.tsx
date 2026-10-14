@@ -31,8 +31,16 @@ export async function GET(req: NextRequest) {
     const processedParams = await processOGParams(ogParams, baseUrl);
 
     const companyLogo = `data:image/png;base64,${readFileSync(join(process.cwd(), "public/brand/onebrief.png")).toString("base64")}`;
+    const experienceLogos = ["ibm", "apple", "lockheed-martin"].map(
+      (name) =>
+        `data:image/png;base64,${readFileSync(join(process.cwd(), `public/brand/${name}.png`)).toString("base64")}`
+    );
     return new ImageResponse(
-      <OGLayout {...processedParams} companyLogo={companyLogo} />,
+      <OGLayout
+        {...processedParams}
+        companyLogo={companyLogo}
+        experienceLogos={experienceLogos}
+      />,
       {
         fonts: ([400, 600, 700] as const).map((weight) => ({
           name: "Inter",
