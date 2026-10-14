@@ -54,7 +54,7 @@ export function getLocalVscoImages(
 
     images.push({
       id: entry.id,
-      url: `https://${entry.responsive_url}`,
+      url: `/images/vsco/${entry.id}.webp`,
       alt: `Photography by ${entry.perma_subdomain}`,
       width: entry.width,
       height: entry.height,

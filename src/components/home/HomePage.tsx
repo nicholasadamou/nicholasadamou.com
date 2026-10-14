@@ -19,13 +19,15 @@ import SpotifySection from "@/components/home/SpotifySection";
 import { projects } from "@/lib/projects/config";
 import { ProjectIcon } from "@/lib/projects/icons";
 import ImagePreview from "@/components/ui/ImagePreview";
+import type { VscoImage } from "@/types/vsco";
 import type { Article } from "@/lib/content/mdx";
 
 interface HomePageProps {
+  photos?: VscoImage[];
   articles: Pick<Article, "slug" | "title" | "date" | "readTime" | "image">[];
 }
 
-export default function HomePage({ articles }: HomePageProps) {
+export default function HomePage({ articles, photos = [] }: HomePageProps) {
   const {
     getTextColorClass,
     getLinkColorClass,
@@ -241,7 +243,7 @@ export default function HomePage({ articles }: HomePageProps) {
               <div className="space-y-4 sm:space-y-3">
                 <h2 className={`${getOpacityClass()} text-sm`}>Photos</h2>
                 <h3 className="text-sm font-medium">Photography gallery</h3>
-                <FeaturedGallery />
+                <FeaturedGallery photos={photos} />
                 <Link
                   href="/gallery"
                   className={`text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}

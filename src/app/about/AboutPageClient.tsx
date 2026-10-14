@@ -1,5 +1,6 @@
 "use client";
 
+import type { VscoImage } from "@/types/vsco";
 import { galleryEnabled } from "@/lib/features";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,11 +20,11 @@ import {
 import arizona from "../../../public/images/gallery/arizona.jpg";
 import lakePlacid from "../../../public/images/gallery/lake-placid.jpg";
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
-
-export default function AboutPageClient() {
+export default function AboutPageClient({
+  photos = [],
+}: {
+  photos?: VscoImage[];
+}) {
   const {
     getTextColorClass,
     getOpacityClass,
@@ -296,7 +297,7 @@ export default function AboutPageClient() {
                     </a>
                     .
                   </p>
-                  <FeaturedGallery />
+                  <FeaturedGallery photos={photos} />
                   <div className="flex gap-3">
                     <Link
                       href="/gallery"

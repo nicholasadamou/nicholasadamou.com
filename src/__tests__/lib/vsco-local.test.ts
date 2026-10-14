@@ -128,15 +128,9 @@ describe("getLocalVscoImages", () => {
     const { getLocalVscoImages } = await import("@/lib/vsco-local");
     const result = getLocalVscoImages();
 
-    expect(result.images[0]?.url).toBe(
-      "https://im.vsco.co/aws-us-west-2/abc/123/photo1.jpg"
-    );
-    expect(result.images[1]?.url).toBe(
-      "https://im.vsco.co/aws-us-west-2/abc/789/photo1_dup.jpg"
-    );
-    expect(result.images[2]?.url).toBe(
-      "https://im.vsco.co/aws-us-west-2/abc/456/photo2.jpg"
-    );
+    expect(result.images[0]?.url).toBe("/images/vsco/abc123.webp");
+    expect(result.images[1]?.url).toBe("/images/vsco/dup789.webp");
+    expect(result.images[2]?.url).toBe("/images/vsco/def456.webp");
   });
 
   it("deduplicates entries with the same id", async () => {
