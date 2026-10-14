@@ -20,9 +20,7 @@ export default function SiteFooter({
       ? "max-w-[45rem] px-5"
       : pathname === "/contact"
         ? "max-w-[45rem] px-6"
-        : pathname === "/gallery"
-          ? "max-w-4xl px-5"
-          : "max-w-2xl px-5";
+        : "max-w-2xl px-5";
   const linkClass =
     "inline-flex items-center gap-2 py-1 text-xs opacity-65 transition-opacity hover:opacity-100 focus-visible:opacity-100";
   return (

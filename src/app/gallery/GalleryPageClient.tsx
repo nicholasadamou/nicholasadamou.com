@@ -10,12 +10,13 @@ export default function GalleryPageClient() {
     <main
       className={`min-h-screen font-sans transition-colors duration-200 ${getTextColorClass()}`}
     >
-      <div className="mx-auto max-w-4xl px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
+      <div className="mx-auto max-w-2xl px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
         <div className="animate-fadeInHome1 space-y-8">
           <div className="space-y-2">
             <h1 className="text-3xl font-medium sm:text-4xl">Gallery</h1>
             <p className={`text-sm ${getOpacityClass()}`}>
-              A curated collection of photography work.
+              Places, moments, and details along the way. Newest photographs
+              first.
             </p>
           </div>
 
