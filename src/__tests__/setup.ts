@@ -48,6 +48,7 @@ vi.mock("framer-motion", () => ({
   useMotionValue: () => ({ set: vi.fn(), get: vi.fn() }),
   useTransform: () => 0,
   useSpring: () => 0,
+  useReducedMotion: () => false,
 }));
 
 // Mock IntersectionObserver

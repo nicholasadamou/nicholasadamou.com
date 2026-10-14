@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   X,
   ExternalLink,
@@ -14,6 +14,31 @@ import {
 import { useInfiniteVscoGallery } from "@/hooks/use-infinite-vsco-gallery";
 import { useTheme } from "@/components/ThemeProvider";
 import type { VscoImage } from "@/types/vsco";
+
+function gallerySpans(images: VscoImage[]) {
+  const arrangements = [
+    ["row-span-2", "", ""],
+    ["", "row-span-2", ""],
+    ["col-span-2 row-span-2"],
+    ["", ""],
+    ["row-span-2", "row-span-2"],
+  ];
+  const spans: string[] = [];
+  let previous = -1;
+  while (spans.length < images.length) {
+    const hash = Array.from(images[spans.length].id).reduce(
+      (value, character) => (value * 31 + character.charCodeAt(0)) >>> 0,
+      0
+    );
+    let choice = hash % arrangements.length;
+    if (choice === previous) choice = (choice + 1) % arrangements.length;
+    spans.push(...arrangements[choice]);
+    previous = choice;
+  }
+  return spans;
+}
+const gridClass =
+  "grid grid-cols-2 auto-rows-[clamp(110px,24vw,190px)] gap-3 sm:gap-4";
 
 function Lightbox({
   images,
@@ -157,6 +182,7 @@ export default function VscoGallery() {
     useInfiniteVscoGallery({ pageSize: 12 });
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const { shouldUseDarkText, getOpacityClass, getLinkColorClass } = useTheme();
+  const reduceMotion = useReducedMotion();
   const light = shouldUseDarkText();
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -175,17 +201,15 @@ export default function VscoGallery() {
     return () => observer.disconnect();
   }, [hasMore, loading, loadMore]);
 
+  const tileSpans = gallerySpans(images);
   const skeletonBg = light ? "bg-stone-950/5" : "bg-white/5";
   const borderDashed = light ? "border-stone-200" : "border-white/10";
 
   if (loading && images.length === 0) {
     return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={gridClass}>
         {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={i}
-            className={`aspect-square animate-pulse rounded-lg ${skeletonBg}`}
-          />
+          <div key={i} className={`animate-pulse rounded-2xl ${skeletonBg}`} />
         ))}
       </div>
     );
@@ -213,22 +237,28 @@ export default function VscoGallery() {
   return (
     <>
       <div className="space-y-6">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={gridClass}>
           {images.map((image, index) => (
-            <motion.div
+            <motion.button
+              type="button"
+              aria-label={`Open photo ${index + 1}`}
               key={image.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: (index % 12) * 0.05 }}
-              className={`group relative aspect-square cursor-pointer overflow-hidden rounded-lg ${skeletonBg}`}
+              className={`group relative cursor-pointer overflow-hidden rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 ${tileSpans[index]} ${skeletonBg}`}
               onClick={() => setSelectedIndex(index)}
             >
               <Image
                 src={image.url}
                 alt={image.alt || `Photo ${index + 1}`}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
+                sizes={
+                  tileSpans[index].includes("col-span-2")
+                    ? "(max-width: 672px) calc(100vw - 40px), 632px"
+                    : "(max-width: 672px) calc((100vw - 52px) / 2), 308px"
+                }
                 loading={index < 12 ? "eager" : "lazy"}
               />
               <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
@@ -237,7 +267,7 @@ export default function VscoGallery() {
                   <ExternalLink className="h-4 w-4 text-white" />
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
 
