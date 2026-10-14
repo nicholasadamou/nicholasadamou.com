@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemedToaster from "@/components/layout/ThemedToaster";
 import BackNav from "@/components/layout/BackNav";
+import SiteFooter from "@/components/layout/SiteFooter";
 import BottomNav from "@/components/layout/BottomNav";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -80,6 +81,7 @@ export default function RootLayout({
         <ThemeProvider>
           <BackNav />
           {children}
+          <SiteFooter />
           <BottomNav />
           <ThemedToaster />
         </ThemeProvider>
