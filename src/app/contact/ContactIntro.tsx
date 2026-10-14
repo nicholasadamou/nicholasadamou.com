@@ -7,7 +7,7 @@ import { useTheme } from "@/components/ThemeProvider";
 export default function ContactIntro() {
   const { getOpacityClass, shouldUseDarkText } = useTheme();
   return (
-    <header className="space-y-5">
+    <header className="animate-fadeInHome1 space-y-5">
       <p className={`text-xs tracking-[0.16em] uppercase ${getOpacityClass()}`}>
         Start a conversation
       </p>

@@ -41,7 +41,7 @@ const samples = [
 export default function BrandPage() {
   return (
     <main className="text-foreground mx-auto max-w-2xl space-y-12 px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
-      <header className="space-y-4">
+      <header className="animate-fadeInHome1 space-y-4">
         <p className="text-xs tracking-[0.16em] uppercase opacity-60">
           The identity
         </p>
@@ -54,7 +54,7 @@ export default function BrandPage() {
           the site consistent.
         </p>
       </header>
-      <section className="space-y-5 border-t border-dashed border-current/15 pt-8">
+      <section className="animate-fadeInHome2 space-y-5 border-t border-dashed border-current/15 pt-8">
         <h2 className="text-lg font-medium">01 — The identity</h2>
         <div className="flex flex-wrap items-center gap-6 rounded-2xl border border-current/10 p-6">
           <Image
@@ -95,7 +95,7 @@ export default function BrandPage() {
           <span className="text-xs opacity-60">Browser and profile sizes</span>
         </div>
       </section>
-      <section className="space-y-5 border-t border-dashed border-current/15 pt-8">
+      <section className="animate-fadeInHome2 space-y-5 border-t border-dashed border-current/15 pt-8">
         <h2 className="text-lg font-medium">02 — Warm neutrals</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {Object.entries(brand.colors).map(([name, hex]) => (
@@ -123,7 +123,7 @@ export default function BrandPage() {
           <Download size={15} /> Download color tokens
         </a>
       </section>
-      <section className="space-y-5 border-t border-dashed border-current/15 pt-8">
+      <section className="animate-fadeInHome2 space-y-5 border-t border-dashed border-current/15 pt-8">
         <h2 className="text-lg font-medium">03 — Type & voice</h2>
         <div className="space-y-4 rounded-2xl border border-current/10 p-6">
           <p className="text-xs opacity-60">
@@ -141,7 +141,7 @@ export default function BrandPage() {
           cards do not rely on an external font request.
         </p>
       </section>
-      <section className="space-y-5 border-t border-dashed border-current/15 pt-8">
+      <section className="animate-fadeInHome2 space-y-5 border-t border-dashed border-current/15 pt-8">
         <h2 className="text-lg font-medium">04 — Icons with a purpose</h2>
         <div className="grid grid-cols-3 gap-3">
           {[
@@ -175,7 +175,7 @@ export default function BrandPage() {
           <ArrowUpRight size={14} />
         </a>
       </section>
-      <section className="space-y-5 border-t border-dashed border-current/15 pt-8">
+      <section className="animate-fadeInHome2 space-y-5 border-t border-dashed border-current/15 pt-8">
         <h2 className="text-lg font-medium">05 — Social cards</h2>
         <p className="text-sm leading-7 opacity-70">
           1200 × 630 pixels. Consistent margins, a clear title, one supporting
