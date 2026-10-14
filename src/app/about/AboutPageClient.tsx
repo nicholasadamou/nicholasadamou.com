@@ -11,7 +11,6 @@ import { useTheme } from "@/components/ThemeProvider";
 import {
   connectLinks,
   credentials,
-  developerResources,
   resumes,
   workplaces,
 } from "@/lib/content/about-data";
@@ -212,46 +211,6 @@ export default function AboutPageClient({
                     <ExternalLink className="h-3 w-3 opacity-40" />
                   </a>
                 ))}
-              </div>
-            </section>
-
-            <hr className={hr} />
-
-            <section className="space-y-4">
-              <h2 className={`text-sm ${getOpacityClass()}`}>
-                Developer Resources
-              </h2>
-              <p className={`text-sm leading-relaxed ${getOpacityClass()}`}>
-                Open-source projects, technical writing, and machine-readable
-                guides for developers and AI agents — including the{" "}
-                <Link href="/developers" className="underline">
-                  Nicholas Adamou developer resources
-                </Link>{" "}
-                index.
-              </p>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {developerResources.map((resource) =>
-                  resource.internal ? (
-                    <Link
-                      key={resource.label}
-                      href={resource.href}
-                      className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors ${cardBg} hover:opacity-70`}
-                    >
-                      {resource.label}
-                    </Link>
-                  ) : (
-                    <a
-                      key={resource.label}
-                      href={resource.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors ${cardBg} hover:opacity-70`}
-                    >
-                      {resource.label}
-                      <ExternalLink className="h-3 w-3 opacity-40" />
-                    </a>
-                  )
-                )}
               </div>
             </section>
 

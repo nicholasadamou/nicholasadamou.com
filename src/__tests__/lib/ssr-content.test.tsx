@@ -87,7 +87,7 @@ describe("server-rendered content (no JavaScript)", () => {
   it("developers page renders a named H1 and substantial text without hydration", () => {
     const html = ssrHtml(<DevelopersPageClient />);
     expect(html).toContain("<h1");
-    expect(html).toContain("Nicholas Adamou developer resources");
+    expect(html).toContain("Developer resources");
     expect(html).toContain("openapi.json");
     expect(textLength(html)).toBeGreaterThan(500);
   });
@@ -98,11 +98,12 @@ describe("server-rendered content (no JavaScript)", () => {
     expect(textLength(html)).toBeGreaterThan(500);
   });
 
-  it("about page includes a Developer Resources section linking to projects and notes", () => {
+  it("developer hub links to projects and notes while About stays focused", () => {
     const html = ssrHtml(<AboutPageClient />);
-    expect(html).toContain("Developer Resources");
-    expect(html).toMatch(/href="\/projects"/);
-    expect(html).toMatch(/href="\/notes"/);
+    expect(html).not.toContain("Developer Resources");
+    const hub = ssrHtml(<DevelopersPageClient />);
+    expect(hub).toMatch(/href="\/projects"/);
+    expect(hub).toMatch(/href="\/notes"/);
   });
 
   it("contact page renders an H1 and substantial text without hydration", () => {
