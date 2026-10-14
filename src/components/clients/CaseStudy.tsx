@@ -8,6 +8,17 @@ import { useTheme } from "@/components/ThemeProvider";
 import { clients } from "@/lib/content/clients";
 import { clientImages } from "@/lib/content/client-images";
 
+const brandIcons = new Set([
+  "Astro",
+  "React",
+  "TypeScript",
+  "Bun",
+  "Flox",
+  "Vercel",
+  "Sanity",
+  "Supabase",
+]);
+
 export default function CaseStudy({
   slug,
   readTime,
@@ -62,15 +73,24 @@ export default function CaseStudy({
             {stack.map((item) => (
               <li
                 key={item}
-                className="rounded-full border border-current/15 px-3 py-1.5 text-xs"
+                className="inline-flex items-center gap-2 rounded-full border border-current/15 px-3 py-1.5 text-xs"
               >
+                {brandIcons.has(item) && (
+                  <span
+                    aria-hidden="true"
+                    className="inline-block size-4 shrink-0 bg-current mask-contain mask-center mask-no-repeat"
+                    style={{
+                      maskImage: `url(/brands/technology/${item.toLowerCase()}.svg)`,
+                    }}
+                  />
+                )}
                 {item}
               </li>
             ))}
           </ul>
           <TableOfContents />
           <div
-            className={`animate-fadeInHome2 prose prose-stone sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-medium prose-h2:mt-12 prose-p:leading-[1.75] prose-a:font-normal prose-a:decoration-dashed prose-a:underline-offset-4 prose-img:rounded-xl max-w-none ${shouldUseDarkText() ? "" : "prose-invert"}`}
+            className={`animate-fadeInHome2 prose prose-stone sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-medium prose-h2:mt-12 prose-p:leading-[1.75] prose-a:font-normal prose-a:decoration-dashed prose-a:underline-offset-4 prose-img:rounded-xl prose-code:before:content-none prose-code:after:content-none max-w-none ${shouldUseDarkText() ? "" : "prose-invert"}`}
           >
             {children}
           </div>

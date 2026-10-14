@@ -3,10 +3,12 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { ReactElement } from "react";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { clients } from "@/lib/content/clients";
 import { getCaseStudy } from "@/lib/content/case-studies";
 import { pageMetadata, generateOGUrl } from "@/lib/og";
 import CaseStudy from "@/components/clients/CaseStudy";
+import BrandShowcase from "@/components/clients/BrandShowcase";
 import Mermaid from "@/components/mdx/Mermaid";
 import { ContentLink } from "@/components/ui/ContentLink";
 
@@ -56,12 +58,22 @@ export default async function ClientCaseStudy({ params }: Props) {
   return (
     <CaseStudy slug={study.slug} stack={study.stack} readTime={study.readTime}>
       <MDXRemote
-        source={study.content}
-        components={{ a: ContentLink, pre: CodeBlock }}
+        source={study.content.replace(
+          "## Brand ideation",
+          "## Brand ideation\n\n<BrandShowcase />"
+        )}
+        components={{
+          a: ContentLink,
+          pre: CodeBlock,
+          BrandShowcase: () => <BrandShowcase slug={study.slug} />,
+        }}
         options={{
           mdxOptions: {
             remarkPlugins: [remarkGfm],
-            rehypePlugins: [rehypeSlug],
+            rehypePlugins: [
+              rehypeSlug,
+              [rehypeAutolinkHeadings, { behavior: "wrap" }],
+            ],
           },
         }}
       />

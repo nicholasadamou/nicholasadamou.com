@@ -1,0 +1,59 @@
+{
+  "bold-performance": {
+    "palette": [
+      ["Performance cyan", "#55B4C9"],
+      ["Deep teal", "#1E7184"],
+      ["Charcoal", "#161C1D"],
+      ["Warm white", "#F6F6F1"]
+    ],
+    "heading": "Barlow Condensed",
+    "body": "DM Sans",
+    "voice": "Direct, energetic, and grounded in purposeful training.",
+    "guidance": "The shield and BP monogram carry the identity at smaller sizes. Keep clear space around the artwork; use deep teal rather than cyan for small text on light surfaces.",
+    "secondary": "Logo on dark",
+    "dark": true
+  },
+  "adamou-financial-consulting": {
+    "palette": [
+      ["Mountain blue", "#315E89"],
+      ["Deep blue", "#204F60"],
+      ["Warm paper", "#F7F4EB"],
+      ["Sage", "#78978E"],
+      ["Sand", "#E7C78C"]
+    ],
+    "heading": "Georgia",
+    "body": "System sans-serif",
+    "voice": "Clear, personal, and practical. Give people an understandable next step.",
+    "guidance": "The overlapping mountain lines come from the supplied business card. Preserve their proportions and leave one peak\u2019s height of clear space. The bolder favicon stays recognizable in a small browser tab.",
+    "secondary": "Browser icon",
+    "dark": false
+  },
+  "jea-business-development": {
+    "palette": [
+      ["JEA blue", "#2563EB"],
+      ["White", "#FFFFFF"],
+      ["Charcoal", "#1F2937"],
+      ["Light blue", "#EFF6FF"]
+    ],
+    "heading": "Georgia",
+    "body": "Geist",
+    "voice": "An editorial presentation of scientific expertise and professional relationships.",
+    "guidance": "The existing DNA mark and name preserve recognition. Keep the mark\u2019s proportions intact and leave clear space around it; supporting navy surfaces provide contrast without changing the core identity.",
+    "secondary": "Wordmark on dark",
+    "dark": true
+  },
+  "alder-house": {
+    "palette": [
+      ["Alder green", "#303A2D"],
+      ["Warm ivory", "#F6F3EC"],
+      ["Soft sage", "#E5E7DA"],
+      ["Quiet stone", "#62665B"]
+    ],
+    "heading": "Italiana",
+    "body": "DM Sans",
+    "voice": "Warm and direct. Explain what happens next without pressure or invented urgency.",
+    "guidance": "The arch suggests a welcoming house, with an AH monogram as its signature. Use the studio name for introductions and the compact mark when it is already familiar. Downloadable signatures use portable Georgia and Arial fallbacks.",
+    "secondary": "Signature on dark",
+    "dark": true
+  }
+}
