@@ -15,12 +15,20 @@ export default function SiteFooter({
   const pathname = usePathname();
   if (!embedded && ["/", "/og-preview", "/dashboard"].includes(pathname))
     return null;
+  const width =
+    pathname.startsWith("/notes") || pathname === "/projects"
+      ? "max-w-[45rem] px-5"
+      : pathname === "/contact"
+        ? "max-w-[45rem] px-6"
+        : pathname === "/gallery"
+          ? "max-w-4xl px-5"
+          : "max-w-2xl px-5";
   const linkClass =
     "inline-flex items-center gap-2 py-1 text-xs opacity-65 transition-opacity hover:opacity-100 focus-visible:opacity-100";
   return (
     <footer
       aria-label="Site footer"
-      className={`text-foreground @container ${embedded ? "pt-8 pb-24" : "mx-auto max-w-2xl px-5 pb-32 sm:pb-40"}`}
+      className={`text-foreground @container ${embedded ? "pt-8 pb-24" : `mx-auto ${width} pb-32 sm:pb-40`}`}
     >
       <div className="grid grid-cols-2 gap-x-8 gap-y-9 border-t border-current/15 pt-9 @[34rem]:grid-cols-[1.3fr_1fr_1fr]">
         <div className="col-span-2 space-y-3 @[34rem]:col-span-1">
