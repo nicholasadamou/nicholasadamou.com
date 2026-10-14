@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { ReactElement } from "react";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { clients } from "@/lib/content/clients";
 import { getCaseStudy } from "@/lib/content/case-studies";
 import { pageMetadata, generateOGUrl } from "@/lib/og";
@@ -61,7 +62,10 @@ export default async function ClientCaseStudy({ params }: Props) {
         options={{
           mdxOptions: {
             remarkPlugins: [remarkGfm],
-            rehypePlugins: [rehypeSlug],
+            rehypePlugins: [
+              rehypeSlug,
+              [rehypeAutolinkHeadings, { behavior: "wrap" }],
+            ],
           },
         }}
       />

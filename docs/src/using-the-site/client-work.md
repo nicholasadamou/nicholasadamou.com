@@ -46,3 +46,14 @@ generated with social metadata and sitemap entries. Requests with
 Mermaid loads only for diagrams, using strict rendering. Source remains available
 without JavaScript or on a rendering error. Markdown and Mermaid validation run
 in local checks and CI. Check desktop and mobile layouts before publishing.
+
+## Technology marks
+
+Stack badges use locally hosted monochrome SVG masks, with the technology name
+remaining visible text. Astro, React, TypeScript, Bun, Vercel, Sanity, and Supabase
+marks come from [Simple Icons](https://github.com/simple-icons/simple-icons),
+under [CC0](https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md).
+The Flox mark comes from its [official favicon](https://flox.dev/favicon.svg),
+with the background removed and its path rendered in monochrome. Brand marks
+identify technologies; they do not imply endorsement. Add new assets under
+`public/brands/technology/` and register their names in the case-study component.

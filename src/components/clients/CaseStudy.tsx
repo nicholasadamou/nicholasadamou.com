@@ -8,6 +8,17 @@ import { useTheme } from "@/components/ThemeProvider";
 import { clients } from "@/lib/content/clients";
 import { clientImages } from "@/lib/content/client-images";
 
+const brandIcons = new Set([
+  "Astro",
+  "React",
+  "TypeScript",
+  "Bun",
+  "Flox",
+  "Vercel",
+  "Sanity",
+  "Supabase",
+]);
+
 export default function CaseStudy({
   slug,
   readTime,
@@ -62,8 +73,17 @@ export default function CaseStudy({
             {stack.map((item) => (
               <li
                 key={item}
-                className="rounded-full border border-current/15 px-3 py-1.5 text-xs"
+                className="inline-flex items-center gap-2 rounded-full border border-current/15 px-3 py-1.5 text-xs"
               >
+                {brandIcons.has(item) && (
+                  <span
+                    aria-hidden="true"
+                    className="inline-block size-4 shrink-0 bg-current mask-contain mask-center mask-no-repeat"
+                    style={{
+                      maskImage: `url(/brands/technology/${item.toLowerCase()}.svg)`,
+                    }}
+                  />
+                )}
                 {item}
               </li>
             ))}
