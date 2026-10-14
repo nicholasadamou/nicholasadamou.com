@@ -19,9 +19,12 @@ export default function ContactPageClient() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     reset,
-  } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    mode: "onChange",
+  });
   const [status, setStatus] = useState("");
   const [sent, setSent] = useState(false);
   const light = shouldUseDarkText();
@@ -264,8 +267,8 @@ export default function ContactPageClient() {
             <div className="space-y-4">
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className={`inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full px-6 py-4 text-sm font-medium disabled:cursor-wait disabled:opacity-50 ${light ? "bg-stone-950 text-white" : "bg-white text-stone-950"}`}
+                disabled={!isValid || isSubmitting}
+                className={`inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full px-6 py-4 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50 ${light ? "bg-stone-950 text-white" : "bg-white text-stone-950"}`}
               >
                 {isSubmitting ? "Sending your brief…" : "Send project brief"}
                 <ArrowRight size={16} aria-hidden="true" />
