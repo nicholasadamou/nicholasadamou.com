@@ -1,8 +1,17 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 import { createPortal } from "react-dom";
 import UniversalImage from "@/components/ui/UniversalImage";
+
+const subscribe = () => () => {};
 
 interface ImagePreviewProps {
   src: string | null | undefined;
@@ -19,6 +28,12 @@ export default function ImagePreview({
   className = "",
   previewClassName,
 }: ImagePreviewProps) {
+  // Portals must be absent during both SSR and the first hydration render.
+  const isClient = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
   const [visible, setVisible] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -79,7 +94,7 @@ export default function ImagePreview({
       >
         {children}
       </div>
-      {typeof window !== "undefined" &&
+      {isClient &&
         createPortal(
           <div
             className="pointer-events-none fixed z-50 overflow-hidden rounded-lg shadow-lg transition-all duration-200"
