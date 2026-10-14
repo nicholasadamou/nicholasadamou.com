@@ -1,3 +1,4 @@
+import { ContentLink } from "@/components/ui/ContentLink";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkSimplePlantuml from "@akebifiky/remark-simple-plantuml";
@@ -103,7 +104,7 @@ export default async function NotePage({ params }: PageProps) {
     >
       <MDXRemote
         source={article.body.raw}
-        components={{ Table, YouTubeEmbed }}
+        components={{ Table, YouTubeEmbed, a: ContentLink }}
         options={{
           mdxOptions: {
             remarkPlugins: [remarkGfm, remarkSimplePlantuml, remarkMath],

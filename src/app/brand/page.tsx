@@ -167,6 +167,8 @@ export default function BrandPage() {
         </p>
         <a
           href="https://github.com/nicholasadamou"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-sm"
         >
           <Github size={18} /> GitHub / nicholasadamou{" "}

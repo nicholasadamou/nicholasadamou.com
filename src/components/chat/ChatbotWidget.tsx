@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Send, Loader2 } from "lucide-react";
+import { ContentLink } from "@/components/ui/ContentLink";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useTheme } from "@/components/ThemeProvider";
@@ -255,7 +256,6 @@ export function ChatbotWidget({
 
   if (!isHydrated) return null;
 
-  // Theme-aware styles
   const windowBg = light ? "bg-white" : "bg-stone-900";
   const windowBorder = light ? "border-stone-200" : "border-white/10";
   const headerBg = light ? "bg-stone-50" : "bg-stone-800";
@@ -294,7 +294,6 @@ export function ChatbotWidget({
           <div
             className={`flex h-[600px] max-h-[80vh] flex-col overflow-hidden rounded-2xl border shadow-2xl ${windowBg} ${windowBorder}`}
           >
-            {/* Header */}
             <div
               className={`flex items-center justify-between border-b p-4 ${headerBg} ${windowBorder}`}
             >
@@ -316,7 +315,6 @@ export function ChatbotWidget({
               )}
             </div>
 
-            {/* Messages */}
             <div className={`flex-1 space-y-4 overflow-y-auto p-4 ${windowBg}`}>
               {messages.length === 0 && (
                 <div className="flex h-full flex-col items-center justify-center space-y-4 px-4 text-center">
@@ -363,7 +361,10 @@ export function ChatbotWidget({
                   >
                     {message.role === "assistant" ? (
                       <div className="prose prose-sm dark:prose-invert max-w-none">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{ a: ContentLink }}
+                        >
                           {message.content}
                         </ReactMarkdown>
                       </div>
@@ -394,7 +395,6 @@ export function ChatbotWidget({
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
             <form
               onSubmit={handleSubmit}
               className={`border-t p-4 ${footerBg} ${windowBorder}`}
