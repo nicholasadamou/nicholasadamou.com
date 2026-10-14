@@ -30,6 +30,12 @@ const samples = [
     type: "note",
     description: "Ideas, decisions, and lessons from making things work.",
   },
+  {
+    title: "Building an OpenAI-Powered Chat Assistant",
+    type: "note",
+    description: "A deep dive into streaming AI responses.",
+    image: "/images/unsplash/4Mw7nkQDByk.jpg",
+  },
 ];
 
 export default function BrandPage() {
@@ -175,7 +181,7 @@ export default function BrandPage() {
           secondary to the message.
         </p>
         {samples.map((sample) => (
-          <figure key={sample.type} className="space-y-3">
+          <figure key={sample.title} className="space-y-3">
             <Image
               src={generateOGUrl(sample)}
               alt={`${sample.title} social card`}

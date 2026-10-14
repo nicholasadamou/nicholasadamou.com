@@ -51,7 +51,7 @@ export const OGLayout = (params: ProcessedOGParams) => {
           height={526}
           style={{
             objectFit: "cover",
-            transform: processedImage ? undefined : "translateX(45px)",
+            transform: processedImage ? "translateX(0px)" : "translateX(45px)",
           }}
         />
       </div>

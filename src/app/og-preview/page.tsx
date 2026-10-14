@@ -63,7 +63,7 @@ function PreviewCard({
   baseUrl,
   light,
 }: PreviewCardProps & { light: boolean }) {
-  const fullUrl = `${baseUrl}${preview.url}`;
+  const fullUrl = `${baseUrl}${preview.url}&v=3`;
 
   const cardBg = light
     ? "bg-stone-950/[0.03] border-stone-950/10"

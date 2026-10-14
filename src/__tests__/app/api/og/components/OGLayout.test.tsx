@@ -44,14 +44,14 @@ describe("OGLayout", () => {
     render(
       <OGLayout
         title="Title"
-        type="homepage"
+        type="note"
         theme="dark"
-        headerText="Software Engineer"
+        headerText="Note"
         processedImage="data:image/png;base64,abc"
       />
     );
     const img = screen.getByRole("img");
-    expect(img).toBeDefined();
+    expect(img.style.transform).toBe("translateX(0px)");
   });
 
   it("uses the portrait when no article image is available", () => {

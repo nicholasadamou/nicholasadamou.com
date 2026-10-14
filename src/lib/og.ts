@@ -14,7 +14,7 @@ export function generateOGUrl(params: {
   const searchParams = new URLSearchParams({
     ...params,
     theme: "dark",
-    v: "2",
+    v: "3",
   });
   return `/api/og?${searchParams.toString()}`;
 }
