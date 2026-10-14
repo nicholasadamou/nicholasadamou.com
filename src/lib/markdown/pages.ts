@@ -35,7 +35,8 @@ export function getHomeMarkdown(): string {
     "## Client work",
     "",
     ...clients.map(
-      (client) => `- [${client.name}](${client.href}): ${client.description}`
+      (client) =>
+        `- [${client.name}](${getBaseUrl()}/clients/${client.slug}): ${client.description}`
     ),
     `[Explore client work](${baseUrl}/clients)`,
     "",
@@ -211,7 +212,7 @@ export function getClientsMarkdown(): string {
       "",
       client.description,
       "",
-      `[Visit ${client.name}](${client.href})`,
+      `[Read case study](${getBaseUrl()}/clients/${client.slug}) · [Visit website](${client.href})`,
       "",
       `![${client.name} homepage](${getBaseUrl()}/images/clients/${client.slug}.webp)`,
       "",

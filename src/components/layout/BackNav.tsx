@@ -22,8 +22,9 @@ export default function BackNav() {
   const pathname = usePathname();
   const { shouldUseDarkText } = useTheme();
   if (pathname === "/") return null;
-  const isArticle = /^\/notes\/[^/]+$/.test(pathname);
-  const label = isArticle ? "Notes" : labels[pathname];
+  const isArticle = /^\/(notes|clients)\/[^/]+$/.test(pathname);
+  const parent = pathname.startsWith("/clients/") ? "/clients" : "/notes";
+  const label = isArticle ? labels[parent] : labels[pathname];
   const color = shouldUseDarkText()
     ? "text-stone-950/60 hover:bg-stone-950/5"
     : "text-white/60 hover:bg-white/5";
@@ -42,8 +43,8 @@ export default function BackNav() {
             /
           </span>
           {isArticle ? (
-            <Link href="/notes" className={linkClass}>
-              Notes
+            <Link href={parent} className={linkClass}>
+              {label}
             </Link>
           ) : (
             <span aria-current="page" className={`px-3 py-2 text-sm ${color}`}>

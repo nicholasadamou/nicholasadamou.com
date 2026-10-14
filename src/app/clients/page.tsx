@@ -34,9 +34,9 @@ export default function ClientsPage() {
                 "@type": "ListItem",
                 position: index + 1,
                 item: {
-                  "@type": "WebSite",
+                  "@type": "CreativeWork",
                   name: client.name,
-                  url: client.href,
+                  url: `${getBaseUrl()}/clients/${client.slug}`,
                   image: `${getBaseUrl()}/images/clients/${client.slug}.webp`,
                 },
               })),
@@ -103,10 +103,8 @@ export default function ClientsPage() {
         <div className="grid gap-x-5 gap-y-8 sm:grid-cols-2">
           {clients.map((client, index) => (
             <article key={client.slug}>
-              <a
-                href={client.href}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={`/clients/${client.slug}`}
                 className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-8"
               >
                 <div
@@ -131,7 +129,7 @@ export default function ClientsPage() {
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <h3 className="text-base leading-snug font-medium tracking-tight">
                     {client.name}
-                    <span className="sr-only"> (opens in a new tab)</span>
+                    <span className="sr-only"> — Read case study</span>
                   </h3>
                   <ArrowUpRight
                     size={20}
@@ -139,13 +137,13 @@ export default function ClientsPage() {
                     aria-hidden="true"
                   />
                 </div>
-              </a>
-              <p className="mt-2 max-w-md text-sm leading-relaxed opacity-65">
-                {client.description}
-              </p>
-              <p className="mt-4 text-[11px] tracking-wide uppercase opacity-45">
-                {client.category} · Website development
-              </p>
+                <p className="mt-2 max-w-md text-sm leading-relaxed opacity-65">
+                  {client.description}
+                </p>
+                <p className="mt-4 text-[11px] tracking-wide uppercase opacity-45">
+                  {client.category} · Read case study
+                </p>
+              </Link>
             </article>
           ))}
         </div>

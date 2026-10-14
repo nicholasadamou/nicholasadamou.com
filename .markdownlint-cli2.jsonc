@@ -1,5 +1,5 @@
 {
-  "globs": ["README.md", "docs/**/*.md"],
+  "globs": ["README.md", "docs/**/*.md", "content/clients/*.md"],
   "ignores": ["docs/venv/**", "docs/build/**"],
   "config": {
     "default": true,
