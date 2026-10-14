@@ -1,5 +1,6 @@
 "use client";
 
+import { readingProse } from "@/lib/styles/reading-prose";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
@@ -32,7 +33,11 @@ export default function CaseStudy({
 }) {
   const { getTextColorClass, shouldUseDarkText } = useTheme();
   const client = clients.find((item) => item.slug === slug)!;
-  const related = clients.filter((item) => item.slug !== slug).slice(0, 2);
+  const index = clients.indexOf(client);
+  const related = [
+    ...clients.slice(index + 1),
+    ...clients.slice(0, index),
+  ].slice(0, 2);
   return (
     <main className={`min-h-screen font-sans ${getTextColorClass()}`}>
       <div className="mx-auto max-w-[45rem] px-5 pt-24 pb-12 sm:pt-32 sm:pb-16">
@@ -64,11 +69,11 @@ export default function CaseStudy({
             alt={`${client.name} homepage showing ${client.imageDescription}`}
             priority
             sizes="(max-width: 720px) 100vw, 680px"
-            className="mb-6 h-auto w-full rounded-xl border border-current/10"
+            className="animate-fadeInHome1 mb-6 h-auto w-full rounded-xl border border-current/10"
           />
           <ul
             aria-label="Technology stack"
-            className="mb-8 flex flex-wrap gap-2"
+            className="animate-fadeInHome2 mb-8 flex flex-wrap gap-2"
           >
             {stack.map((item) => (
               <li
@@ -89,11 +94,7 @@ export default function CaseStudy({
             ))}
           </ul>
           <TableOfContents />
-          <div
-            className={`animate-fadeInHome2 prose prose-stone sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-medium prose-h2:mt-12 prose-p:leading-[1.75] prose-a:font-normal prose-a:decoration-dashed prose-a:underline-offset-4 prose-img:rounded-xl prose-code:before:content-none prose-code:after:content-none max-w-none ${shouldUseDarkText() ? "" : "prose-invert"}`}
-          >
-            {children}
-          </div>
+          <div className={readingProse(shouldUseDarkText())}>{children}</div>
         </article>
         <section
           aria-labelledby="project-invitation"
