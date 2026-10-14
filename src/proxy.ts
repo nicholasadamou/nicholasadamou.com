@@ -17,7 +17,7 @@ const MARKDOWN_PATHS: Record<string, string> = {
 };
 
 /** Same-origin HTML pages that intentionally have no Markdown variant. */
-const HTML_ONLY_PREFIXES = ["/gallery", "/dashboard", "/og-preview"];
+const HTML_ONLY_PREFIXES = ["/gallery", "/dashboard", "/og-preview", "/brand"];
 
 function markdownTargetFor(pathname: string): string | null {
   if (MARKDOWN_PATHS[pathname]) return MARKDOWN_PATHS[pathname];

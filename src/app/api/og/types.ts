@@ -1,4 +1,5 @@
-export type OGType = "homepage" | "note" | "notes";
+export type OGType =
+  "homepage" | "note" | "notes" | "page" | "clients" | "brand";
 
 export type OGTheme = "dark" | "light";
 
@@ -13,25 +14,7 @@ export interface OGParams {
 export interface ProcessedOGParams extends OGParams {
   headerText: string;
   processedImage?: string;
-}
-
-export interface StyleConfig {
-  fontSize: string;
-  fontWeight: string;
-  color: string;
-  letterSpacing?: string;
-  lineHeight?: string;
-  textTransform?:
-    | "none"
-    | "capitalize"
-    | "uppercase"
-    | "lowercase"
-    | "initial"
-    | "inherit"
-    | "unset";
-  marginBottom?: string;
-  maxWidth?: string;
-  textShadow?: string;
+  companyLogo?: string;
 }
 
 export interface ImageDimensions {

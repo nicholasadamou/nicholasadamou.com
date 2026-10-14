@@ -1,226 +1,181 @@
-/* eslint-disable @next/next/no-img-element -- ImageResponse renders embedded image data, not a browser page. */
-import { COLORS, FLEX, SPACING, TYPOGRAPHY } from "../constants";
+/* eslint-disable @next/next/no-img-element -- ImageResponse renders embedded image data. */
+import { ArrowUpRight, Code2, Layers3, PenLine, Github } from "lucide-react";
+import { brand } from "@/lib/brand";
 import { ProcessedOGParams } from "../types";
-import { ImageElement } from "./ImageElement";
-import { TextElement } from "./TextElement";
 
 export const OGLayout = ({
   title,
   description,
   headerText,
   processedImage,
+  companyLogo,
   type,
   theme = "dark",
 }: ProcessedOGParams) => {
-  const isHomepage = type === "homepage";
-  const isDark = theme === "dark";
-  const typography = isDark ? TYPOGRAPHY.dark : TYPOGRAPHY.light;
-
-  if (isHomepage) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          background: "#101916",
-          color: "#f6f4eb",
-          padding: 64,
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontSize: 22,
-            color: "#b9c6b5",
-          }}
-        >
-          <span>SENIOR OUTCOME ENGINEER & BUILDER</span>
-          <span>nicholasadamou.com</span>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 48,
-          }}
-        >
-          <div
-            style={{ display: "flex", flexDirection: "column", maxWidth: 750 }}
-          >
-            <span
-              style={{
-                fontSize: 88,
-                fontWeight: 700,
-                letterSpacing: -5,
-                lineHeight: 1.05,
-              }}
-            >
-              Nicholas Adamou
-            </span>
-            <span
-              style={{
-                marginTop: 28,
-                fontSize: 30,
-                lineHeight: 1.4,
-                color: "#b9c6b5",
-              }}
-            >
-              Thoughtful software. Purposeful websites.
-            </span>
-          </div>
-          {processedImage && (
-            <img
-              src={processedImage}
-              alt="Nicholas Adamou"
-              width={200}
-              height={200}
-              style={{
-                borderRadius: 100,
-                objectFit: "cover",
-                border: "4px solid #b9c6b5",
-              }}
-            />
-          )}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            fontSize: 20,
-            color: "#b9c6b5",
-            borderTop: "1px solid #425146",
-            paddingTop: 24,
-          }}
-        >
-          <span>Engineering</span>
-          <span>·</span>
-          <span>Client work</span>
-          <span>·</span>
-          <span>Notes & ideas</span>
-        </div>
-      </div>
-    );
-  }
-
+  const home = type === "homepage";
+  const dark = theme === "dark";
+  const color = dark ? brand.colors.paper : brand.colors.ink;
+  const muted = dark ? "#a8a29e" : "#57534e";
+  const border = dark ? "#44403c" : "#d6d3d1";
+  const Icon =
+    type === "clients"
+      ? Layers3
+      : type === "note" || type === "notes"
+        ? PenLine
+        : Code2;
+  const heading = title.length > 130 ? `${title.slice(0, 127).trim()}…` : title;
   return (
     <div
       style={{
         display: "flex",
-        height: "100%",
+        flexDirection: "column",
+        justifyContent: "space-between",
         width: "100%",
-        background: isHomepage
-          ? isDark
-            ? COLORS.gradient.background.homepage
-            : COLORS.gradient.background.homepageLight
-          : isDark
-            ? COLORS.gradient.background.default
-            : COLORS.gradient.background.defaultLight,
-        position: "relative",
+        height: "100%",
+        padding: "48px 60px",
+        background: dark ? brand.colors.ink : brand.colors.paper,
+        color,
+        fontFamily: "Inter",
       }}
     >
-      {/* Background pattern */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: isDark
-            ? COLORS.gradient.pattern
-            : COLORS.gradient.patternLight,
-          opacity: 0.6,
-        }}
-      />
-
-      {/* Main content */}
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
-          height: "100%",
-          width: "100%",
-          padding: isHomepage
-            ? SPACING.containerPadding.homepage
-            : SPACING.containerPadding.default,
-          position: "relative",
-          zIndex: 1,
+          justifyContent: "space-between",
+          borderBottom: `1px solid ${border}`,
+          paddingBottom: 24,
         }}
       >
-        {/* Text content */}
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <div
+            style={{
+              display: "flex",
+              padding: 12,
+              border: `1px solid ${border}`,
+              borderRadius: 12,
+            }}
+          >
+            <Icon size={26} color={color} strokeWidth={1.5} />
+          </div>
+          <span style={{ fontSize: 20, fontWeight: 600 }}>{brand.name}</span>
+        </div>
+        <span style={{ fontSize: 16, color: muted, letterSpacing: 2 }}>
+          {home ? "ENGINEERING & INDEPENDENT WORK" : headerText.toUpperCase()}
+        </span>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 44,
+          flexGrow: 1,
+          padding: "24px 0",
+        }}
+      >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            flex: processedImage
-              ? FLEX.textFlex.withImage
-              : FLEX.textFlex.withoutImage,
-            maxWidth: processedImage
-              ? FLEX.textMaxWidth.withImage
-              : FLEX.textMaxWidth.withoutImage,
-            gap: SPACING.contentGap,
+            width: processedImage ? 710 : 1000,
+            gap: 22,
           }}
         >
-          {headerText && (
-            <TextElement text={headerText} styles={typography.header} />
+          {home && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                fontSize: 18,
+                color: muted,
+              }}
+            >
+              <span>{brand.role} at</span>
+              {companyLogo && (
+                <img
+                  src={companyLogo}
+                  alt="Onebrief"
+                  width={36}
+                  height={36}
+                  style={{ borderRadius: 18 }}
+                />
+              )}
+              <span>Onebrief</span>
+            </div>
           )}
-          <TextElement
-            text={title}
-            styles={
-              isHomepage ? typography.titleHomepage : typography.titleDefault
-            }
-          />
-          {description && (
-            <TextElement text={description} styles={typography.description} />
-          )}
-        </div>
-
-        {/* Image */}
-        {processedImage && (
           <div
             style={{
-              flex: FLEX.imageFlex,
               display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              fontSize: home
+                ? 76
+                : heading.length > 85
+                  ? 44
+                  : heading.length > 50
+                    ? 52
+                    : 64,
+              fontWeight: 700,
+              lineHeight: 1.08,
+              letterSpacing: -2.5,
             }}
           >
-            <ImageElement
-              imageSrc={processedImage}
-              altText={title}
-              theme={theme}
-            />
+            {heading}
           </div>
+          {(description || home) && (
+            <div
+              style={{
+                display: "flex",
+                fontSize: 23,
+                color: muted,
+                lineHeight: 1.45,
+              }}
+            >
+              {home
+                ? brand.tagline
+                : description!.length > 160
+                  ? `${description!.slice(0, 157).trim()}…`
+                  : description}
+            </div>
+          )}
+        </div>
+        {processedImage && (
+          <img
+            src={processedImage}
+            alt={title}
+            width={260}
+            height={home ? 300 : 260}
+            style={{
+              objectFit: "cover",
+              borderRadius: 20,
+              border: `1px solid ${border}`,
+            }}
+          />
         )}
       </div>
-
-      {/* Brand accent for homepage */}
-      {isHomepage && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: SPACING.brandAccent.bottom,
-            left: SPACING.brandAccent.left,
-            height: SPACING.brandAccent.height,
-            width: SPACING.brandAccent.width,
-            background: isDark
-              ? COLORS.gradient.accent
-              : COLORS.gradient.accentLight,
-            borderRadius: SPACING.brandAccent.borderRadius,
-            opacity: SPACING.brandAccent.opacity,
-          }}
-        />
-      )}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderTop: `1px solid ${border}`,
+          paddingTop: 24,
+          fontSize: 17,
+          color: muted,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Github size={21} color={muted} />
+          <span>nicholasadamou</span>
+          <span style={{ marginLeft: 18 }}>
+            Engineering · Client work · Notes
+          </span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span>nicholasadamou.com</span>
+          <ArrowUpRight size={22} color={color} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 import { OGLayout } from "./components/OGLayout";
@@ -28,10 +30,22 @@ export async function GET(req: NextRequest) {
 
     const processedParams = await processOGParams(ogParams, baseUrl);
 
-    return new ImageResponse(<OGLayout {...processedParams} />, {
-      width: LAYOUT.container.width,
-      height: LAYOUT.container.height,
-    });
+    const companyLogo = `data:image/png;base64,${readFileSync(join(process.cwd(), "public/brand/onebrief.png")).toString("base64")}`;
+    return new ImageResponse(
+      <OGLayout {...processedParams} companyLogo={companyLogo} />,
+      {
+        fonts: ([400, 600, 700] as const).map((weight) => ({
+          name: "Inter",
+          data: readFileSync(
+            join(process.cwd(), `public/fonts/inter-${weight}.ttf`)
+          ),
+          weight,
+          style: "normal" as const,
+        })),
+        width: LAYOUT.container.width,
+        height: LAYOUT.container.height,
+      }
+    );
   } catch (error) {
     console.error("OG image generation failed:", error);
 

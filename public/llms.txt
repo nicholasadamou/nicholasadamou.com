@@ -58,3 +58,5 @@ Pages listed above also serve a Markdown representation when requested with `Acc
 
 - [LinkedIn](https://www.linkedin.com/in/nicholas-adamou)
 - [Résumé](https://nicholas-adamou-cv.vercel.app)
+
+- [Brand resources](https://nicholasadamou.com/brand): Identity, palette, typography, and downloadable social cards.

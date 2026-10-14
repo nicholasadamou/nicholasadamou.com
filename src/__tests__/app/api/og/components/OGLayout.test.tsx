@@ -14,7 +14,7 @@ describe("OGLayout", () => {
     render(
       <OGLayout title="Title" type="note" theme="dark" headerText="Note" />
     );
-    expect(screen.getByText("Note")).toBeDefined();
+    expect(screen.getByText("NOTE")).toBeDefined();
   });
 
   it("renders description when provided", () => {

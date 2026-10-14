@@ -56,6 +56,7 @@ nav:
   - Visitor Guide:
       - Using the Site: using-the-site/overview.md
       - Client Work: using-the-site/client-work.md
+      - Brand Resources: using-the-site/brand.md
   - Getting Started:
       - Installation: getting-started/installation.md
       - Development: getting-started/development.md
