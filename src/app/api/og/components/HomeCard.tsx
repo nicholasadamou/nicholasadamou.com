@@ -107,22 +107,6 @@ export function HomeCard({
         style={{
           display: "flex",
           position: "absolute",
-          bottom: 104,
-          right: 0,
-          padding: "48px 34px 22px",
-          width: 420,
-          justifyContent: "flex-end",
-          color: "#fafaf9",
-          background: "linear-gradient(transparent, rgba(0,0,0,0.75))",
-          fontSize: 16,
-        }}
-      >
-        nicholasadamou.com
-      </div>
-      <div
-        style={{
-          display: "flex",
-          position: "absolute",
           bottom: 0,
           left: 0,
           width: "100%",

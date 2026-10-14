@@ -8,6 +8,7 @@ describe("OGLayout", () => {
       <OGLayout title="Test Title" type="note" theme="dark" headerText="Note" />
     );
     expect(screen.getByText("Test Title")).toBeDefined();
+    expect(screen.queryByText("nicholasadamou.com")).toBeNull();
   });
 
   it("renders header text", () => {
@@ -53,11 +54,11 @@ describe("OGLayout", () => {
     expect(img).toBeDefined();
   });
 
-  it("does not render image section when no processedImage", () => {
+  it("uses the portrait when no article image is available", () => {
     const { container } = render(
       <OGLayout title="Title" type="note" theme="dark" headerText="Note" />
     );
-    expect(container.querySelector("img")).toBeNull();
+    expect(container.querySelector("img")?.alt).toBe("Nicholas Adamou");
   });
 
   it("renders brand accent for homepage", () => {

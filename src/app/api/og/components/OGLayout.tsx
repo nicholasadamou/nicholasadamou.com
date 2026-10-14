@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- Embedded assets for ImageResponse. */
-import { Code2, Layers3, PenLine, Github } from "lucide-react";
+import { AVATAR_BASE64 } from "../avatar-data";
 import { HomeCard } from "./HomeCard";
 import { brand } from "@/lib/brand";
 import { ProcessedOGParams } from "../types";
@@ -11,19 +11,12 @@ export const OGLayout = (params: ProcessedOGParams) => {
     description,
     headerText,
     processedImage,
-    type,
     theme = "dark",
   } = params;
   const dark = theme === "dark";
   const background = dark ? brand.colors.ink : brand.colors.paper;
   const foreground = dark ? brand.colors.paper : brand.colors.ink;
   const secondary = dark ? brand.colors.stone : "#57534e";
-  const Icon =
-    type === "clients"
-      ? Layers3
-      : type === "note" || type === "notes"
-        ? PenLine
-        : Code2;
   const heading = title.length > 130 ? `${title.slice(0, 127).trim()}…` : title;
   return (
     <div
@@ -50,39 +43,13 @@ export const OGLayout = (params: ProcessedOGParams) => {
           justifyContent: "center",
         }}
       >
-        {processedImage ? (
-          <img
-            src={processedImage}
-            alt={title}
-            width={550}
-            height={526}
-            style={{ objectFit: "cover" }}
-          />
-        ) : (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: 30,
-              width: 330,
-              marginLeft: 70,
-            }}
-          >
-            <Icon size={64} color={secondary} strokeWidth={1.5} />
-            <span
-              style={{
-                fontSize: 35,
-                fontWeight: 600,
-                color: secondary,
-                letterSpacing: -1,
-                lineHeight: 1.2,
-              }}
-            >
-              {brand.tagline}
-            </span>
-          </div>
-        )}
+        <img
+          src={processedImage || AVATAR_BASE64}
+          alt={processedImage ? title : brand.name}
+          width={550}
+          height={526}
+          style={{ objectFit: "cover" }}
+        />
       </div>
       <svg
         width="1200"
@@ -148,22 +115,6 @@ export const OGLayout = (params: ProcessedOGParams) => {
         style={{
           display: "flex",
           position: "absolute",
-          bottom: 128,
-          right: 34,
-          padding: processedImage ? "10px 14px" : 0,
-          borderRadius: 8,
-          justifyContent: "flex-end",
-          color: processedImage ? brand.colors.paper : secondary,
-          background: processedImage ? brand.colors.ink : "transparent",
-          fontSize: 16,
-        }}
-      >
-        nicholasadamou.com
-      </div>
-      <div
-        style={{
-          display: "flex",
-          position: "absolute",
           bottom: 0,
           left: 0,
           width: "100%",
@@ -174,39 +125,9 @@ export const OGLayout = (params: ProcessedOGParams) => {
           background,
         }}
       >
-        {[
-          {
-            Icon: Github,
-            name: "Open source",
-            detail: "Tools built to be shared",
-          },
-          {
-            Icon: Layers3,
-            name: "Client work",
-            detail: "Websites with purpose",
-          },
-          {
-            Icon: PenLine,
-            name: "Notes",
-            detail: "Ideas from building software",
-          },
-        ].map(({ Icon: FooterIcon, name, detail }) => (
-          <div
-            key={name}
-            style={{
-              display: "flex",
-              width: "33.33%",
-              alignItems: "center",
-              gap: 16,
-            }}
-          >
-            <FooterIcon size={38} color={secondary} strokeWidth={1.5} />
-            <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-              <span style={{ fontSize: 18, fontWeight: 600 }}>{name}</span>
-              <span style={{ fontSize: 13, color: secondary }}>{detail}</span>
-            </div>
-          </div>
-        ))}
+        <span style={{ fontSize: 24, fontWeight: 600, letterSpacing: -0.5 }}>
+          {brand.tagline}
+        </span>
       </div>
     </div>
   );

@@ -25,7 +25,8 @@ logo beside the role, and a footer explicitly identifying previous employers.
 
 The renderer embeds the portrait and employer logo and reads bundled Inter fonts,
 so those assets do not depend on external requests. External article images are
-optional and fall back to the text layout if unavailable.
+optional and fall back to the portrait if unavailable. Other cards share the
+angled photo panel and carry the motto in the footer. Cards omit the site URL.
 
 Update `src/lib/brand.ts` and the downloadable `public/brand/tokens.json` together.
 The social URL includes a version parameter; increment it in `src/lib/og.ts` when
