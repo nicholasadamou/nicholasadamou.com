@@ -5,12 +5,7 @@ from the same export used by `/gallery`. The full gallery provides infinite
 scroll and a lightbox. Photos are hosted with the site, so viewing them does not
 depend on VSCO's CDN.
 
-## Feature flag
-
-Set `NEXT_PUBLIC_GALLERY_ENABLED=true` in Vercel or `.env.local` and rebuild.
-The flag is enabled in the deployed environments; an unset flag remains off.
-It controls the homepage previews, About Photography section, navigation,
-sitemap, `/gallery`, and `/api/vsco`. Disabled routes return 404.
+The gallery is always available; no feature flag or VSCO credential is required.
 
 ## Photo storage
 

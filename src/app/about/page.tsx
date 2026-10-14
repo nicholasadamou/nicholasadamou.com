@@ -1,4 +1,3 @@
-import { galleryEnabled } from "@/lib/features";
 import { getLocalVscoImages } from "@/lib/vsco-local";
 import { pageMetadata } from "@/lib/og";
 import type { Metadata } from "next";
@@ -19,9 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return (
-    <AboutPageClient
-      photos={galleryEnabled ? getLocalVscoImages(4).images : []}
-    />
-  );
+  return <AboutPageClient photos={getLocalVscoImages(4).images} />;
 }

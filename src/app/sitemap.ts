@@ -1,4 +1,3 @@
-import { galleryEnabled } from "@/lib/features";
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/content/mdx";
 import { getBaseUrl } from "@/lib/og";
@@ -58,7 +57,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...noteRoutes].filter(
-    (route) => galleryEnabled || route.url !== `${baseUrl}/gallery`
-  );
+  return [...staticRoutes, ...noteRoutes];
 }

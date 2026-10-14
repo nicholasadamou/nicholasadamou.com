@@ -1,6 +1,5 @@
 "use client";
 
-import { galleryEnabled } from "@/lib/features";
 import React, {
   useState,
   useEffect,
@@ -147,22 +146,18 @@ export default function CommandPalette({
         },
         keywords: ["projects", "work", "portfolio"],
       },
-      ...(galleryEnabled
-        ? [
-            {
-              id: "nav-gallery",
-              type: "navigation" as const,
-              title: "Gallery",
-              subtitle: "View photography",
-              icon: <Camera className="h-5 w-5" />,
-              action: () => {
-                router.push("/gallery");
-                onClose();
-              },
-              keywords: ["gallery", "photos", "photography", "vsco", "images"],
-            },
-          ]
-        : []),
+      {
+        id: "nav-gallery",
+        type: "navigation" as const,
+        title: "Gallery",
+        subtitle: "View photography",
+        icon: <Camera className="h-5 w-5" />,
+        action: () => {
+          router.push("/gallery");
+          onClose();
+        },
+        keywords: ["gallery", "photos", "photography", "vsco", "images"],
+      },
       {
         id: "nav-brand",
         type: "navigation",

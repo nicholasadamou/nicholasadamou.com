@@ -1,6 +1,5 @@
 "use client";
 
-import { galleryEnabled } from "@/lib/features";
 import { clientImages } from "@/lib/content/client-images";
 
 import { useMemo } from "react";
@@ -237,24 +236,22 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
 
           <hr className={hr} />
 
-          {galleryEnabled && (
-            <>
-              {/* Photos */}
-              <div className="space-y-4 sm:space-y-3">
-                <h2 className={`${getOpacityClass()} text-sm`}>Photos</h2>
-                <h3 className="text-sm font-medium">Photography gallery</h3>
-                <FeaturedGallery photos={photos} />
-                <Link
-                  href="/gallery"
-                  className={`text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}
-                >
-                  View gallery &rarr;
-                </Link>
-              </div>
+          <>
+            {/* Photos */}
+            <div className="space-y-4 sm:space-y-3">
+              <h2 className={`${getOpacityClass()} text-sm`}>Photos</h2>
+              <h3 className="text-sm font-medium">Photography gallery</h3>
+              <FeaturedGallery photos={photos} />
+              <Link
+                href="/gallery"
+                className={`text-sm transition-opacity hover:opacity-60 ${getOpacityClass()}`}
+              >
+                View gallery &rarr;
+              </Link>
+            </div>
 
-              <hr className={hr} />
-            </>
-          )}
+            <hr className={hr} />
+          </>
           {/* Spotify */}
           <SpotifySection
             light={light}

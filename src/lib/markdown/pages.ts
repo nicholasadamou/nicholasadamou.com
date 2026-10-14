@@ -1,4 +1,3 @@
-import { galleryEnabled } from "@/lib/features";
 import { clients, services, processSteps } from "@/lib/content/clients";
 import { getAllArticles, getArticleBySlug } from "@/lib/content/mdx";
 import { projects } from "@/lib/projects/config";
@@ -53,14 +52,11 @@ export function getHomeMarkdown(): string {
     ]),
     `- [View all notes](${baseUrl}/notes)`,
     "",
-    ...(galleryEnabled
-      ? [
-          "## Photos",
-          "",
-          `A curated collection of photography work.${galleryEnabled ? ` [View gallery](${baseUrl}/gallery)` : ""}`,
-          "",
-        ]
-      : []),
+
+    "## Photos",
+    "",
+    `A curated collection of photography work. [View gallery](${baseUrl}/gallery)`,
+    "",
   ];
 
   return lines.join("\n");
@@ -101,14 +97,12 @@ export function getAboutMarkdown(): string {
     "",
     ...resumes.map((l) => `- [${l.label}](${l.href})`),
     "",
-    ...(galleryEnabled
-      ? [
-          "## Photography",
-          "",
-          `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou). [View gallery](${baseUrl}/gallery)`,
-          "",
-        ]
-      : []),
+
+    "## Photography",
+    "",
+    `Beyond software engineering, I have a passion for photography and visual storytelling. You can explore my work on [VSCO](https://vsco.co/nicholasadamou). [View gallery](${baseUrl}/gallery)`,
+    "",
+
     "## Work",
     "",
     "I specialize in Full Stack Development and DevOps, focusing on creating scalable applications and optimizing development processes.",
