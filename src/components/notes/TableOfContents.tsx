@@ -95,13 +95,11 @@ export default function TableOfContents() {
     e.preventDefault();
     setActiveId(heading.id);
     isClickScrolling.current = true;
-    if (heading.id === headings[0]?.id) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      document
-        .getElementById(heading.id)
-        ?.scrollIntoView({ behavior: "smooth" });
-    }
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "instant"
+      : "smooth";
+    document.getElementById(heading.id)?.scrollIntoView({ behavior });
     setTimeout(() => {
       isClickScrolling.current = false;
     }, 800);

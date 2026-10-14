@@ -45,9 +45,9 @@ describe("server-rendered content (no JavaScript)", () => {
     const html = ssrHtml(<HomePage articles={[]} />);
     const document = new DOMParser().parseFromString(html, "text/html");
     for (const client of clients) {
-      const link = document.querySelector(`a[href="${client.href}"]`);
-      expect(link?.getAttribute("target")).toBe("_blank");
-      expect(link?.getAttribute("rel")).toContain("noopener");
+      const link = document.querySelector(`a[href="/clients/${client.slug}"]`);
+      expect(link).not.toBeNull();
+      expect(link?.getAttribute("target")).toBeNull();
     }
     expect(html).toContain("<h1");
     expect(textLength(html)).toBeGreaterThan(500);

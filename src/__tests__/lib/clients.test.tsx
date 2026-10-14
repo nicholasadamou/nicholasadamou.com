@@ -10,7 +10,7 @@ describe("client portfolio discovery", () => {
   it("renders every client and local image without browser JavaScript", () => {
     const html = renderToStaticMarkup(<ClientsPage />);
     for (const client of clients) {
-      expect(html).toContain(client.href);
+      expect(html).toContain(`href="/clients/${client.slug}"`);
       expect(html).toContain(client.name);
       expect(existsSync(`public/images/clients/${client.slug}.webp`)).toBe(
         true

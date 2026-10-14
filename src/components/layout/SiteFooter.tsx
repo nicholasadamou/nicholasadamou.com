@@ -16,7 +16,9 @@ export default function SiteFooter({
   if (!embedded && ["/", "/og-preview", "/dashboard"].includes(pathname))
     return null;
   const width =
-    pathname.startsWith("/notes") || pathname === "/projects"
+    pathname.startsWith("/notes") ||
+    pathname.startsWith("/clients/") ||
+    pathname === "/projects"
       ? "max-w-[45rem] px-5"
       : pathname === "/contact"
         ? "max-w-[45rem] px-6"

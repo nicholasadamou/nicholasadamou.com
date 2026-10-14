@@ -21,7 +21,7 @@ const HTML_ONLY_PREFIXES = ["/gallery", "/dashboard", "/og-preview", "/brand"];
 
 function markdownTargetFor(pathname: string): string | null {
   if (MARKDOWN_PATHS[pathname]) return MARKDOWN_PATHS[pathname];
-  if (pathname.startsWith("/notes/") && pathname !== "/notes/") {
+  if (/^\/(notes|clients)\/[^/]+$/.test(pathname)) {
     return `/api/markdown${pathname}`;
   }
   return null;

@@ -1,5 +1,5 @@
 {
-  "total": 16850,
+  "total": 17200,
   "perFile": 300,
   "exceptions": {
     "src/app/about/AboutPageClient.tsx": 345,

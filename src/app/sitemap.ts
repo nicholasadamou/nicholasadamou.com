@@ -1,3 +1,4 @@
+import { clients } from "@/lib/content/clients";
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/content/mdx";
 import { getBaseUrl } from "@/lib/og";
@@ -57,5 +58,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...noteRoutes];
+  return [
+    ...staticRoutes,
+    ...noteRoutes,
+    ...clients.map(({ slug }) => ({
+      url: `${baseUrl}/clients/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
 }

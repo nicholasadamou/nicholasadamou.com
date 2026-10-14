@@ -147,10 +147,8 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
                   alt={`${client.name} homepage`}
                 >
                   <Link
-                    href={client.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${client.name} (opens in a new tab)`}
+                    href={`/clients/${client.slug}`}
+                    aria-label={`Read the ${client.name} case study`}
                     className={`group block ${getLinkColorClass()}`}
                   >
                     <div className="overflow-hidden rounded-lg border border-current/10">
