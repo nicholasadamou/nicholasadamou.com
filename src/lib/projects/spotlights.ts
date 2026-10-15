@@ -121,7 +121,7 @@ export const features: Spotlight[] = [
     description:
       "Convert images, video, audio, and PDFs from your desktop or terminal. Desktop and CLI conversions stay on your device.",
     action: "Explore Convrt",
-    href: "https://github.com/smeltery/convrt",
+    href: "https://convrt-five.vercel.app",
     steps: ["Choose your file", "Pick the format", "Keep building"],
     logo: "/brands/convrt.svg",
     paper: "#eef0e8",
