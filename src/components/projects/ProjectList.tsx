@@ -10,6 +10,8 @@ import OpenSourceSection from "@/components/projects/OpenSourceSection";
 import ImagePreview from "@/components/ui/ImagePreview";
 import Pagination from "@/components/ui/Pagination";
 
+import SmelterySpotlight from "./SmelterySpotlight";
+
 const PAGE_SIZE = 8;
 
 export default function ProjectList() {
@@ -102,6 +104,8 @@ export default function ProjectList() {
               {projects.length} open-source projects and tools.
             </p>
           </div>
+
+          <SmelterySpotlight />
 
           {/* Featured projects */}
           {!isFiltering && featuredProjects.length > 0 && (
