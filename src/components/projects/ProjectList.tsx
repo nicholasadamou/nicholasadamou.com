@@ -10,6 +10,8 @@ import OpenSourceSection from "@/components/projects/OpenSourceSection";
 import ImagePreview from "@/components/ui/ImagePreview";
 import Pagination from "@/components/ui/Pagination";
 
+import SmelterySpotlight from "./SmelterySpotlight";
+
 const PAGE_SIZE = 8;
 
 export default function ProjectList() {
@@ -220,6 +222,8 @@ export default function ProjectList() {
               onPageChange={setPage}
             />
           </div>
+
+          <SmelterySpotlight />
 
           <OpenSourceSection />
         </div>
