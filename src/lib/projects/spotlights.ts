@@ -7,6 +7,7 @@ type Spotlight = {
   action: string;
   href: string;
   steps: string[];
+  note?: string;
   logo?: string;
   paper?: string;
   ink?: string;
@@ -111,5 +112,21 @@ export const features: Spotlight[] = [
     paper: "#eee7f5",
     ink: "#30273e",
     color: "#79559b",
+  },
+  {
+    name: "Convrt",
+    eyebrow: "A new format, without the extra friction.",
+    title: "New format.",
+    accent: "Same file. Your device.",
+    description:
+      "Convert images, video, audio, and PDFs from your desktop or terminal. Desktop and CLI conversions stay on your device.",
+    action: "Explore Convrt",
+    href: "https://github.com/smeltery/convrt",
+    steps: ["Choose your file", "Pick the format", "Keep building"],
+    logo: "/brands/convrt.svg",
+    paper: "#eef0e8",
+    ink: "#292c26",
+    color: "#62685b",
+    note: "Desktop and CLI. On-device conversion.",
   },
 ];

@@ -92,11 +92,12 @@ export default function SmelterySpotlight() {
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
           <p className="mt-3 text-xs opacity-50">
-            {learning
-              ? "Free. Open source. Beginner friendly."
-              : feature.logo
-                ? "Built for Mac. Made for your workflow."
-                : "Open source. Made to be useful."}
+            {feature.note ||
+              (learning
+                ? "Free. Open source. Beginner friendly."
+                : feature.logo
+                  ? "Built for Mac. Made for your workflow."
+                  : "Open source. Made to be useful.")}
           </p>
         </div>
         <div
