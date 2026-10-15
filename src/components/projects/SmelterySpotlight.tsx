@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Code2, Layers, Pause, Play } from "lucide-react";
-import { useTheme } from "@/components/ThemeProvider";
+import { ArrowUpRight, Pause, Play } from "lucide-react";
+import Image from "next/image";
 
 const features = [
   {
@@ -19,7 +19,6 @@ const features = [
       "A tool that gets it done",
       "More room to build",
     ],
-    Icon: Code2,
   },
   {
     name: "Smeltery Skills",
@@ -35,12 +34,10 @@ const features = [
       "Give your agent a workflow",
       "Build on what works",
     ],
-    Icon: Layers,
   },
 ];
 
 export default function SmelterySpotlight() {
-  const { shouldUseDarkText } = useTheme();
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -62,7 +59,6 @@ export default function SmelterySpotlight() {
     return () => window.clearInterval(timer);
   }, [playing, hovered, focused, reduced]);
   const feature = features[index];
-  const light = shouldUseDarkText();
   return (
     <section
       aria-label="Explore Smeltery"
@@ -74,7 +70,7 @@ export default function SmelterySpotlight() {
         if (!event.currentTarget.contains(event.relatedTarget))
           setFocused(false);
       }}
-      className={`overflow-hidden rounded-2xl border ${light ? "border-stone-950/10 bg-stone-950/[0.03]" : "border-white/10 bg-white/[0.03]"}`}
+      className="overflow-hidden rounded-2xl border border-[#e1e3d9] bg-[#eceee5] text-[#292b25]"
     >
       <div
         key={index}
@@ -84,24 +80,28 @@ export default function SmelterySpotlight() {
         className="motion-safe:animate-fadeInHome1 grid gap-8 p-6 sm:grid-cols-[1.2fr_1fr] sm:p-8"
       >
         <div>
-          <p className="mb-5 text-xs tracking-wide opacity-60">
+          <div className="mb-5 flex items-center gap-2 text-sm font-medium">
+            <Image src="/brands/smeltery.svg" alt="" width={28} height={29} />
+            {feature.name}
+          </div>
+          <p className="mb-3 text-xs tracking-wide text-[#696d63]">
             {feature.eyebrow}
           </p>
           <h2 className="text-3xl leading-tight font-medium tracking-tight">
             {feature.title}
             <br />
-            <span className="font-serif italic opacity-60">
+            <span className="font-serif text-[#526447] italic">
               {feature.accent}
             </span>
           </h2>
-          <p className="mt-4 text-sm leading-relaxed opacity-70">
+          <p className="mt-4 text-sm leading-relaxed text-[#696d63]">
             {feature.description}
           </p>
           <a
             href={feature.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`mt-6 inline-flex items-center gap-3 rounded-full px-5 py-3 text-sm font-medium transition-opacity hover:opacity-70 ${light ? "bg-stone-950 text-white" : "bg-white text-stone-950"}`}
+            className="mt-6 inline-flex items-center gap-3 rounded-full bg-[#292b25] px-5 py-3 text-sm font-medium text-[#f7f7f2] transition-colors hover:bg-[#526447]"
           >
             {feature.action}
             <ArrowUpRight size={16} aria-hidden="true" />
@@ -112,10 +112,10 @@ export default function SmelterySpotlight() {
         </div>
         <div
           aria-hidden="true"
-          className={`self-center rounded-xl border shadow-sm sm:rotate-2 ${light ? "border-stone-950/10 bg-white/70" : "border-white/10 bg-stone-950/60"}`}
+          className="self-center rounded-xl border border-[#e1e3d9] bg-[#f7f7f2] shadow-sm sm:rotate-2"
         >
           <div className="flex items-center gap-2 border-b border-current/10 px-4 py-3 text-xs">
-            <feature.Icon size={16} />
+            <Image src="/brands/smeltery.svg" alt="" width={18} height={19} />
             <span>{feature.name}</span>
             <span className="ml-auto opacity-30">● ● ●</span>
           </div>
@@ -125,7 +125,7 @@ export default function SmelterySpotlight() {
                 key={step}
                 className="flex items-center gap-3 text-xs leading-relaxed"
               >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current/20 font-mono opacity-50">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#eceee5] font-mono text-[#526447]">
                   0{stepIndex + 1}
                 </span>
                 {step}
@@ -147,7 +147,7 @@ export default function SmelterySpotlight() {
               setIndex(itemIndex);
               setPlaying(false);
             }}
-            className={`cursor-pointer rounded-full px-3 py-2 text-xs transition-opacity hover:opacity-100 ${index === itemIndex ? "opacity-100" : "opacity-45"}`}
+            className={`cursor-pointer rounded-full px-3 py-2 text-xs transition-opacity hover:opacity-100 ${index === itemIndex ? "bg-white text-[#526447]" : "text-[#696d63]"}`}
           >
             {item.name}
           </button>
