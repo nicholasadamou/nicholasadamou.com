@@ -105,8 +105,6 @@ export default function ProjectList() {
             </p>
           </div>
 
-          <SmelterySpotlight />
-
           {/* Featured projects */}
           {!isFiltering && featuredProjects.length > 0 && (
             <div className="space-y-4">
@@ -224,6 +222,8 @@ export default function ProjectList() {
               onPageChange={setPage}
             />
           </div>
+
+          <SmelterySpotlight />
 
           <OpenSourceSection />
         </div>
