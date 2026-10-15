@@ -123,7 +123,7 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
             </div>
           </div>
 
-          <SmelterySpotlight />
+          <SmelterySpotlight compact />
 
           <hr className={hr} />
 
