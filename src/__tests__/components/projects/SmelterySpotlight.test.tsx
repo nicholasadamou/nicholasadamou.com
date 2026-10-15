@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { features } from "@/lib/projects/spotlights";
 import SmelterySpotlight from "@/components/projects/SmelterySpotlight";
 
 describe("spotlight playback", () => {
@@ -16,13 +17,13 @@ describe("spotlight playback", () => {
     advance();
     expect(screen.getByRole("group")).toHaveAttribute(
       "aria-label",
-      "2 of 7: Smeltery Skills"
+      `2 of ${features.length}: Smeltery Skills`
     );
     fireEvent.click(screen.getByRole("button", { name: "Pause rotation" }));
     advance();
     expect(screen.getByRole("group")).toHaveAttribute(
       "aria-label",
-      "2 of 7: Smeltery Skills"
+      `2 of ${features.length}: Smeltery Skills`
     );
   });
 
@@ -32,14 +33,16 @@ describe("spotlight playback", () => {
     advance();
     expect(screen.getByRole("group")).toHaveAttribute(
       "aria-label",
-      "1 of 7: Smeltery Labs"
+      `1 of ${features.length}: Smeltery Labs`
     );
-    fireEvent.click(screen.getByRole("button", { name: "Convrt" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: features.at(-1)!.name })
+    );
     fireEvent.click(screen.getByRole("button", { name: "Start rotation" }));
     advance();
     expect(screen.getByRole("group")).toHaveAttribute(
       "aria-label",
-      "1 of 7: Smeltery Labs"
+      `1 of ${features.length}: Smeltery Labs`
     );
   });
 });

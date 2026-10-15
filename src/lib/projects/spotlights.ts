@@ -129,4 +129,20 @@ export const features: Spotlight[] = [
     color: "#62685b",
     note: "Desktop and CLI. On-device conversion.",
   },
+  {
+    name: "Showrunner",
+    eyebrow: "The change is the story.",
+    title: "Make your pull request",
+    accent: "worth watching.",
+    description:
+      "Turn a change into a replayable demo. Give your agent a skill to write a Playwright scenario, verify the outcome, and record the story.",
+    action: "Explore Showrunner",
+    href: "https://showrunner-orpin-phi.vercel.app",
+    steps: ["Set the scene", "Verify the outcome", "Record the story"],
+    logo: "/brands/showrunner.svg",
+    paper: "#f7f4ed",
+    ink: "#24241f",
+    color: "#b83b17",
+    note: "An agent skill. A Playwright library. A better first take.",
+  },
 ];
