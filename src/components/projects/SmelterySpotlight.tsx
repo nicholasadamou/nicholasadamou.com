@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Pause, Play } from "lucide-react";
+import { ArrowUpRight, GitBranch, Pause, Play } from "lucide-react";
 import Image from "next/image";
 
 const features = [
@@ -35,6 +35,21 @@ const features = [
       "Build on what works",
     ],
   },
+  {
+    name: "Learn Git",
+    eyebrow: "A little confidence for your next commit.",
+    title: "Good ideas deserve",
+    accent: "a little history.",
+    description:
+      "Get comfortable with Git and GitHub, one concept at a time. Save your work, try an idea, and build together.",
+    action: "Start learning Git",
+    href: "https://learn-git-five.vercel.app/",
+    steps: [
+      "Start with an idea",
+      "Give it room to grow",
+      "Bring the good bits together",
+    ],
+  },
 ];
 
 export default function SmelterySpotlight() {
@@ -59,6 +74,7 @@ export default function SmelterySpotlight() {
     return () => window.clearInterval(timer);
   }, [playing, hovered, focused, reduced]);
   const feature = features[index];
+  const learning = feature.name === "Learn Git";
   return (
     <section
       aria-label="Explore Smeltery"
@@ -70,13 +86,13 @@ export default function SmelterySpotlight() {
         if (!event.currentTarget.contains(event.relatedTarget))
           setFocused(false);
       }}
-      className="overflow-hidden rounded-2xl border border-[#e1e3d9] bg-[#eceee5] text-[#292b25]"
+      className={`overflow-hidden rounded-2xl border text-[#292b25] ${learning ? "border-[#e8dfd0] bg-[#f0eade]" : "border-[#e1e3d9] bg-[#eceee5]"}`}
     >
       <div
         key={index}
         role="group"
         aria-roledescription="slide"
-        aria-label={`${index + 1} of 2: ${feature.name}`}
+        aria-label={`${index + 1} of ${features.length}: ${feature.name}`}
         className="motion-safe:animate-fadeInHome1 grid gap-8 p-6 sm:grid-cols-[1.2fr_1fr] sm:p-8"
       >
         <div>
@@ -90,7 +106,9 @@ export default function SmelterySpotlight() {
           <h2 className="text-3xl leading-tight font-medium tracking-tight">
             {feature.title}
             <br />
-            <span className="font-serif text-[#526447] italic">
+            <span
+              className={`font-serif italic ${learning ? "text-[#896144]" : "text-[#526447]"}`}
+            >
               {feature.accent}
             </span>
           </h2>
@@ -107,7 +125,9 @@ export default function SmelterySpotlight() {
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
           <p className="mt-3 text-xs opacity-50">
-            Open source. Made to be useful.
+            {learning
+              ? "Free. Open source. Beginner friendly."
+              : "Open source. Made to be useful."}
           </p>
         </div>
         <div
@@ -115,29 +135,73 @@ export default function SmelterySpotlight() {
           className="self-center rounded-xl border border-[#e1e3d9] bg-[#f7f7f2] shadow-sm sm:rotate-2"
         >
           <div className="flex items-center gap-2 border-b border-current/10 px-4 py-3 text-xs">
-            <Image src="/brands/smeltery.svg" alt="" width={18} height={19} />
+            {learning ? (
+              <GitBranch size={18} />
+            ) : (
+              <Image src="/brands/smeltery.svg" alt="" width={18} height={19} />
+            )}
             <span>{feature.name}</span>
             <span className="ml-auto opacity-30">● ● ●</span>
           </div>
-          <ol className="space-y-6 p-5">
-            {feature.steps.map((step, stepIndex) => (
-              <li
-                key={step}
-                className="flex items-center gap-3 text-xs leading-relaxed"
+          <div className="flex items-center gap-3 p-5">
+            {learning && (
+              <svg
+                viewBox="0 0 50 160"
+                className="h-40 w-10 shrink-0"
+                fill="none"
+                strokeWidth="2"
               >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#eceee5] font-mono text-[#526447]">
-                  0{stepIndex + 1}
-                </span>
-                {step}
-              </li>
-            ))}
-          </ol>
+                <path d="M10 10v140" stroke="#718760" />
+                <path
+                  d="M10 40c0 20 30 10 30 35v15c0 25-30 15-30 40"
+                  stroke="#b37e55"
+                />
+                {[10, 40, 130, 150].map((y) => (
+                  <circle
+                    key={y}
+                    cx="10"
+                    cy={y}
+                    r="5"
+                    fill="#f7f7f2"
+                    stroke="#718760"
+                  />
+                ))}
+                {[75, 90].map((y) => (
+                  <circle
+                    key={y}
+                    cx="40"
+                    cy={y}
+                    r="5"
+                    fill="#f0eade"
+                    stroke="#b37e55"
+                  />
+                ))}
+              </svg>
+            )}
+            <ol className="flex-1 space-y-6">
+              {feature.steps.map((step, stepIndex) => (
+                <li
+                  key={step}
+                  className="flex items-center gap-3 text-xs leading-relaxed"
+                >
+                  {!learning && (
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#eceee5] font-mono text-[#526447]">
+                      0{stepIndex + 1}
+                    </span>
+                  )}
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
           <p className="border-t border-current/10 px-4 py-3 font-mono text-[10px] opacity-50">
-            idea → workflow → possibility
+            {learning
+              ? "Every small step is worth keeping."
+              : "idea → workflow → possibility"}
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-1 border-t border-current/10 px-4 py-2">
+      <div className="flex flex-wrap items-center gap-1 border-t border-current/10 px-4 py-2">
         {features.map((item, itemIndex) => (
           <button
             key={item.name}
