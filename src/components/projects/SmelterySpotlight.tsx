@@ -6,7 +6,11 @@ import Image from "next/image";
 
 import { features } from "@/lib/projects/spotlights";
 
-export default function SmelterySpotlight() {
+export default function SmelterySpotlight({
+  compact = false,
+}: {
+  compact?: boolean;
+}) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -46,52 +50,60 @@ export default function SmelterySpotlight() {
         if (!event.currentTarget.contains(event.relatedTarget))
           setFocused(false);
       }}
-      className="overflow-hidden rounded-2xl border border-black/10 bg-[var(--spot-paper)] text-[var(--spot-ink)]"
+      className="@container overflow-hidden rounded-2xl border border-black/10 bg-[var(--spot-paper)] text-[var(--spot-ink)]"
     >
       <div
         key={index}
         role="group"
         aria-roledescription="slide"
         aria-label={`${index + 1} of ${features.length}: ${feature.name}`}
-        className="motion-safe:animate-fadeInHome1 grid gap-8 p-6 sm:grid-cols-[1.2fr_1fr] sm:p-8"
+        className={`motion-safe:animate-fadeInHome1 grid ${compact ? "gap-4 p-4" : "gap-8 p-6 @min-[36rem]:grid-cols-[1.2fr_1fr] @min-[36rem]:p-8"}`}
       >
         <div>
-          <div className="mb-5 flex items-center gap-2 text-sm font-medium">
+          <div
+            className={`flex items-center gap-2 text-sm font-medium ${compact ? "mb-3" : "mb-5"}`}
+          >
             {learning ? (
-              <GitBranch size={28} aria-hidden="true" />
+              <GitBranch size={compact ? 20 : 28} aria-hidden="true" />
             ) : (
               <Image
                 src={feature.logo || "/brands/smeltery.svg"}
                 alt=""
-                width={28}
-                height={29}
+                width={compact ? 20 : 28}
+                height={compact ? 21 : 29}
               />
             )}
             {feature.name}
           </div>
-          <p className="mb-3 text-xs tracking-wide opacity-75">
+          <p
+            className={`${compact ? "hidden" : "mb-3 text-xs tracking-wide opacity-75"}`}
+          >
             {feature.eyebrow}
           </p>
-          <h2 className="text-3xl leading-tight font-medium tracking-tight">
+          <h2
+            className={`leading-tight font-medium tracking-tight ${compact ? "text-xl" : "text-3xl"}`}
+          >
             {feature.title}
             <br />
             <span className="font-serif text-[var(--spot-accent)] italic">
               {feature.accent}
             </span>
           </h2>
-          <p className="mt-4 text-sm leading-relaxed opacity-75">
+          <p
+            className={`text-sm leading-relaxed opacity-75 ${compact ? "mt-2" : "mt-4"}`}
+          >
             {feature.description}
           </p>
           <a
             href={feature.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-3 rounded-full bg-[var(--spot-ink)] px-5 py-3 text-sm font-medium text-[#f7f7f2] transition-colors hover:bg-[var(--spot-accent)]"
+            className={`inline-flex items-center gap-3 rounded-full bg-[var(--spot-ink)] font-medium text-[#f7f7f2] transition-colors hover:bg-[var(--spot-accent)] ${compact ? "mt-4 px-4 py-2 text-xs" : "mt-6 px-5 py-3 text-sm"}`}
           >
             {feature.action}
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
-          <p className="mt-3 text-xs opacity-50">
+          <p className={compact ? "hidden" : "mt-3 text-xs opacity-50"}>
             {feature.note ||
               (learning
                 ? "Free. Open source. Beginner friendly."
@@ -102,7 +114,7 @@ export default function SmelterySpotlight() {
         </div>
         <div
           aria-hidden="true"
-          className="self-center rounded-xl border border-[#e1e3d9] bg-[#f7f7f2] shadow-sm sm:rotate-2"
+          className={`${compact ? "hidden" : "self-center"} rounded-xl border border-[#e1e3d9] bg-[#f7f7f2] shadow-sm @min-[36rem]:rotate-2`}
         >
           <div className="flex items-center gap-2 border-b border-current/10 px-4 py-3 text-xs">
             {learning ? (
@@ -176,7 +188,9 @@ export default function SmelterySpotlight() {
           </p>
         </div>
       </div>
-      <div className="flex flex-wrap items-center gap-1 border-t border-current/10 px-4 py-2">
+      <div
+        className={`flex flex-wrap items-center gap-1 border-t border-current/10 ${compact ? "px-2 py-1" : "px-4 py-2"}`}
+      >
         {features.map((item, itemIndex) => (
           <button
             key={item.name}
