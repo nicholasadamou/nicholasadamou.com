@@ -57,12 +57,16 @@ export default function SmelterySpotlight() {
       >
         <div>
           <div className="mb-5 flex items-center gap-2 text-sm font-medium">
-            <Image
-              src={feature.logo || "/brands/smeltery.svg"}
-              alt=""
-              width={28}
-              height={29}
-            />
+            {learning ? (
+              <GitBranch size={28} aria-hidden="true" />
+            ) : (
+              <Image
+                src={feature.logo || "/brands/smeltery.svg"}
+                alt=""
+                width={28}
+                height={29}
+              />
+            )}
             {feature.name}
           </div>
           <p className="mb-3 text-xs tracking-wide opacity-75">
