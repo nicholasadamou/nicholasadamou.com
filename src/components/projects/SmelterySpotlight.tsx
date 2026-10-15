@@ -46,14 +46,14 @@ export default function SmelterySpotlight() {
         if (!event.currentTarget.contains(event.relatedTarget))
           setFocused(false);
       }}
-      className="overflow-hidden rounded-2xl border border-black/10 bg-[var(--spot-paper)] text-[var(--spot-ink)]"
+      className="@container overflow-hidden rounded-2xl border border-black/10 bg-[var(--spot-paper)] text-[var(--spot-ink)]"
     >
       <div
         key={index}
         role="group"
         aria-roledescription="slide"
         aria-label={`${index + 1} of ${features.length}: ${feature.name}`}
-        className="motion-safe:animate-fadeInHome1 grid gap-8 p-6 sm:grid-cols-[1.2fr_1fr] sm:p-8"
+        className="motion-safe:animate-fadeInHome1 grid gap-8 p-6 @min-[36rem]:grid-cols-[1.2fr_1fr] @min-[36rem]:p-8"
       >
         <div>
           <div className="mb-5 flex items-center gap-2 text-sm font-medium">
@@ -102,7 +102,7 @@ export default function SmelterySpotlight() {
         </div>
         <div
           aria-hidden="true"
-          className="self-center rounded-xl border border-[#e1e3d9] bg-[#f7f7f2] shadow-sm sm:rotate-2"
+          className="self-center rounded-xl border border-[#e1e3d9] bg-[#f7f7f2] shadow-sm @min-[36rem]:rotate-2"
         >
           <div className="flex items-center gap-2 border-b border-current/10 px-4 py-3 text-xs">
             {learning ? (

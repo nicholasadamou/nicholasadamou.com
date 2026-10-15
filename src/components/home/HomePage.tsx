@@ -12,6 +12,7 @@ import { useHomeLayout } from "@/hooks/use-home-layout";
 import { useBatchViews } from "@/hooks/use-batch-views";
 import SiteFooter from "@/components/layout/SiteFooter";
 import BioSection from "@/components/home/BioSection";
+import SmelterySpotlight from "@/components/projects/SmelterySpotlight";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
 import SpotifySection from "@/components/home/SpotifySection";
@@ -121,6 +122,8 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
               </Link>
             </div>
           </div>
+
+          <SmelterySpotlight />
 
           <hr className={hr} />
 
