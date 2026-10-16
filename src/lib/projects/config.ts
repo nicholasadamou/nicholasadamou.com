@@ -56,7 +56,8 @@ export const projects: Project[] = withPreviews([
   {
     name: "hermes",
     href: "https://hermes-logging.vercel.app",
-    description: "Zero-Boilerplate Java Logging.",
+    description:
+      "Java logging with less setup. Write the message; Hermes handles delivery.",
     icon: { kind: "image", src: "/images/projects/hermes.svg" },
     tags: ["Library", "Java"],
   },

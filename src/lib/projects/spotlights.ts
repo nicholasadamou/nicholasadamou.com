@@ -161,4 +161,20 @@ export const features: Spotlight[] = [
     color: "#545454",
     note: "Cloud storage. A familiar Finder workflow.",
   },
+  {
+    name: "Hermes",
+    eyebrow: "Logging that stays out of your way.",
+    title: "Good logs.",
+    accent: "Less ceremony.",
+    description:
+      "Write the message; Hermes handles delivery. Java logging with compile-time logger injection, flexible appenders, and support for Spring Boot and Kotlin.",
+    action: "Explore Hermes",
+    href: "https://hermes-logging.vercel.app",
+    steps: ["Create your logger", "Write the message", "Choose your delivery"],
+    logo: "/images/projects/hermes.svg",
+    paper: "#f8f5ef",
+    ink: "#302923",
+    color: "#9b4e32",
+    note: "Built for Java. Ready for your stack.",
+  },
 ];
