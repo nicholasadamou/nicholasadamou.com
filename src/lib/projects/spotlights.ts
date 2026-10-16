@@ -145,4 +145,20 @@ export const features: Spotlight[] = [
     color: "#b83b17",
     note: "An agent skill. A Playwright library. A better first take.",
   },
+  {
+    name: "Loft",
+    eyebrow: "More space for your Mac.",
+    title: "Room for more.",
+    accent: "Right in Finder.",
+    description:
+      "A cloud-backed drive for your Mac. Keep files within reach in Finder without filling your local storage.",
+    action: "Explore Loft",
+    href: "https://loft-delta.vercel.app",
+    steps: ["Connect your drive", "Find your files", "Keep your Mac light"],
+    logo: "/brands/loft.svg",
+    paper: "#f5f5f5",
+    ink: "#000000",
+    color: "#545454",
+    note: "Cloud storage. A familiar Finder workflow.",
+  },
 ];

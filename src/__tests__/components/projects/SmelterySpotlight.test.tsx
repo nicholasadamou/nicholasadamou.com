@@ -35,6 +35,7 @@ describe("spotlight playback", () => {
       "aria-label",
       `1 of ${features.length}: Smeltery Labs`
     );
+    fireEvent.click(screen.getByRole("button", { name: /Choose project/ }));
     fireEvent.click(
       screen.getByRole("button", { name: features.at(-1)!.name })
     );
@@ -44,5 +45,21 @@ describe("spotlight playback", () => {
       "aria-label",
       `1 of ${features.length}: Smeltery Labs`
     );
+  });
+  it("filters projects and closes the selector with Escape", () => {
+    render(<SmelterySpotlight compact />);
+    const trigger = screen.getByRole("button", { name: /Choose project/ });
+    fireEvent.click(trigger);
+    const search = screen.getByRole("textbox", { name: "Find a project" });
+    fireEvent.change(search, { target: { value: "loft" } });
+    expect(
+      screen.getByRole("button", { name: "Loft", pressed: false })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Convrt" })
+    ).not.toBeInTheDocument();
+    fireEvent.keyDown(search, { key: "Escape" });
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(trigger).toHaveFocus();
   });
 });

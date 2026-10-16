@@ -5,6 +5,7 @@ import { ArrowUpRight, GitBranch, Pause, Play } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
+import SpotlightSelector from "./SpotlightSelector";
 import { features } from "@/lib/projects/spotlights";
 
 export default function SmelterySpotlight({
@@ -194,22 +195,17 @@ export default function SmelterySpotlight({
         </motion.div>
       </AnimatePresence>
       <div
-        className={`flex flex-wrap items-center gap-1 border-t border-current/10 ${compact ? "px-2 py-3" : "px-4 py-4"}`}
+        className={`flex items-start gap-2 border-t border-current/10 ${compact ? "px-2 py-3" : "px-4 py-4"}`}
       >
-        {features.map((item, itemIndex) => (
-          <button
-            key={item.name}
-            type="button"
-            aria-pressed={index === itemIndex}
-            onClick={() => {
-              setIndex(itemIndex);
-              setPlaying(false);
-            }}
-            className={`cursor-pointer rounded-full px-3 py-2 text-xs transition-opacity hover:opacity-100 ${index === itemIndex ? "bg-white text-[var(--spot-accent)]" : "opacity-75"}`}
-          >
-            {item.name}
-          </button>
-        ))}
+        <SpotlightSelector
+          index={index}
+          reduced={reduced}
+          onOpen={() => setPlaying(false)}
+          onSelect={(value) => {
+            setIndex(value);
+            setPlaying(false);
+          }}
+        />
         {!reduced && (
           <button
             type="button"
