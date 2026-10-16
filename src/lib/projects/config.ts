@@ -21,7 +21,7 @@ export interface Project {
 function withPreviews(list: Project[]): Project[] {
   return list.map((p) => ({
     ...p,
-    preview: `/images/projects/previews/${p.name}.png`,
+    preview: p.preview ?? `/images/projects/previews/${p.name}.png`,
   }));
 }
 
@@ -55,6 +55,7 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "hermes",
+    preview: "/images/projects/previews/hermes-2026.png",
     href: "https://hermes-logging.vercel.app",
     description:
       "Java logging with less setup. Write the message; Hermes handles delivery.",
