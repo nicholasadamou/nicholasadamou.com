@@ -12,6 +12,8 @@ import Pagination from "@/components/ui/Pagination";
 
 import SmelterySpotlight from "./SmelterySpotlight";
 
+import TransmuteShowcase from "./TransmuteShowcase";
+
 const PAGE_SIZE = 8;
 
 export default function ProjectList() {
@@ -224,6 +226,8 @@ export default function ProjectList() {
           </div>
 
           <SmelterySpotlight />
+
+          <TransmuteShowcase />
 
           <OpenSourceSection />
         </div>

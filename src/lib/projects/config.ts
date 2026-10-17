@@ -65,9 +65,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "transmute-core",
+    preview: "/images/projects/previews/transmute-core-2026.png",
     href: "https://transmute-core.vercel.app",
-    description: "Hardware-accelerated pixel rendering engine.",
-    icon: { kind: "image", src: "/images/projects/transmute-core.svg" },
+    description:
+      "A Java pixel game engine for building 2D worlds, with headless testing and no runtime dependencies.",
+    icon: { kind: "image", src: "/images/projects/transmute-core-2026.svg" },
     tags: ["Library", "Graphics"],
   },
   {
