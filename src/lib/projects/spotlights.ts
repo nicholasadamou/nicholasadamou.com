@@ -177,4 +177,20 @@ export const features: Spotlight[] = [
     color: "#9b4e32",
     note: "Built for Java. Ready for your stack.",
   },
+  {
+    name: "Pyreload",
+    eyebrow: "A small watcher for your Python projects.",
+    title: "Save your file.",
+    accent: "Stay in your flow.",
+    description:
+      "Automatically restart Python applications when files change. Use native events locally or polling for Docker, Vagrant, and mounted filesystems.",
+    action: "Explore Pyreload",
+    href: "https://pyreload-cli.vercel.app",
+    steps: ["Watch your project", "Save your changes", "Keep your flow"],
+    logo: "/images/projects/pyreload-2026.svg",
+    paper: "#f7f7f2",
+    ink: "#292b25",
+    color: "#526447",
+    note: "Python 3.8+. One command to keep moving.",
+  },
 ];
