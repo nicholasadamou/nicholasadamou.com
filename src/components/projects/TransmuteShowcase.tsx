@@ -7,7 +7,71 @@ const external = { target: "_blank", rel: "noopener noreferrer" };
 const button =
   "inline-flex items-center justify-center gap-2 rounded-full bg-[#3d5b32] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2d4625] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3d5b32]";
 
-export default function TransmuteShowcase() {
+export default function TransmuteShowcase({
+  compact = false,
+}: {
+  compact?: boolean;
+}) {
+  if (compact) {
+    return (
+      <section
+        aria-label="Transmute Games"
+        className="overflow-hidden rounded-2xl border border-[#d7dfbf] bg-[#f7f7f2] text-[#292b25]"
+      >
+        <div className="p-4">
+          <div className="mb-3 flex items-center gap-2 text-sm font-medium">
+            <Image
+              src="/images/projects/transmute-core-2026.svg"
+              alt=""
+              width={24}
+              height={24}
+            />
+            Transmute Core
+          </div>
+          <h2 className="text-xl leading-tight font-semibold tracking-tight">
+            Small engine.{" "}
+            <span className="font-serif font-normal text-[#526447] italic">
+              Whole worlds.
+            </span>
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-[#606655]">
+            Build 2D pixel games in Java. Bring your next world to life.
+          </p>
+          <a
+            href="https://transmute-core.vercel.app"
+            {...external}
+            className={`${button} mt-4 !px-4 !py-2 !text-xs`}
+          >
+            Explore the engine <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        </div>
+        <div className="border-t border-[#d7dfbf] bg-[#e6edce] p-4">
+          <p className="mb-3 text-[10px] font-semibold tracking-[0.14em] text-[#526447] uppercase">
+            Built with Transmute Core
+          </p>
+          <Image
+            src="/brands/minicraft.webp"
+            alt="Minicraft"
+            width={388}
+            height={60}
+            className="h-auto w-40 max-w-full [image-rendering:pixelated]"
+          />
+          <p className="mt-3 text-sm leading-relaxed text-[#4e5943]">
+            See the engine in action: a Minicraft+ adaptation with survival and
+            LAN multiplayer.
+          </p>
+          <a
+            href="https://github.com/transmute-games/minicraft"
+            {...external}
+            className={`${button} mt-4 !px-4 !py-2 !text-xs`}
+          >
+            Explore Minicraft <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       aria-label="Transmute Games"
