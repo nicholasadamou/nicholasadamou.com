@@ -47,10 +47,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "pyreload-cli",
+    preview: "/images/projects/previews/pyreload-cli-2026.png",
     href: "https://pyreload-cli.vercel.app",
     description:
-      "A modern, easy-to-use package to automatically restart Python applications when file changes are detected.",
-    icon: { kind: "image", src: "/images/projects/pyreload.svg" },
+      "Automatically restart Python applications when files change, with polling support for mounted filesystems.",
+    icon: { kind: "image", src: "/images/projects/pyreload-2026.svg" },
     tags: ["CLI", "Python"],
   },
   {
