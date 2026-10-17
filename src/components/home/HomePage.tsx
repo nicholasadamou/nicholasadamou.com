@@ -13,6 +13,7 @@ import { useBatchViews } from "@/hooks/use-batch-views";
 import SiteFooter from "@/components/layout/SiteFooter";
 import BioSection from "@/components/home/BioSection";
 import SmelterySpotlight from "@/components/projects/SmelterySpotlight";
+import TransmuteShowcase from "@/components/projects/TransmuteShowcase";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
 import SpotifySection from "@/components/home/SpotifySection";
@@ -124,6 +125,7 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
           </div>
 
           <SmelterySpotlight compact />
+          <TransmuteShowcase compact />
 
           <hr className={hr} />
 
