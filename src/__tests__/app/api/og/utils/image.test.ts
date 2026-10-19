@@ -1,16 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-vi.mock("fs", () => ({
-  default: { readFileSync: vi.fn() },
-  readFileSync: vi.fn(),
-}));
-
-vi.mock("path", () => ({
-  default: { join: (...args: string[]) => args.join("/") },
-  join: (...args: string[]) => args.join("/"),
-}));
-
-import fs from "fs";
 import { isValidImagePath, fetchImageAsBase64 } from "@/app/api/og/utils/image";
 
 describe("isValidImagePath", () => {
@@ -45,24 +34,39 @@ describe("isValidImagePath", () => {
 
 describe("fetchImageAsBase64", () => {
   beforeEach(() => {
+    vi.unstubAllEnvs();
     vi.clearAllMocks();
     vi.mocked(global.fetch).mockReset();
   });
 
-  it("reads local file and returns base64", async () => {
-    const buffer = Buffer.from("test-image");
-    vi.mocked(fs.readFileSync).mockReturnValue(buffer);
-
-    const result = await fetchImageAsBase64("/images/photo.jpg", true);
-    expect(result).toContain("data:image/jpeg;base64,");
+  it("loads local assets from the deployment CDN", async () => {
+    vi.mocked(global.fetch).mockResolvedValue(
+      new Response("image", {
+        headers: { "content-type": "image/webp" },
+      })
+    );
+    const result = await fetchImageAsBase64(
+      "https://site.test/images/photo.webp",
+      true
+    );
+    expect(result).toBe(
+      `data:image/webp;base64,${Buffer.from("image").toString("base64")}`
+    );
+    expect(global.fetch).toHaveBeenCalledWith(
+      "https://site.test/images/photo.webp",
+      expect.any(Object)
+    );
   });
 
-  it("detects png content type for local files", async () => {
-    const buffer = Buffer.from("test-png");
-    vi.mocked(fs.readFileSync).mockReturnValue(buffer);
-
-    const result = await fetchImageAsBase64("/images/photo.png", true);
-    expect(result).toContain("data:image/png;base64,");
+  it("does not embed deployment protection HTML as an image", async () => {
+    vi.mocked(global.fetch).mockResolvedValue(
+      new Response("login", {
+        headers: { "content-type": "text/html" },
+      })
+    );
+    expect(
+      await fetchImageAsBase64("https://site.test/image.png", true)
+    ).toBeNull();
   });
 
   it("fetches remote image and returns base64", async () => {
@@ -75,6 +79,35 @@ describe("fetchImageAsBase64", () => {
 
     const result = await fetchImageAsBase64("https://example.com/photo.jpg");
     expect(result).toContain("data:image/jpeg;base64,");
+  });
+
+  it("only sends the preview bypass secret to this deployment's local assets", async () => {
+    vi.stubEnv("VERCEL_URL", "preview.vercel.app");
+    vi.stubEnv("VERCEL_AUTOMATION_BYPASS_SECRET", "test-bypass");
+    vi.mocked(global.fetch).mockImplementation(
+      async () =>
+        new Response("image", {
+          headers: { "content-type": "image/png" },
+        })
+    );
+    await fetchImageAsBase64("https://preview.vercel.app/photo.png", true);
+    expect(global.fetch).toHaveBeenLastCalledWith(
+      expect.any(String),
+      expect.objectContaining({
+        headers: { "x-vercel-protection-bypass": "test-bypass" },
+        redirect: "error",
+      })
+    );
+    await fetchImageAsBase64("https://external.test/photo.png", true);
+    expect(global.fetch).toHaveBeenLastCalledWith(
+      expect.any(String),
+      expect.objectContaining({ headers: {} })
+    );
+    await fetchImageAsBase64("https://preview.vercel.app/photo.png");
+    expect(global.fetch).toHaveBeenLastCalledWith(
+      expect.any(String),
+      expect.objectContaining({ headers: {} })
+    );
   });
 
   it("returns null on fetch failure", async () => {

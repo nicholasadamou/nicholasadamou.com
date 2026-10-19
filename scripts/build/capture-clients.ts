@@ -27,6 +27,8 @@ try {
         return true;
       });
       await sharp(await page.screenshot({ animations: "disabled" })).webp({ quality: 85 }).toFile(`public/images/clients/${client.slug}.webp`);
+      // The OG renderer accepts JPEG, but cannot decode these WebP screenshots.
+      await sharp(`public/images/clients/${client.slug}.webp`).resize(1200).jpeg({ quality: 80 }).toFile(`public/images/clients/${client.slug}-og.jpg`);
       console.log(`Captured ${client.name}`);
     } finally {
       await page.close();

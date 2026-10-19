@@ -25,7 +25,9 @@ export async function GET(req: NextRequest) {
     if (host?.includes("nicholasadamou.com")) {
       baseUrl = "https://nicholasadamou.com";
     } else {
-      baseUrl = `${protocol}://${host}`;
+      baseUrl = process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : `${protocol}://${host}`;
     }
 
     const processedParams = await processOGParams(ogParams, baseUrl);
