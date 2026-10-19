@@ -1,5 +1,7 @@
 "use client";
 
+import YouBuildItSpotlight from "@/components/projects/YouBuildItSpotlight";
+
 import { clientImages } from "@/lib/content/client-images";
 
 import { useMemo } from "react";
@@ -124,6 +126,7 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
             </div>
           </div>
 
+          <YouBuildItSpotlight compact />
           <SmelterySpotlight compact />
           <TransmuteShowcase compact />
 
