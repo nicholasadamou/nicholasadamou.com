@@ -1,6 +1,3 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-
 const VALID_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
 
 export const isValidImagePath = (imagePath?: string): boolean => {
@@ -27,34 +24,27 @@ export const fetchImageAsBase64 = async (
   isLocal: boolean = false
 ): Promise<string | null> => {
   try {
-    let buffer: Buffer;
-    let contentType: string;
-
-    if (isLocal) {
-      const urlPath = imageUrl.includes("://")
-        ? new URL(imageUrl).pathname
-        : imageUrl;
-      const cleanPath = urlPath.startsWith("/") ? urlPath.slice(1) : urlPath;
-      const publicPath = join(process.cwd(), "public", cleanPath);
-
-      buffer = readFileSync(publicPath);
-      contentType = cleanPath.toLowerCase().endsWith(".png")
-        ? "image/png"
-        : cleanPath.toLowerCase().endsWith(".webp")
-          ? "image/webp"
-          : "image/jpeg";
-    } else {
-      const response = await fetch(imageUrl, {
-        signal: AbortSignal.timeout(5000),
-      });
-      if (!response.ok) return null;
-
-      const arrayBuffer = await response.arrayBuffer();
-      buffer = Buffer.from(arrayBuffer);
-      contentType =
-        response.headers.get("content-type") ||
-        (imageUrl.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg");
+    // Static assets belong on the CDN, not duplicated inside the OG function.
+    const headers: Record<string, string> = {};
+    if (
+      isLocal &&
+      process.env.VERCEL_URL &&
+      new URL(imageUrl).origin === `https://${process.env.VERCEL_URL}` &&
+      process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+    ) {
+      headers["x-vercel-protection-bypass"] =
+        process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
     }
+    const response = await fetch(imageUrl, {
+      headers,
+      redirect: headers["x-vercel-protection-bypass"] ? "error" : "follow",
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!response.ok) return null;
+
+    const contentType = response.headers.get("content-type")?.split(";")[0];
+    if (!contentType?.startsWith("image/")) return null;
+    const buffer = Buffer.from(await response.arrayBuffer());
 
     return `data:${contentType};base64,${buffer.toString("base64")}`;
   } catch (error) {
