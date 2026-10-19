@@ -140,10 +140,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "aptscout",
+    preview: "/images/projects/previews/aptscout-2026.png",
     href: "https://aptscout-five.vercel.app",
     description:
-      "Scrape apartment availability across multiple properties, store results in SQLite, and browse with a filterable web UI. Track prices, catch deals, never miss a unit.",
-    icon: { kind: "image", src: "/images/projects/aptscout.svg" },
+      "Collect apartment availability, filter by budget and bedrooms, and track rent changes locally with a Go CLI and browser UI.",
+    icon: { kind: "image", src: "/images/projects/aptscout-2026.svg" },
     tags: ["CLI", "Web App", "Scraping"],
   },
   {

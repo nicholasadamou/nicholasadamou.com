@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>aptscout apartment mark</title>
+  <path d="M8 14a6 6 0 0 1 6-6h22v48H14a6 6 0 0 1-6-6Z" fill="#dba57b"/>
+  <path d="M28 24a6 6 0 0 1 6-6h16a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H28Z" fill="#b74c30"/>
+  <path d="M16 17h6v7h-6zm0 14h6v7h-6zm20-4h6v7h-6zm10 0h4v7h-4z" fill="#fff8ef"/>
+  <path d="M36 56V45a7 7 0 0 1 14 0v11Z" fill="#fff8ef"/>
+</svg>
