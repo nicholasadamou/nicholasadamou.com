@@ -9,7 +9,7 @@ function YouBuildItIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="h-4 w-4 shrink-0"
     >
-      <rect width="24" height="24" rx="6" fill="#2fbc77" />
+      <rect width="24" height="24" rx="6" fill="#26754e" />
       <path
         d="M6 8L10 12L6 16"
         stroke="white"

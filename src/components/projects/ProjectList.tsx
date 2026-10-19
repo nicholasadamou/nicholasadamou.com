@@ -1,5 +1,7 @@
 "use client";
 
+import YouBuildItSpotlight from "@/components/projects/YouBuildItSpotlight";
+
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
@@ -225,6 +227,7 @@ export default function ProjectList() {
             />
           </div>
 
+          <YouBuildItSpotlight />
           <SmelterySpotlight />
 
           <TransmuteShowcase />

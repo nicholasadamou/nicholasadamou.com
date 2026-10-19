@@ -28,13 +28,14 @@ function withPreviews(list: Project[]): Project[] {
 export const projects: Project[] = withPreviews([
   {
     // `name` stays "youbuildit.dev" intentionally: it's the brand label and
-    // also keys the preview asset path (youbuildit.dev.png). The live site is
+    // uses an explicit versioned preview asset. The live site is
     // currently served from YOUBUILDIT_URL — don't "fix" this to match.
     name: "youbuildit.dev",
+    preview: "/images/projects/previews/youbuildit-2026.png",
     href: YOUBUILDIT_URL,
     description:
       "Helping you become a better software engineer through coding challenges that build real applications.",
-    icon: { kind: "component", id: "youbuildit" },
+    icon: { kind: "image", src: "/images/projects/youbuildit-2026.svg" },
     tags: ["Web App", "Education"],
   },
   {
