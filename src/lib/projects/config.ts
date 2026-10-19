@@ -136,10 +136,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "glimpse",
+    preview: "/images/projects/previews/glimpse-2026.png",
     href: "https://glimpse-black.vercel.app",
     description:
-      "Browser-based, GitHub-style diff viewer for git changes. View uncommitted changes, branch comparisons, commit ranges, and GitHub PRs with syntax-highlighted split diffs, inline comments, and AI code review.",
-    icon: { kind: "image", src: "/images/projects/glimpse.svg" },
+      "Review Git changes in your browser. Compare branches, commits, and pull requests, leave inline feedback, and hand comments to your coding agent.",
+    icon: { kind: "image", src: "/images/projects/glimpse-2026.svg" },
     tags: ["CLI", "Git", "Code Review"],
   },
   {
