@@ -140,7 +140,7 @@ export const projects: Project[] = withPreviews([
     href: "https://glimpse-black.vercel.app",
     description:
       "Review Git changes in your browser. Compare branches, commits, and pull requests, leave inline feedback, and hand comments to your coding agent.",
-    icon: { kind: "image", src: "/images/projects/glimpse-2026.svg" },
+    icon: { kind: "image", src: "/images/projects/glimpse-mark-2026.svg" },
     tags: ["CLI", "Git", "Code Review"],
   },
   {
