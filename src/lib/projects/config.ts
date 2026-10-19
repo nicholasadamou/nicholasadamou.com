@@ -98,10 +98,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "iconforge",
+    preview: "/images/projects/previews/iconforge-2026.png",
     href: "https://iconforge-gamma.vercel.app",
     description:
-      "A modern app for creating beautiful favicons using Font Awesome icons.",
-    icon: { kind: "emoji", emoji: "🔥" },
+      "Create favicons with Font Awesome icons, live styling, and layers. Export PNG and ICO files right in your browser.",
+    icon: { kind: "image", src: "/images/projects/iconforge-2026.svg" },
     tags: ["Web App", "Design"],
   },
   {
