@@ -84,10 +84,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "next-ui",
+    preview: "/images/projects/previews/next-ui-2026.png",
     href: "https://next-ui-orcin-chi.vercel.app",
     description:
-      "A collection of copy-paste interactive components for your projects.",
-    icon: { kind: "component", id: "nextjs" },
+      "Copy-and-paste React components for spotlights, animated borders, and backgrounds. Make the source your own.",
+    icon: { kind: "image", src: "/images/projects/next-ui-2026.svg" },
     tags: ["Web App", "UI", "React"],
   },
   {
