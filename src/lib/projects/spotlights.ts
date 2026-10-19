@@ -193,4 +193,24 @@ export const features: Spotlight[] = [
     color: "#526447",
     note: "Python 3.8+. One command to keep moving.",
   },
+  {
+    name: "Trousseau",
+    eyebrow: "One wedding budget for both of you.",
+    title: "Plan your day.",
+    accent: "Keep the full picture.",
+    description:
+      "Bring gifts, savings, vendors, and receipts into one shared wedding budget. Stay in sync through a secret link, without creating accounts.",
+    action: "Explore Trousseau",
+    href: "https://trousseau-dun.vercel.app",
+    steps: [
+      "Set your budget",
+      "Plan the details together",
+      "Keep every receipt close",
+    ],
+    logo: "/brands/trousseau.svg",
+    paper: "#dce4df",
+    ink: "#0f1f1a",
+    color: "#8f6e45",
+    note: "No accounts. One shared link. Yours to export.",
+  },
 ];
