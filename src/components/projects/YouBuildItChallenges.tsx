@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Check, Pause, Play } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  Pause,
+  Play,
+  Database,
+  Braces,
+  Terminal,
+} from "lucide-react";
 import { YOUBUILDIT_URL } from "@/lib/projects/config";
 
 const challenges = [
@@ -10,18 +19,24 @@ const challenges = [
     title: "Build your own Redis",
     slug: "build-your-own-redis",
     level: "Intermediate",
+    icon: Database,
+    skills: ["Data structures", "Networking", "Persistence"],
     detail: "Key-value storage, persistence, and network protocols.",
   },
   {
     title: "Build your own JSON parser",
     slug: "build-your-own-json-parser",
     level: "Intermediate",
+    icon: Braces,
+    skills: ["Tokenization", "Parsing", "Validation"],
     detail: "Turn raw text into structured data, one token at a time.",
   },
   {
     title: "Build your own shell",
     slug: "build-your-own-shell",
     level: "Advanced",
+    icon: Terminal,
+    skills: ["Processes", "Command parsing", "System calls"],
     detail: "Explore processes, command parsing, and system calls.",
   },
 ];
@@ -54,6 +69,7 @@ export default function YouBuildItChallenges({
     setIndex((i) => (i + direction + challenges.length) % challenges.length);
   };
   const challenge = challenges[index];
+  const ChallengeIcon = challenge.icon;
   return (
     <div
       aria-label="Featured coding challenges"
@@ -76,9 +92,14 @@ export default function YouBuildItChallenges({
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: reduced ? 0 : 0.18 }}
           >
-            <p className="mb-2 text-[10px] tracking-widest text-[#62695d] uppercase">
-              {challenge.level}
-            </p>
+            <div className="mb-3 flex items-center gap-2.5">
+              <span className="rounded-lg bg-[#e0eee5] p-2 text-[#26754e]">
+                <ChallengeIcon size={20} aria-hidden="true" />
+              </span>
+              <p className="text-[10px] tracking-widest text-[#62695d] uppercase">
+                {challenge.level}
+              </p>
+            </div>
             <a
               href={`${YOUBUILDIT_URL}/challenge/${challenge.slug}`}
               target="_blank"
@@ -88,11 +109,22 @@ export default function YouBuildItChallenges({
             >
               {challenge.title} ↗
             </a>
-            {!compact && (
-              <p className="mt-3 text-sm leading-relaxed text-[#62695d]">
-                {challenge.detail}
-              </p>
-            )}
+            <p className="mt-2 text-xs leading-relaxed text-[#62695d]">
+              {challenge.detail}
+            </p>
+            <ul
+              aria-label="Skills you will practice"
+              className="mt-3 flex flex-wrap gap-1.5"
+            >
+              {challenge.skills.map((skill) => (
+                <li
+                  key={skill}
+                  className="rounded-full border border-[#dce3d8] bg-[#f7f7f2] px-2 py-1 text-[10px] text-[#3b624b]"
+                >
+                  {skill}
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </AnimatePresence>
       </div>
