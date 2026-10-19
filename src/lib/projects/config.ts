@@ -108,10 +108,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "prr",
+    preview: "/images/projects/previews/prr-2026.png",
     href: "https://prr-seven.vercel.app",
     description:
-      "Run AI-powered code reviews on GitHub pull requests. Outputs structured, human-readable markdown comments for easy copy-paste into GitHub.",
-    icon: { kind: "image", src: "/images/projects/prr.svg" },
+      "Review GitHub pull requests and local branches with AI agents. Verify findings, browse saved reviews, and publish to GitHub when ready.",
+    icon: { kind: "image", src: "/images/projects/prr-2026.svg" },
     featured: true,
     tags: ["CLI", "AI", "Code Review"],
   },
@@ -124,10 +125,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "distill",
+    preview: "/images/projects/previews/distill-2026.png",
     href: "https://distill-ochre.vercel.app",
     description:
-      "Compact technical books, documentation, and reference material into agent-optimized markdown. Outputs structured context repos that plug directly into Warp, Claude Code, or any agent that reads markdown.",
-    icon: { kind: "image", src: "/images/projects/distill.svg" },
+      "Compact local Markdown into focused context for AI agents, using templates and your preferred CLI or API provider.",
+    icon: { kind: "image", src: "/images/projects/distill-2026.svg" },
     featured: true,
     tags: ["CLI", "AI", "Documentation"],
   },

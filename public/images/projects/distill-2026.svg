@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <title>Distill</title>
+  <rect width="96" height="96" rx="24" fill="#8b5cf6"/>
+  <path fill="#fefdfb" fill-rule="evenodd" d="M35 22h26v6h-5v15l15 24c3.5 5.6-.5 13-7 13H32c-6.5 0-10.5-7.4-7-13l15-24V28h-5v-6Zm13 21c-3 5-9 10.5-9 16a9 9 0 0 0 18 0c0-5.5-6-11-9-16Z"/>
+</svg>
