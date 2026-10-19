@@ -75,6 +75,7 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "learn-git",
+    preview: "/images/projects/previews/learn-git-2026.png",
     href: "https://learn-git-five.vercel.app",
     description: "A free and open-source platform to learn Git and GitHub.",
     icon: { kind: "component", id: "learn-git" },
