@@ -40,10 +40,11 @@ export const projects: Project[] = withPreviews([
   },
   {
     name: "cloud-tools",
+    preview: "/images/projects/previews/cloud-tools-2026.png",
     href: "https://cloud-tools.vercel.app",
     description:
-      "An AWS cloud-based service that provides users with a platform to convert or compress files.",
-    icon: { kind: "emoji", emoji: "☁️" },
+      "Convert images, audio, video, and eBooks. Compress images and PDFs with a self-hostable file toolbox.",
+    icon: { kind: "image", src: "/images/projects/cloud-tools-2026.svg" },
     tags: ["Web App", "AWS", "Cloud"],
   },
   {
