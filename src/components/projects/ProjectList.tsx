@@ -1,5 +1,7 @@
 "use client";
 
+import SpotlightReveal from "@/components/projects/SpotlightReveal";
+
 import YouBuildItSpotlight from "@/components/projects/YouBuildItSpotlight";
 
 import { useState, useMemo } from "react";
@@ -227,10 +229,16 @@ export default function ProjectList() {
             />
           </div>
 
-          <YouBuildItSpotlight />
-          <SmelterySpotlight />
+          <SpotlightReveal>
+            <YouBuildItSpotlight />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <SmelterySpotlight />
+          </SpotlightReveal>
 
-          <TransmuteShowcase />
+          <SpotlightReveal>
+            <TransmuteShowcase />
+          </SpotlightReveal>
 
           <OpenSourceSection />
         </div>

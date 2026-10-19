@@ -1,5 +1,7 @@
 "use client";
 
+import SpotlightReveal from "@/components/projects/SpotlightReveal";
+
 import YouBuildItSpotlight from "@/components/projects/YouBuildItSpotlight";
 
 import { clientImages } from "@/lib/content/client-images";
@@ -126,9 +128,15 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
             </div>
           </div>
 
-          <YouBuildItSpotlight compact />
-          <SmelterySpotlight compact />
-          <TransmuteShowcase compact />
+          <SpotlightReveal>
+            <YouBuildItSpotlight compact />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <SmelterySpotlight compact />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <TransmuteShowcase compact />
+          </SpotlightReveal>
 
           <hr className={hr} />
 
