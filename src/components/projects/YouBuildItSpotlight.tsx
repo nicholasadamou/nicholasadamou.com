@@ -1,5 +1,6 @@
+import YouBuildItChallenges from "./YouBuildItChallenges";
 import Image from "next/image";
-import { ArrowUpRight, Check, Terminal } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { YOUBUILDIT_URL } from "@/lib/projects/config";
 
 export default function YouBuildItSpotlight({
@@ -52,41 +53,38 @@ export default function YouBuildItSpotlight({
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </div>
-        {!compact && (
-          <div className="overflow-hidden rounded-xl border border-[#dce3d8] bg-white shadow-sm">
-            <div className="flex items-center gap-2 border-b border-[#dce3d8] bg-[#e0eee5] px-5 py-3 font-mono text-xs text-[#26754e]">
-              <Terminal size={16} aria-hidden="true" /> your-next-build.md
-            </div>
-            <div className="space-y-5 p-5">
-              <p className="text-xs font-semibold tracking-widest text-[#62695d] uppercase">
-                A brief. An editor. Something real.
-              </p>
-              {[
-                "Choose a challenge that sparks an idea",
-                "Pick your language and build your version",
-                "Explore the trade-offs as you go",
-              ].map((step) => (
-                <div
-                  key={step}
-                  className="flex items-start gap-3 text-sm leading-relaxed"
-                >
-                  <Check
-                    size={18}
-                    className="mt-0.5 shrink-0 text-[#26754e]"
-                    aria-hidden="true"
-                  />
-                  {step}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <YouBuildItChallenges compact={compact} />
       </div>
-      <p
-        className={`${compact ? "px-4 py-3 text-[11px]" : "px-6 py-4 text-xs @min-[36rem]:px-8"} border-t border-[#dce3d8] bg-[#e0eee5] text-[#3b624b]`}
+      <div
+        className={`${compact ? "px-4 py-3" : "px-6 py-4 @min-[36rem]:px-8"} border-t border-[#dce3d8] bg-[#e0eee5] text-[#3b624b]`}
       >
-        Free to explore. No account. Just you and your editor.
-      </p>
+        <div
+          aria-label="Build in your favorite language"
+          className="mb-3 flex flex-wrap gap-x-4 gap-y-2"
+        >
+          {["TypeScript", "Python", "Go", "Rust", "JavaScript"].map((name) => (
+            <span
+              key={name}
+              className="inline-flex items-center gap-1.5 text-[11px]"
+            >
+              <Image
+                src={`/brands/ybi-${name.toLowerCase()}.svg`}
+                alt=""
+                width={16}
+                height={16}
+              />
+              {name}
+            </span>
+          ))}
+        </div>
+        <p className="text-xs">
+          Every challenge includes a reference solution. Build your version,
+          then compare.
+        </p>
+        <p className="mt-1 text-[11px]">
+          Free to explore. No account. Just you and your editor.
+        </p>
+      </div>
     </section>
   );
 }
