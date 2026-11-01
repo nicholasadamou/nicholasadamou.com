@@ -15,6 +15,8 @@ import ImagePreview from "@/components/ui/ImagePreview";
 import Pagination from "@/components/ui/Pagination";
 
 import SmelterySpotlight from "./SmelterySpotlight";
+import HarborSpotlight from "./HarborSpotlight";
+import StokeSpotlight from "./StokeSpotlight";
 
 import TransmuteShowcase from "./TransmuteShowcase";
 
@@ -234,6 +236,12 @@ export default function ProjectList() {
           </SpotlightReveal>
           <SpotlightReveal>
             <SmelterySpotlight />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <HarborSpotlight />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <StokeSpotlight />
           </SpotlightReveal>
 
           <SpotlightReveal>
