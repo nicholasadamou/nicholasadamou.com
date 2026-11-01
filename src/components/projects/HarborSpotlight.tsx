@@ -57,7 +57,7 @@ export default function HarborSpotlight({
               and Porthole together, without taking over your desktop.
             </p>
             <a
-              href="https://github.com/smeltery/harbor"
+              href="https://harbor-topaz.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className={`mt-5 inline-flex items-center gap-2 rounded-full bg-[#192f49] font-medium text-white transition-colors hover:bg-[#42698f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#42698f] ${compact ? "px-4 py-2 text-xs" : "px-5 py-3 text-sm"}`}
