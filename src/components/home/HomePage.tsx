@@ -17,6 +17,8 @@ import { useBatchViews } from "@/hooks/use-batch-views";
 import SiteFooter from "@/components/layout/SiteFooter";
 import BioSection from "@/components/home/BioSection";
 import SmelterySpotlight from "@/components/projects/SmelterySpotlight";
+import HarborSpotlight from "@/components/projects/HarborSpotlight";
+import StokeSpotlight from "@/components/projects/StokeSpotlight";
 import TransmuteShowcase from "@/components/projects/TransmuteShowcase";
 import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 import GumroadSection from "@/components/home/GumroadSection";
@@ -133,6 +135,12 @@ export default function HomePage({ articles, photos = [] }: HomePageProps) {
           </SpotlightReveal>
           <SpotlightReveal>
             <SmelterySpotlight compact />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <HarborSpotlight compact />
+          </SpotlightReveal>
+          <SpotlightReveal>
+            <StokeSpotlight compact />
           </SpotlightReveal>
           <SpotlightReveal>
             <TransmuteShowcase compact />
